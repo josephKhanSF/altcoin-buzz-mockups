@@ -260,6 +260,15 @@
       letter-spacing:1.2px;color:var(--faint);flex:none;width:34px;padding-top:3px}
     .loc-grid{grid-template-columns:1fr}
   }
+
+  /* ===== token logos ===== */
+  .tklogo{display:block;width:100%;height:100%}
+  .ico .tklogo{width:100%;height:100%}
+  .tklogo .lc{fill:#0e0f12}
+  .tklogo .lm{fill:#f3f2ee}
+  body.light .tklogo .lc{fill:#111}
+  body.light .tklogo .lm{fill:#fff}
+
 </style>
 <style id="ab-logo-fix">.logo img.logo-light{display:none}body.light .logo img:not(.logo-light){display:none}body.light .logo img.logo-light{display:inline-block}</style>
 </head>
@@ -300,7 +309,7 @@
     </div>
     <div class="vsdot">VS</div>
     <div class="sb sb-neut" data-reveal>
-      <div class="hd"><div class="ico sm">◎</div>
+      <div class="hd"><div class="ico sm"><svg class="tklogo" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-label="SOL"><circle cx="16" cy="16" r="16" class="lc"/><path class="lm" d="M8 9L24 9L21 12L5 12Z M5 14.5L21 14.5L24 17.5L8 17.5Z M8 20L24 20L21 23L5 23Z"/></svg></div>
         <div><div class="n">SOL<span class="smp">SAMPLE</span></div><div class="s">Solana · 10 catalysts · board 2026-05-28</div></div>
         <div class="px">$168.40<small>▲ 2.2%</small></div></div>
       <div class="nums">

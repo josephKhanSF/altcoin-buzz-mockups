@@ -262,6 +262,15 @@
     #catTable td.cell-tokp .sc::before{content:"TOK"}
     .cards3{grid-template-columns:1fr}
   }
+
+  /* ===== token logos ===== */
+  .tklogo{display:block;width:100%;height:100%}
+  .ico .tklogo{width:100%;height:100%}
+  .tklogo .lc{fill:#0e0f12}
+  .tklogo .lm{fill:#f3f2ee}
+  body.light .tklogo .lc{fill:#111}
+  body.light .tklogo .lm{fill:#fff}
+
 </style>
 <style id="ab-logo-fix">.logo img.logo-light{display:none}body.light .logo img:not(.logo-light){display:none}body.light .logo img.logo-light{display:inline-block}</style>
 </head>
@@ -322,35 +331,35 @@
         <td class="cell-go goto">2026-06-10 →</td>
       </tr>
       <tr class="row" data-reveal onclick="window.location='#'">
-        <td class="cell-tok"><div class="tok-cell"><div class="ico sm">◎</div><div><div class="n">SOL<span class="smp">SAMPLE</span></div><div class="s">Solana</div></div></div></td>
+        <td class="cell-tok"><div class="tok-cell"><div class="ico sm"><svg class="tklogo" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-label="SOL"><circle cx="16" cy="16" r="16" class="lc"/><path class="lm" d="M8 9L24 9L21 12L5 12Z M5 14.5L21 14.5L24 17.5L8 17.5Z M8 20L24 20L21 23L5 23Z"/></svg></div><div><div class="n">SOL<span class="smp">SAMPLE</span></div><div class="s">Solana</div></div></div></td>
         <td class="cell-net sc g">+1</td>
         <td class="cell-tokp sc g">+2</td>
         <td class="cell-how one" style="margin-top:0">Commodity status unlocks the ETF staking question — and SOL’s value capture is fee-native, so permission pays more here</td>
         <td class="cell-go goto">2026-05-28 →</td>
       </tr>
       <tr class="row" data-reveal onclick="window.location='#'">
-        <td class="cell-tok"><div class="tok-cell"><div class="ico sm">⬡</div><div><div class="n">ADA<span class="smp">SAMPLE</span></div><div class="s">Cardano</div></div></div></td>
+        <td class="cell-tok"><div class="tok-cell"><div class="ico sm"><svg class="tklogo" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-label="ADA"><circle cx="16" cy="16" r="16" class="lc"/><circle class="lm" cx="16" cy="16" r="2"/><circle class="lm" cx="16" cy="10" r="1.5"/><circle class="lm" cx="21.2" cy="13" r="1.5"/><circle class="lm" cx="21.2" cy="19" r="1.5"/><circle class="lm" cx="16" cy="22" r="1.5"/><circle class="lm" cx="10.8" cy="19" r="1.5"/><circle class="lm" cx="10.8" cy="13" r="1.5"/><circle class="lm" cx="16" cy="5.5" r="1.1"/><circle class="lm" cx="23.4" cy="8.6" r="1.1"/><circle class="lm" cx="26.5" cy="16" r="1.1"/><circle class="lm" cx="23.4" cy="23.4" r="1.1"/><circle class="lm" cx="16" cy="26.5" r="1.1"/><circle class="lm" cx="8.6" cy="23.4" r="1.1"/><circle class="lm" cx="5.5" cy="16" r="1.1"/><circle class="lm" cx="8.6" cy="8.6" r="1.1"/></svg></div><div><div class="n">ADA<span class="smp">SAMPLE</span></div><div class="s">Cardano</div></div></div></td>
         <td class="cell-net sc z">0</td>
         <td class="cell-tokp sc g">+1</td>
         <td class="cell-how one" style="margin-top:0">Pure sentiment relief; no institutional pipeline waiting on the ruling — smaller kicker, same condition</td>
         <td class="cell-go goto">2026-05-12 →</td>
       </tr>
       <tr class="row" data-reveal onclick="window.location='#'">
-        <td class="cell-tok"><div class="tok-cell"><div class="ico sm">ℏ</div><div><div class="n">HBAR<span class="smp">SAMPLE</span></div><div class="s">Hedera</div></div></div></td>
+        <td class="cell-tok"><div class="tok-cell"><div class="ico sm"><svg class="tklogo" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-label="HBAR"><circle cx="16" cy="16" r="16" class="lc"/><rect class="lm" x="10.5" y="9" width="2.6" height="14" rx="0.4"/><rect class="lm" x="18.9" y="9" width="2.6" height="14" rx="0.4"/><rect class="lm" x="10.5" y="13" width="11" height="2.1"/><rect class="lm" x="10.5" y="16.9" width="11" height="2.1"/></svg></div><div><div class="n">HBAR<span class="smp">SAMPLE</span></div><div class="s">Hedera</div></div></div></td>
         <td class="cell-net sc g">+2</td>
         <td class="cell-tokp sc g">+1</td>
         <td class="cell-how one" style="margin-top:0">Council enterprises cite legal clarity as the blocker — network kicker bigger than the token’s</td>
         <td class="cell-go goto">2026-04-30 →</td>
       </tr>
       <tr class="row locked" data-reveal onclick="window.location='#'">
-        <td class="cell-tok"><div class="tok-cell"><div class="ico sm">⬢</div><div><div class="n">LINK<span class="smp">SAMPLE</span></div><div class="s">Chainlink</div></div></div></td>
+        <td class="cell-tok"><div class="tok-cell"><div class="ico sm"><svg class="tklogo" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-label="LINK"><circle cx="16" cy="16" r="16" class="lc"/><path class="lm" fill-rule="evenodd" d="M16 7L23.79 11.5L23.79 20.5L16 25L8.21 20.5L8.21 11.5Z M16 11.5L19.9 13.75L19.9 18.25L16 20.5L12.1 18.25L12.1 13.75Z"/></svg></div><div><div class="n">LINK<span class="smp">SAMPLE</span></div><div class="s">Chainlink</div></div></div></td>
         <td class="cell-net sc g">+1</td>
         <td class="cell-tokp sc g">+1</td>
         <td class="cell-how one" style="margin-top:0">Member-only board row</td>
         <td class="cell-go goto">→</td>
       </tr>
       <tr class="row locked" data-reveal onclick="window.location='#'">
-        <td class="cell-tok"><div class="tok-cell"><div class="ico sm">◇</div><div><div class="n">ONDO<span class="smp">SAMPLE</span></div><div class="s">Ondo Finance</div></div></div></td>
+        <td class="cell-tok"><div class="tok-cell"><div class="ico sm"><svg class="tklogo" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-label="ONDO"><circle cx="16" cy="16" r="16" class="lc"/><path class="lm" fill-rule="evenodd" d="M16 7.5A8.5 8.5 0 1 0 16 24.5A8.5 8.5 0 1 0 16 7.5Z M16 11.2A4.8 4.8 0 1 1 16 20.8A4.8 4.8 0 1 1 16 11.2Z"/></svg></div><div><div class="n">ONDO<span class="smp">SAMPLE</span></div><div class="s">Ondo Finance</div></div></div></td>
         <td class="cell-net sc g">+2</td>
         <td class="cell-tokp sc g">+2</td>
         <td class="cell-how one" style="margin-top:0">Member-only board row</td>
