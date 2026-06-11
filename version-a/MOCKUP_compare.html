@@ -355,5 +355,6 @@ function toggleTheme(){
 try{if(localStorage.getItem('ab-theme')==='light'){document.body.classList.add('light');
   var b=document.getElementById('themeBtn');if(b)b.textContent='\u263E';}}catch(e){}
 </script>
+<script>/*AB-THEME-ENTRY*/(function(){try{var qp=new URLSearchParams(location.search).get("theme");if(qp==="light"||qp==="dark"){sessionStorage.setItem("ab-theme-entry",qp);}var t=sessionStorage.getItem("ab-theme-entry");if(t==="light"){document.body.classList.add("light");}else if(t==="dark"){document.body.classList.remove("light");}if(t){var b=document.getElementById("themeBtn");if(b){b.textContent=document.body.classList.contains("light")?"\u263E":"\u2600";}}}catch(e){}})();</script>
 </body>
 </html>
