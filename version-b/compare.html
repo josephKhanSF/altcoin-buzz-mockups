@@ -113,21 +113,29 @@
   a.shared-chip:hover{color:var(--goldtx);border-color:var(--goldtx)}
 
   /* verdict band chip (table use) */
-  .band{display:inline-flex;align-items:center;gap:7px;height:24px;padding:0 11px;border-radius:12px;
+  .band{display:inline-flex;align-items:center;gap:8px;height:24px;padding:0 11px;border-radius:12px;
     font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;letter-spacing:1.2px;white-space:nowrap}
-  .band .d{width:6px;height:6px;border-radius:50%}
+  .band .dots{display:inline-flex;gap:4px}
+  .band .d{width:6px;height:6px;border-radius:50%;box-sizing:border-box}
   .band.sbull{color:var(--green);background:color-mix(in srgb,var(--green) 15%,transparent);
     border:1px solid color-mix(in srgb,var(--green) 55%,transparent)}
-  .band.sbull .d{background:var(--green);box-shadow:0 0 6px color-mix(in srgb,var(--green) 70%,transparent)}
+  .band.sbull .d{border:1px solid color-mix(in srgb,var(--green) 45%,transparent)}
+  .band.sbull .d.f{background:var(--green);border:none;box-shadow:0 0 6px color-mix(in srgb,var(--green) 70%,transparent)}
   .band.mbull{color:var(--green);background:color-mix(in srgb,var(--green) 8%,transparent);
     border:1px solid color-mix(in srgb,var(--green) 32%,transparent)}
-  .band.mbull .d{background:var(--green)}
+  .band.mbull .d{border:1px solid color-mix(in srgb,var(--green) 45%,transparent)}
+  .band.mbull .d.f{background:var(--green);border:none}
   .band.neut{color:var(--zero);background:color-mix(in srgb,var(--zero) 12%,transparent);
     border:1px solid color-mix(in srgb,var(--zero) 38%,transparent)}
-  .band.neut .d{background:var(--zero)}
+  .band.neut .d{border:1px solid color-mix(in srgb,var(--zero) 50%,transparent)}
   .band.mbear{color:var(--red);background:color-mix(in srgb,var(--red) 9%,transparent);
     border:1px solid color-mix(in srgb,var(--red) 35%,transparent)}
-  .band.mbear .d{background:var(--red)}
+  .band.mbear .d{border:1px solid color-mix(in srgb,var(--red) 45%,transparent)}
+  .band.mbear .d.f{background:var(--red);border:none}
+  .band.sbear{color:var(--red);background:color-mix(in srgb,var(--red) 15%,transparent);
+    border:1px solid color-mix(in srgb,var(--red) 55%,transparent)}
+  .band.sbear .d{border:1px solid color-mix(in srgb,var(--red) 45%,transparent)}
+  .band.sbear .d.f{background:var(--red);border:none;box-shadow:0 0 6px color-mix(in srgb,var(--red) 70%,transparent)}
 
   /* ===== member gate ===== */
   tr.locked .cat,tr.locked .one,tr.locked .sc,tr.locked .dirlab,tr.locked .shared-chip{
@@ -299,7 +307,7 @@
       <div class="nums">
         <div class="nm2"><div class="v g" data-count="+13">+13</div><div class="k">Network</div></div>
         <div class="nm2"><div class="v z" data-count="0">0</div><div class="k">Token</div></div>
-        <div class="nm2" style="margin-left:auto"><span class="band neut"><span class="d"></span>NEUTRAL</span></div>
+        <div class="nm2" style="margin-left:auto"><span class="band neut" title="Neutral">NEUTRAL<span class="dots" aria-hidden="true"><span class="d"></span><span class="d"></span><span class="d"></span></span></span></div>
       </div>
       <div class="read">The decoupled board — network compounds, token captures none of it</div>
     </div>
@@ -311,7 +319,7 @@
       <div class="nums">
         <div class="nm2"><div class="v g" data-count="+11">+11</div><div class="k">Network</div></div>
         <div class="nm2"><div class="v g" data-count="+4">+4</div><div class="k">Token</div></div>
-        <div class="nm2" style="margin-left:auto"><span class="band mbull"><span class="d"></span>MILD BULL</span></div>
+        <div class="nm2" style="margin-left:auto"><span class="band mbull" title="Bullish — mild">BULLISH<span class="dots" aria-hidden="true"><span class="d f"></span><span class="d"></span><span class="d"></span></span></span></div>
       </div>
       <div class="read">The coupled board — fee-native value capture converts network wins</div>
     </div>
