@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Altcoin Buzz Scorecards — Mockups</title>
+<style>
+  :root{
+    --bg:#101215; --card:#191c20; --line:#2a2e34;
+    --gold:#e8b54a; --cream:#fbf9f5; --muted:#9aa0a8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--bg); color:var(--cream); min-height:100vh;
+    display:flex; align-items:center; justify-content:center; padding:40px 20px;
+  }
+  .wrap{width:100%; max-width:760px; text-align:center}
+  .eyebrow{color:var(--gold); letter-spacing:.18em; text-transform:uppercase; font-size:13px; font-weight:600; margin-bottom:14px}
+  h1{font-size:34px; line-height:1.2; margin-bottom:10px}
+  .sub{color:var(--muted); font-size:16px; margin-bottom:40px}
+  .grid{display:grid; grid-template-columns:1fr 1fr; gap:20px}
+  @media (max-width:560px){.grid{grid-template-columns:1fr}}
+  .card{
+    display:block; text-decoration:none; color:inherit;
+    background:var(--card); border:1px solid var(--line); border-radius:16px;
+    padding:30px 26px; text-align:left; transition:border-color .15s, transform .15s;
+  }
+  .card:hover{border-color:var(--gold); transform:translateY(-3px)}
+  .tag{display:inline-block; font-size:12px; font-weight:600; color:var(--bg); background:var(--gold); padding:3px 10px; border-radius:999px; margin-bottom:16px}
+  .card h2{font-size:20px; margin-bottom:8px}
+  .card p{color:var(--muted); font-size:14px; line-height:1.5}
+  .arrow{color:var(--gold); font-weight:600; font-size:14px; margin-top:18px; display:inline-block}
+  footer{margin-top:40px; color:var(--muted); font-size:12px}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="eyebrow">Altcoin Buzz Scorecards</div>
+    <h1>Website Mockups — Team Review</h1>
+    <p class="sub">Two design directions. Click in to browse each fully.</p>
+    <div class="grid">
+      <a class="card" href="version-a/MOCKUP_homepage.html">
+        <span class="tag">Version A</span>
+        <h2>Original direction</h2>
+        <p>The first design set: homepage, catalysts index, catalyst page, token page, and compare view.</p>
+        <span class="arrow">View Version A →</span>
+      </a>
+      <a class="card" href="version-b/MOCKUP_homepage_v2.html">
+        <span class="tag">Version B</span>
+        <h2>Updated direction (v2)</h2>
+        <p>The newer design set with the refreshed homepage and "What's new" section.</p>
+        <span class="arrow">View Version B →</span>
+      </a>
+    </div>
+    <footer>Internal preview — please don't share outside the team.</footer>
+  </div>
+</body>
+</html>
