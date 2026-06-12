@@ -137,6 +137,15 @@
   .band.sbear .d{border:1px solid color-mix(in srgb,var(--red) 45%,transparent)}
   .band.sbear .d.f{background:var(--red);border:none;box-shadow:0 0 6px color-mix(in srgb,var(--red) 70%,transparent)}
 
+  /* chart-read chip (square = chart system) */
+  .cchip{display:inline-flex;align-items:center;gap:5px;height:22px;padding:0 8px;border-radius:4px;
+    font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:600;letter-spacing:.5px;white-space:nowrap}
+  .cchip.cbull{color:var(--green);border:1px solid color-mix(in srgb,var(--green) 42%,transparent)}
+  .cchip.cbear{color:var(--red);border:1px solid color-mix(in srgb,var(--red) 42%,transparent)}
+  .cchip.cneut{color:var(--zero);border:1px solid color-mix(in srgb,var(--zero) 42%,transparent)}
+  .cchip.cexp{color:var(--faint);border:1px dashed var(--line2)}
+  a.cchip.cbear:hover{background:color-mix(in srgb,var(--red) 9%,transparent)}
+
   /* ===== member gate ===== */
   tr.locked .cat,tr.locked .one,tr.locked .sc,tr.locked .dirlab,tr.locked .shared-chip{
     filter:blur(4px);opacity:.78;user-select:none;pointer-events:none}
@@ -359,7 +368,7 @@
     /* ranking table → cards */
     #rankTable thead{display:none}
     #rankTable tbody tr.row{display:grid;grid-template-columns:auto 1fr auto;grid-template-areas:
-      "tok tok px" "netv tokv verdict";gap:6px 22px;padding:13px 4px;border-bottom:1px solid var(--line)}
+      "tok tok px" "netv tokv verdict" "chart chart chart";gap:6px 22px;padding:13px 4px;border-bottom:1px solid var(--line)}
     #rankTable tbody tr.row td{display:block;padding:0;border:none}
     #rankTable tbody tr.row td.cell-rk{display:none}
     #rankTable tbody tr.row td.cell-tk{grid-area:tok}
@@ -372,6 +381,7 @@
       font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:1px;color:var(--faint);
       display:block;margin-bottom:2px;font-weight:400;text-align:left}
     #rankTable tbody tr.row td.cell-verdict{grid-area:verdict;text-align:right}
+    #rankTable tbody tr.row td.cell-chart{grid-area:chart;text-align:right;margin-top:2px}
     #rankTable tbody tr.row td.cell-n,#rankTable tbody tr.row td.cell-fresh,#rankTable tbody tr.row td.cell-cmp{display:none}
     .msc{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--dim);letter-spacing:1px}
     .tray-in{padding:12px 16px;flex-wrap:wrap}
@@ -396,6 +406,7 @@
     <a href="index.html" class="active">Tokens</a>
     <a href="catalysts.html">Catalysts</a>
     <a href="compare.html">Compare</a>
+    <a href="chart-reads.html">Chart Reads</a>
     <a href="index.html#whatsnew">What’s New</a>
   </div>
   <button class="theme-toggle" id="themeBtn" onclick="toggleTheme()" title="Light / dark" aria-label="Toggle theme">☀</button>
@@ -493,7 +504,7 @@
       <table id="rankTable">
         <thead><tr>
           <th class="cell-rk">#</th><th>Token</th><th>Price</th><th class="c" style="width:72px">Network</th><th class="c" style="width:72px">Token</th>
-          <th>Verdict</th><th class="c">Rows</th><th>Board</th><th></th>
+          <th>Fundamentals</th><th class="c" style="width:88px">Chart · 1W</th><th class="c">Rows</th><th>Updated</th><th></th>
         </tr></thead>
         <tbody id="rankBody" data-skeleton="6">
           
@@ -503,6 +514,7 @@
         <td class="cell-px"><span class="px">$1.42<small class="up">▲ 3.1%</small></span></td>
         <td class="cell-netv c"><span class="sc g">+9</span></td><td class="cell-tokv c"><span class="sc g">+6</span></td>
         <td class="cell-verdict"><span class="band sbull" title="Bullish — strong">BULLISH<span class="dots" aria-hidden="true"><span class="d f"></span><span class="d f"></span><span class="d f"></span></span></span></td>
+        <td class="cell-chart c"><span class="cchip cbull" title="Chart read — bullish · 1 week">6.8 ▲</span></td>
         <td class="cell-n nrows">9</td>
         <td class="cell-fresh fresh">JUN 02</td>
         <td class="cell-cmp" onclick="event.stopPropagation()"><input type="checkbox" class="cmp" aria-label="Compare ONDO" onchange="trayUpd(this,'ONDO')"></td>
@@ -513,6 +525,7 @@
         <td class="cell-px"><span class="px">$168.40<small class="up">▲ 2.2%</small></span></td>
         <td class="cell-netv c"><span class="sc g">+11</span></td><td class="cell-tokv c"><span class="sc g">+4</span></td>
         <td class="cell-verdict"><span class="band mbull" title="Bullish — mild">BULLISH<span class="dots" aria-hidden="true"><span class="d f"></span><span class="d"></span><span class="d"></span></span></span></td>
+        <td class="cell-chart c"><span class="cchip cbull" title="Chart read — bullish · 1 week">6.1 ▲</span></td>
         <td class="cell-n nrows">10</td>
         <td class="cell-fresh fresh">MAY 28</td>
         <td class="cell-cmp" onclick="event.stopPropagation()"><input type="checkbox" class="cmp" aria-label="Compare SOL" onchange="trayUpd(this,'SOL')"></td>
@@ -523,6 +536,7 @@
         <td class="cell-px"><span class="px">$0.21<small class="dn">▼ 0.8%</small></span></td>
         <td class="cell-netv c"><span class="sc g">+8</span></td><td class="cell-tokv c"><span class="sc g">+3</span></td>
         <td class="cell-verdict"><span class="band mbull" title="Bullish — mild">BULLISH<span class="dots" aria-hidden="true"><span class="d f"></span><span class="d"></span><span class="d"></span></span></span></td>
+        <td class="cell-chart c"><span class="cchip cexp" title="Chart read expired Jun 5">3.8 · EXP</span></td>
         <td class="cell-n nrows">8</td>
         <td class="cell-fresh fresh">APR 30</td>
         <td class="cell-cmp" onclick="event.stopPropagation()"><input type="checkbox" class="cmp" aria-label="Compare HBAR" onchange="trayUpd(this,'HBAR')"></td>
@@ -533,6 +547,7 @@
         <td class="cell-px"><span class="px">$16.85<small class="up">▲ 1.1%</small></span></td>
         <td class="cell-netv c"><span class="sc g">+7</span></td><td class="cell-tokv c"><span class="sc g">+2</span></td>
         <td class="cell-verdict"><span class="band mbull" title="Bullish — mild">BULLISH<span class="dots" aria-hidden="true"><span class="d f"></span><span class="d"></span><span class="d"></span></span></span></td>
+        <td class="cell-chart c"><span class="cchip cbull" title="Chart read — bullish · 1 week">5.4 ▲</span></td>
         <td class="cell-n nrows">7</td>
         <td class="cell-fresh fresh">MAY 06</td>
         <td class="cell-cmp" onclick="event.stopPropagation()"><input type="checkbox" class="cmp" aria-label="Compare LINK" onchange="trayUpd(this,'LINK')"></td>
@@ -543,6 +558,7 @@
         <td class="cell-px"><span class="px">$2.31<small class="up">▲ 1.8%</small></span></td>
         <td class="cell-netv c"><span class="sc g">+13</span></td><td class="cell-tokv c"><span class="sc z">0</span></td>
         <td class="cell-verdict"><span class="band neut" title="Neutral">NEUTRAL<span class="dots" aria-hidden="true"><span class="d"></span><span class="d"></span><span class="d"></span></span></span></td>
+        <td class="cell-chart c"><a class="cchip cbear" href="chart-xrp.html" onclick="event.stopPropagation()" title="Chart read — bearish · 1 week · open the full read">3.7 ▼</a></td>
         <td class="cell-n nrows">12</td>
         <td class="cell-fresh fresh">JUN 10</td>
         <td class="cell-cmp" onclick="event.stopPropagation()"><input type="checkbox" class="cmp" aria-label="Compare XRP" onchange="trayUpd(this,'XRP')"></td>
@@ -553,6 +569,7 @@
         <td class="cell-px"><span class="px">$0.74<small class="dn">▼ 1.4%</small></span></td>
         <td class="cell-netv c"><span class="sc g">+4</span></td><td class="cell-tokv c"><span class="sc g">+1</span></td>
         <td class="cell-verdict"><span class="band neut" title="Neutral">NEUTRAL<span class="dots" aria-hidden="true"><span class="d"></span><span class="d"></span><span class="d"></span></span></span></td>
+        <td class="cell-chart c"><span class="cchip cneut" title="Chart read — neutral · 1 week">5.0 —</span></td>
         <td class="cell-n nrows">6</td>
         <td class="cell-fresh fresh">MAY 12</td>
         <td class="cell-cmp" onclick="event.stopPropagation()"><input type="checkbox" class="cmp" aria-label="Compare ADA" onchange="trayUpd(this,'ADA')"></td>
@@ -563,6 +580,7 @@
         <td class="cell-px"><span class="px">$0.118<small class="up">▲ 0.4%</small></span></td>
         <td class="cell-netv c"><span class="sc g">+1</span></td><td class="cell-tokv c"><span class="sc z">0</span></td>
         <td class="cell-verdict"><span class="band neut" title="Neutral">NEUTRAL<span class="dots" aria-hidden="true"><span class="d"></span><span class="d"></span><span class="d"></span></span></span></td>
+        <td class="cell-chart c"><span class="cchip cexp" title="Chart read expired Apr 25">5.1 · EXP</span></td>
         <td class="cell-n nrows">5</td>
         <td class="cell-fresh fresh">APR 18</td>
         <td class="cell-cmp" onclick="event.stopPropagation()"><input type="checkbox" class="cmp" aria-label="Compare DOGE" onchange="trayUpd(this,'DOGE')"></td>
@@ -573,6 +591,7 @@
         <td class="cell-px"><span class="px">$84.20<small class="dn">▼ 2.0%</small></span></td>
         <td class="cell-netv c"><span class="sc g">+2</span></td><td class="cell-tokv c"><span class="sc r">−3</span></td>
         <td class="cell-verdict"><span class="band mbear" title="Bearish — mild">BEARISH<span class="dots" aria-hidden="true"><span class="d f"></span><span class="d"></span><span class="d"></span></span></span></td>
+        <td class="cell-chart c"><span class="cchip cbear" title="Chart read — bearish · 1 week">2.9 ▼</span></td>
         <td class="cell-n nrows">6</td>
         <td class="cell-fresh fresh">APR 02</td>
         <td class="cell-cmp" onclick="event.stopPropagation()"><input type="checkbox" class="cmp" aria-label="Compare LTC" onchange="trayUpd(this,'LTC')"></td>
@@ -610,7 +629,8 @@
         <div class="panel-h"><h3>What’s New</h3></div>
         <div class="news-item"><span class="when">JUN 10</span><span class="evt"><span class="tag">BOARD</span><b>XRP scored:</b> Network +13 · Token 0 · NEUTRAL</span></div>
         <div class="news-item"><span class="when">JUN 10</span><span class="evt"><span class="tag">VIDEO</span>XRP deep-dive live — 8 of 12 catalysts revealed</span></div>
-        <div class="news-item"><span class="when">JUN 08</span><span class="evt"><span class="tag">VIDEO</span>XRP chart read: $2.18 is the line<span class="smp">SAMPLE</span></span></div>
+        <div class="news-item"><span class="when">JUN 10</span><span class="evt"><span class="tag">CHART</span><a href="chart-xrp.html"><b>XRP chart read:</b> $2.18 broke — Bearish 3.7/10</a><span class="smp">SAMPLE</span></span></div>
+        <div class="news-item"><span class="when">JUN 08</span><span class="evt"><span class="tag">VIDEO</span><a href="chart-reads.html">XRP chart read: $2.18 is the line</a><span class="smp">SAMPLE</span></span></div>
         <div class="news-item"><span class="when">JUN 05</span><span class="evt"><span class="tag">CATALYST</span>CLARITY Act placed on Senate calendar — 7 boards flagged</span></div>
         <div class="news-item"><span class="when">JUN 02</span><span class="evt"><span class="tag">BOARD</span>ONDO re-scored: Bullish (strong)<span class="smp">SAMPLE</span></span></div>
         <div class="news-item"><span class="when">MAY 28</span><span class="evt"><span class="tag">ARTICLE</span>The decoupling problem, explained<span class="smp">SAMPLE</span></span></div>

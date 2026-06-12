@@ -136,6 +136,49 @@
     border:1px solid color-mix(in srgb,var(--red) 55%,transparent)}
   .band.sbear .d{border:1px solid color-mix(in srgb,var(--red) 45%,transparent)}
   .band.sbear .d.f{background:var(--red);border:none;box-shadow:0 0 6px color-mix(in srgb,var(--red) 70%,transparent)}
+
+  /* ===== chart-read system (square silhouette) ===== */
+  .cchip{display:inline-flex;align-items:center;gap:5px;height:22px;padding:0 8px;border-radius:4px;
+    font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:600;letter-spacing:.5px;white-space:nowrap}
+  .cchip.cbull{color:var(--green);border:1px solid color-mix(in srgb,var(--green) 42%,transparent)}
+  .cchip.cbear{color:var(--red);border:1px solid color-mix(in srgb,var(--red) 42%,transparent)}
+  .cchip.cneut{color:var(--zero);border:1px solid color-mix(in srgb,var(--zero) 42%,transparent)}
+  .cchip.cexp{color:var(--faint);border:1px dashed var(--line2)}
+  a.cchip.cbear:hover{background:color-mix(in srgb,var(--red) 9%,transparent)}
+  .pgtabs{display:flex;gap:2px;border-bottom:1px solid var(--line2);margin-top:26px;overflow-x:auto}
+  .pgtab{display:inline-flex;align-items:center;gap:9px;font-family:'JetBrains Mono',monospace;font-size:11px;
+    font-weight:600;letter-spacing:1.2px;color:var(--dim);padding:11px 16px;border-bottom:2px solid transparent;
+    white-space:nowrap;transition:color .15s}
+  .pgtab:hover{color:var(--ink)}
+  .pgtab.on{color:var(--ink);border-bottom-color:var(--gold)}
+  .ptchip{display:inline-flex;align-items:center;height:19px;padding:0 8px;font-size:9px;letter-spacing:.8px;font-weight:600}
+  .ptchip.fnd{border-radius:10px}
+  .ptchip.cht{border-radius:4px}
+  .ptchip.pneut{color:var(--zero);border:1px solid color-mix(in srgb,var(--zero) 42%,transparent)}
+  .ptchip.pbear{color:var(--red);border:1px solid color-mix(in srgb,var(--red) 42%,transparent)}
+  .ptchip.pbull{color:var(--green);border:1px solid color-mix(in srgb,var(--green) 42%,transparent)}
+  .xref{display:block;margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-family:'JetBrains Mono',monospace;
+    font-size:10.5px;letter-spacing:1px;color:var(--dim);line-height:1.6}
+  .xref b{font-weight:600}
+  .xref .r{color:var(--red)}.xref .g{color:var(--green)}.xref .z{color:var(--zero)}
+  a.xref:hover .r,a.xref:hover .z{text-decoration:underline}
+  .v-pill.vsq{border-radius:10px}
+  .v-score{font-family:'JetBrains Mono',monospace;font-size:46px;font-weight:700;color:var(--red);margin-left:18px;vertical-align:middle}
+  .v-score small{font-size:18px;color:var(--dim);font-weight:500}
+  .meter{display:flex;gap:3px;margin-top:16px;max-width:430px}
+  .meter i{flex:1;height:8px;border-radius:2px;background:var(--line2)}
+  .meter i.f{background:var(--red)}
+  .meter i.h{background:var(--red);opacity:.55}
+  .vs .n.r2{color:var(--red)}
+  .vs .n.r2 small{font-size:16px;color:var(--dim)}
+  .vs .n.live{color:var(--goldtx);font-size:22px;letter-spacing:2px}
+  .inval{margin-top:26px;border-left:3px solid var(--red);background:color-mix(in srgb,var(--red) 6%,transparent);
+    border-radius:0 6px 6px 0;padding:14px 18px;font-size:13px;color:var(--mut);line-height:1.55}
+  .inval b{color:var(--ink)}
+  .inval .k{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:1.5px;color:var(--red);display:block;margin-bottom:6px;font-weight:600}
+  tr.arch{opacity:.45}
+  .st-live{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.8px;color:var(--goldtx);white-space:nowrap}
+  .st-arch{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.8px;color:var(--faint);border:0.5px dashed var(--line2);border-radius:3px;padding:2px 6px;white-space:nowrap}
   .band.v-pill{height:62px;padding:0 30px;border-radius:31px;font-size:29px;font-weight:600;letter-spacing:4px;gap:16px;margin-top:14px}
   .band.v-pill .dots{gap:7px}
   .band.v-pill .d{width:13px;height:13px;border-width:2px}
@@ -303,6 +346,7 @@
     <a href="index.html" class="active">Tokens</a>
     <a href="catalysts.html">Catalysts</a>
     <a href="compare.html">Compare</a>
+    <a href="chart-reads.html">Chart Reads</a>
     <a href="index.html#whatsnew">What’s New</a>
   </div>
   <button class="theme-toggle" id="themeBtn" onclick="toggleTheme()" title="Light / dark" aria-label="Toggle theme">☀</button>
@@ -322,11 +366,17 @@
     <div class="px"><div><div class="p">$2.31</div><div class="chg">▲ 1.8%</div></div><div class="src">PRICE VIA COINGECKO · SAMPLE</div></div>
   </div>
 
+  <div class="pgtabs">
+    <a class="pgtab on" href="token-xrp.html" aria-current="page">CATALYST SCORECARD<span class="ptchip fnd pneut">NEUTRAL</span></a>
+    <a class="pgtab" href="chart-xrp.html">CHART READ<span class="ptchip cht pbear">BEARISH 3.7/10</span><span class="smp">SAMPLE</span></a>
+  </div>
+
   <section class="verdict">
     <div class="v-main">
-      <div class="v-label">Verdict · Board of 2026-06-10</div>
+      <div class="v-label">Fundamentals · Updated 2026-06-10</div>
       <div data-reveal><span class="band neut v-pill" title="Neutral">NEUTRAL<span class="dots" aria-hidden="true"><span class="d"></span><span class="d"></span><span class="d"></span></span></span></div>
       <p class="v-why">The network is compounding; the token isn’t capturing it yet. Two rows could flip the band: <b>a CLARITY hard vote date</b>, or <b>RLUSD’s curve steepening</b>.</p>
+      <a class="xref" href="chart-xrp.html">THE CHART SAYS: <b class="r">BEARISH 3.7/10</b> · SELLERS IN CONTROL UNTIL $2.45 RECLAIMS <span class="smp">SAMPLE</span></a>
     </div>
     <div class="v-scores" data-reveal>
       <div class="vs"><div class="l">Network</div><div class="n g" data-count="+13">+13</div><div class="r">0…+3 · 12 ROWS</div></div>
@@ -504,7 +554,14 @@
     </div>
     <div class="tabpane" id="t-chart">
       <div class="cards3">
-        <div class="vcard chartcard"><div class="sec-meta" style="margin-bottom:10px">TYPE B · CHART READ · 2026-06-08 · SAMPLE</div>
+        <a class="vcard chartcard" href="chart-xrp.html">
+          <div class="sec-meta" style="margin-bottom:10px">TYPE B · CHART READ · 2026-06-10 · LIVE · SAMPLE</div>
+          <div class="row2"><span>Bias (1W)</span><b class="sc r" style="font-size:13px">BEARISH · 3.7/10</b></div>
+          <div class="row2"><span>Broke</span><b class="sc r" style="font-size:13px">$2.18</b></div>
+          <div class="row2"><span>Seller zone</span><b>$2.25–$2.38</b></div>
+          <div class="row2"><span>Invalidation</span><b>Close &gt; $2.45</b></div>
+        </a>
+        <div class="vcard chartcard"><div class="sec-meta" style="margin-bottom:10px">TYPE B · CHART READ · 2026-06-08 · SUPERSEDED · SAMPLE</div>
           <div class="row2"><span>Resistance</span><b class="sc r" style="font-size:13px">$2.62</b></div>
           <div class="row2"><span>Support</span><b class="sc g" style="font-size:13px">$2.18</b></div>
           <div class="row2"><span>Trend (D)</span><b>Higher lows</b></div>
