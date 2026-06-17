@@ -138,8 +138,9 @@ h1{font-size:clamp(34px,5vw,52px); line-height:1.04; font-weight:700; color:var(
 .card-asset{display:flex; align-items:baseline; gap:8px}
 .card-asset b{font-size:18px; font-weight:700; color:var(--ink)}
 .card-asset span{font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--mut)}
-.smp{font-family:'JetBrains Mono',monospace; font-size:9px; font-weight:600; letter-spacing:1.5px;
-  color:var(--faint); border:1px solid var(--line2); border-radius:4px; padding:3px 8px}
+.asof{display:inline-flex; align-items:center; gap:5px; font-family:'JetBrains Mono',monospace;
+  font-size:10px; font-weight:500; letter-spacing:.3px; color:var(--faint)}
+.asof svg{width:11px; height:11px; fill:none; stroke:currentColor; stroke-width:2; opacity:.85}
 
 .sc-row{display:flex; align-items:flex-start; margin-top:6px}
 .group{flex:1; min-width:0}
@@ -306,7 +307,9 @@ footer{border-top:1px solid var(--line); padding:34px 0}
     <div class="card" id="scorecard">
       <div class="card-top">
         <div class="card-asset"><b>XRP</b><span>Ripple</span></div>
-        <span class="smp">SAMPLE</span>
+        <!-- Real ratified XRP numbers — freshness stamp (NOT a SAMPLE tag; SAMPLE/EXAMPLE
+             stay reserved for genuinely invented data). -->
+        <span class="asof"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>as of 17 Jun 2026</span>
       </div>
       <div class="sc-row">
         <!-- FUNDAMENTALS group: Token · Network (T·N·T order) -->
