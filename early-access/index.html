@@ -8,17 +8,35 @@
 <meta name="theme-color" content="#ffffff">
 
 <!-- ── Social / link-preview meta (this page is linked from YouTube + shared on X) ──
-     ⚠ TODO: drop a 1200×630 share image at early-access/og-image.png (or update the path). -->
+     Of X / YouTube / Facebook / Instagram, only Facebook (OG) and X (Twitter Card)
+     render a card from these tags — YouTube shows a plain link, Instagram doesn't
+     preview links. So OG + Twitter Card cover the surfaces that matter.
+     Share image lives at early-access/og-image.png (1200×630, generated on-brand). -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Altcoin Buzz">
 <meta property="og:title" content="The network's winning. Is the token? — Altcoin Buzz TNT Score">
 <meta property="og:description" content="Every top altcoin scored three ways: Token, Network and Technicals. See whether the news actually reaches the token — or just the network. Get free early access.">
 <meta property="og:url" content="https://altcoinbuzz.com/early-access">
 <meta property="og:image" content="https://altcoinbuzz.com/early-access/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Altcoin Buzz TNT Score — XRP scored Token 4.9, Network 6.0, Weekly 4.4. The network's winning. Is the token?">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@Altcoinbuzzio">
+<meta name="twitter:creator" content="@Altcoinbuzzio">
 <meta name="twitter:title" content="The network's winning. Is the token? — Altcoin Buzz TNT Score">
 <meta name="twitter:description" content="Every top altcoin scored three ways. See whether the news actually moves the token, or just the network. Free early access.">
 <meta name="twitter:image" content="https://altcoinbuzz.com/early-access/og-image.png">
+<meta name="twitter:image:alt" content="Altcoin Buzz TNT Score — XRP scored Token 4.9, Network 6.0, Weekly 4.4.">
+
+<!-- ── Analytics: Plausible (privacy-light, cookieless; DESIGN intent = no heavy trackers) ──
+     ⚠ CONFIG: data-domain MUST equal the property name added in the Plausible dashboard
+     (the live domain, altcoinbuzz.com). The second line is the official custom-event stub —
+     it lets us fire the "signup" goal from the form success path (see showSuccess()).
+     If the operator switches to Fathom/GA4 later, swap these two lines + the plausible()
+     call in showSuccess(); nothing else depends on the vendor. -->
+<script defer data-domain="altcoinbuzz.com" src="https://plausible.io/js/script.js"></script>
+<script>window.plausible=window.plausible||function(){(window.plausible.q=window.plausible.q||[]).push(arguments)}</script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -153,7 +171,7 @@ h1{font-size:clamp(34px,5vw,54px); line-height:1.03; font-weight:700; color:var(
 .success p{font-size:14.5px; color:var(--mut); max-width:30em; margin:0 auto}
 
 /* ── Proof scorecard ──────────────────────────────────── */
-.proof{padding:48px 0 56px}
+.proof{padding:48px 0 56px; background:var(--bg-soft)}  /* pain-visual band — matches the INSIDE THE PORTAL bg (var(--bg-soft)) in both themes */
 .card{max-width:660px; margin:0 auto; background:var(--lift); border:1px solid var(--lift-line);
   border-radius:var(--radius); box-shadow:var(--shadow-lg); padding:24px 24px 22px}
 .card-top{display:flex; align-items:center; justify-content:space-between; margin-bottom:8px}
@@ -241,26 +259,26 @@ h1{font-size:clamp(34px,5vw,54px); line-height:1.03; font-weight:700; color:var(
 
 /* catalyst breakdown */
 .cat{background:var(--lift); border:1px solid var(--lift-line); border-radius:var(--radius); box-shadow:var(--shadow-lg); overflow:hidden; max-width:100%}
-.cat-h{display:flex; align-items:center; justify-content:space-between; padding:14px 18px; border-bottom:1px solid var(--lift-line)}
+.cat-h{display:flex; align-items:center; justify-content:space-between; padding:17px 20px; border-bottom:1px solid var(--lift-line)}
 .cat-h .ttl{display:flex; align-items:center; gap:8px; font-size:11.5px; font-family:'JetBrains Mono',monospace; letter-spacing:1.3px; color:var(--goldtx); font-weight:600}
 .cat-h .ttl .tlogo svg{width:18px; height:18px}
-.cat-row{padding:18px 20px}
+.cat-row{padding:24px 22px}
 .cat-top{display:flex; align-items:flex-start; gap:12px; justify-content:space-between; cursor:pointer}
 .cat-head{flex:1; min-width:0}
 .scope{display:inline-block; font-family:'JetBrains Mono',monospace; font-size:9px; font-weight:700; letter-spacing:1px;
-  color:var(--goldtx); background:var(--gold-soft); border:1px solid var(--gold-line); border-radius:4px; padding:2px 7px; margin-bottom:9px}
-.cat-head h4{font-size:16px; font-weight:700; color:var(--ink); line-height:1.32}
+  color:var(--goldtx); background:var(--gold-soft); border:1px solid var(--gold-line); border-radius:4px; padding:2px 7px; margin-bottom:14px}
+.cat-head h4{font-size:16px; font-weight:700; color:var(--ink); line-height:1.42}
 .chev{flex:0 0 auto; color:var(--faint); transition:transform .2s}
 .chev svg{width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:2}
-.cat-detail{margin-top:18px; border-top:1px solid var(--lift-div); padding-top:18px}
-.sub-pair{display:flex; gap:14px; margin-bottom:14px; flex-wrap:wrap}
-.sub{flex:1; min-width:150px; background:var(--lift-2); border:1px solid var(--lift-line); border-radius:12px; padding:13px 15px}
+.cat-detail{margin-top:22px; border-top:1px solid var(--lift-div); padding-top:22px}
+.sub-pair{display:flex; gap:16px; margin-bottom:18px; flex-wrap:wrap}
+.sub{flex:1; min-width:150px; background:var(--lift-2); border:1px solid var(--lift-line); border-radius:12px; padding:16px 17px}
 .sub .lab{font-family:'JetBrains Mono',monospace; font-size:11.5px; font-weight:700; letter-spacing:.8px; color:var(--ink); text-transform:uppercase}
 .sub .val{display:flex; align-items:baseline; gap:8px; margin-top:5px}
 .sub .val .n{font-family:'JetBrains Mono',monospace; font-weight:700; font-size:26px; line-height:1; font-variant-numeric:tabular-nums}
 .sub .val .w{font-family:'JetBrains Mono',monospace; font-size:9.5px; font-weight:700; letter-spacing:1.2px}
-.sub .why{font-size:12px; color:var(--mut); margin-top:7px; line-height:1.4}
-.takeaway{background:var(--gold-soft); border:1px solid var(--gold-line); border-radius:12px; padding:12px 15px; font-size:13.5px; color:var(--txt); line-height:1.5}
+.sub .why{font-size:12px; color:var(--mut); margin-top:9px; line-height:1.45}
+.takeaway{background:var(--gold-soft); border:1px solid var(--gold-line); border-radius:12px; padding:15px 17px; font-size:13.5px; color:var(--txt); line-height:1.55}
 .takeaway b{color:var(--ink)}
 .srcs{margin-top:12px; font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--goldtx); display:inline-flex; align-items:center; gap:6px}
 .srcs svg{width:13px; height:13px; fill:none; stroke:currentColor; stroke-width:2}
@@ -307,6 +325,56 @@ h1{font-size:clamp(34px,5vw,54px); line-height:1.03; font-weight:700; color:var(
 .askbar .send{width:32px; height:32px; flex:0 0 auto; border-radius:8px; background:linear-gradient(180deg,#eaba50,#e0a93c);
   display:flex; align-items:center; justify-content:center}
 .askbar .send svg{width:15px; height:15px; fill:none; stroke:var(--goldink); stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round}
+
+/* ── Item 2 · "Check your coin" capture (full leaderboard width; lead-magnet field style) ── */
+.coincheck{max-width:none; margin:26px 0 0; background:var(--lift); border:1px solid var(--lift-line);
+  border-radius:var(--radius-s); box-shadow:var(--shadow); padding:22px 24px 24px}
+.coincheck .cc-eye{font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:700; letter-spacing:2px; color:var(--goldtx); margin-bottom:9px}
+.coincheck .cc-sub{font-size:14.5px; color:var(--mut); line-height:1.5; margin-bottom:17px; max-width:54em}
+/* inputs reuse the lead-magnet .field look: white pill + borderless inputs + gold button */
+.cc-field .cc-coin{flex:0 0 138px; text-transform:uppercase; font-family:'JetBrains Mono',monospace; font-weight:600; letter-spacing:.5px}
+.cc-field .cc-coin::placeholder{text-transform:none; font-family:'Archivo',-apple-system,sans-serif; font-weight:400; letter-spacing:0}
+.cc-field .cc-email{flex:1}
+.cc-sep{flex:0 0 1px; align-self:stretch; background:#dbe1ea; margin:6px 2px}
+.coincheck .success{margin-top:2px; max-width:none}
+.coincheck .success p{max-width:42em}
+@media(max-width:560px){
+  .cc-field{flex-wrap:wrap}
+  .cc-field .cc-coin,.cc-field .cc-email,.cc-field .btn-gold{flex:1 1 100%}
+  .cc-sep{display:none}
+}
+
+/* ── Optional · "Dramatize the pain" band (green news up / red price flat) ── */
+.painband{background:var(--bg); border-top:1px solid var(--line); padding:46px 0 48px}
+.pain{max-width:680px; margin:0 auto; text-align:center}
+.pain-eye{font-family:'JetBrains Mono',monospace; font-size:10.5px; font-weight:600; letter-spacing:2.2px; color:var(--goldtx); margin-bottom:18px}
+.pain-chips{display:flex; gap:9px; justify-content:center; flex-wrap:wrap; margin-bottom:4px}
+.pchip{display:inline-flex; align-items:center; gap:7px; font-size:12.5px; font-weight:600; color:var(--green);
+  background:var(--green-soft); border:1px solid color-mix(in srgb,var(--green) 30%,transparent); border-radius:24px; padding:7px 13px; line-height:1.2}
+.pchip .up{width:14px; height:14px; flex:0 0 auto; fill:none; stroke:currentColor; stroke-width:2.4; stroke-linecap:round; stroke-linejoin:round}
+.pchip .ck{width:13px; height:13px; flex:0 0 auto; fill:none; stroke:currentColor; stroke-width:2.8; stroke-linecap:round; stroke-linejoin:round; opacity:.85}
+.pain-line{max-width:560px; margin:0 auto}
+.pain-line svg{width:100%; height:auto; display:block; overflow:visible}
+.pain-cap{font-size:clamp(26px,3.6vw,38px); font-weight:700; color:var(--ink); letter-spacing:-.02em; line-height:1.1; margin-top:32px}
+.pain-cap em{color:var(--red); font-style:normal}
+.pain-cap .why{color:var(--ink)}
+.proof-head{text-align:center; margin-bottom:30px}
+.pain-cap .g{color:var(--green)} .pain-cap .r{color:var(--red)}
+.pv-grid{display:flex; gap:18px; align-items:stretch; flex-wrap:wrap; text-align:left}
+.pv-col{display:flex; flex-direction:column; min-width:0}
+.pv-col.left{flex:1.1 1 250px}
+.pv-col.right{flex:.9 1 200px}
+.pv-col-h{font-family:'JetBrains Mono',monospace; font-size:13px; font-weight:700; letter-spacing:1.4px; text-transform:uppercase; display:flex; align-items:center; gap:8px; margin-bottom:12px}
+.pv-col-h svg{width:17px; height:17px; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round}
+.pv-col-h.up{color:var(--green)} .pv-col-h.dn{color:var(--red)}
+.pv-chips{display:flex; flex-direction:column; gap:10px; flex:1; justify-content:center}
+.pv-chip{display:flex; align-items:center; gap:10px; background:var(--green-soft); border:1px solid color-mix(in srgb,var(--green) 28%,transparent); border-radius:11px; padding:11px 13px}
+.pv-chip svg{width:19px; height:19px; flex:0 0 auto; stroke:var(--green); fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round}
+.pv-chip span{flex:1; font-size:13.5px; font-weight:600; color:var(--ink); line-height:1.3; text-align:left}
+.pv-chartcard{flex:1; background:var(--lift); border:1px solid var(--lift-line); border-radius:12px; padding:11px 13px 8px; display:flex; flex-direction:column}
+.pv-chartcard .xrp{font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:600; letter-spacing:1px; color:var(--faint); text-transform:uppercase; margin-bottom:4px}
+.pv-chart{flex:1; display:block; width:100%; height:auto; min-height:150px}
+.pain-foot{font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--faint); margin-top:15px; letter-spacing:.2px; line-height:1.5}
 
 /* ── Founder's note ───────────────────────────────────── */
 .founder{padding:88px 0 84px}
@@ -468,15 +536,21 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
 <!-- ══ HERO + lead magnet ══════════════════════════════ -->
 <section class="hero" id="get-access">
   <div class="wrap">
-    <div class="launch-pill"><span class="dot"></span>NEW PORTAL · EARLY ACCESS</div>
+    <div class="launch-pill"><span class="dot"></span>EARLY ACCESS · LAUNCHES AUG 30</div>
     <h1>The network's winning.<br>Is the token?</h1>
     <p class="subhead">Every top altcoin, scored 3 ways: Token, Network and Technicals (TNT), to help you see if the news is really going to impact the token, or not.</p>
 
     <!-- Email-capture lead magnet (reusable: .magnet wraps .js-signup + .js-success).
          ⚠ CONFIG: until SIGNUP_ENDPOINT (bottom of file) is wired to the operator's Mailchimp
-         audience, both forms short-circuit to the success-state MOCK and do NOT capture emails. -->
+         audience, both forms short-circuit to the success-state MOCK and do NOT capture emails.
+         ⚠ Item 4 (scarcity counter) is BLOCKED on the tech team: Mailchimp will NOT expose a live
+            member count to a static page (the audience count needs an API key that can't ship to the
+            client). A real "X / 500 claimed" counter needs ONE of: (a) a tiny serverless proxy that
+            holds the key and returns the count, (b) a scheduled job that writes the number to a small
+            JSON file this page fetch()es, or (c) an accepted manually-updated baseline. Until that
+            mechanism is provisioned, the static "first 500" line below stays as-is. -->
     <div class="magnet">
-      <form class="js-signup" novalidate>
+      <form class="js-signup" data-loc="hero" novalidate>
         <div class="incentive">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.4 5 5.5.8-4 3.9.9 5.5L12 21.4 7.2 18.2l.9-5.5-4-3.9 5.5-.8z"/></svg>
           The first 500 to sign up get access to our Beta portal at launch
@@ -501,8 +575,61 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
   </div>
 </section>
 
-<!-- ══ PROOF - real ratified XRP board + freshness stamp ══ -->
+<!-- ══ DRAMATIZE THE PAIN — now directly under the hero (swapped with the proof scorecard,
+     operator 2026-06-19). The two section SHELLS below are unchanged — `.proof` (borderless,
+     flows from the hero) and `.painband` (top-divider, sits above the portal) keep their exact
+     bg/border; only the CONTENT inside the two bands was swapped.
+     Data integrity: the three chips are REAL ratified XRP catalysts (Altcoin Buzz research,
+     as of 16–17 Jun 2026) — no SAMPLE tag needed. The red line is SCHEMATIC (no axis, no
+     numbers) — a concept illustration of "flat/sagging," NOT an invented price claim. -->
 <section class="proof">
+  <div class="wrap-n">
+    <div class="pain reveal">
+      <div class="pv-grid">
+        <div class="pv-col left">
+          <div class="pv-col-h up"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 17l6-6 4 4 6-7"/><path d="M16 8h5v5"/></svg>Bullish news</div>
+          <div class="pv-chips">
+            <div class="pv-chip"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.4 12.4l2.4 2.4 4.6-5"/></svg><span>JPMorgan &amp; Mastercard pilot on the XRP Ledger</span></div>
+            <div class="pv-chip"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.4 12.4l2.4 2.4 4.6-5"/></svg><span>$3B+ in tokenized assets on the ledger</span></div>
+            <div class="pv-chip"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.4 12.4l2.4 2.4 4.6-5"/></svg><span>Spot ETF inflows top $1.4B</span></div>
+          </div>
+        </div>
+        <div class="pv-col right">
+          <div class="pv-col-h dn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7l6 6 4-4 6 7"/><path d="M16 16h5v-5"/></svg>But flat price</div>
+          <div class="pv-chartcard">
+            <div class="xrp">XRP</div>
+            <svg class="pv-chart" viewBox="0 0 300 168" role="img" aria-label="A flat, weak red candlestick chart drifting slightly down. Schematic illustration, not real price data.">
+              <line x1="14" y1="70" x2="286" y2="70" stroke="var(--line2)" stroke-width="1.5" stroke-dasharray="3 5"/>
+              <g stroke="var(--red)" stroke-width="1.6"><line x1="30" y1="56" x2="30" y2="86"/><line x1="62" y1="60" x2="62" y2="90"/></g>
+              <rect x="24" y="62" width="12" height="16" fill="var(--red)"/>
+              <rect x="56" y="66" width="12" height="14" fill="var(--red)"/>
+              <g stroke="var(--green)" stroke-width="1.6"><line x1="94" y1="64" x2="94" y2="92"/></g>
+              <rect x="88" y="74" width="12" height="10" fill="var(--green)"/>
+              <g stroke="var(--red)" stroke-width="1.6"><line x1="126" y1="68" x2="126" y2="98"/><line x1="158" y1="72" x2="158" y2="100"/><line x1="190" y1="74" x2="190" y2="104"/></g>
+              <rect x="120" y="74" width="12" height="16" fill="var(--red)"/>
+              <rect x="152" y="78" width="12" height="14" fill="var(--red)"/>
+              <rect x="184" y="80" width="12" height="16" fill="var(--red)"/>
+              <g stroke="var(--green)" stroke-width="1.6"><line x1="222" y1="80" x2="222" y2="106"/></g>
+              <rect x="216" y="88" width="12" height="10" fill="var(--green)"/>
+              <g stroke="var(--red)" stroke-width="1.6"><line x1="254" y1="84" x2="254" y2="112"/><line x1="282" y1="86" x2="282" y2="116"/></g>
+              <rect x="248" y="90" width="12" height="16" fill="var(--red)"/>
+              <rect x="276" y="94" width="12" height="16" fill="var(--red)"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div class="pain-cap">Every headline's <span class="g">green</span>.<br><span class="r">The price isn't.</span> <span class="why">Why?</span></div>
+      <div class="pain-foot">Catalysts are real (Altcoin Buzz research, as of 16–17 Jun 2026). Price chart is schematic, not real data.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PROOF - real ratified XRP board + freshness stamp (now below the pain band) ══ -->
+<section class="painband">
+  <div class="wrap-n proof-head reveal">
+    <h2 class="p-title">The TNT Score shows you why.</h2>
+    <p class="p-sub">Which news actually reaches the token, and which only helps the network.</p>
+  </div>
   <div class="wrap">
     <div class="card reveal" id="scorecard">
       <div class="card-top">
@@ -563,7 +690,7 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
   <div class="wrap-n p-head reveal">
     <div class="p-eye">INSIDE THE PORTAL</div>
     <h2 class="p-title">A preview of what's coming</h2>
-    <p class="p-sub">Early access opens at launch. Here's the product you're getting in — every major coin, scored the way we score one token in a video.</p>
+    <p class="p-sub">Early access opens when the portal goes live on <b>August 30</b>. Here's the product you're getting in — every major coin, scored the way we score one token in a video.</p>
   </div>
 
   <!-- MODULE 1 · Every coin, ranked -->
@@ -634,6 +761,34 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
         <span class="legend"><span class="sw" style="background:var(--green)"></span>Bullish 5.6–10</span>
         <span class="legend"><span class="sw" style="background:var(--zero)"></span>Neutral 4.5–5.5</span>
         <span class="legend"><span class="sw" style="background:var(--red)"></span>Bearish 1.0–4.4</span>
+      </div>
+    </div>
+
+    <!-- Item 2 · "Check your coin" — waitlist capture WITH CONTEXT (NOT a score lookup).
+         Reuses the page's single .magnet/.js-signup mechanism; the coin rides along as the
+         MC_COIN_FIELD merge field. Data integrity: the success copy NEVER shows a score for an
+         un-scored coin — XRP stays the one already-live example. -->
+    <div class="magnet coincheck">
+      <form class="js-signup cc-form" data-loc="leaderboard" novalidate>
+        <div class="cc-eye">CHECK YOUR COIN</div>
+        <div class="cc-sub">Hold something that isn't XRP? Tell us which coin — we'll have its TNT Score ready at launch and email you the moment it's live.</div>
+        <div class="field cc-field">
+          <input type="text" class="cc-coin js-coin" name="COIN" inputmode="text" autocomplete="off" spellcheck="false"
+                 placeholder="Coin (e.g. SOL)" aria-label="Coin ticker" maxlength="8">
+          <span class="cc-sep" aria-hidden="true"></span>
+          <input type="email" class="cc-email js-email" name="EMAIL" inputmode="email" autocomplete="email"
+                 placeholder="you@email.com" aria-label="Email address" required>
+          <button type="submit" class="btn-gold js-submit">Check my coin →</button>
+        </div>
+        <div style="position:absolute; left:-9999px" aria-hidden="true">
+          <input type="text" class="js-honeypot" tabindex="-1" value="">
+        </div>
+        <div class="form-msg js-msg" role="status" aria-live="polite"></div>
+      </form>
+      <div class="success js-success" role="status" aria-live="polite">
+        <div class="tick"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+        <h3>You're on the list.</h3>
+        <p class="js-coin-line">We'll have your coin's TNT Score at launch — you're on the list.</p>
       </div>
     </div>
   </div>
@@ -748,7 +903,7 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
     <div class="q-eye">BUILT TO ANSWER ONE QUESTION</div>
     <div class="q-big">Is the news really going to move the token?</div>
     <div class="magnet">
-      <form class="js-signup" novalidate>
+      <form class="js-signup" data-loc="closer" novalidate>
         <div class="incentive">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.4 5 5.5.8-4 3.9.9 5.5L12 21.4 7.2 18.2l.9-5.5-4-3.9 5.5-.8z"/></svg>
           The first 500 to sign up get access to our Beta portal at launch
@@ -830,6 +985,9 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
    MOCK and do NOT capture emails. ───────────────────────── */
 const SIGNUP_ENDPOINT  = "REPLACE_WITH_MAILCHIMP_ENDPOINT";   // ← paste Mailchimp post-json URL
 const MC_HONEYPOT_NAME = "REPLACE_WITH_MAILCHIMP_HONEYPOT";   // ← paste b_XXXX_YYYY field name
+const MC_COIN_FIELD    = "COIN";   // ← Mailchimp audience MERGE TAG for the "check your coin" field.
+                                   //    Create a text field with this tag in the audience, or change
+                                   //    this to match an existing one. Sent only when a coin is entered.
 
 /* ── Build the three Fear&Greed-style gauges ────────────── */
 (function(){
@@ -873,36 +1031,64 @@ const MC_HONEYPOT_NAME = "REPLACE_WITH_MAILCHIMP_HONEYPOT";   // ← paste b_XXX
     });
   }
 
+  const cleanCoin=(c)=>(c||'').replace(/[^a-z0-9]/gi,'').toUpperCase().slice(0,8);
+
   document.querySelectorAll('.magnet').forEach(wrap=>{
     const form=wrap.querySelector('.js-signup');
     if(!form) return;
     const email=form.querySelector('.js-email');
+    const coinInput=form.querySelector('.js-coin');           // present only on the leaderboard "check your coin" form
     const btn=form.querySelector('.js-submit');
+    const btnLabel=btn.textContent;                            // remember each form's own button label
     const msg=form.querySelector('.js-msg');
     const honey=form.querySelector('.js-honeypot');
     const success=wrap.querySelector('.js-success');
-    function showSuccess(){ form.style.display='none'; success.classList.add('show'); }
+    const loc=form.dataset.loc||'page';
+
+    function fireSignup(coin){   // Item 1 — privacy-light conversion event (no PII; just where + which coin)
+      try{
+        if(typeof window.plausible==='function'){
+          const props={location:loc}; if(coin) props.coin=coin;
+          window.plausible('signup',{props:props});
+        }
+      }catch(e){}
+    }
+    function showSuccess(coin){
+      // Item 2 — contextual copy for the coin-capture variant (data-integrity: NEVER shows a score
+      // for an un-scored coin; XRP is acknowledged as the one already-live example).
+      if(coinInput){
+        const line=success.querySelector('.js-coin-line');
+        if(line){
+          if(coin==='XRP'){ line.innerHTML="XRP's TNT Score is already live — it's the scorecard above. You're on the list for every other coin at launch."; }
+          else{ line.textContent="We'll have "+(coin||'your coin')+"'s TNT Score at launch — you're on the list."; }
+        }
+      }
+      form.style.display='none'; success.classList.add('show'); fireSignup(coin);
+    }
     function showError(t){ msg.textContent=t||'Something went wrong. Please try again.'; msg.className='form-msg js-msg err';
-      btn.disabled=false; btn.textContent='Get early access'; }
+      btn.disabled=false; btn.textContent=btnLabel; }
 
     form.addEventListener('submit', async (ev)=>{
       ev.preventDefault();
       msg.textContent=''; msg.className='form-msg js-msg';
       const val=email.value.trim();
+      const coin=coinInput?cleanCoin(coinInput.value):'';
+      if(coinInput && coin.length<2){ showError('Enter a coin ticker (e.g. SOL, ADA, HBAR).'); coinInput.focus(); return; }
       if(!valid(val)){ showError('Please enter a valid email address.'); email.focus(); return; }
       btn.disabled=true; btn.textContent='Joining…';
 
       // CONFIG placeholder → success-state mock (does NOT capture). See CONFIG block.
-      if(SIGNUP_ENDPOINT==='REPLACE_WITH_MAILCHIMP_ENDPOINT'){ setTimeout(showSuccess, 450); return; }
+      if(SIGNUP_ENDPOINT==='REPLACE_WITH_MAILCHIMP_ENDPOINT'){ setTimeout(()=>showSuccess(coin), 450); return; }
 
       try{   // Live Mailchimp path
         const params={ EMAIL: val };
+        if(coin && MC_COIN_FIELD){ params[MC_COIN_FIELD]=coin; }   // Item 2 — pass coin as a merge field
         if(MC_HONEYPOT_NAME && MC_HONEYPOT_NAME!=='REPLACE_WITH_MAILCHIMP_HONEYPOT'){
           params[MC_HONEYPOT_NAME]=honey.value || '';
         }
         const res=await mcSubmit(SIGNUP_ENDPOINT, params);
-        if(res && res.result==='success'){ showSuccess(); }
-        else if(res && /already/i.test(res.msg||'')){ showSuccess(); }
+        if(res && res.result==='success'){ showSuccess(coin); }
+        else if(res && /already/i.test(res.msg||'')){ showSuccess(coin); }
         else { showError((res&&res.msg)? res.msg.replace(/<[^>]*>/g,'') : null); }
       }catch(e){ showError(); }
     });
