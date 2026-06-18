@@ -174,6 +174,36 @@ h1{font-size:clamp(34px,5vw,54px); line-height:1.03; font-weight:700; color:var(
 .success h3{font-size:19px; color:var(--ink); font-weight:700; margin-bottom:6px}
 .success p{font-size:14.5px; color:var(--mut); max-width:30em; margin:0 auto}
 
+/* ── Hero two-column: text + form (left) · OG-style XRP scorecard (right) ──
+   The hero is ALWAYS dark, so the card is styled for a dark surface in both themes. */
+.hero-card{background:var(--card); border:1px solid var(--line2); border-radius:18px;
+  box-shadow:var(--shadow-lg); padding:20px 22px; text-align:left; width:100%; max-width:400px; margin:32px auto 0}
+.hero-card .tlogo .xc{fill:#f2f4f7}   /* crisp white XRP disc on the dark card (OG look) */
+.hero-card .tlogo .xp{fill:#0d0f12}
+.hc-top{display:flex; align-items:center; justify-content:space-between; padding-bottom:14px; margin-bottom:4px; border-bottom:1px solid var(--line)}
+.hc-asset{display:flex; align-items:center; gap:9px}
+.hc-asset .tlogo svg{width:24px; height:24px; display:block}
+.hc-asset b{font-size:17px; font-weight:700; color:var(--ink)}
+.hc-asset .hc-full{font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--mut)}
+.hc-row{display:flex; align-items:flex-end; justify-content:space-between; padding:11px 0}
+.hc-pillar{font-family:'JetBrains Mono',monospace; font-size:10.5px; font-weight:600; letter-spacing:1.6px; color:var(--mut); text-transform:uppercase; margin-bottom:4px}
+.hc-num{font-family:'JetBrains Mono',monospace; font-weight:700; font-size:32px; line-height:1; font-variant-numeric:tabular-nums}
+.hc-num.bull{color:var(--green)} .hc-num.bear{color:var(--red)} .hc-num.neut{color:var(--zero)}
+.hc-word{font-family:'JetBrains Mono',monospace; font-weight:700; font-size:11.5px; letter-spacing:1.3px}
+.hc-sep{height:1px; background:var(--line); margin:5px 0}
+.hc-foot{display:flex; align-items:center; justify-content:space-between; margin-top:8px; padding-top:14px; border-top:1px solid var(--line)}
+.hc-foot-lab{font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:600; letter-spacing:1.4px; color:var(--mut)}
+.hc-foot-val{font-family:'JetBrains Mono',monospace; font-size:14px; font-weight:700; font-variant-numeric:tabular-nums}
+.hc-foot-val.neut{color:var(--zero)}
+@media(min-width:881px){
+  .hero-grid{display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr); gap:40px; align-items:center; text-align:left}
+  .hero-grid h1{font-size:clamp(32px,3.7vw,46px)}
+  .hero-grid .subhead{margin-left:0; margin-right:0; max-width:31em}
+  .hero-grid .magnet{margin-left:0; margin-right:0}
+  .hero-right{display:flex; justify-content:flex-end; align-items:center}
+  .hero-card{margin:0}
+}
+
 /* ── Proof scorecard ──────────────────────────────────── */
 .proof{padding:48px 0 56px; background:var(--bg-soft)}  /* pain-visual band — matches the INSIDE THE PORTAL bg (var(--bg-soft)) in both themes */
 .card{max-width:660px; margin:0 auto; background:var(--lift); border:1px solid var(--lift-line);
@@ -539,7 +569,8 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
 
 <!-- ══ HERO + lead magnet ══════════════════════════════ -->
 <section class="hero" id="get-access">
-  <div class="wrap">
+  <div class="wrap hero-grid">
+    <div class="hero-left">
     <div class="launch-pill"><span class="dot"></span>EARLY ACCESS · LAUNCHES AUG 30</div>
     <h1>The network's winning.<br>Is the token?</h1>
     <p class="subhead">Every top altcoin, scored 3 ways: Token, Network and Technicals (TNT), to help you see if the news is really going to impact the token, or not.</p>
@@ -574,6 +605,39 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
         <div class="tick"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
         <h3>You're on the list.</h3>
         <p>We'll email you the moment early access opens. Keep an eye on your inbox.</p>
+      </div>
+    </div>
+    </div><!-- /.hero-left -->
+
+    <!-- OG-style XRP scorecard preview beside the form. REAL ratified data + an "as of" freshness
+         stamp (NOT EXAMPLE/SAMPLE — real-but-aging values carry the stamp per DESIGN_BRIEF §6).
+         Answers the headline at a glance: Network 6.0 winning, Token 4.9 not. -->
+    <div class="hero-right">
+      <div class="hero-card" role="img" aria-label="XRP TNT Score, as of 17 June 2026 — Token 4.9 neutral, Network 6.0 bullish, Weekly technicals 4.4 bearish, composite TNT 4.7 neutral.">
+        <div class="hc-top">
+          <span class="hc-asset">
+            <span class="tlogo"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="16" cy="16" r="16" class="xc"/><path class="xp" d="M23.07 8h2.89l-6.015 5.957a5.621 5.621 0 0 1-7.89 0L6.035 8H8.93l4.57 4.523a3.556 3.556 0 0 0 4.996 0L23.07 8zM8.895 24.563H6l6.055-5.993a5.621 5.621 0 0 1 7.89 0L26 24.562h-2.895L18.5 20a3.556 3.556 0 0 0-4.996 0l-4.61 4.563z"/></svg></span>
+            <b>XRP</b><span class="hc-full">Ripple</span>
+          </span>
+          <span class="asof"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>as of 17 Jun 2026</span>
+        </div>
+        <div class="hc-row">
+          <div class="hc-rl"><div class="hc-pillar">Token</div><div class="hc-num neut">4.9</div></div>
+          <div class="hc-word word-neut">NEUTRAL</div>
+        </div>
+        <div class="hc-row">
+          <div class="hc-rl"><div class="hc-pillar">Network</div><div class="hc-num bull">6.0</div></div>
+          <div class="hc-word word-bull">BULLISH</div>
+        </div>
+        <div class="hc-sep"></div>
+        <div class="hc-row">
+          <div class="hc-rl"><div class="hc-pillar">Weekly</div><div class="hc-num bear">4.4</div></div>
+          <div class="hc-word word-bear">BEARISH</div>
+        </div>
+        <div class="hc-foot">
+          <span class="hc-foot-lab">TNT SCORE</span>
+          <span class="hc-foot-val neut">4.7 · NEUTRAL</span>
+        </div>
       </div>
     </div>
   </div>
