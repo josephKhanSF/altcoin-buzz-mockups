@@ -19,7 +19,11 @@
   Scoring authority: SCORING_SYSTEM_V2_DECISION.md §1 (bands: Bearish 1.0–4.4 / Neutral 4.5–5.5 / Bullish 5.6–10.0).
     Band/colour are DERIVED in this file from net/tok — a stored band can never contradict the score.
   RULES: one catalyst per card (never the 14-row board); two scores only (Network · Token order — the locked
-    per-catalyst exception); no TNT/Composite/averages; gold never colours a score; real logo only; true-minus.
+    per-catalyst exception); no TNT/Composite/averages; gold never colours a SCORE; real logo only; true-minus.
+  CATALYST PILL (2026-06-18, video-team request): top-right, level with the brand — {TICKER} CATALYST #{n}
+    (e.g. "XRP CATALYST #1"), Altcoin Buzz gold, near-black non-bold text. The # is cat_no = the RESEARCH board row, identical to the script and
+    SCOREBOARD_BOARD_16x9.html numbering, so a short, its board row, and its card all agree. The pill number is
+    an IDENTIFIER, not a score, so the gold fill does not breach the "gold never colours a score" rule.
   Two aspects, same look: 9:16 (1080×1920, YouTube Shorts) and 1:1 (1080×1080, X).
   NOTE for QB: neutral band is rendered with --zero (the locked VF/scoreboard primitive) so the card matches
     SCOREBOARD_BOARD_16x9.html exactly. The brief calls this the "yellow / neutral" zone; --zero IS that
@@ -56,6 +60,9 @@
   body.r916 #card{width:1080px;height:1920px;padding:120px 96px 104px}
   body.r11  #card{width:1080px;height:1080px;padding:74px 92px 64px}
 
+  /* ===== Top bar — brand on the left, catalyst pill on the right (same level) ===== */
+  .topbar{flex:none;display:flex;align-items:center;justify-content:space-between;gap:24px}
+
   /* ===== Brand mark (top) ===== */
   .brand{display:flex;align-items:center;gap:22px;flex:none}
   body.r11 .brand{gap:18px}
@@ -68,6 +75,18 @@
   .brand .wm .n2 .tnt{color:var(--goldtx)}
   body.r916 .brand .wm .n1{font-size:34px} body.r916 .brand .wm .n2{font-size:23px}
   body.r11  .brand .wm .n1{font-size:27px} body.r11  .brand .wm .n2{font-size:18px}
+
+  /* ===== Catalyst pill — [token icon] CATALYST # — Altcoin Buzz gold, near-black text. =====
+     The # is the RESEARCH board row number (maps to the script + SCOREBOARD_BOARD_16x9.html).
+     NOTE: gold here carries an IDENTIFIER (the catalyst index), never a score — the
+     "gold never colours a score" rule is about the Network/Token 1–10 values, which stay
+     green/red/neutral. Solid-gold + near-black text is the brand's high-contrast pop
+     (same treatment as the Subscribe button in DESIGN_BRIEF §1). */
+  .catpill{flex:none;display:inline-flex;align-items:center;background:var(--gold);color:#0b0b0d;
+    font-weight:500;text-transform:uppercase;letter-spacing:.6px;border-radius:var(--r-chip);
+    box-shadow:var(--shadow);white-space:nowrap;line-height:1}
+  body.r916 .catpill{font-size:38px;padding:16px 32px}
+  body.r11  .catpill{font-size:28px;padding:11px 22px}
 
   /* ===== Catalyst headline ===== */
   .headline{flex:none;color:var(--ink);font-weight:700;letter-spacing:-.8px;line-height:1.08}
@@ -132,6 +151,7 @@
 
 <div id="wrap"><div id="card">
 
+  <div class="topbar">
   <div class="brand">
     <!-- Real logo: gold AB on black circle (the scoreboard's light-theme mark) — brand-consistent on a light card. -->
     <svg class="logo" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Altcoin Buzz">
@@ -160,6 +180,10 @@
     </div>
   </div>
 
+    <!-- Catalyst pill — {TICKER} CATALYST #{n} — populated by render() from token + cat_no. -->
+    <div class="catpill" id="catpill"></div>
+  </div>
+
   <h1 class="headline" id="headline"></h1>
 
   <div class="gauges">
@@ -182,7 +206,7 @@
 <div id="unhide" onclick="document.body.classList.remove('clean')" title="Show controls">&#9881; controls</div>
 <div id="panel">
   <h3>Shorts card control</h3>
-  <div class="lab">Catalyst — grouped by source video</div>
+  <div class="lab">Catalyst # (RESEARCH board row) — grouped by source video</div>
   <div id="catgroups"></div>
   <div class="lab">Aspect</div>
   <div class="btnrow">
@@ -192,7 +216,7 @@
   <div class="btnrow">
     <button onclick="document.body.classList.toggle('clean')">Hide panel (H)</button>
   </div>
-  <div class="hint">← / → step catalyst · 1–N jump · A toggle aspect · H hide panel for capture. Capture #card at 1:1 pixels (1080×1920 or 1080×1080).</div>
+  <div class="hint">Buttons show the catalyst # (RESEARCH board row). ← / → step through all · press a catalyst's number (1–9) to jump · A toggle aspect · H hide panel for capture. Capture #card at 1:1 pixels (1080×1920 or 1080×1080).</div>
 </div>
 
 <script>
@@ -204,19 +228,19 @@
    ===================================================================================== */
   /* ===GENERATED:BEGIN=== */
 const CATALYSTS = [
-  { headline:"Goldman dumps its entire $153.8M XRP stake", net:5.0, tok:2.0, takeaway:"Wall Street's biggest XRP buyer is gone — a verdict on the coin, not the tech.",
+  { cat_no:1, headline:"Goldman dumps its entire $153.8M XRP stake", net:5.0, tok:2.0, takeaway:"Wall Street's biggest XRP buyer is gone — a verdict on the coin, not the tech.",
     source:"Video 1 (public deep-dive)", video_num:1, lead_id:"20260610-xrp_ledger-e91604c8", token:"XRP" },
-  { headline:"May 6 JPMorgan / Mastercard / Ondo pilot on XRPL", net:8.0, tok:5.0, takeaway:"Banks used the ledger. The coin earned a fraction of a cent.",
+  { cat_no:3, headline:"May 6 JPMorgan / Mastercard / Ondo pilot on XRPL", net:8.0, tok:5.0, takeaway:"Banks used the ledger. The coin earned a fraction of a cent.",
     source:"Video 1 (public deep-dive)", video_num:1, lead_id:"20260610-xrp_ledger-e91604c8", token:"XRP" },
-  { headline:"RLUSD growth (~$1.67B · now ~1.8× the XRP ETF market)", net:7.0, tok:3.0, takeaway:"The decoupling made visible — the substitute outgrew the coin's own demand sink.",
+  { cat_no:6, headline:"RLUSD growth (~$1.67B · now ~1.8× the XRP ETF market)", net:7.0, tok:3.0, takeaway:"The decoupling made visible — the substitute outgrew the coin's own demand sink.",
     source:"Video 1 (public deep-dive)", video_num:1, lead_id:"20260610-xrp_ledger-e91604c8", token:"XRP" },
-  { headline:"Ripple escrow net leak (~300M XRP/mo)", net:5.0, tok:3.5, takeaway:"More supply arriving than buyers absorb — a slow, telegraphed drag.",
+  { cat_no:8, headline:"Ripple escrow net leak (~300M XRP/mo)", net:5.0, tok:3.5, takeaway:"More supply arriving than buyers absorb — a slow, telegraphed drag.",
     source:"Video 1 (public deep-dive)", video_num:1, lead_id:"20260610-xrp_ledger-e91604c8", token:"XRP" },
-  { headline:"XRPL crosses $3B+ tokenized RWA (+124% Q1)", net:7.0, tok:5.0, takeaway:"The biggest number on the board. Almost none of it reaches the coin.",
+  { cat_no:4, headline:"XRPL crosses $3B+ tokenized RWA (+124% Q1)", net:7.0, tok:5.0, takeaway:"The biggest number on the board. Almost none of it reaches the coin.",
     source:"Video 2 (public follow-up)", video_num:2, lead_id:"20260610-xrp_ledger-e91604c8", token:"XRP" },
-  { headline:"XRPL institutional DeFi stack (XLS-81/65/66 · EVM sidechain)", net:7.0, tok:5.8, takeaway:"The one mechanism that could re-couple the coin — built, live, and empty. A bull on option value.",
+  { cat_no:7, headline:"XRPL institutional DeFi stack (XLS-81/65/66 · EVM sidechain)", net:7.0, tok:5.8, takeaway:"The one mechanism that could re-couple the coin — built, live, and empty. A bull on option value.",
     source:"Video 2 (public follow-up)", video_num:2, lead_id:"20260610-xrp_ledger-e91604c8", token:"XRP" },
-  { headline:"Evernorth XRPN treasury (~473M held · $233.7M impairment)", net:5.0, tok:5.6, takeaway:"473M locked looks huge — but it scores only a weak bull. Lockup is not buy pressure.",
+  { cat_no:10, headline:"Evernorth XRPN treasury (~473M held · $233.7M impairment)", net:5.0, tok:5.6, takeaway:"473M locked looks huge — but it scores only a weak bull. Lockup is not buy pressure.",
     source:"Video 2 (public follow-up)", video_num:2, lead_id:"20260610-xrp_ledger-e91604c8", token:"XRP" },
 ];
   /* ===GENERATED:END=== */
@@ -258,6 +282,9 @@ function gaugeGeom(){ return ratio==='916' ? {r:188,th:30,num:122} : {r:132,th:2
 
 function render(){
   const c=CATALYSTS[idx], g=gaugeGeom();
+  /* Catalyst pill: {TICKER} CATALYST #{board row}. The number is c.cat_no — the RESEARCH
+     board row, identical to the script and SCOREBOARD_BOARD_16x9.html numbering. */
+  document.getElementById("catpill").textContent = c.token + " CATALYST #" + c.cat_no;
   document.getElementById("headline").textContent = c.headline;
   /* takeaway lifted verbatim from the END-REVEAL line — rendered as plain text (no injected markup) */
   document.getElementById("takeaway").textContent = c.takeaway;
@@ -301,7 +328,10 @@ function buildPicker(){
     lab.innerHTML=(multiToken?`<span class="gtok">${g.token}</span> · `:"")+g.source;
     wrap.appendChild(lab);
     const row=document.createElement("div"); row.className="gbtns";
-    g.items.forEach(i=>{ const b=document.createElement("button"); b.textContent=i+1; b.dataset.i=i;
+    /* Button label = the catalyst's RESEARCH board row # (cat_no) so it maps 1:1 to the
+       shorts docs / script / scoreboard. dataset.i stays the internal global index. */
+    g.items.forEach(i=>{ const b=document.createElement("button"); b.textContent=CATALYSTS[i].cat_no; b.dataset.i=i;
+      b.title="Catalyst "+CATALYSTS[i].cat_no+" — "+CATALYSTS[i].source;
       b.onclick=()=>setCatalyst(i); row.appendChild(b); });
     wrap.appendChild(row); host.appendChild(wrap);
   });
@@ -310,7 +340,9 @@ function buildPicker(){
 document.addEventListener("keydown",e=>{
   if(e.key==="ArrowRight"){e.preventDefault();setCatalyst(idx+1);}
   if(e.key==="ArrowLeft"){e.preventDefault();setCatalyst(idx-1);}
-  if(e.key>="1"&&e.key<="9"){ const n=+e.key-1; if(n<CATALYSTS.length) setCatalyst(n); }
+  /* Digit key jumps to the catalyst whose RESEARCH board # equals that digit (1–9).
+     Catalysts numbered 10+ are reached with the arrow keys. */
+  if(e.key>="1"&&e.key<="9"){ const j=CATALYSTS.findIndex(c=>c.cat_no===+e.key); if(j>=0) setCatalyst(j); }
   if(e.key==="a"||e.key==="A")setRatio(ratio==='916'?'11':'916');
   if(e.key==="h"||e.key==="H")document.body.classList.toggle("clean");
 });
