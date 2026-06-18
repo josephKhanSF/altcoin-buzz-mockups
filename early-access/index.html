@@ -1,10 +1,25 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Altcoin Buzz TNT Score · Early Access</title>
 <meta name="description" content="Altcoin Buzz TNT Score. Every top altcoin scored three ways: Network, Token, and Technicals. See if the news is really going to impact the token. Get early access.">
+<meta name="theme-color" content="#ffffff">
+
+<!-- ── Social / link-preview meta (this page is linked from YouTube + shared on X) ──
+     ⚠ TODO: drop a 1200×630 share image at early-access/og-image.png (or update the path). -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Altcoin Buzz">
+<meta property="og:title" content="The network's winning. Is the token? — Altcoin Buzz TNT Score">
+<meta property="og:description" content="Every top altcoin scored three ways: Token, Network and Technicals. See whether the news actually reaches the token — or just the network. Get free early access.">
+<meta property="og:url" content="https://altcoinbuzz.com/early-access">
+<meta property="og:image" content="https://altcoinbuzz.com/early-access/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The network's winning. Is the token? — Altcoin Buzz TNT Score">
+<meta name="twitter:description" content="Every top altcoin scored three ways. See whether the news actually moves the token, or just the network. Free early access.">
+<meta name="twitter:image" content="https://altcoinbuzz.com/early-access/og-image.png">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
@@ -26,6 +41,10 @@
   --ic-bg:#f8edd4; --no-col:#dcc488;
   --logo-wm:#333333; --logo-gold:#c08329; --disc-fill:#333333;
   --header-bg:rgba(255,255,255,.85);
+  --green-soft:rgba(21,130,74,.10); --red-soft:rgba(191,61,61,.10); --zero-soft:rgba(112,116,123,.10);
+  --gold-soft:rgba(224,169,60,.10); --gold-line:rgba(224,169,60,.30);
+  --lift:#ffffff; --lift-2:#f4f6fa; --lift-line:#d8dee7; --lift-div:rgba(0,0,0,.06);
+  --xrp-disc:#13161b; --xrp-mark:#ffffff;
   --radius:18px; --radius-s:12px;
   --shadow:0 1px 2px rgba(20,30,55,.05), 0 8px 24px rgba(20,30,55,.06);
   --shadow-lg:0 2px 6px rgba(20,30,55,.06), 0 18px 50px rgba(20,30,55,.10);
@@ -41,6 +60,10 @@
   --ic-bg:#2a2412; --no-col:#b89a4e;
   --logo-wm:#f2f4f7; --logo-gold:#e8b54a; --disc-fill:transparent;
   --header-bg:rgba(13,15,18,.85);
+  --green-soft:rgba(63,191,134,.13); --red-soft:rgba(224,106,106,.12); --zero-soft:rgba(138,144,155,.12);
+  --gold-soft:rgba(232,181,74,.12); --gold-line:rgba(232,181,74,.34);
+  --lift:#222b37; --lift-2:#2b3441; --lift-line:#3b4655; --lift-div:rgba(255,255,255,.08);
+  --xrp-disc:#0e1014; --xrp-mark:#f2f4f7;
   --shadow:0 1px 2px rgba(0,0,0,.4);
   --shadow-lg:0 2px 6px rgba(0,0,0,.4), 0 18px 50px rgba(0,0,0,.5);
 }
@@ -53,7 +76,9 @@ body{font-family:'Archivo',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-seri
 .logo path[fill="#333333"]{fill:var(--logo-wm)}
 .logo path[fill="#C08329"]{fill:var(--logo-gold)}
 .wrap{max-width:1080px; margin:0 auto; padding:0 28px}
+.wrap-n{max-width:760px; margin:0 auto; padding:0 28px}
 :focus-visible{outline:2px solid var(--gold); outline-offset:2px}
+.bull{color:var(--green)} .bear{color:var(--red)} .neut{color:var(--zero)}
 
 /* ── Header ───────────────────────────────────────────── */
 header{position:sticky; top:0; z-index:50; background:var(--header-bg);
@@ -64,6 +89,12 @@ header{position:sticky; top:0; z-index:50; background:var(--header-bg);
 .brand .vr{width:1px; height:22px; background:var(--line2)}
 .brand .desc{font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:600;
   letter-spacing:2.4px; color:var(--goldtx)}
+.nav-right{display:flex; align-items:center; gap:12px}
+.nav-cta{display:none; border:0; cursor:pointer; text-decoration:none;
+  background:linear-gradient(180deg,#eaba50,#e0a93c); color:var(--goldink);
+  font-family:inherit; font-weight:700; font-size:13.5px; padding:9px 16px; border-radius:9px;
+  transition:filter .15s, transform .15s}
+.nav-cta:hover{filter:brightness(1.05)} .nav-cta:active{transform:translateY(1px)}
 .theme-btn{display:inline-flex; align-items:center; justify-content:center; width:38px; height:38px;
   border-radius:10px; border:1px solid var(--line2); background:var(--card); color:var(--mut);
   cursor:pointer; transition:background .15s, color .15s, border-color .15s}
@@ -74,23 +105,31 @@ header{position:sticky; top:0; z-index:50; background:var(--header-bg);
 [data-theme="dark"] .theme-btn .ic-sun{display:inline}
 
 /* ── Hero ─────────────────────────────────────────────── */
-.hero{padding:56px 0 50px; text-align:center}
-.eyebrow{font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:600;
-  letter-spacing:2.2px; color:var(--goldtx); margin-bottom:16px}
-h1{font-size:clamp(34px,5vw,52px); line-height:1.04; font-weight:700; color:var(--ink);
-  letter-spacing:-.02em; margin-bottom:16px}
-.subhead{font-size:17px; color:var(--mut); max-width:34em; margin:0 auto 28px}
+.hero{padding:54px 0 50px; text-align:center; background:var(--bg)}
+.launch-pill{display:inline-flex; align-items:center; gap:7px; font-family:'JetBrains Mono',monospace;
+  font-size:10.5px; font-weight:600; letter-spacing:1.6px; color:var(--goldtx);
+  background:var(--gold-soft); border:1px solid var(--gold-line); border-radius:30px; padding:6px 14px; margin-bottom:20px}
+.launch-pill .dot{width:6px; height:6px; border-radius:50%; background:var(--gold); box-shadow:0 0 0 4px var(--gold-soft)}
+h1{font-size:clamp(34px,5vw,54px); line-height:1.03; font-weight:700; color:var(--ink);
+  letter-spacing:-.022em; margin-bottom:16px}
+.subhead{font-size:17.5px; color:var(--mut); max-width:35em; margin:0 auto 22px}
+.trust{display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:8px 18px;
+  font-size:12.5px; color:var(--faint); margin:0 auto 28px; max-width:40em}
+.trust span{display:inline-flex; align-items:center; gap:7px}
+.trust b{color:var(--txt); font-weight:600}
+.trust svg{width:14px; height:14px; fill:none; stroke:var(--goldtx); stroke-width:2; stroke-linecap:round; stroke-linejoin:round}
+.trust .tdot{width:3px; height:3px; border-radius:50%; background:var(--line2)}
 
 /* Lead magnet - no bounding box; the form sits clean on the page */
 .magnet{width:100%; max-width:540px; margin:0 auto}
 .incentive{display:inline-flex; align-items:center; gap:8px; font-size:13.5px; font-weight:600;
   color:var(--goldtx); margin-bottom:16px; line-height:1.35}
 .incentive svg{width:16px; height:16px; flex:0 0 auto; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round}
-.field{display:flex; gap:10px; background:var(--card); border:1px solid var(--line2);
-  border-radius:13px; padding:7px; box-shadow:var(--shadow)}
+.field{display:flex; gap:10px; background:#ffffff; border:1px solid #c9d2de;
+  border-radius:13px; padding:7px; box-shadow:0 2px 12px rgba(0,0,0,.22)}
 .field input{flex:1; min-width:0; border:0; outline:0; background:transparent; font-family:inherit;
-  font-size:16px; color:var(--ink); padding:13px 14px}
-.field input::placeholder{color:var(--faint)}
+  font-size:16px; color:#14171c; padding:13px 14px}
+.field input::placeholder{color:#98a1b2}
 .btn-gold{border:0; cursor:pointer; white-space:nowrap;
   background:linear-gradient(180deg,#eaba50,#e0a93c); color:var(--goldink);
   font-family:inherit; font-weight:700; font-size:16px; padding:14px 26px; border-radius:10px;
@@ -114,11 +153,12 @@ h1{font-size:clamp(34px,5vw,52px); line-height:1.04; font-weight:700; color:var(
 .success p{font-size:14.5px; color:var(--mut); max-width:30em; margin:0 auto}
 
 /* ── Proof scorecard ──────────────────────────────────── */
-.proof{padding:8px 0 52px}
-.card{max-width:660px; margin:0 auto; background:var(--card); border:1px solid var(--line);
+.proof{padding:48px 0 56px}
+.card{max-width:660px; margin:0 auto; background:var(--lift); border:1px solid var(--lift-line);
   border-radius:var(--radius); box-shadow:var(--shadow-lg); padding:24px 24px 22px}
 .card-top{display:flex; align-items:center; justify-content:space-between; margin-bottom:8px}
-.card-asset{display:flex; align-items:baseline; gap:8px}
+.card-asset{display:flex; align-items:center; gap:10px}
+.card-asset .tlogo svg{width:26px; height:26px; display:block}
 .card-asset b{font-size:18px; font-weight:700; color:var(--ink)}
 .card-asset span{font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--mut)}
 .asof{display:inline-flex; align-items:center; gap:5px; font-family:'JetBrains Mono',monospace;
@@ -139,14 +179,139 @@ h1{font-size:clamp(34px,5vw,52px); line-height:1.04; font-weight:700; color:var(
 .gauge .read{font-size:11.5px; color:var(--mut); margin-top:7px; line-height:1.35; min-height:2.4em}
 .word-bull{color:var(--green)} .word-bear{color:var(--red)} .word-neut{color:var(--zero)}
 .gauge .num.num-bull{color:var(--green)} .gauge .num.num-bear{color:var(--red)} .gauge .num.num-neut{color:var(--zero)}
-.callout{margin-top:16px; background:var(--bg-soft); border-radius:14px; padding:16px 18px; text-align:center}
+.callout{margin-top:16px; background:var(--lift-2); border-radius:14px; padding:16px 18px; text-align:center}
 .callout h4{font-size:14.5px; font-weight:700; color:var(--ink); margin-bottom:5px}
 .callout p{font-size:12.5px; color:var(--mut); max-width:46em; margin:0 auto}
 
+/* ── INSIDE THE PORTAL (product preview) ──────────────── */
+.portal{padding:14px 0 8px; border-top:1px solid var(--line); background:var(--bg-soft)}
+.p-head{text-align:center; padding:48px 0 6px}
+.p-eye{font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:600; letter-spacing:2.4px; color:var(--goldtx); margin-bottom:14px}
+.p-title{font-size:clamp(26px,3.6vw,38px); font-weight:700; color:var(--ink); letter-spacing:-.02em; line-height:1.08}
+.p-sub{font-size:16px; color:var(--mut); max-width:38em; margin:14px auto 0}
+.pmod{padding:34px 0}
+.pmod + .pmod{border-top:1px solid var(--line)}
+.pm-eye{display:inline-flex; align-items:center; gap:9px; font-family:'JetBrains Mono',monospace;
+  font-size:10px; font-weight:600; letter-spacing:1.8px; color:var(--goldtx); margin-bottom:12px}
+.pm-eye .n{display:inline-flex; align-items:center; justify-content:center; width:20px; height:20px; border-radius:6px;
+  background:var(--ic-bg); color:var(--goldtx); font-size:10px}
+.pm-title{font-size:20px; font-weight:700; color:var(--ink); letter-spacing:-.01em; margin-bottom:6px; line-height:1.25}
+.pm-desc{font-size:14.5px; color:var(--mut); max-width:46em; margin-bottom:20px}
+
+/* token logos (carried from version-b MVP, theme-aware XRP) */
+.tlogo{display:inline-flex; flex:0 0 auto}
+.tlogo svg{width:22px; height:22px; display:block}
+.tlogo .xc{fill:var(--xrp-disc)} .tlogo .xp{fill:var(--xrp-mark)}
+
+.smp{display:inline-block; font-family:'JetBrains Mono',monospace; font-size:8.5px; font-weight:700; letter-spacing:1px;
+  color:var(--goldtx); background:var(--gold-soft); border:1px solid var(--gold-line); border-radius:4px; padding:1px 5px; vertical-align:middle}
+
+/* leaderboard */
+.board{background:var(--lift); border:1px solid var(--lift-line); border-radius:var(--radius); box-shadow:var(--shadow-lg); overflow:hidden}
+.board table{width:100%; border-collapse:collapse; table-layout:fixed}
+.board col.c-rk{width:5%} .board col.c-as{width:30%} .board col.c-pr{width:13%}
+.board col.c-tnt{width:13%} .board col.c-sc{width:13%}
+.board thead th{font-family:'JetBrains Mono',monospace; font-size:10.5px; font-weight:600; letter-spacing:.6px;
+  color:var(--mut); text-transform:uppercase; text-align:center; padding:14px 8px 11px; border-bottom:1px solid var(--lift-line)}
+.board thead tr:first-child th{padding-top:20px}
+.board thead th.lft{text-align:left}
+.board thead .grp{color:var(--goldtx); letter-spacing:1.2px; font-weight:700}
+.board thead .grp.fund{border-bottom:1px solid var(--lift-div)}
+.board tbody td{padding:15px 8px; border-bottom:1px solid var(--lift-div); font-size:14px; text-align:center; vertical-align:middle}
+.board tbody tr:last-child td{border-bottom:0}
+.board tbody tr{transition:background .15s}
+.board tbody tr:hover{background:var(--lift-2)}
+.board .rk{color:var(--faint); font-family:'JetBrains Mono',monospace; font-size:12px; text-align:left; padding-left:18px}
+.board .asset{text-align:left}
+.board .asset .ac{display:flex; align-items:center; gap:10px}
+.board .asset b{color:var(--ink); font-size:14.5px; font-weight:700}
+.board .asset .full{font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--mut); font-weight:500; margin-top:1px}
+.board .price{font-family:'JetBrains Mono',monospace; color:var(--txt); font-size:13px}
+.tnt-pill{display:inline-flex; align-items:center; justify-content:center; min-width:46px; font-family:'JetBrains Mono',monospace;
+  font-weight:700; font-size:14px; padding:4px 10px; border-radius:8px; font-variant-numeric:tabular-nums}
+.tnt-pill.bull{background:var(--green-soft); color:var(--green); border:1px solid color-mix(in srgb,var(--green) 30%,transparent)}
+.tnt-pill.bear{background:var(--red-soft); color:var(--red); border:1px solid color-mix(in srgb,var(--red) 30%,transparent)}
+.tnt-pill.neut{background:var(--zero-soft); color:var(--zero); border:1px solid color-mix(in srgb,var(--zero) 30%,transparent)}
+.board .sc{font-family:'JetBrains Mono',monospace; font-weight:700; font-size:15.5px; font-variant-numeric:tabular-nums}
+.board .real-row td{background:var(--gold-soft)}
+.board .real-row:hover td{background:var(--gold-soft)}
+.board-note{font-size:11.5px; color:var(--faint); padding:13px 16px; background:var(--lift-2); border-top:1px solid var(--lift-line); line-height:1.5}
+.legend{display:inline-flex; align-items:center; gap:5px; margin-right:14px; white-space:nowrap}
+.legend .sw{width:9px; height:9px; border-radius:3px; display:inline-block}
+
+/* catalyst breakdown */
+.cat{background:var(--lift); border:1px solid var(--lift-line); border-radius:var(--radius); box-shadow:var(--shadow-lg); overflow:hidden; max-width:100%}
+.cat-h{display:flex; align-items:center; justify-content:space-between; padding:14px 18px; border-bottom:1px solid var(--lift-line)}
+.cat-h .ttl{display:flex; align-items:center; gap:8px; font-size:11.5px; font-family:'JetBrains Mono',monospace; letter-spacing:1.3px; color:var(--goldtx); font-weight:600}
+.cat-h .ttl .tlogo svg{width:18px; height:18px}
+.cat-row{padding:18px 20px}
+.cat-top{display:flex; align-items:flex-start; gap:12px; justify-content:space-between; cursor:pointer}
+.cat-head{flex:1; min-width:0}
+.scope{display:inline-block; font-family:'JetBrains Mono',monospace; font-size:9px; font-weight:700; letter-spacing:1px;
+  color:var(--goldtx); background:var(--gold-soft); border:1px solid var(--gold-line); border-radius:4px; padding:2px 7px; margin-bottom:9px}
+.cat-head h4{font-size:16px; font-weight:700; color:var(--ink); line-height:1.32}
+.chev{flex:0 0 auto; color:var(--faint); transition:transform .2s}
+.chev svg{width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:2}
+.cat-detail{margin-top:18px; border-top:1px solid var(--lift-div); padding-top:18px}
+.sub-pair{display:flex; gap:14px; margin-bottom:14px; flex-wrap:wrap}
+.sub{flex:1; min-width:150px; background:var(--lift-2); border:1px solid var(--lift-line); border-radius:12px; padding:13px 15px}
+.sub .lab{font-family:'JetBrains Mono',monospace; font-size:11.5px; font-weight:700; letter-spacing:.8px; color:var(--ink); text-transform:uppercase}
+.sub .val{display:flex; align-items:baseline; gap:8px; margin-top:5px}
+.sub .val .n{font-family:'JetBrains Mono',monospace; font-weight:700; font-size:26px; line-height:1; font-variant-numeric:tabular-nums}
+.sub .val .w{font-family:'JetBrains Mono',monospace; font-size:9.5px; font-weight:700; letter-spacing:1.2px}
+.sub .why{font-size:12px; color:var(--mut); margin-top:7px; line-height:1.4}
+.takeaway{background:var(--gold-soft); border:1px solid var(--gold-line); border-radius:12px; padding:12px 15px; font-size:13.5px; color:var(--txt); line-height:1.5}
+.takeaway b{color:var(--ink)}
+.srcs{margin-top:12px; font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--goldtx); display:inline-flex; align-items:center; gap:6px}
+.srcs svg{width:13px; height:13px; fill:none; stroke:currentColor; stroke-width:2}
+
+/* decoupling story card */
+.story{background:var(--lift); border:1px solid var(--lift-line); border-radius:var(--radius); box-shadow:var(--shadow-lg); padding:22px 24px; max-width:100%}
+.story .flag{display:inline-flex; align-items:center; gap:7px; font-family:'JetBrains Mono',monospace; font-size:9.5px; font-weight:600; letter-spacing:1.4px; color:var(--goldtx); margin-bottom:12px}
+.story .flag svg{width:13px; height:13px; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round}
+.story .one{display:flex; align-items:center; gap:10px; font-size:18px; font-weight:700; color:var(--ink); letter-spacing:-.01em; margin-bottom:4px}
+.story .one .tlogo svg{width:22px; height:22px}
+.story .sline{font-size:13.5px; color:var(--mut); margin-bottom:20px}
+.peers{display:flex; gap:18px; flex-wrap:wrap}
+.peerblk{flex:1; min-width:200px}
+.peerblk .blk-h{font-family:'JetBrains Mono',monospace; font-size:9.5px; font-weight:600; letter-spacing:1.6px; color:var(--goldtx); margin-bottom:10px}
+.peerblk .rowscores{display:flex; gap:46px}
+.score-cell .lab{font-family:'JetBrains Mono',monospace; font-size:9.5px; font-weight:600; letter-spacing:1.2px; color:var(--mut); text-transform:uppercase}
+.score-cell .n{font-family:'JetBrains Mono',monospace; font-weight:700; font-size:30px; line-height:1.05; font-variant-numeric:tabular-nums}
+.score-cell .w{font-family:'JetBrains Mono',monospace; font-size:9px; font-weight:700; letter-spacing:1.2px}
+.vrule{width:1px; background:var(--line2); align-self:stretch; margin:2px 2px}
+
+/* Ask Buzz */
+.buzz{background:var(--lift); border:1px solid var(--lift-line); border-radius:var(--radius); box-shadow:var(--shadow-lg); overflow:hidden; max-width:100%}
+.buzz-h{display:flex; align-items:center; gap:11px; padding:14px 18px; border-bottom:1px solid var(--lift-line)}
+.buzz-dot{width:34px; height:34px; flex:0 0 auto; border-radius:10px; background:var(--ic-bg); display:flex; align-items:center; justify-content:center}
+.buzz-dot svg{width:20px; height:20px; fill:var(--goldtx)}
+.buzz-h .nm{font-size:14.5px; font-weight:700; color:var(--ink)}
+.buzz-h .st{font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:1px; color:var(--faint)}
+.buzz-body{padding:16px 18px}
+.msg{margin-bottom:14px}
+.msg.you{text-align:right}
+.who{display:block; font-family:'JetBrains Mono',monospace; font-size:8.5px; font-weight:700; letter-spacing:1.4px; color:var(--faint); margin-bottom:5px}
+.bubble{display:inline-block; text-align:left; max-width:86%; padding:11px 14px; border-radius:13px; font-size:13.5px; line-height:1.5}
+.bubble.user{background:var(--gold-soft); color:var(--ink); border:1px solid var(--gold-line); border-bottom-right-radius:5px; font-weight:500}
+.bubble.ai{background:var(--lift-2); border:1px solid var(--lift-line); color:var(--txt); border-bottom-left-radius:5px}
+.bubble.ai .cite{font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--goldtx); display:inline-flex; gap:5px; align-items:center; margin-top:8px}
+.bubble.ai .cite svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:2}
+.disc{font-size:11px; color:var(--faint); font-style:italic; margin:2px 0 16px}
+.chips-label{font-family:'JetBrains Mono',monospace; font-size:8.5px; font-weight:700; letter-spacing:1.4px; color:var(--goldtx); margin-bottom:9px}
+.chips{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px}
+.chip{font-size:12px; color:var(--ink); background:var(--lift-2); border:1px solid var(--gold-line); border-radius:20px; padding:8px 14px; cursor:pointer; transition:background .15s}
+.chip:hover{background:var(--gold-soft)}
+.askbar{display:flex; align-items:center; gap:8px; border:1px solid var(--lift-line); border-radius:11px; padding:9px 9px 9px 14px; background:var(--lift-2)}
+.askbar .ph{flex:1; font-size:13px; color:var(--faint)}
+.askbar .send{width:32px; height:32px; flex:0 0 auto; border-radius:8px; background:linear-gradient(180deg,#eaba50,#e0a93c);
+  display:flex; align-items:center; justify-content:center}
+.askbar .send svg{width:15px; height:15px; fill:none; stroke:var(--goldink); stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round}
+
 /* ── Founder's note ───────────────────────────────────── */
-.founder{padding:8px 0 52px}
-.founder-card{max-width:660px; margin:0 auto; background:var(--card-soft); border:1px solid var(--line);
-  border-radius:var(--radius); padding:32px 34px; text-align:center}
+.founder{padding:88px 0 84px}
+.founder-card{max-width:100%; margin:0 auto; background:var(--lift); border:1px solid var(--lift-line);
+  border-radius:var(--radius); box-shadow:var(--shadow-lg); padding:32px 34px; text-align:center}
 .founder .f-eye{font-family:'JetBrains Mono',monospace; font-size:10.5px; font-weight:600; letter-spacing:2.4px;
   color:var(--goldtx); margin-bottom:16px}
 .founder .f-body{font-size:16.5px; line-height:1.6; color:var(--txt); max-width:42em; margin:0 auto}
@@ -156,7 +321,7 @@ h1{font-size:clamp(34px,5vw,52px); line-height:1.04; font-weight:700; color:var(
   color:var(--mut); margin-top:3px; letter-spacing:.3px}
 
 /* ── User quote (dark band) ───────────────────────────── */
-.quote{background:var(--quote-bg); padding:54px 0; text-align:center; border-top:1px solid var(--line); border-bottom:1px solid var(--line)}
+.quote{background:var(--quote-bg); padding:86px 0; text-align:center; border-top:1px solid var(--line); border-bottom:1px solid var(--line)}
 .quote .eye{font-family:'JetBrains Mono',monospace; font-size:10.5px; font-weight:600; letter-spacing:2.4px;
   color:var(--gold); margin-bottom:22px}
 .quote .mark{font-size:46px; line-height:.4; color:var(--gold); font-weight:700; height:24px; margin-bottom:6px}
@@ -167,48 +332,98 @@ h1{font-size:clamp(34px,5vw,52px); line-height:1.04; font-weight:700; color:var(
 .attrib b{display:block; font-size:15px; font-weight:700; color:var(--quote-text)}
 .attrib span{font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--quote-sub); margin-top:3px; display:block}
 
-/* ── "What you get" cards ─────────────────────────────── */
-.strip{background:var(--bg); border-top:1px solid var(--line); padding:52px 0 56px}
-.strip .wyg-eye{text-align:center; font-family:'JetBrains Mono',monospace; font-size:12px; font-weight:600;
-  letter-spacing:2px; color:var(--faint); margin-bottom:26px}
-.cards3{display:grid; grid-template-columns:repeat(3,1fr); gap:18px}
-.vcard{background:var(--card); border:1px solid var(--line); border-radius:16px; padding:24px 22px; box-shadow:var(--shadow)}
-.vcard .vtop{display:flex; align-items:center; justify-content:space-between; margin-bottom:14px}
-.vcard .ic{width:42px; height:42px; border-radius:11px; background:var(--ic-bg);
-  display:flex; align-items:center; justify-content:center}
-.vcard .ic svg{width:21px; height:21px; stroke:var(--goldtx); fill:none; stroke-width:1.8}
-.vcard .no{font-family:'JetBrains Mono',monospace; font-size:13px; font-weight:700; color:var(--no-col)}
-.vcard h3{font-size:16px; font-weight:700; color:var(--ink); margin-bottom:7px}
-.vcard p{font-size:13.5px; color:var(--mut)}
-
 /* ── Closer - the one question + final CTA ────────────── */
-.closer{background:var(--bg-soft); border-top:1px solid var(--line); padding:58px 0 64px; text-align:center}
+.closer{background:var(--bg-soft); border-top:1px solid var(--line); padding:88px 0 92px; text-align:center}
 .q-eye{font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:600; letter-spacing:2.4px;
   color:var(--goldtx); margin-bottom:16px}
 .q-big{font-size:clamp(24px,3.4vw,34px); font-weight:700; color:var(--ink); letter-spacing:-.01em;
   line-height:1.2; max-width:16em; margin:0 auto 28px}
 
 /* ── Footer ───────────────────────────────────────────── */
-footer{border-top:1px solid var(--line); padding:34px 0}
+footer{background:var(--bg); border-top:1px solid var(--line); padding:34px 0}
 .foot{display:flex; align-items:center; justify-content:space-between; gap:18px; flex-wrap:wrap}
 .foot .logo{height:24px; width:auto}
 .foot .disc{font-size:12px; color:var(--faint); flex:1; min-width:200px}
 .foot .cp{font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--faint)}
 
+/* ── Sticky mobile CTA ────────────────────────────────── */
+.sticky-cta{position:fixed; left:0; right:0; bottom:0; z-index:60; display:none;
+  background:var(--header-bg); backdrop-filter:blur(12px); border-top:1px solid var(--line);
+  padding:10px 16px calc(10px + env(safe-area-inset-bottom))}
+.sticky-cta a{display:block; text-align:center; text-decoration:none;
+  background:linear-gradient(180deg,#eaba50,#e0a93c); color:var(--goldink);
+  font-weight:700; font-size:15.5px; padding:13px; border-radius:11px}
+
+/* ── Scroll reveal ────────────────────────────────────── */
+.reveal{opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease}
+.reveal.in{opacity:1; transform:none}
+
+/* ── Per-section theme treatment ──────────────────────────
+   Hero + footer are ALWAYS dark. The bottom CTA (.closer) inverts
+   vs the page so it pops. The quote band is grey in light mode so it
+   reads distinct from the black footer. */
+.takeaway em{color:var(--ink); font-style:normal; font-weight:600}
+
+/* LIGHT mode → hero, bottom-CTA and footer go dark; quote goes grey */
+html:not([data-theme="dark"]) .hero,
+html:not([data-theme="dark"]) .closer,
+html:not([data-theme="dark"]) footer{
+  --bg:#0d0f12; --bg-soft:#141821; --card:#161a22; --card-soft:#1b2029;
+  --line:#262b35; --line2:#333a45;
+  --ink:#f2f4f7; --txt:#dfe4ea; --mut:#aab2bf; --faint:#828c9a;
+  --gold:#e8b54a; --goldtx:#e8b54a; --goldink:#1a1304;
+  --green:#3fbf86; --red:#e06a6a; --zero:#8a909b;
+  --gold-soft:rgba(232,181,74,.12); --gold-line:rgba(232,181,74,.34);
+  --logo-wm:#f2f4f7; --logo-gold:#e8b54a; --disc-fill:transparent;
+  --shadow-lg:0 2px 6px rgba(0,0,0,.4), 0 18px 50px rgba(0,0,0,.5);
+}
+/* LIGHT mode → quote matches the (light) founder section: light bg + dark text */
+html:not([data-theme="dark"]) .quote{background:var(--bg)}
+html:not([data-theme="dark"]) .quote .eye,
+html:not([data-theme="dark"]) .quote .mark,
+html:not([data-theme="dark"]) .quote blockquote em{color:var(--goldtx)}
+html:not([data-theme="dark"]) .quote blockquote,
+html:not([data-theme="dark"]) .quote .attrib b{color:var(--ink)}
+html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
+
+/* DARK mode → bottom-CTA uses the matte module surface */
+[data-theme="dark"] .closer{background:var(--lift)}
+
+/* DARK mode → brighten muted text on the matte surfaces */
+[data-theme="dark"] .card,
+[data-theme="dark"] .portal,
+[data-theme="dark"] .founder,
+[data-theme="dark"] .closer{ --mut:#c4ccd7; --txt:#e3e8ee; --faint:#9aa3b1 }
+
 /* ── Responsive ───────────────────────────────────────── */
 @media(max-width:880px){
   .hero{padding:38px 0 40px}
-  .cards3{grid-template-columns:1fr; gap:14px}
   .founder-card{padding:26px 22px}
+  .nav-cta{display:inline-block}
+}
+@media(max-width:620px){
+  .sticky-cta{display:block}
+  body{padding-bottom:74px}
+  .nav-cta{display:none}
+  .board table{table-layout:auto}
+  .board thead th, .board tbody td{padding:11px 7px}
+  .board .asset .full{display:none}
+  .board .pcol{display:none}
+  .peers{flex-direction:column} .vrule{display:none}
 }
 @media(max-width:430px){
-  .wrap{padding:0 18px}
+  .wrap{padding:0 18px} .wrap-n{padding:0 18px}
   .field{flex-wrap:wrap}
   .field input{flex:1 1 100%}
   .btn-gold{flex:1 1 100%}
   .divider{margin:6px 8px 30px}
   .gauge{padding:0 2px}
   .gauge .num{font-size:25px}
+}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{animation-duration:.001ms !important; transition-duration:.001ms !important}
+  .reveal{opacity:1; transform:none}
 }
 </style>
 </head>
@@ -240,17 +455,20 @@ footer{border-top:1px solid var(--line); padding:34px 0}
       <span class="vr"></span>
       <span class="desc">TNT SCORE</span>
     </a>
-    <button id="themeBtn" class="theme-btn" type="button" aria-label="Toggle light / dark mode">
-      <svg class="ic-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
-      <svg class="ic-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
-    </button>
+    <div class="nav-right">
+      <a class="nav-cta" href="#get-access">Get early access</a>
+      <button id="themeBtn" class="theme-btn" type="button" aria-label="Toggle light / dark mode">
+        <svg class="ic-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="ic-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+    </div>
   </div>
 </header>
 
 <!-- ══ HERO + lead magnet ══════════════════════════════ -->
-<section class="hero">
+<section class="hero" id="get-access">
   <div class="wrap">
-    <div class="eyebrow">ALTCOIN BUZZ TNT SCORE · EARLY ACCESS</div>
+    <div class="launch-pill"><span class="dot"></span>NEW PORTAL · EARLY ACCESS</div>
     <h1>The network's winning.<br>Is the token?</h1>
     <p class="subhead">Every top altcoin, scored 3 ways: Token, Network and Technicals (TNT), to help you see if the news is really going to impact the token, or not.</p>
 
@@ -286,9 +504,12 @@ footer{border-top:1px solid var(--line); padding:34px 0}
 <!-- ══ PROOF - real ratified XRP board + freshness stamp ══ -->
 <section class="proof">
   <div class="wrap">
-    <div class="card" id="scorecard">
+    <div class="card reveal" id="scorecard">
       <div class="card-top">
-        <div class="card-asset"><b>XRP</b><span>Ripple</span></div>
+        <div class="card-asset">
+          <span class="tlogo"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-label="XRP"><circle cx="16" cy="16" r="16" class="xc"/><path class="xp" d="M23.07 8h2.89l-6.015 5.957a5.621 5.621 0 0 1-7.89 0L6.035 8H8.93l4.57 4.523a3.556 3.556 0 0 0 4.996 0L23.07 8zM8.895 24.563H6l6.055-5.993a5.621 5.621 0 0 1 7.89 0L26 24.562h-2.895L18.5 20a3.556 3.556 0 0 0-4.996 0l-4.61 4.563z"/></svg></span>
+          <b>XRP</b><span>Ripple</span>
+        </div>
         <!-- Real ratified XRP numbers - freshness stamp (NOT a SAMPLE tag; SAMPLE/EXAMPLE
              stay reserved for genuinely invented data). -->
         <span class="asof"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>as of 17 Jun 2026</span>
@@ -337,59 +558,186 @@ footer{border-top:1px solid var(--line); padding:34px 0}
   </div>
 </section>
 
+<!-- ══ INSIDE THE PORTAL - product preview ══════════════ -->
+<section class="portal" id="portal">
+  <div class="wrap-n p-head reveal">
+    <div class="p-eye">INSIDE THE PORTAL</div>
+    <h2 class="p-title">A preview of what's coming</h2>
+    <p class="p-sub">Early access opens at launch. Here's the product you're getting in — every major coin, scored the way we score one token in a video.</p>
+  </div>
+
+  <!-- MODULE 1 · Every coin, ranked -->
+  <div class="wrap-n pmod reveal">
+    <div class="pm-eye"><span class="n">1</span>EVERY COIN, RANKED</div>
+    <div class="pm-title">The whole market, scored at a glance</div>
+    <p class="pm-desc">Sort every major coin by its TNT Score — the Fear &amp; Greed of altcoins. Token, Network and Technicals side by side, so you can spot where the network is winning but the token isn't.</p>
+    <div class="board">
+      <table>
+        <colgroup><col class="c-rk"><col class="c-as"><col class="c-pr"><col class="c-tnt"><col class="c-sc"><col class="c-sc"><col class="c-sc"></colgroup>
+        <thead>
+          <tr>
+            <th class="lft" rowspan="2">#</th>
+            <th class="lft" rowspan="2">Asset</th>
+            <th class="pcol" rowspan="2">Price</th>
+            <th rowspan="2">TNT</th>
+            <th class="grp fund" colspan="2">Fundamentals</th>
+            <th class="grp" colspan="1">Technicals</th>
+          </tr>
+          <tr><th>Token</th><th>Network</th><th>Weekly</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="rk">1</td>
+            <td class="asset"><div class="ac"><span class="tlogo"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-label="SOL"><defs><linearGradient id="solg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9945FF"/><stop offset="1" stop-color="#14F195"/></linearGradient></defs><circle cx="16" cy="16" r="16" fill="#0e0f12"/><path fill="url(#solg)" d="M8 9L24 9L21 12L5 12Z M5 14.5L21 14.5L24 17.5L8 17.5Z M8 20L24 20L21 23L5 23Z"/></svg></span><div><b>SOL</b> <span class="smp">SAMPLE</span><div class="full">Solana</div></div></div></td>
+            <td class="price pcol">$148.20</td>
+            <td><span class="tnt-pill bull">7.9</span></td>
+            <td class="sc bull">7.7</td><td class="sc bull">8.1</td><td class="sc bull">7.6</td>
+          </tr>
+          <tr>
+            <td class="rk">2</td>
+            <td class="asset"><div class="ac"><span class="tlogo"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-label="LINK"><circle cx="16" cy="16" r="16" fill="#375BD2"/><path fill="#fff" fill-rule="evenodd" d="M16 7L23.79 11.5L23.79 20.5L16 25L8.21 20.5L8.21 11.5Z M16 11.5L19.9 13.75L19.9 18.25L16 20.5L12.1 18.25L12.1 13.75Z"/></svg></span><div><b>LINK</b> <span class="smp">SAMPLE</span><div class="full">Chainlink</div></div></div></td>
+            <td class="price pcol">$14.85</td>
+            <td><span class="tnt-pill bull">6.4</span></td>
+            <td class="sc bull">6.0</td><td class="sc bull">7.0</td><td class="sc bull">5.9</td>
+          </tr>
+          <tr>
+            <td class="rk">3</td>
+            <td class="asset"><div class="ac"><span class="tlogo"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-label="ADA"><circle cx="16" cy="16" r="16" fill="#0033AD"/><circle fill="#fff" cx="16" cy="16" r="2"/><circle fill="#fff" cx="16" cy="10" r="1.5"/><circle fill="#fff" cx="21.2" cy="13" r="1.5"/><circle fill="#fff" cx="21.2" cy="19" r="1.5"/><circle fill="#fff" cx="16" cy="22" r="1.5"/><circle fill="#fff" cx="10.8" cy="19" r="1.5"/><circle fill="#fff" cx="10.8" cy="13" r="1.5"/><circle fill="#fff" cx="16" cy="5.5" r="1.1"/><circle fill="#fff" cx="23.4" cy="8.6" r="1.1"/><circle fill="#fff" cx="26.5" cy="16" r="1.1"/><circle fill="#fff" cx="23.4" cy="23.4" r="1.1"/><circle fill="#fff" cx="16" cy="26.5" r="1.1"/><circle fill="#fff" cx="8.6" cy="23.4" r="1.1"/><circle fill="#fff" cx="5.5" cy="16" r="1.1"/><circle fill="#fff" cx="8.6" cy="8.6" r="1.1"/></svg></span><div><b>ADA</b> <span class="smp">SAMPLE</span><div class="full">Cardano</div></div></div></td>
+            <td class="price pcol">$0.41</td>
+            <td><span class="tnt-pill neut">5.0</span></td>
+            <td class="sc bear">4.2</td><td class="sc bull">6.5</td><td class="sc neut">4.6</td>
+          </tr>
+          <tr class="real-row">
+            <td class="rk">4</td>
+            <td class="asset"><div class="ac"><span class="tlogo"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-label="XRP"><circle cx="16" cy="16" r="16" class="xc"/><path class="xp" d="M23.07 8h2.89l-6.015 5.957a5.621 5.621 0 0 1-7.89 0L6.035 8H8.93l4.57 4.523a3.556 3.556 0 0 0 4.996 0L23.07 8zM8.895 24.563H6l6.055-5.993a5.621 5.621 0 0 1 7.89 0L26 24.562h-2.895L18.5 20a3.556 3.556 0 0 0-4.996 0l-4.61 4.563z"/></svg></span><div><b>XRP</b><div class="full">Ripple</div></div></div></td>
+            <td class="price pcol">$0.52</td>
+            <td><span class="tnt-pill neut">4.7</span></td>
+            <td class="sc neut">4.9</td><td class="sc bull">6.0</td><td class="sc bear">4.4</td>
+          </tr>
+          <tr>
+            <td class="rk">5</td>
+            <td class="asset"><div class="ac"><span class="tlogo"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-label="HBAR"><circle cx="16" cy="16" r="16" fill="#0e0f12"/><rect fill="#fff" x="10.5" y="9" width="2.6" height="14" rx="0.4"/><rect fill="#fff" x="18.9" y="9" width="2.6" height="14" rx="0.4"/><rect fill="#fff" x="10.5" y="13" width="11" height="2.1"/><rect fill="#fff" x="10.5" y="16.9" width="11" height="2.1"/></svg></span><div><b>HBAR</b> <span class="smp">SAMPLE</span><div class="full">Hedera</div></div></div></td>
+            <td class="price pcol">$0.07</td>
+            <td><span class="tnt-pill neut">4.6</span></td>
+            <td class="sc bear">4.4</td><td class="sc neut">5.2</td><td class="sc neut">4.5</td>
+          </tr>
+          <tr>
+            <td class="rk">6</td>
+            <td class="asset"><div class="ac"><span class="tlogo"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-label="DOGE"><circle cx="16" cy="16" r="16" fill="#C2A633"/><path fill="#E7C99B" d="M7.5 10.5L10.6 3.5L14.2 10.5Z"/><path fill="#E7C99B" d="M24.5 10.5L21.4 3.5L17.8 10.5Z"/><path fill="#C98A2E" d="M9.4 9.4L10.9 5.6L12.6 9.4Z"/><path fill="#C98A2E" d="M22.6 9.4L21.1 5.6L19.4 9.4Z"/><ellipse cx="16" cy="17.4" rx="8.4" ry="8.7" fill="#E7C99B"/><ellipse cx="16" cy="20.4" rx="5.7" ry="5.3" fill="#F7EAD1"/><path fill="#F7EAD1" d="M14.5 10.2Q16 8.4 17.5 10.2L16.9 17.6Q16 18.6 15.1 17.6Z"/><ellipse cx="12.4" cy="15.1" rx="1.35" ry="1.75" fill="#2E241A"/><ellipse cx="19.6" cy="15.1" rx="1.35" ry="1.75" fill="#2E241A"/><circle cx="12" cy="14.5" r="0.45" fill="#fff"/><circle cx="19.2" cy="14.5" r="0.45" fill="#fff"/><path fill="#2E241A" d="M14.5 18.2Q16 17.4 17.5 18.2Q16 20.1 14.5 18.2Z"/><path fill="none" stroke="#2E241A" stroke-width="0.75" stroke-linecap="round" d="M16 19.7L16 21.1M16 21.1Q13.7 22.4 12.7 20.8M16 21.1Q18.3 22.4 19.3 20.8"/></svg></span><div><b>DOGE</b> <span class="smp">SAMPLE</span><div class="full">Dogecoin</div></div></div></td>
+            <td class="price pcol">$0.12</td>
+            <td><span class="tnt-pill bear">3.6</span></td>
+            <td class="sc bear">3.2</td><td class="sc bear">3.9</td><td class="sc bear">4.0</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="board-note">
+        <span class="legend"><span class="sw" style="background:var(--green)"></span>Bullish 5.6–10</span>
+        <span class="legend"><span class="sw" style="background:var(--zero)"></span>Neutral 4.5–5.5</span>
+        <span class="legend"><span class="sw" style="background:var(--red)"></span>Bearish 1.0–4.4</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODULE 2 · Decoupling story card -->
+  <div class="wrap-n pmod reveal">
+    <div class="pm-eye"><span class="n">2</span>THE DECOUPLING, CALLED OUT</div>
+    <div class="pm-title">We surface the divergence for you</div>
+    <p class="pm-desc">The portal doesn't just hand you numbers — it leads with the read. When a network runs ahead of its chart, you'll see it flagged across the board automatically.</p>
+    <div class="story">
+      <div class="flag"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V4s-1 1-4 1-5-2-8-2-4 1-4 1z"/><path d="M4 22v-7"/></svg>FLAGGED HIGHLIGHT</div>
+      <div class="one"><span class="tlogo"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-label="XRP"><circle cx="16" cy="16" r="16" class="xc"/><path class="xp" d="M23.07 8h2.89l-6.015 5.957a5.621 5.621 0 0 1-7.89 0L6.035 8H8.93l4.57 4.523a3.556 3.556 0 0 0 4.996 0L23.07 8zM8.895 24.563H6l6.055-5.993a5.621 5.621 0 0 1 7.89 0L26 24.562h-2.895L18.5 20a3.556 3.556 0 0 0-4.996 0l-4.61 4.563z"/></svg></span>The network's winning. The token isn't.</div>
+      <div class="sline">XRP — strong, growing network, but the token isn't capturing it, and the chart is weak short-term.</div>
+      <div class="peers">
+        <div class="peerblk">
+          <div class="blk-h">FUNDAMENTALS</div>
+          <div class="rowscores">
+            <div class="score-cell"><div class="lab">Token</div><div class="n neut" data-count="4.9">4.9</div><div class="w word-neut">NEUTRAL</div></div>
+            <div class="score-cell"><div class="lab">Network</div><div class="n bull" data-count="6.0">6.0</div><div class="w word-bull">BULLISH</div></div>
+          </div>
+        </div>
+        <div class="vrule"></div>
+        <div class="peerblk">
+          <div class="blk-h">TECHNICALS</div>
+          <div class="rowscores">
+            <div class="score-cell"><div class="lab">Weekly</div><div class="n bear" data-count="4.4">4.4</div><div class="w word-bear">BEARISH</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODULE 3 · Catalyst breakdown -->
+  <div class="wrap-n pmod reveal">
+    <div class="pm-eye"><span class="n">3</span>CATALYST BREAKDOWN</div>
+    <div class="pm-title">See which news moves the token — and which only helps the network</div>
+    <p class="pm-desc">Every coin's page scores the news event by event. Open any catalyst to see how much it really reaches the token you can buy — versus the network behind it.</p>
+    <div class="cat">
+      <div class="cat-h">
+        <span class="ttl"><span class="tlogo"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-label="XRP"><circle cx="16" cy="16" r="16" class="xc"/><path class="xp" d="M23.07 8h2.89l-6.015 5.957a5.621 5.621 0 0 1-7.89 0L6.035 8H8.93l4.57 4.523a3.556 3.556 0 0 0 4.996 0L23.07 8zM8.895 24.563H6l6.055-5.993a5.621 5.621 0 0 1 7.89 0L26 24.562h-2.895L18.5 20a3.556 3.556 0 0 0-4.996 0l-4.61 4.563z"/></svg></span>XRP · FUNDAMENTALS SCORECARD</span>
+        <span class="asof"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>as of 16 Jun 2026</span>
+      </div>
+      <div class="cat-row">
+        <div class="cat-top">
+          <div class="cat-head">
+            <span class="scope">XRP ONLY</span>
+            <h4>JPMorgan, Mastercard &amp; Ondo settle a tokenized-Treasury pilot on the XRP Ledger</h4>
+          </div>
+          <span class="chev"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+        </div>
+        <div class="cat-detail">
+          <div class="sub-pair">
+            <div class="sub">
+              <div class="lab">Network impact</div>
+              <div class="val"><span class="n bull" data-count="8.0">8.0</span><span class="w bull">BULLISH</span></div>
+              <div class="why">Marquee ledger validation — JPMorgan's Kinexys, Mastercard and Ondo all settling on XRPL.</div>
+            </div>
+            <div class="sub">
+              <div class="lab">Token impact</div>
+              <div class="val"><span class="n neut" data-count="5.0">5.0</span><span class="w neut">NEUTRAL</span></div>
+              <div class="why">Value moved as tokenized Treasuries and fiat — XRP earned only sub-cent fees, so no real token demand.</div>
+            </div>
+          </div>
+          <div class="takeaway"><b>This is the whole point:</b> a huge, bullish-sounding headline — JPMorgan and Mastercard on the XRP Ledger — that helped the <em>network</em> but created almost no new demand for the XRP <em>token</em>. So the price barely moved.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODULE 4 · Ask Buzz -->
+  <div class="wrap-n pmod reveal">
+    <div class="pm-eye"><span class="n">4</span>ASK BUZZ</div>
+    <div class="pm-title">Ask any coin's scorecard a question</div>
+    <p class="pm-desc">An assistant grounded only in that coin's scores and research — it explains the read and cites its sources. It won't give buy/sell calls or price targets.</p>
+    <div class="buzz">
+      <div class="buzz-h">
+        <div class="buzz-dot"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l1.9 5.6 5.6 1.9-5.6 1.9L12 17.5l-1.9-5.6L4.5 10l5.6-1.9z"/><path d="M18.5 14l.95 2.55L22 17.5l-2.55.95L18.5 21l-.95-2.55L15 17.5l2.55-.95z"/></svg></div>
+        <div><div class="nm">Ask Buzz</div><div class="st">GROUNDED ON XRP'S SCORECARD</div></div>
+      </div>
+      <div class="buzz-body">
+        <div class="msg you"><span class="who">YOU ASKED</span><div class="bubble user">If XRP has bullish news, why is the price flat?</div></div>
+        <div class="msg ai"><span class="who">ASK BUZZ</span><div class="bubble ai">Right now XRP's Network scores 6.0 (bullish) but the Token scores 4.9 (neutral) — most recent catalysts strengthen the ledger and partners, not direct demand for the token. Technicals are weak at 4.4 (bearish) on the weekly. So the "good news" is mostly reaching the network, not the price.
+          <span class="cite"><svg viewBox="0 0 24 24" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>Source: XRP scorecard · as of 17 Jun 2026</span>
+        </div></div>
+        <div class="disc">Ask Buzz explains scores — it is not financial advice and won't tell you to buy or sell.</div>
+        <div class="chips-label">TRY ASKING</div>
+        <div class="chips">
+          <span class="chip">What's dragging the Token score down?</span>
+          <span class="chip">Which catalyst helped the network most?</span>
+          <span class="chip">How is the Weekly read calculated?</span>
+        </div>
+        <div class="askbar"><span class="ph">Ask about XRP's scores…</span><span class="send" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ══ A WORD FROM OUR FOUNDER ═════════════════════════ -->
 <section class="founder">
-  <div class="wrap">
-    <div class="founder-card">
+  <div class="wrap-n">
+    <div class="founder-card reveal">
       <div class="f-eye">A WORD FROM OUR FOUNDER</div>
       <p class="f-body">We've all seen it: a project announces major bullish news, yet the token price stagnates or drops. The TNT Score solves this by <em>separating the signal from the noise.</em> It pinpoints exactly which events actually move the needle on price, and which fundamentally impact the network or organization. In a maturing crypto ecosystem, distinguishing actionable data from pure noise is your greatest edge.</p>
       <div class="f-sign">Shash<span>Founder · Altcoin Buzz</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- ══ WHAT YOU GET ════════════════════════════════════ -->
-<section class="strip" id="what">
-  <div class="wrap">
-    <div class="wyg-eye">WHAT YOU GET</div>
-    <div class="cards3">
-      <div class="vcard">
-        <div class="vtop">
-          <div class="ic"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 10v10"/></svg></div>
-          <span class="no">01</span>
-        </div>
-        <h3>Three scores, one card</h3>
-        <p>Network, Token, and Technicals (TNT) side by side. The whole picture in one glance, no spreadsheet required.</p>
-      </div>
-      <div class="vcard">
-        <div class="vtop">
-          <div class="ic"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M21 7 13 15l-3-3-7 7"/><path d="M16 7h5v5"/></svg></div>
-          <span class="no">02</span>
-        </div>
-        <h3>See the decoupling</h3>
-        <p>Spot the moment a network keeps winning while its token stalls, and understand exactly why.</p>
-      </div>
-      <div class="vcard">
-        <div class="vtop">
-          <div class="ic"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.4 5 5.5.8-4 3.9.9 5.5L12 21.4 7.2 18.2l.9-5.5-4-3.9 5.5-.8z"/></svg></div>
-          <span class="no">03</span>
-        </div>
-        <h3>Early access + Beta portal</h3>
-        <p>First in when we launch in August 2026, and the first 500 to sign up get access to our Beta portal.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══ USER QUOTE ══════════════════════════════════════ -->
-<section class="quote">
-  <div class="wrap">
-    <div class="eye">THE QUESTION EVERY HOLDER ASKS</div>
-    <div class="mark" aria-hidden="true">&ldquo;</div>
-    <blockquote>I always wondered why a coin could have nothing but bullish news and the price just wouldn't move. Altcoin Buzz TNT Score made it simple. <em>Some news impacts the network, not the token.</em> Now I see the difference in seconds.</blockquote>
-    <div class="attrib">
-      <b>Sebastian Liana</b>
-      <span>Trader &amp; Investor · TNT Alpha Tester</span>
     </div>
   </div>
 </section>
@@ -425,6 +773,19 @@ footer{border-top:1px solid var(--line); padding:34px 0}
   </div>
 </section>
 
+<!-- ══ USER QUOTE (moved below the final CTA) ═══════════ -->
+<section class="quote">
+  <div class="wrap">
+    <div class="eye">THE QUESTION EVERY HOLDER ASKS</div>
+    <div class="mark" aria-hidden="true">&ldquo;</div>
+    <blockquote>I always wondered why a coin could have nothing but bullish news and the price just wouldn't move. Altcoin Buzz TNT Score made it simple. <em>Some news impacts the network, not the token.</em> Now I see the difference in seconds.</blockquote>
+    <div class="attrib">
+      <b>Sebastian Liana</b>
+      <span>Trader &amp; Investor · TNT Alpha Tester</span>
+    </div>
+  </div>
+</section>
+
 <!-- ══ FOOTER ══════════════════════════════════════════ -->
 <footer>
   <div class="wrap foot">
@@ -448,6 +809,9 @@ footer{border-top:1px solid var(--line); padding:34px 0}
     <div class="cp">© 2026 Altcoin Buzz</div>
   </div>
 </footer>
+
+<!-- ══ STICKY MOBILE CTA ═══════════════════════════════ -->
+<div class="sticky-cta"><a href="#get-access">Get early access →</a></div>
 
 <script>
 /* ═══════════════════════════════════════════════════════════
@@ -549,12 +913,50 @@ const MC_HONEYPOT_NAME = "REPLACE_WITH_MAILCHIMP_HONEYPOT";   // ← paste b_XXX
 (function(){
   const root=document.documentElement;
   const btn=document.getElementById('themeBtn');
-  try{ if(localStorage.getItem('ab_theme')==='light') root.removeAttribute('data-theme'); }catch(e){}
+  try{ if(localStorage.getItem('ab_theme')==='dark') root.setAttribute('data-theme','dark'); }catch(e){}
   btn.addEventListener('click', ()=>{
     const isDark=root.getAttribute('data-theme')==='dark';
     if(isDark){ root.removeAttribute('data-theme'); } else { root.setAttribute('data-theme','dark'); }
     try{ localStorage.setItem('ab_theme', isDark?'light':'dark'); }catch(e){}
   });
+})();
+
+/* ── Catalyst expand/collapse ───────────────────────────── */
+(function(){
+  document.querySelectorAll('.cat-top').forEach(t=>{
+    const detail=t.parentElement.querySelector('.cat-detail');
+    const chev=t.querySelector('.chev');
+    t.addEventListener('click', ()=>{
+      const open=detail.style.display!=='none';
+      detail.style.display=open?'none':'block';
+      chev.style.transform=open?'rotate(-90deg)':'none';
+    });
+  });
+})();
+
+/* ── Scroll reveal + score count-up (respects reduced-motion) ── */
+(function(){
+  const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce){ document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in')); return; }
+  function countUp(el){
+    const target=parseFloat(el.dataset.count); if(isNaN(target)) return;
+    const dur=850, t0=performance.now();
+    (function step(now){
+      const p=Math.min(1,(now-t0)/dur);
+      const e=1-Math.pow(1-p,3);
+      el.textContent=(target*e).toFixed(1);
+      if(p<1) requestAnimationFrame(step); else el.textContent=target.toFixed(1);
+    })(t0);
+  }
+  const io=new IntersectionObserver((entries)=>{
+    entries.forEach(en=>{
+      if(!en.isIntersecting) return;
+      en.target.classList.add('in');
+      en.target.querySelectorAll('[data-count]').forEach(countUp);
+      io.unobserve(en.target);
+    });
+  },{threshold:.18});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 })();
 </script>
 </body>
