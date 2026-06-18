@@ -1,11 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Altcoin Buzz TNT Score · Early Access</title>
 <meta name="description" content="Altcoin Buzz TNT Score. Every top altcoin scored three ways: Network, Token, and Technicals. See if the news is really going to impact the token. Get early access.">
-<meta name="theme-color" content="#ffffff">
+<meta name="theme-color" content="#0d0f12">
+<!-- DARK is the default theme (operator 2026-06-19). This pre-paint script honours a saved
+     'light' preference (set via the header toggle) BEFORE the stylesheet applies, so a returning
+     light-mode visitor sees no dark→light flash. New visitors get dark. -->
+<script>(function(){try{var d=document.documentElement;if(localStorage.getItem('ab_theme')==='light')d.removeAttribute('data-theme');var m=document.querySelector('meta[name="theme-color"]');if(m)m.content=d.getAttribute('data-theme')==='dark'?'#0d0f12':'#ffffff';}catch(e){}})();</script>
 
 <!-- ── Social / link-preview meta (this page is linked from YouTube + shared on X) ──
      Of X / YouTube / Facebook / Instagram, only Facebook (OG) and X (Twitter Card)
@@ -1095,16 +1099,21 @@ const MC_COIN_FIELD    = "COIN";   // ← Mailchimp audience MERGE TAG for the "
   });
 })();
 
-/* ── Light / dark theme toggle (DARK is the default) ────── */
+/* ── Light / dark theme toggle (DARK is the default) ──────
+   Initial state is set pre-paint by the inline <head> script (dark unless a saved
+   'light' preference exists). This only wires the toggle button + keeps theme-color in sync. */
 (function(){
   const root=document.documentElement;
   const btn=document.getElementById('themeBtn');
-  try{ if(localStorage.getItem('ab_theme')==='dark') root.setAttribute('data-theme','dark'); }catch(e){}
+  const meta=document.querySelector('meta[name="theme-color"]');
+  function syncMeta(){ if(meta) meta.content = root.getAttribute('data-theme')==='dark' ? '#0d0f12' : '#ffffff'; }
   btn.addEventListener('click', ()=>{
     const isDark=root.getAttribute('data-theme')==='dark';
     if(isDark){ root.removeAttribute('data-theme'); } else { root.setAttribute('data-theme','dark'); }
     try{ localStorage.setItem('ab_theme', isDark?'light':'dark'); }catch(e){}
+    syncMeta();
   });
+  syncMeta();
 })();
 
 /* ── Catalyst expand/collapse ───────────────────────────── */
