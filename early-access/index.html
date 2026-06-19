@@ -6,10 +6,11 @@
 <title>Altcoin Buzz TNT Score · Early Access</title>
 <meta name="description" content="Altcoin Buzz TNT Score. Every top altcoin scored three ways: Network, Token, and Technicals. See if the news is really going to impact the token. Get early access.">
 <meta name="theme-color" content="#0d0f12">
-<!-- DARK is the default theme (operator 2026-06-19). This pre-paint script honours a saved
-     'light' preference (set via the header toggle) BEFORE the stylesheet applies, so a returning
-     light-mode visitor sees no dark→light flash. New visitors get dark. -->
-<script>(function(){try{var d=document.documentElement;if(localStorage.getItem('ab_theme')==='light')d.removeAttribute('data-theme');var m=document.querySelector('meta[name="theme-color"]');if(m)m.content=d.getAttribute('data-theme')==='dark'?'#0d0f12':'#ffffff';}catch(e){}})();</script>
+<!-- Default theme by device (operator 2026-06-19): LIGHT on mobile (<=620px), DARK on desktop.
+     A saved toggle preference always wins on both. This pre-paint script applies the choice BEFORE
+     the stylesheet so there is no theme flash. The html tag ships data-theme="dark" as the no-JS
+     fallback; the script removes it for mobile-default-light. -->
+<script>(function(){try{var d=document.documentElement;var s=localStorage.getItem('ab_theme');var mob=window.matchMedia('(max-width:620px)').matches;var t=(s==='light'||s==='dark')?s:(mob?'light':'dark');if(t==='dark'){d.setAttribute('data-theme','dark');}else{d.removeAttribute('data-theme');}var m=document.querySelector('meta[name="theme-color"]');if(m)m.content=(t==='dark')?'#0d0f12':'#ffffff';}catch(e){}})();</script>
 
 <!-- ── Social / link-preview meta (this page is linked from YouTube + shared on X) ──
      Of X / YouTube / Facebook / Instagram, only Facebook (OG) and X (Twitter Card)
@@ -515,7 +516,7 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
   .board .asset .full{display:none}
   .board .pcol{display:none}
   .peers{flex-direction:column} .vrule{display:none}
-  .pmod{padding-top:78px}
+  .pmod{padding-top:47px}
   .pmod + .pmod{border-top:2px solid var(--line2)}
 }
 @media(max-width:430px){
