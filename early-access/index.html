@@ -483,10 +483,15 @@ h1{font-size:clamp(34px,5vw,54px); line-height:1.03; font-weight:700; color:var(
 
 /* ── Footer ───────────────────────────────────────────── */
 footer{background:var(--bg); border-top:1px solid var(--line); padding:34px 0}
-.foot{display:flex; align-items:center; justify-content:space-between; gap:18px; flex-wrap:wrap}
-.foot .logo{height:24px; width:auto}
-.foot .disc{font-size:12px; color:var(--faint); flex:1; min-width:200px}
+.foot{display:flex; align-items:center; justify-content:space-between; gap:14px 24px; flex-wrap:wrap}
+.foot .logo{height:24px; width:auto; flex:0 0 auto}
+.foot-legal{display:flex; flex-direction:column; align-items:flex-end; gap:5px; text-align:right}
+.foot .disc{font-size:12px; color:var(--faint)}
 .foot .cp{font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--faint)}
+@media(max-width:560px){
+  .foot{flex-direction:column; align-items:center; text-align:center; gap:14px}
+  .foot-legal{align-items:center; text-align:center}
+}
 
 /* ── Sticky mobile CTA ────────────────────────────────── */
 .sticky-cta{position:fixed; left:0; right:0; bottom:0; z-index:60; display:none;
@@ -1080,8 +1085,10 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
       <path fill="#C08329" d="M1777.3,262.4h-102.7l3.1-15.1l102.8-110.2h-77.9l3.6-17.2h101.2l-3,14.7l-102.1,110.5h78.5L1777.3,262.4z"/>
       <path fill="#C08329" d="M1910.7,262.4H1808l3.1-15.1l102.8-110.2H1836l3.6-17.2h101.2l-3,14.7l-102.1,110.5h78.5L1910.7,262.4z"/>
     </svg>
-    <div class="disc">Not financial advice. For educational purposes only.</div>
-    <div class="cp">© 2026 Altcoin Buzz</div>
+    <div class="foot-legal">
+      <div class="disc">Not financial advice. For educational purposes only.</div>
+      <div class="cp"><a href="privacy.html" style="color:var(--mut); text-decoration:none; border-bottom:1px solid var(--line2); padding-bottom:1px">Privacy &amp; Cookie Policy</a>&nbsp;&nbsp;·&nbsp;&nbsp;© 2026 Altcoin Buzz</div>
+    </div>
   </div>
 </footer>
 
@@ -1113,7 +1120,7 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
 </style>
 <div class="cookie-consent" id="consentBanner" role="dialog" aria-label="Cookie consent">
   <div class="cc-inner">
-    <p class="cc-text">We use cookies to measure traffic and improve this page. See our <a href="#privacy">privacy policy</a>.</p>
+    <p class="cc-text">We use cookies to measure traffic and improve this page. See our <a href="privacy.html">privacy policy</a>.</p>
     <div class="cc-actions">
       <button type="button" class="cc-btn cc-decline">Decline</button>
       <button type="button" class="cc-btn cc-accept">Accept</button>
