@@ -168,15 +168,20 @@ h1{font-size:clamp(34px,5vw,54px); line-height:1.03; font-weight:700; color:var(
 .form-msg.err{color:var(--red); font-weight:500}
 
 /* Success state (replaces the form fields) */
-.success{display:none; max-width:540px; margin:0 auto}
-.success.show{display:block; animation:rise .4s ease}
-@keyframes rise{from{opacity:0; transform:translateY(7px)}to{opacity:1; transform:none}}
-.success .tick{width:46px; height:46px; border-radius:50%; margin:0 auto 14px;
-  background:color-mix(in srgb,var(--green) 14%,transparent);
-  display:flex; align-items:center; justify-content:center}
-.success .tick svg{width:24px; height:24px; stroke:var(--green); fill:none; stroke-width:2.5}
-.success h3{font-size:19px; color:var(--ink); font-weight:700; margin-bottom:6px}
-.success p{font-size:14.5px; color:var(--mut); max-width:30em; margin:0 auto}
+.success{display:none; max-width:480px; margin:22px auto 0}
+.success.show{display:block; text-align:center; background:var(--card); border:1px solid var(--line);
+  border-radius:18px; padding:34px 30px; box-shadow:var(--shadow-lg); animation:rise .45s cubic-bezier(.2,.7,.3,1)}
+@keyframes rise{from{opacity:0; transform:translateY(10px)}to{opacity:1; transform:none}}
+@keyframes pop{from{transform:scale(.5); opacity:0}to{transform:scale(1); opacity:1}}
+.success .tick{width:58px; height:58px; border-radius:50%; margin:0 auto 16px;
+  background:color-mix(in srgb,var(--green) 15%,transparent);
+  border:1px solid color-mix(in srgb,var(--green) 32%,transparent);
+  display:flex; align-items:center; justify-content:center;
+  animation:pop .4s .08s both cubic-bezier(.2,.9,.3,1.5)}
+.success .tick svg{width:28px; height:28px; stroke:var(--green); fill:none; stroke-width:2.6}
+.success h3{font-size:20px; color:var(--ink); font-weight:700; margin-bottom:7px; letter-spacing:-.01em}
+.success p{font-size:14.5px; color:var(--mut); max-width:32em; margin:0 auto; line-height:1.5}
+.success .hint{font-size:12px; color:var(--faint); margin-top:16px; padding-top:14px; border-top:1px solid var(--line)}
 
 /* ── Hero two-column: text + form (left) · OG-style XRP scorecard (right) ──
    The hero is ALWAYS dark, so the card is styled for a dark surface in both themes. */
@@ -409,8 +414,10 @@ h1{font-size:clamp(34px,5vw,54px); line-height:1.03; font-weight:700; color:var(
 .cc-field .cc-coin::placeholder{text-transform:none; font-family:'Archivo',-apple-system,sans-serif; font-weight:400; letter-spacing:0}
 .cc-field .cc-email{flex:1}
 .cc-sep{flex:0 0 1px; align-self:stretch; background:#dbe1ea; margin:6px 2px}
-.coincheck .success{margin-top:2px; max-width:none}
+.coincheck .success{margin-top:6px; max-width:none}
+.coincheck .success.show{background:transparent; border:0; box-shadow:none; padding:20px 6px 6px}
 .coincheck .success p{max-width:42em}
+.coincheck .success .hint{border-top-color:var(--lift-line)}
 @media(max-width:560px){
   .cc-field{flex-wrap:wrap}
   .cc-field .cc-coin,.cc-field .cc-email,.cc-field .btn-gold{flex:1 1 100%}
@@ -612,7 +619,7 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
 <section class="hero" id="get-access">
   <div class="wrap hero-grid">
     <div class="hero-left">
-    <div class="launch-pill"><span class="dot"></span>EARLY ACCESS · LAUNCHES AUG 30</div>
+    <div class="launch-pill"><span class="dot"></span>EARLY ACCESS · LAUNCHING Q3 2026</div>
     <h1>The network is winning.<br>Is the token?</h1>
     <p class="subhead">Every top altcoin, scored 3 ways: Token, Network and Technicals (TNT), to help you see if the news is really going to impact the token, or not.</p>
 
@@ -646,6 +653,7 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
         <div class="tick"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
         <h3>Check your inbox to confirm your spot.</h3>
         <p>We just sent you a confirmation link. Click it to lock in your early access.</p>
+        <div class="hint">Can't find it? Check your spam or promotions folder.</div>
       </div>
     </div>
     </div><!-- /.hero-left -->
@@ -800,7 +808,7 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
   <div class="wrap-n p-head reveal">
     <div class="p-eye">INSIDE THE PORTAL</div>
     <h2 class="p-title">A preview of what's coming</h2>
-    <p class="p-sub">Early access opens when the portal goes live on <b>August 30</b>. Here's the product you're getting in: every major coin, scored the way we score one token in a video.</p>
+    <p class="p-sub">Early access opens when the portal goes live in <b>Q3 2026</b>. Here's the product you're getting in: every major coin, scored the way we score one token in a video.</p>
   </div>
 
   <!-- MODULE 1 · Every coin, ranked -->
@@ -899,6 +907,7 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
         <div class="tick"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
         <h3>Check your inbox to confirm your spot.</h3>
         <p class="js-coin-line">We'll have your coin's TNT Score ready at launch.</p>
+        <div class="hint">Can't find it? Check your spam or promotions folder.</div>
       </div>
     </div>
   </div>
@@ -1039,6 +1048,7 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
         <div class="tick"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
         <h3>Check your inbox to confirm your spot.</h3>
         <p>We just sent you a confirmation link. Click it to lock in your early access.</p>
+        <div class="hint">Can't find it? Check your spam or promotions folder.</div>
       </div>
     </div>
   </div>
