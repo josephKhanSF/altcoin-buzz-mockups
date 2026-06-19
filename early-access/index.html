@@ -1099,9 +1099,9 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
         and paste that exact name into MC_HONEYPOT_NAME below.
    Until SIGNUP_ENDPOINT is replaced, BOTH forms short-circuit to the success-state
    MOCK and do NOT capture emails. ───────────────────────── */
-const SIGNUP_ENDPOINT  = "https://altcoinbuzz.us17.list-manage.com/subscribe/post-json?u=8450d94e36d52fe3fd6ec0ffc&id=04eacdd585&f_id=00f4ede3f0";  // WIRED 2026-06-19 · Altcoin Buzz audience (us17)
-const MC_HONEYPOT_NAME = "b_8450d94e36d52fe3fd6ec0ffc_04eacdd585";   // anti-bot honeypot from the embed code
-const MC_TAGS          = "8309971";   // tag id from the embed code; tags new subscribers (best-effort over JSONP)
+const SIGNUP_ENDPOINT  = "https://altcoinbuzz.us17.list-manage.com/subscribe/post-json?u=8450d94e36d52fe3fd6ec0ffc&id=98ba396d5e&f_id=00fbede3f0";  // WIRED 2026-06-19 · Altcoin Buzz audience (us17, id 98ba396d5e)
+const MC_HONEYPOT_NAME = "b_8450d94e36d52fe3fd6ec0ffc_98ba396d5e";   // anti-bot honeypot from the embed code
+const MC_TAGS          = "8309972";   // tag id from the embed code; tags new subscribers (best-effort over JSONP)
 const MC_COIN_FIELD    = "COIN";   // ← Mailchimp audience MERGE TAG for the "check your coin" field.
                                    //    Create a text field with this tag in the audience, or change
                                    //    this to match an existing one. Sent only when a coin is entered.
