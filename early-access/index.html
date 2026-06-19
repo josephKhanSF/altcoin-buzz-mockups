@@ -14,7 +14,7 @@
 
 <!-- ── Social / link-preview meta (this page is linked from YouTube + shared on X) ──
      Of X / YouTube / Facebook / Instagram, only Facebook (OG) and X (Twitter Card)
-     render a card from these tags — YouTube shows a plain link, Instagram doesn't
+     render a card from these tags - YouTube shows a plain link, Instagram doesn't
      preview links. So OG + Twitter Card cover the surfaces that matter.
      Share image lives at early-access/og-image.png (1200×630, generated on-brand).
      ⚠ OG/Twitter URLs are ABSOLUTE and must match the host. They currently point to the
@@ -39,7 +39,7 @@
 
 <!-- ── Analytics: Plausible (privacy-light, cookieless; DESIGN intent = no heavy trackers) ──
      ⚠ CONFIG: data-domain MUST equal the property name added in the Plausible dashboard
-     (the live domain, altcoinbuzz.com). The second line is the official custom-event stub —
+     (the live domain, altcoinbuzz.com). The second line is the official custom-event stub -
      it lets us fire the "signup" goal from the form success path (see showSuccess()).
      If the operator switches to Fathom/GA4 later, swap these two lines + the plausible()
      call in showSuccess(); nothing else depends on the vendor. -->
@@ -211,7 +211,7 @@ h1{font-size:clamp(34px,5vw,54px); line-height:1.03; font-weight:700; color:var(
 }
 
 /* ── Proof scorecard ──────────────────────────────────── */
-.proof{padding:48px 0 56px; background:var(--bg-soft)}  /* pain-visual band — matches the INSIDE THE PORTAL bg (var(--bg-soft)) in both themes */
+.proof{padding:48px 0 56px; background:var(--bg-soft)}  /* pain-visual band - matches the INSIDE THE PORTAL bg (var(--bg-soft)) in both themes */
 .card{max-width:660px; margin:0 auto; background:var(--lift); border:1px solid var(--lift-line);
   border-radius:var(--radius); box-shadow:var(--shadow-lg); padding:24px 24px 22px}
 .card-top{display:flex; align-items:center; justify-content:space-between; margin-bottom:8px}
@@ -306,7 +306,7 @@ h1{font-size:clamp(34px,5vw,54px); line-height:1.03; font-weight:700; color:var(
 .board thead th.lft{text-align:left}
 .board thead .grp{color:var(--goldtx); letter-spacing:1.2px; font-weight:700}
 .board thead .grp.fund{border-bottom:1px solid var(--lift-div)}
-/* TNT is the headline composite — set its column header apart from Token/Network/Technicals */
+/* TNT is the headline composite - set its column header apart from Token/Network/Technicals */
 .board thead th.tnt-col{color:var(--goldtx); font-weight:700; font-size:12.5px; letter-spacing:1.4px}
 .board tbody td{padding:15px 8px; border-bottom:1px solid var(--lift-div); font-size:14px; text-align:center; vertical-align:middle}
 .board tbody tr:last-child td{border-bottom:0}
@@ -644,14 +644,14 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
       </form>
       <div class="success js-success" role="status" aria-live="polite">
         <div class="tick"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
-        <h3>You're on the list.</h3>
-        <p>We'll email you the moment early access opens. Keep an eye on your inbox.</p>
+        <h3>Check your inbox to confirm your spot.</h3>
+        <p>We just sent you a confirmation link. Click it to lock in your early access.</p>
       </div>
     </div>
     </div><!-- /.hero-left -->
 
     <!-- OG-style XRP scorecard preview beside the form. REAL ratified data + an "as of" freshness
-         stamp (NOT EXAMPLE/SAMPLE — real-but-aging values carry the stamp per DESIGN_BRIEF §6).
+         stamp (NOT EXAMPLE/SAMPLE - real-but-aging values carry the stamp per DESIGN_BRIEF §6).
          Answers the headline at a glance: Network 6.0 winning, Token 4.9 not. -->
     <div class="hero-right">
       <div class="hero-card" role="img" aria-label="XRP TNT Score, as of 17 June 2026: composite TNT 4.7 neutral. Token 4.9 neutral, Network 6.0 bullish, Technicals 4.4 bearish.">
@@ -685,13 +685,13 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
   </div>
 </section>
 
-<!-- ══ DRAMATIZE THE PAIN — now directly under the hero (swapped with the proof scorecard,
-     operator 2026-06-19). The two section SHELLS below are unchanged — `.proof` (borderless,
+<!-- ══ DRAMATIZE THE PAIN - now directly under the hero (swapped with the proof scorecard,
+     operator 2026-06-19). The two section SHELLS below are unchanged - `.proof` (borderless,
      flows from the hero) and `.painband` (top-divider, sits above the portal) keep their exact
      bg/border; only the CONTENT inside the two bands was swapped.
      Data integrity: the three chips are REAL ratified XRP catalysts (Altcoin Buzz research,
-     as of 16–17 Jun 2026) — no SAMPLE tag needed. The red line is SCHEMATIC (no axis, no
-     numbers) — a concept illustration of "flat/sagging," NOT an invented price claim. -->
+     as of 16–17 Jun 2026) - no SAMPLE tag needed. The red line is SCHEMATIC (no axis, no
+     numbers) - a concept illustration of "flat/sagging," NOT an invented price claim. -->
 <section class="proof">
   <div class="wrap-n">
     <div class="pain reveal">
@@ -874,10 +874,10 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
       </div>
     </div>
 
-    <!-- Item 2 · "Check your coin" — waitlist capture WITH CONTEXT (NOT a score lookup).
+    <!-- Item 2 · "Check your coin" - waitlist capture WITH CONTEXT (NOT a score lookup).
          Reuses the page's single .magnet/.js-signup mechanism; the coin rides along as the
          MC_COIN_FIELD merge field. Data integrity: the success copy NEVER shows a score for an
-         un-scored coin — XRP stays the one already-live example. -->
+         un-scored coin - XRP stays the one already-live example. -->
     <div class="magnet coincheck">
       <form class="js-signup cc-form" data-loc="leaderboard" novalidate>
         <div class="cc-eye">CHECK YOUR COIN</div>
@@ -897,8 +897,8 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
       </form>
       <div class="success js-success" role="status" aria-live="polite">
         <div class="tick"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
-        <h3>You're on the list.</h3>
-        <p class="js-coin-line">We'll have your coin's TNT Score at launch. You're on the list.</p>
+        <h3>Check your inbox to confirm your spot.</h3>
+        <p class="js-coin-line">We'll have your coin's TNT Score ready at launch.</p>
       </div>
     </div>
   </div>
@@ -1037,8 +1037,8 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
       </form>
       <div class="success js-success" role="status" aria-live="polite">
         <div class="tick"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
-        <h3>You're on the list.</h3>
-        <p>We'll email you the moment early access opens. Keep an eye on your inbox.</p>
+        <h3>Check your inbox to confirm your spot.</h3>
+        <p>We just sent you a confirmation link. Click it to lock in your early access.</p>
       </div>
     </div>
   </div>
@@ -1099,8 +1099,9 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
         and paste that exact name into MC_HONEYPOT_NAME below.
    Until SIGNUP_ENDPOINT is replaced, BOTH forms short-circuit to the success-state
    MOCK and do NOT capture emails. ───────────────────────── */
-const SIGNUP_ENDPOINT  = "REPLACE_WITH_MAILCHIMP_ENDPOINT";   // ← paste Mailchimp post-json URL
-const MC_HONEYPOT_NAME = "REPLACE_WITH_MAILCHIMP_HONEYPOT";   // ← paste b_XXXX_YYYY field name
+const SIGNUP_ENDPOINT  = "https://altcoinbuzz.us17.list-manage.com/subscribe/post-json?u=8450d94e36d52fe3fd6ec0ffc&id=04eacdd585&f_id=00f4ede3f0";  // WIRED 2026-06-19 · Altcoin Buzz audience (us17)
+const MC_HONEYPOT_NAME = "b_8450d94e36d52fe3fd6ec0ffc_04eacdd585";   // anti-bot honeypot from the embed code
+const MC_TAGS          = "8309971";   // tag id from the embed code; tags new subscribers (best-effort over JSONP)
 const MC_COIN_FIELD    = "COIN";   // ← Mailchimp audience MERGE TAG for the "check your coin" field.
                                    //    Create a text field with this tag in the audience, or change
                                    //    this to match an existing one. Sent only when a coin is entered.
@@ -1161,7 +1162,7 @@ const MC_COIN_FIELD    = "COIN";   // ← Mailchimp audience MERGE TAG for the "
     const success=wrap.querySelector('.js-success');
     const loc=form.dataset.loc||'page';
 
-    function fireSignup(coin){   // Item 1 — privacy-light conversion event (no PII; just where + which coin)
+    function fireSignup(coin){   // Item 1 - privacy-light conversion event (no PII; just where + which coin)
       try{
         if(typeof window.plausible==='function'){
           const props={location:loc}; if(coin) props.coin=coin;
@@ -1170,13 +1171,13 @@ const MC_COIN_FIELD    = "COIN";   // ← Mailchimp audience MERGE TAG for the "
       }catch(e){}
     }
     function showSuccess(coin){
-      // Item 2 — contextual copy for the coin-capture variant (data-integrity: NEVER shows a score
+      // Item 2 - contextual copy for the coin-capture variant (data-integrity: NEVER shows a score
       // for an un-scored coin; XRP is acknowledged as the one already-live example).
       if(coinInput){
         const line=success.querySelector('.js-coin-line');
         if(line){
-          if(coin==='XRP'){ line.innerHTML="XRP's TNT Score is already live. It's the scorecard above. You're on the list for every other coin at launch."; }
-          else{ line.textContent="We'll have "+(coin||'your coin')+"'s TNT Score at launch. You're on the list."; }
+          if(coin==='XRP'){ line.innerHTML="XRP's TNT Score is already live. It's the scorecard above, and we'll have every other coin ready at launch."; }
+          else{ line.textContent="We'll have "+(coin||'your coin')+"'s TNT Score ready at launch."; }
         }
       }
       form.style.display='none'; success.classList.add('show'); fireSignup(coin);
@@ -1198,7 +1199,8 @@ const MC_COIN_FIELD    = "COIN";   // ← Mailchimp audience MERGE TAG for the "
 
       try{   // Live Mailchimp path
         const params={ EMAIL: val };
-        if(coin && MC_COIN_FIELD){ params[MC_COIN_FIELD]=coin; }   // Item 2 — pass coin as a merge field
+        if(coin && MC_COIN_FIELD){ params[MC_COIN_FIELD]=coin; }   // pass coin as a merge field
+        if(MC_TAGS){ params.tags=MC_TAGS; }                        // tag new subscribers
         if(MC_HONEYPOT_NAME && MC_HONEYPOT_NAME!=='REPLACE_WITH_MAILCHIMP_HONEYPOT'){
           params[MC_HONEYPOT_NAME]=honey.value || '';
         }
