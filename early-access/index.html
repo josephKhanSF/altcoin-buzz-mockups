@@ -37,14 +37,8 @@
 <meta name="twitter:image" content="https://josephkhansf.github.io/altcoin-buzz-mockups/early-access/og-image.png">
 <meta name="twitter:image:alt" content="Altcoin Buzz TNT Score. XRP scored Token 4.9, Network 6.0, Technicals 4.4.">
 
-<!-- ── Analytics: Plausible (privacy-light, cookieless; DESIGN intent = no heavy trackers) ──
-     ⚠ CONFIG: data-domain MUST equal the property name added in the Plausible dashboard
-     (the live domain, altcoinbuzz.com). The second line is the official custom-event stub -
-     it lets us fire the "signup" goal from the form success path (see showSuccess()).
-     If the operator switches to Fathom/GA4 later, swap these two lines + the plausible()
-     call in showSuccess(); nothing else depends on the vendor. -->
-<script defer data-domain="altcoinbuzz.com" src="https://plausible.io/js/script.js"></script>
-<script>window.plausible=window.plausible||function(){(window.plausible.q=window.plausible.q||[]).push(arguments)}</script>
+<!-- Analytics + ad pixels are consent-gated and configured near the bottom of this file
+     (the TRACK config block). Nothing loads until the visitor accepts the cookie banner. -->
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1094,6 +1088,39 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
 <!-- ══ STICKY MOBILE CTA ═══════════════════════════════ -->
 <div class="sticky-cta"><a href="#get-access">Get early access →</a></div>
 
+<!-- Cookie consent banner — gates GA4 + ad pixels until Accept.
+     TODO: point the privacy link href below at your real privacy-policy URL. -->
+<style>
+.cookie-consent{display:none; position:fixed; left:0; right:0; bottom:0; z-index:200;
+  background:var(--card); border-top:1px solid var(--line2); box-shadow:0 -8px 30px rgba(0,0,0,.18)}
+.cookie-consent .cc-inner{max-width:1080px; margin:0 auto; padding:14px 22px calc(14px + env(safe-area-inset-bottom));
+  display:flex; align-items:center; gap:16px; flex-wrap:wrap; justify-content:space-between}
+.cookie-consent .cc-text{font-size:13px; line-height:1.5; color:var(--mut); margin:0; flex:1; min-width:240px}
+.cookie-consent .cc-text a{color:var(--goldtx); text-decoration:underline}
+.cookie-consent .cc-actions{display:flex; gap:10px; flex:0 0 auto}
+.cookie-consent .cc-btn{cursor:pointer; font-family:inherit; font-size:13.5px; font-weight:600; padding:9px 18px;
+  border-radius:9px; border:1px solid var(--line2); transition:filter .15s, color .15s, border-color .15s}
+.cookie-consent .cc-decline{background:transparent; color:var(--mut)}
+.cookie-consent .cc-decline:hover{color:var(--ink); border-color:var(--faint)}
+.cookie-consent .cc-accept{background:linear-gradient(180deg,#eaba50,#e0a93c); color:var(--goldink); border:0}
+.cookie-consent .cc-accept:hover{filter:brightness(1.05)}
+.consent-open .sticky-cta{display:none !important}
+@media(max-width:560px){
+  .cookie-consent .cc-inner{padding:12px 16px calc(12px + env(safe-area-inset-bottom))}
+  .cookie-consent .cc-actions{width:100%}
+  .cookie-consent .cc-btn{flex:1}
+}
+</style>
+<div class="cookie-consent" id="consentBanner" role="dialog" aria-label="Cookie consent">
+  <div class="cc-inner">
+    <p class="cc-text">We use cookies to measure traffic and improve this page. See our <a href="#privacy">privacy policy</a>.</p>
+    <div class="cc-actions">
+      <button type="button" class="cc-btn cc-decline">Decline</button>
+      <button type="button" class="cc-btn cc-accept">Accept</button>
+    </div>
+  </div>
+</div>
+
 <script>
 /* ═══════════════════════════════════════════════════════════
    CONFIG - Mailchimp email capture (operator supplies the endpoint)
@@ -1115,6 +1142,82 @@ const MC_TAGS          = "8309972";   // tag id from the embed code; tags new su
 const MC_COIN_FIELD    = "COIN";   // ← Mailchimp audience MERGE TAG for the "check your coin" field.
                                    //    Create a text field with this tag in the audience, or change
                                    //    this to match an existing one. Sent only when a coin is entered.
+
+/* ═══════════════════════════════════════════════════════════
+   CONFIG - Analytics + ad pixels (CONSENT-GATED; nothing loads until Accept)
+   Paste your IDs below. Any value still containing "XXXX" or "PASTE_" stays OFF,
+   so you can fill in only the platforms you actually use.
+   ─────────────────────────────────────────────────────────── */
+const TRACK = {
+  ga4:            "G-YD7B9M7M6W",           // Google Analytics 4 Measurement ID (AltcoinBuzzCom web stream)
+  googleAdsId:    "AW-XXXXXXXXXX",          // Google Ads ID (optional, for conversion tracking)
+  googleAdsLabel: "PASTE_GADS_LABEL",       // Google Ads "signup" conversion label (optional)
+  metaPixel:      "PASTE_META_PIXEL_ID",    // Meta (Facebook / Instagram) Pixel ID
+  tiktokPixel:    "PASTE_TIKTOK_PIXEL_ID",  // TikTok Pixel ID
+  twitterPixel:   "PASTE_TWITTER_PIXEL_ID", // X (Twitter) Pixel ID
+  twitterEventId: "PASTE_TWITTER_EVENT_ID"  // X (Twitter) signup event id from X Ads (optional)
+};
+const isSet=(v)=> typeof v==='string' && v.indexOf('XXXX')===-1 && v.indexOf('PASTE_')===-1 && v.length>3;
+
+/* ── Consent banner + tracker loader (loads pixels only after Accept) ── */
+(function(){
+  const KEY='ab_consent'; let loaded=false;
+  const get=()=>{ try{return localStorage.getItem(KEY);}catch(e){return null;} };
+  const set=(v)=>{ try{localStorage.setItem(KEY,v);}catch(e){} };
+
+  function initTrackers(){
+    if(loaded) return; loaded=true;
+    // Google (GA4 + Google Ads share gtag.js)
+    const gid = isSet(TRACK.ga4) ? TRACK.ga4 : (isSet(TRACK.googleAdsId)?TRACK.googleAdsId:null);
+    if(gid){
+      const s=document.createElement('script'); s.async=true; s.src='https://www.googletagmanager.com/gtag/js?id='+gid; document.head.appendChild(s);
+      window.dataLayer=window.dataLayer||[]; window.gtag=function(){dataLayer.push(arguments);};
+      gtag('js',new Date());
+      if(isSet(TRACK.ga4)) gtag('config',TRACK.ga4);
+      if(isSet(TRACK.googleAdsId)) gtag('config',TRACK.googleAdsId);
+    }
+    // Meta (Facebook / Instagram) Pixel
+    if(isSet(TRACK.metaPixel)){
+      !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init',TRACK.metaPixel); fbq('track','PageView');
+    }
+    // TikTok Pixel
+    if(isSet(TRACK.tiktokPixel)){
+      !function(w,d,t){w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"];ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e};ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js";ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};var o=d.createElement("script");o.type="text/javascript",o.async=!0,o.src=r+"?sdkid="+e+"&lib="+t;var a=d.getElementsByTagName("script")[0];a.parentNode.insertBefore(o,a)};ttq.load(TRACK.tiktokPixel);ttq.page()}(window,document,'ttq');
+    }
+    // X (Twitter) Pixel
+    if(isSet(TRACK.twitterPixel)){
+      !function(e,t,n,s,u,a){e.twq||(s=e.twq=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments)},s.version='1.1',s.queue=[],u=t.createElement(n),u.async=!0,u.src='https://static.ads-twitter.com/uwt.js',a=t.getElementsByTagName(n)[0],a.parentNode.insertBefore(u,a))}(window,document,'script');
+      twq('config',TRACK.twitterPixel);
+    }
+  }
+
+  // Public conversion hook — every form's success path calls this.
+  window.ABtrackSignup=function(loc, coin){
+    try{
+      if(window.gtag){
+        if(isSet(TRACK.ga4)) gtag('event','sign_up',{method:'early_access', form_location:loc||'', coin:coin||''});
+        if(isSet(TRACK.googleAdsId) && isSet(TRACK.googleAdsLabel)) gtag('event','conversion',{send_to:TRACK.googleAdsId+'/'+TRACK.googleAdsLabel});
+      }
+      if(window.fbq) fbq('track','Lead',{content_name:loc||'early_access'});
+      if(window.ttq) ttq.track('SubmitForm');
+      if(window.twq && isSet(TRACK.twitterEventId)) twq('event',TRACK.twitterEventId,{});
+    }catch(e){}
+  };
+
+  // Banner wiring
+  const banner=document.getElementById('consentBanner'), body=document.body;
+  const hide=()=>{ if(banner) banner.style.display='none'; body.classList.remove('consent-open'); };
+  const show=()=>{ if(banner){ banner.style.display='block'; body.classList.add('consent-open'); } };
+  const choice=get();
+  if(choice==='granted'){ initTrackers(); }
+  else if(choice!=='denied'){ show(); }   // no choice yet → ask
+  if(banner){
+    const a=banner.querySelector('.cc-accept'), d=banner.querySelector('.cc-decline');
+    if(a) a.addEventListener('click',()=>{ set('granted'); hide(); initTrackers(); });
+    if(d) d.addEventListener('click',()=>{ set('denied'); hide(); });
+  }
+})();
 
 /* ── Build the three Fear&Greed-style gauges ────────────── */
 (function(){
@@ -1172,13 +1275,8 @@ const MC_COIN_FIELD    = "COIN";   // ← Mailchimp audience MERGE TAG for the "
     const success=wrap.querySelector('.js-success');
     const loc=form.dataset.loc||'page';
 
-    function fireSignup(coin){   // Item 1 - privacy-light conversion event (no PII; just where + which coin)
-      try{
-        if(typeof window.plausible==='function'){
-          const props={location:loc}; if(coin) props.coin=coin;
-          window.plausible('signup',{props:props});
-        }
-      }catch(e){}
+    function fireSignup(coin){   // conversion event → consent-gated trackers (no PII; just where + which coin)
+      try{ if(typeof window.ABtrackSignup==='function'){ window.ABtrackSignup(loc, coin||''); } }catch(e){}
     }
     function showSuccess(coin){
       // Item 2 - contextual copy for the coin-capture variant (data-integrity: NEVER shows a score
