@@ -171,8 +171,11 @@
   body.stage-close .headline,
   body.stage-close .gauges,
   body.stage-close .takeaway{display:none}
+  /* Close content is TOP-ANCHORED so the lower half of the frame stays clear for green-screen talent. */
   body.stage-close .closecard{flex:1;min-height:0;display:flex;flex-direction:column;
-    align-items:flex-start;justify-content:center;position:relative;overflow:hidden}
+    align-items:flex-start;justify-content:flex-start;position:relative;overflow:hidden}
+  body.r916.stage-close .closecard{padding-top:14px}
+  body.r11.stage-close .closecard{padding-top:14px}
   /* faux scoreboard, heavily blurred + faint — never legible (scripts: board flashes blurred, <50%) */
   .boardcameo{position:absolute;inset:-40px;display:flex;flex-direction:column;justify-content:center;
     filter:blur(18px);opacity:.20;pointer-events:none;z-index:0}
@@ -183,21 +186,40 @@
   body.r916 .boardcameo .bname{height:30px} body.r11 .boardcameo .bname{height:22px}
   .boardcameo .bchip{border-radius:10px}
   body.r916 .boardcameo .bchip{width:92px;height:30px} body.r11 .boardcameo .bchip{width:66px;height:22px}
-  .closebody{position:relative;z-index:1;display:flex;flex-direction:column;align-items:flex-start}
+  .closebody{position:relative;z-index:1;width:100%;display:flex;flex-direction:column;align-items:flex-start}
   .close-eyebrow{font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--goldtx)}
   body.r916 .close-eyebrow{font-size:30px} body.r11 .close-eyebrow{font-size:22px}
-  .close-h{font-weight:700;letter-spacing:-1px;line-height:1.06;color:var(--ink)}
+  .close-h{font-weight:700;letter-spacing:-1px;line-height:1.05;color:var(--ink)}
   .close-h .g{color:var(--goldtx)}
-  body.r916 .close-h{font-size:92px;margin-top:26px} body.r11 .close-h{font-size:62px;margin-top:18px}
+  body.r916 .close-h{font-size:72px;margin-top:18px} body.r11 .close-h{font-size:48px;margin-top:14px}
   .close-sub{color:var(--txt);font-weight:500}
-  body.r916 .close-sub{font-size:46px;margin-top:34px} body.r11 .close-sub{font-size:32px;margin-top:22px}
+  body.r916 .close-sub{font-size:40px;margin-top:18px} body.r11 .close-sub{font-size:28px;margin-top:16px}
   .close-cta{display:inline-flex;align-items:center;background:var(--gold);color:#0b0b0d;font-weight:700;
     text-transform:uppercase;letter-spacing:.6px;border-radius:var(--r-chip);box-shadow:var(--shadow);
     white-space:nowrap;line-height:1}
-  body.r916 .close-cta{font-size:40px;padding:22px 40px;margin-top:54px}
-  body.r11 .close-cta{font-size:28px;padding:15px 28px;margin-top:34px}
+  body.r916 .close-cta{font-size:38px;padding:20px 38px;margin-top:28px}
+  body.r11 .close-cta{font-size:26px;padding:14px 26px;margin-top:26px}
   .close-foot{color:var(--mut);font-weight:600;letter-spacing:.4px}
-  body.r916 .close-foot{font-size:26px;margin-top:46px} body.r11 .close-foot{font-size:19px;margin-top:30px}
+  body.r916 .close-foot{font-size:24px;margin-top:22px} body.r11 .close-foot{font-size:18px;margin-top:20px}
+
+  /* Close thumbnail slot — a fixed 16:9 frame the editor fills with the PARENT video's thumbnail
+     (file-picker or drag-drop). Baked into the backdrop so the close captures in one shot.
+     Empty = clean dashed placeholder; filled = framed image with a soft shadow. */
+  .thumbslot{width:100%;aspect-ratio:16/9;border-radius:22px;overflow:hidden;position:relative;
+    background:var(--card2);border:2px dashed var(--line2);display:flex;align-items:center;justify-content:center}
+  body.r916 .thumbslot{max-width:675px;margin-bottom:28px} body.r11 .thumbslot{max-width:575px;margin-bottom:22px}
+  .thumbslot.has-img{border:none;background:#0b0b0d;box-shadow:0 10px 34px rgba(40,33,18,.20)}
+  .thumbslot.drag{border-color:var(--gold);background:color-mix(in srgb,var(--gold) 12%,var(--card2))}
+  .thumbslot .thumbimg{display:none;width:100%;height:100%;object-fit:cover}
+  .thumbslot.has-img .thumbimg{display:block}
+  .thumbslot.has-img .thumbph{display:none}
+  .thumbph{display:flex;flex-direction:column;align-items:center;gap:14px;color:var(--mut);
+    font-weight:700;letter-spacing:.5px;text-transform:uppercase;text-align:center;padding:0 8%}
+  body.r916 .thumbph{font-size:30px} body.r11 .thumbph{font-size:21px}
+  .thumbph .play{display:flex;align-items:center;justify-content:center;border-radius:999px;
+    background:var(--gold);color:#0b0b0d;line-height:1}
+  body.r916 .thumbph .play{width:96px;height:96px;font-size:38px}
+  body.r11 .thumbph .play{width:66px;height:66px;font-size:26px}
 </style>
 </head>
 <body class="r916">
@@ -259,10 +281,15 @@
   <div class="closecard" id="closeScreen" aria-hidden="true">
     <div class="boardcameo" aria-hidden="true" id="boardCameo"></div>
     <div class="closebody">
+      <!-- 16:9 thumbnail slot — editor drops the PARENT video's thumbnail here (panel button or drag-drop). -->
+      <div class="thumbslot" id="thumbSlot">
+        <img class="thumbimg" id="thumbImg" alt="">
+        <div class="thumbph"><span class="play">&#9658;</span>16:9 · drop the parent video's thumbnail</div>
+      </div>
       <div class="close-eyebrow">Altcoin Buzz · TNT Score</div>
       <h2 class="close-h">The network is winning.<br><span class="g">Is the token?</span></h2>
       <p class="close-sub">Every catalyst. One scorecard.</p>
-      <div class="close-cta">▲&nbsp;&nbsp;Full breakdown — link above</div>
+      <div class="close-cta">▲&nbsp;&nbsp;Full breakdown</div>
       <div class="close-foot">Not financial advice. DYOR.</div>
     </div>
   </div>
@@ -290,12 +317,20 @@
     <button onclick="setStage(3)">Close</button>
   </div>
 
+  <div class="lab">4 · Close thumbnail (16:9 · parent video's)</div>
+  <div class="btnrow">
+    <button onclick="document.getElementById('thumbFile').click()">Load thumbnail…</button>
+    <button onclick="clearThumb()">Clear</button>
+  </div>
+  <input type="file" id="thumbFile" accept="image/*" hidden onchange="loadThumbFromInput(event)">
+
   <div class="btnrow">
     <button onclick="document.body.classList.toggle('clean')">Hide panel (H)</button>
   </div>
   <div class="hint">Pick aspect, then catalyst, then step the reveal to match the beat you're capturing.
     <b>← / →</b> step reveal stage · <b>↑ / ↓</b> prev/next catalyst · press a catalyst's number (1–9) to jump ·
     <b>A</b> toggle aspect · <b>H</b> hide panel for capture. Switching catalyst resets to Hook.
+    On the <b>Close</b> stage, drop the parent video's 16:9 thumbnail onto the frame (or use “Load thumbnail…”).
     Capture #card at 100% (1080×1920 or 1080×1080).</div>
 </div>
 
@@ -374,6 +409,25 @@ function applyStage(){
   [...document.querySelectorAll("#stagebtns button")].forEach((b,i)=>b.classList.toggle("on",i===stage));
 }
 function setStage(s){ stage=Math.max(0,Math.min(3,s)); applyStage(); }
+
+/* ===== Close thumbnail slot — editor loads the PARENT video's 16:9 thumbnail. =====
+   Object URL only; nothing is persisted, so the card file stays token-agnostic. */
+function setThumb(url){
+  const slot=document.getElementById("thumbSlot"), img=document.getElementById("thumbImg");
+  if(!slot) return;
+  if(url){ img.src=url; slot.classList.add("has-img"); }
+  else { img.removeAttribute("src"); slot.classList.remove("has-img"); }
+}
+function loadThumbFromInput(e){ const f=e.target.files && e.target.files[0]; if(f) setThumb(URL.createObjectURL(f)); }
+function clearThumb(){ setThumb(null); }
+function wireThumbDnd(){
+  const slot=document.getElementById("thumbSlot"); if(!slot) return;
+  ["dragenter","dragover"].forEach(ev=>slot.addEventListener(ev,e=>{e.preventDefault();slot.classList.add("drag");}));
+  ["dragleave","dragend"].forEach(ev=>slot.addEventListener(ev,()=>slot.classList.remove("drag")));
+  slot.addEventListener("drop",e=>{ e.preventDefault(); slot.classList.remove("drag");
+    const f=e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0];
+    if(f && f.type.indexOf("image/")===0) setThumb(URL.createObjectURL(f)); });
+}
 
 /* Generic blurred board cameo for the close — a faux, illegible scoreboard (no real data, no fixed
    row count). 9 rows is decorative only; it never has to match any token's true catalyst count. */
@@ -472,7 +526,7 @@ function fit(){
 }
 addEventListener("resize",fit);
 
-buildPicker(); buildCameo(); render(); fit();
+buildPicker(); buildCameo(); wireThumbDnd(); render(); fit();
 </script>
 </body>
 </html>
