@@ -57,9 +57,19 @@
     --r-card:34px; --r-chip:999px;
     --shadow:0 2px 4px rgba(40,33,18,.05), 0 8px 24px rgba(40,33,18,.06);
     --glow:#fffdf8;
+    --frame:#0a0a0b;   /* outer canvas behind the card */
+  }
+  /* ===== Dark theme — overrides the carried primitives. Light is the default (no class). ===== */
+  body.dark{
+    --bg:#121214; --card:#1c1c20; --card2:#242429; --line:#2c2c32; --line2:#3a3a42;
+    --ink:#f6f3ec; --txt:#d8d3c8; --mut:#9a948a;
+    --green:#3fb56f; --red:#e06464; --zero:#8b909c;
+    --gold:#e0a93c; --goldtx:#e9c46a; --goldink:#1d1604;
+    --shadow:0 2px 4px rgba(0,0,0,.40), 0 8px 24px rgba(0,0,0,.50);
+    --glow:#23231f; --frame:#000000;
   }
   *{margin:0;padding:0;box-sizing:border-box}
-  html,body{height:100%;background:#0a0a0b;overflow:hidden}
+  html,body{height:100%;background:var(--frame);overflow:hidden}
   body{font-family:var(--sans);color:var(--ink)}
 
   /* ===== Canvas — fixed pixel frame, scale-to-fit the viewport. Card fills it exactly. ===== */
@@ -112,6 +122,7 @@
   /* pillar label = fixed BLACK PILL (score-independent), white text, doubled size */
   .pillar .plabel{display:inline-flex;align-items:center;font-weight:700;text-transform:uppercase;
     letter-spacing:1px;color:#fff;background:#0b0b0d;border-radius:var(--r-chip);line-height:1}
+  body.dark .pillar .plabel{background:#2a2a30;color:var(--ink);box-shadow:inset 0 0 0 1px var(--line2)}
   body.r916 .pillar .plabel{font-size:42px;padding:11px 29px}
   body.r11  .pillar .plabel{font-size:31px;padding:8px 22px}
   .pillar .gholder{display:flex;align-items:center;justify-content:center}
@@ -156,6 +167,17 @@
     opacity:0;transition:opacity .15s ease}
   body.clean #unhide{display:block} body.clean #unhide:hover{opacity:1}
   :focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+  /* ===== Theme toggle — fixed icon at the top-right of the board. Like the panel, it is chrome:
+     hidden under body.clean so it never lands in a capture (capture target is #card). ===== */
+  #themeToggle{position:fixed;top:18px;right:18px;z-index:85;width:44px;height:44px;display:flex;
+    align-items:center;justify-content:center;background:#fff;border:1px solid var(--line2);
+    border-radius:12px;box-shadow:0 6px 20px rgba(40,33,18,.18);cursor:pointer;font-size:20px;line-height:1;
+    color:#15140f;transition:background .15s ease}
+  #themeToggle:hover{background:color-mix(in srgb,var(--gold) 18%,#fff)}
+  body.dark #themeToggle{background:#1c1c20;border-color:#3a3a42;color:#f6f3ec;box-shadow:0 6px 20px rgba(0,0,0,.5)}
+  body.dark #themeToggle:hover{background:color-mix(in srgb,var(--gold) 22%,#1c1c20)}
+  body.clean #themeToggle{display:none}
 
   /* ===== Staged reveal — blur is a VISUAL overlay only; no score data changes. ============
      Blur radius scales with aspect so the veil reads the same at 9:16 and 1:1.
@@ -296,14 +318,21 @@
 
 </div></div>
 
+<div id="themeToggle" onclick="toggleTheme()" title="Toggle light / dark (D)" aria-label="Toggle light or dark mode">&#9789;</div>
 <div id="unhide" onclick="document.body.classList.remove('clean')" title="Show controls">&#9881; controls</div>
 <div id="panel">
   <h3>Shorts card control</h3>
 
   <div class="lab">1 · Aspect</div>
   <div class="btnrow">
-    <button id="b916" class="on" onclick="setRatio('916')">9:16 · 1080×1920</button>
-    <button id="b11" onclick="setRatio('11')">1:1 · 1080×1080</button>
+    <button id="b916" class="on" onclick="setRatio('916')">YouTube Shorts</button>
+    <button id="b11" onclick="setRatio('11')">X Shorts</button>
+  </div>
+
+  <div class="lab">Theme</div>
+  <div class="btnrow" id="themebtns">
+    <button id="bLight" class="on" onclick="setTheme('light')">☀ Light</button>
+    <button id="bDark" onclick="setTheme('dark')">☾ Dark</button>
   </div>
 
   <div class="lab">2 · Catalyst # (RESEARCH board row) — grouped by source video</div>
@@ -329,7 +358,7 @@
   </div>
   <div class="hint">Pick aspect, then catalyst, then step the reveal to match the beat you're capturing.
     <b>← / →</b> step reveal stage · <b>↑ / ↓</b> prev/next catalyst · press a catalyst's number (1–9) to jump ·
-    <b>A</b> toggle aspect · <b>H</b> hide panel for capture. Switching catalyst resets to Hook.
+    <b>A</b> toggle aspect · <b>D</b> toggle light/dark · <b>H</b> hide panel for capture. Switching catalyst resets to Hook.
     On the <b>Close</b> stage, drop the parent video's 16:9 thumbnail onto the frame (or use “Load thumbnail…”).
     Capture #card at 100% (1080×1920 or 1080×1080).</div>
 </div>
@@ -409,6 +438,20 @@ function applyStage(){
   [...document.querySelectorAll("#stagebtns button")].forEach((b,i)=>b.classList.toggle("on",i===stage));
 }
 function setStage(s){ stage=Math.max(0,Math.min(3,s)); applyStage(); }
+
+/* ===== Theme — light is the default; dark is a body class. The toggle is pure chrome,
+   it never changes any score data. Both the top-right icon and the panel buttons sync here. */
+let theme='light';
+function setTheme(t){
+  theme = (t==='dark') ? 'dark' : 'light';
+  document.body.classList.toggle('dark', theme==='dark');
+  const tt=document.getElementById('themeToggle');
+  if(tt){ tt.innerHTML = theme==='dark' ? '&#9788;' : '&#9789;'; } /* ☀ when dark / ☾ when light */
+  const bl=document.getElementById('bLight'), bd=document.getElementById('bDark');
+  if(bl) bl.classList.toggle('on', theme==='light');
+  if(bd) bd.classList.toggle('on', theme==='dark');
+}
+function toggleTheme(){ setTheme(theme==='dark'?'light':'dark'); }
 
 /* ===== Close thumbnail slot — editor loads the PARENT video's 16:9 thumbnail. =====
    Object URL only; nothing is persisted, so the card file stays token-agnostic. */
@@ -514,6 +557,7 @@ document.addEventListener("keydown",e=>{
      Catalysts numbered 10+ are reached with ↑ / ↓. */
   if(e.key>="1"&&e.key<="9"){ const j=CATALYSTS.findIndex(c=>c.cat_no===+e.key); if(j>=0) setCatalyst(j); }
   if(e.key==="a"||e.key==="A")setRatio(ratio==='916'?'11':'916');
+  if(e.key==="d"||e.key==="D")toggleTheme();
   if(e.key==="h"||e.key==="H")document.body.classList.toggle("clean");
 });
 
@@ -526,7 +570,7 @@ function fit(){
 }
 addEventListener("resize",fit);
 
-buildPicker(); buildCameo(); wireThumbDnd(); render(); fit();
+buildPicker(); buildCameo(); wireThumbDnd(); setTheme('light'); render(); fit();
 </script>
 </body>
 </html>
