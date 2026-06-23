@@ -151,6 +151,9 @@
     font-family:var(--sans);font-size:13px;font-weight:600;padding:8px 12px;cursor:pointer}
   #panel button:hover{background:color-mix(in srgb,var(--gold) 16%,var(--card2))}
   #panel button.on{background:var(--gold);border-color:var(--gold);color:var(--goldink)}
+  #panel .tin{width:100%;background:var(--card2);border:1px solid var(--line2);color:var(--txt);
+    border-radius:9px;font-family:var(--sans);font-size:13px;padding:9px 11px;margin-bottom:12px}
+  #panel .tin::placeholder{color:var(--mut)}
   /* grouped catalyst picker — a labelled group per source video (token-ready: token → source) */
   #catgroups{margin-bottom:10px}
   #catgroups .cgroup{margin-bottom:11px}
@@ -209,20 +212,11 @@
   .boardcameo .bchip{border-radius:10px}
   body.r916 .boardcameo .bchip{width:92px;height:30px} body.r11 .boardcameo .bchip{width:66px;height:22px}
   .closebody{position:relative;z-index:1;width:100%;display:flex;flex-direction:column;align-items:flex-start}
-  .close-eyebrow{font-weight:700;letter-spacing:1.4px;text-transform:uppercase;color:var(--goldtx)}
-  body.r916 .close-eyebrow{font-size:30px} body.r11 .close-eyebrow{font-size:22px}
-  .close-h{font-weight:700;letter-spacing:-1px;line-height:1.05;color:var(--ink)}
-  .close-h .g{color:var(--goldtx)}
-  body.r916 .close-h{font-size:72px;margin-top:18px} body.r11 .close-h{font-size:48px;margin-top:14px}
-  .close-sub{color:var(--txt);font-weight:500}
-  body.r916 .close-sub{font-size:40px;margin-top:18px} body.r11 .close-sub{font-size:28px;margin-top:16px}
-  .close-cta{display:inline-flex;align-items:center;background:var(--gold);color:#0b0b0d;font-weight:700;
-    text-transform:uppercase;letter-spacing:.6px;border-radius:var(--r-chip);box-shadow:var(--shadow);
-    white-space:nowrap;line-height:1}
-  body.r916 .close-cta{font-size:38px;padding:20px 38px;margin-top:28px}
-  body.r11 .close-cta{font-size:26px;padding:14px 26px;margin-top:26px}
-  .close-foot{color:var(--mut);font-weight:600;letter-spacing:.4px}
-  body.r916 .close-foot{font-size:24px;margin-top:22px} body.r11 .close-foot{font-size:18px;margin-top:20px}
+  /* Close = parent thumbnail + the VIDEO TITLE (operator-typed in the panel; not baked into the file,
+     so the close stays token-agnostic). Empty until a title is entered. */
+  .close-title{font-weight:700;letter-spacing:-1px;line-height:1.08;color:var(--ink)}
+  body.r916 .close-title{font-size:60px;margin-top:16px} body.r11 .close-title{font-size:40px;margin-top:12px}
+  .close-title:empty{display:none}
 
   /* Close thumbnail slot — a fixed 16:9 frame the editor fills with the PARENT video's thumbnail
      (file-picker or drag-drop). Baked into the backdrop so the close captures in one shot.
@@ -308,11 +302,8 @@
         <img class="thumbimg" id="thumbImg" alt="">
         <div class="thumbph"><span class="play">&#9658;</span>16:9 · drop the parent video's thumbnail</div>
       </div>
-      <div class="close-eyebrow">Altcoin Buzz · TNT Score</div>
-      <h2 class="close-h">The network is winning.<br><span class="g">Is the token?</span></h2>
-      <p class="close-sub">Every catalyst. One scorecard.</p>
-      <div class="close-cta">▲&nbsp;&nbsp;Full breakdown</div>
-      <div class="close-foot">Not financial advice. DYOR.</div>
+      <!-- Video title — typed by the operator in the panel (section 5). Hidden when blank. -->
+      <h2 class="close-title" id="closeTitle"></h2>
     </div>
   </div>
 
@@ -353,13 +344,17 @@
   </div>
   <input type="file" id="thumbFile" accept="image/*" hidden onchange="loadThumbFromInput(event)">
 
+  <div class="lab">5 · Close title (video title shown on the Close card)</div>
+  <input type="text" id="closeTitleInput" class="tin" placeholder="Type the video title…" oninput="setCloseTitle(this.value)">
+
   <div class="btnrow">
     <button onclick="document.body.classList.toggle('clean')">Hide panel (H)</button>
   </div>
   <div class="hint">Pick aspect, then catalyst, then step the reveal to match the beat you're capturing.
     <b>← / →</b> step reveal stage · <b>↑ / ↓</b> prev/next catalyst · press a catalyst's number (1–9) to jump ·
     <b>A</b> toggle aspect · <b>D</b> toggle light/dark · <b>H</b> hide panel for capture. Switching catalyst resets to Hook.
-    On the <b>Close</b> stage, drop the parent video's 16:9 thumbnail onto the frame (or use “Load thumbnail…”).
+    On the <b>Close</b> stage, drop the parent video's 16:9 thumbnail onto the frame (or use “Load thumbnail…”)
+    and type the video title in <b>section 5</b> — it shows under the thumbnail (blank = hidden).
     Capture #card at 100% (1080×1920 or 1080×1080).</div>
 </div>
 
@@ -463,6 +458,12 @@ function setThumb(url){
 }
 function loadThumbFromInput(e){ const f=e.target.files && e.target.files[0]; if(f) setThumb(URL.createObjectURL(f)); }
 function clearThumb(){ setThumb(null); }
+
+/* ===== Close-card video title — operator-typed; nothing persisted, so the card stays token-agnostic.
+   Blank = hidden (.close-title:empty). Survives aspect/catalyst changes (render never touches it). */
+function setCloseTitle(t){
+  const el=document.getElementById("closeTitle"); if(el) el.textContent=(t||"").trim();
+}
 function wireThumbDnd(){
   const slot=document.getElementById("thumbSlot"); if(!slot) return;
   ["dragenter","dragover"].forEach(ev=>slot.addEventListener(ev,e=>{e.preventDefault();slot.classList.add("drag");}));
