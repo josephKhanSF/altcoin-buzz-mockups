@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <title>XRP — 14 Catalysts Scored · 16:9 screenshare</title>
 <!--
-  SCOREBOARD_BOARD_16x9.html — REVISION 2 (video-team mobile-readability + operator feedback r1+r2; committed 2026-06-23).
+  SCOREBOARD_BOARD_16x9.html — REVISION 2 (video-team mobile-readability + operator feedback r1-r4; committed 2026-06-23).
   vs the live REVISION 1:
    1. Catalyst labels shortened to 2–4 words (full text kept for the detail overlay) + typography enlarged.
    2. Legend removed; icon-only operator cluster (Blur all · Reveal all · Verdict/TNT · Dark/Light) in the top-right slot.
@@ -16,6 +16,11 @@
    7. Verdict popup rebuilt to the finalised design direction (Website/netlify_root/index.html):
       TNT dial + read on TOP, the three numeric scores (Token/Network/Technicals) BELOW; the TNT dial is the ONLY dial.
       Closeable (X button · click-outside · Esc · Verdict icon · Blur-all).
+   8. Per-row TWO-STAGE reveal (operator feedback r3): click a row once → Network score + Network average;
+      click the same row again → Token score + Token average; a third click resets that row. Blur-all clears all.
+      Network average counts rows at stage ≥1; Token average counts rows at stage ≥2 — the two panels move independently.
+   9. Verdict popup runs the OPPOSITE theme of the board (dark board → light card, light board → dark card) so it stays
+      distinct from the stage (operator feedback r4). Backdrop dim stays board-themed; XRP logo flips for contrast.
   Data, scores and band thresholds are UNCHANGED (WORKSHOP_BRIEF §1, locked). Dials reserved for the TNT Score only.
 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -81,8 +86,7 @@
   .rows{flex:1;display:flex;flex-direction:column;padding:0 26px}
   .tr{display:flex;align-items:center;flex:1;min-height:0;border-bottom:1px solid var(--line);position:relative;cursor:pointer}
   .tr:last-child{border-bottom:none}
-  .tr.just{animation:landed 1.05s ease-out}
-  @keyframes landed{0%{background:color-mix(in srgb, var(--gold) 20%, transparent)}100%{background:transparent}}
+  @keyframes landed{0%{background:color-mix(in srgb, var(--gold) 24%, transparent)}100%{background:transparent}}
 
   .c-num{width:42px;flex:none;font-size:22px;font-weight:700;color:var(--mut)}
   .c-cat{flex:1;min-width:0;padding-right:18px;display:flex;align-items:center;gap:16px}
@@ -95,9 +99,12 @@
   .expand svg{width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 
   .c-net,.c-tok{width:176px;flex:none;display:flex;align-items:center;justify-content:center}
-  /* Blur veil applies to the SCORE capsules ONLY — catalyst text stays sharp. */
+  /* Blur veil applies to the SCORE capsules ONLY — catalyst names stay sharp.
+     Two-stage reveal: a row hides Network and/or Token independently. */
   .scorecell{transition:filter .8s ease, opacity .8s ease}
-  .tr.hidden-scores .scorecell{filter:blur(11px) saturate(.7);opacity:.42}
+  .scorecell.just{animation:landed 1.05s ease-out;border-radius:10px}
+  .tr.net-hidden .c-net{filter:blur(11px) saturate(.7);opacity:.42}
+  .tr.tok-hidden .c-tok{filter:blur(11px) saturate(.7);opacity:.42}
 
   /* per-catalyst capsule: band word + score, band-coloured outline (NOT a dial) */
   .cap{display:inline-flex;align-items:center;gap:10px;height:46px;padding:0 18px;border-radius:var(--r-chip);
@@ -152,11 +159,25 @@
   .closecard{position:relative;background:var(--card);border:1px solid var(--line2);border-radius:24px;
     box-shadow:0 24px 70px rgba(0,0,0,.4);padding:40px 64px 48px;width:1500px;max-width:95%}
   .closecard .bull{color:var(--green)} .closecard .bear{color:var(--red)} .closecard .neu{color:var(--zero)}
+  /* The verdict popup runs the OPPOSITE theme of the board so it stays distinct from the stage behind it.
+     (Only --bg is left board-themed so the dimmed backdrop still matches the stage.) */
+  body.dark #tntClose{        /* board dark → popup LIGHT */
+    --card:#ffffff; --card2:#f4f1ea; --line:#ece7dc; --line2:#ddd5c6;
+    --ink:#15140f; --txt:#2b2925; --mut:#5f5b52; --faint:#98917f;
+    --green:#15824a; --red:#bf3d3d; --zero:#5f6470; --yellow:#d99e0b;
+    --vc-disc:#0e1014; --vc-mark:#f2f4f7;
+  }
+  body:not(.dark) #tntClose{  /* board light → popup DARK */
+    --card:#15171b; --card2:#1c1f24; --line:#23262c; --line2:#2f333b;
+    --ink:#f3f1ec; --txt:#cfccc5; --mut:#9a958c; --faint:#6b6760;
+    --green:#46c986; --red:#e06565; --zero:#8b9099; --yellow:#e8b53f;
+    --vc-disc:#f2f4f7; --vc-mark:#0e1014;
+  }
 
   .vc-top{display:flex;align-items:center;justify-content:center;margin-bottom:20px}
   .vc-asset{display:flex;align-items:center;gap:14px}
   .vc-logo{width:46px;height:46px;display:block}
-  .vc-logo .xc{fill:#0e1014} .vc-logo .xp{fill:#f2f4f7}
+  .vc-logo .xc{fill:var(--vc-disc)} .vc-logo .xp{fill:var(--vc-mark)}
   .vc-asset b{font-size:34px;font-weight:700;color:var(--ink)}
   .vc-asset .tick{font-family:var(--mono);font-size:22px;color:var(--mut)}
   .vc-asof{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:22px;font-weight:500;color:var(--faint)}
@@ -384,7 +405,7 @@ const SUN_SVG  = `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><line 
 const rowsEl=document.getElementById("rows");
 DATA.forEach((d,i)=>{
   const tr=document.createElement("div");
-  tr.className="tr hidden-scores"; tr.dataset.i=i;
+  tr.className="tr net-hidden tok-hidden"; tr.dataset.i=i; tr.dataset.stage="0";
   tr.innerHTML=
     `<div class="c-num">${d.n}</div>
      <div class="c-cat">
@@ -398,7 +419,6 @@ DATA.forEach((d,i)=>{
   rowsEl.appendChild(tr);
 });
 const trs=[...document.querySelectorAll(".tr")];
-let order=[];
 
 /* ===== Running averages (numbers, no dials) ===== */
 function setAvg(numEl,wEl,cEl,avg,n){
@@ -406,25 +426,37 @@ function setAvg(numEl,wEl,cEl,avg,n){
   else { numEl.textContent=fmt1(avg); numEl.className="avnum "+bandKey(avg); wEl.textContent=bandWord(avg); wEl.className="avword "+bandKey(avg); }
   cEl.textContent=n+" of 14 revealed";
 }
+
+/* ===== Two-stage reveal per row =====
+   stage 0 = both scores blurred · 1 = Network shown · 2 = Network + Token shown.
+   Each row click advances 0 → 1 → 2 → 0. Network average counts rows at stage ≥1; Token average counts rows at stage ≥2. */
+function applyStage(tr){
+  const s=+tr.dataset.stage;
+  tr.classList.toggle("net-hidden", s<1);
+  tr.classList.toggle("tok-hidden", s<2);
+}
+function flashCell(tr,sel){ const c=tr.querySelector(sel); if(!c)return; c.classList.remove("just"); void c.offsetWidth; c.classList.add("just"); }
+
 function recompute(){
-  const rev=trs.filter(tr=>!tr.classList.contains("hidden-scores"));
-  const n=rev.length; let na=null,ta=null;
-  if(n){ let sn=0,st=0; rev.forEach(tr=>{const d=DATA[+tr.dataset.i]; sn+=d.net; st+=d.tok;}); na=sn/n; ta=st/n; }
-  setAvg(document.getElementById("netNum"),document.getElementById("netWord"),document.getElementById("netCount"),na,n);
-  setAvg(document.getElementById("tokNum"),document.getElementById("tokWord"),document.getElementById("tokCount"),ta,n);
+  let sn=0,nn=0, stk=0,nt=0;
+  trs.forEach(tr=>{ const d=DATA[+tr.dataset.i], s=+tr.dataset.stage;
+    if(s>=1){ sn+=d.net; nn++; }
+    if(s>=2){ stk+=d.tok; nt++; } });
+  setAvg(document.getElementById("netNum"),document.getElementById("netWord"),document.getElementById("netCount"), nn?sn/nn:null, nn);
+  setAvg(document.getElementById("tokNum"),document.getElementById("tokWord"),document.getElementById("tokCount"), nt?stk/nt:null, nt);
 }
 
 function toggleRow(i){
-  const tr=trs[i], revealing=tr.classList.contains("hidden-scores");
-  tr.classList.toggle("hidden-scores");
-  if(revealing){ tr.classList.remove("just"); void tr.offsetWidth; tr.classList.add("just"); order.push(i); }
-  else order=order.filter(x=>x!==i);
+  const tr=trs[i], s=(+tr.dataset.stage+1)%3;   // Network → Token → reset
+  tr.dataset.stage=s; applyStage(tr);
+  if(s===1) flashCell(tr,".c-net"); else if(s===2) flashCell(tr,".c-tok");
   recompute();
 }
-function blurAll(){ trs.forEach(tr=>tr.classList.add("hidden-scores")); order=[];
+function blurAll(){ trs.forEach(tr=>{ tr.dataset.stage=0; applyStage(tr);
+    tr.querySelectorAll(".scorecell").forEach(c=>c.classList.remove("just")); });
   document.getElementById("tntClose").classList.remove("show");
   document.getElementById("btnVerdict").classList.remove("on"); recompute(); }
-function revealAll(){ trs.forEach(tr=>tr.classList.remove("hidden-scores")); order=DATA.map((_,i)=>i); recompute(); }
+function revealAll(){ trs.forEach(tr=>{ tr.dataset.stage=2; applyStage(tr); }); recompute(); }
 
 /* ===== Per-catalyst detail overlay (scores only) ===== */
 function openDetail(i){
