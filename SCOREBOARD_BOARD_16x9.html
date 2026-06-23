@@ -4,40 +4,39 @@
 <meta charset="UTF-8">
 <title>XRP — 14 Catalysts Scored · 16:9 screenshare</title>
 <!--
-  SCOREBOARD_BOARD_16x9.html — XRP deep-dive video screenshare stage.
-  Rebuilt 2026-06-17 · REVISION 1 (operator feedback applied).
-  Visual authority: Website/DESIGN_BRIEF.md (clean consumer fintech §1, components §2, constraints §6, keep/drop §7).
-    VISUAL_FOUNDATIONS.md supplies ONLY the carried primitives — band colours (--green/--red/--zero),
-    gold accent (--gold/--goldtx), and the true-minus rule. NOT the "Quiet Authority" look.
-  Scoring authority: SCORING_SYSTEM_V2_DECISION.md §1 (bands) + §5.1 (COMPOSITE = 0.05·N + 0.45·T + 0.50·Tech).
-  Data: WORKSHOP_BRIEF §1 (QB-ratified board; Network Σ84.1÷14=6.0, Token Σ68.3÷14=4.9) + §9.7
-    (Technicals weekly = 4.4 REAL, banded BEARISH; TNT Composite = 4.7 NEUTRAL). All numbers REAL — zero SAMPLE.
-  Running-average gauges are a VIDEO-ONLY device — they do NOT exist on the website scorecard.
+  SCOREBOARD_BOARD_16x9.html — REVISION 2 (video-team mobile-readability + operator feedback r1; committed 2026-06-23).
+  vs the live REVISION 1:
+   1. Catalyst labels shortened to 2–4 words (full text kept for the detail overlay) + typography enlarged.
+   2. Legend removed; icon-only operator cluster (Blur all · Reveal all · Verdict/TNT · Dark/Light) in the top-right slot.
+   3. Bottom "Reveal control" panel removed entirely (no 1–14 buttons, Reveal-next, Undo, Hide-panel, hint line).
+   4. "Blur all" blurs ONLY the score capsules — catalyst names stay sharp.
+   5. Per-catalyst detail overlay: "Catalyst #N", centered short title + full-name subtext, Network/Token as NUMBERS (no dials).
+   6. Right-rail averages: labels enlarged + gold, shown as NUMBERS (no dials).
+   7. Verdict popup rebuilt to the finalised design direction (Website/netlify_root/index.html):
+      TNT dial + read on TOP, the three numeric scores (Token/Network/Technicals) BELOW; the TNT dial is the ONLY dial.
+      Closeable (X button · click-outside · Esc · Verdict icon · Blur-all).
+  Data, scores and band thresholds are UNCHANGED (WORKSHOP_BRIEF §1, locked). Dials reserved for the TNT Score only.
 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
-  /* ===== Carried primitives only — band colours, gold, neutral (VISUAL_FOUNDATIONS §1, LIGHT) ===== */
   :root{
     --bg:#f5f2ec; --card:#ffffff; --card2:#f4f1ea; --line:#ece7dc; --line2:#ddd5c6;
-    --ink:#15140f;      /* high-contrast headline ink */
-    --txt:#2b2925;      /* body */
-    --mut:#5f5b52;      /* secondary, still readable */
-    --green:#15824a; --red:#bf3d3d; --zero:#5f6470;
+    --ink:#15140f; --txt:#2b2925; --mut:#5f5b52; --faint:#98917f;
+    --green:#15824a; --red:#bf3d3d; --zero:#5f6470; --yellow:#d99e0b;
     --gold:#e0a93c; --goldtx:#9a6e12; --goldink:#1d1604;
     --sans:'Archivo',system-ui,Arial,sans-serif;
     --mono:'JetBrains Mono',ui-monospace,monospace;
     --r-card:16px; --r-chip:999px;
     --shadow:0 2px 4px rgba(40,33,18,.05), 0 8px 24px rgba(40,33,18,.06);
-    --glow:#fffdf8;   /* stage backdrop highlight (theme-aware) */
+    --glow:#fffdf8;
   }
-  /* ===== Dark theme (DESIGN_BRIEF §1: full black + gold brand DNA) — operator-toggleable ===== */
   body.dark{
     --bg:#0b0c0e; --card:#15171b; --card2:#1c1f24; --line:#23262c; --line2:#2f333b;
-    --ink:#f3f1ec; --txt:#cfccc5; --mut:#9a958c;
-    --green:#46c986; --red:#e06565; --zero:#8b9099;     /* brighter band colours for dark contrast (VF dark) */
-    --gold:#e8b54a; --goldtx:#e8b54a; --goldink:#161006; /* gold text on dark = bright gold (VF) */
+    --ink:#f3f1ec; --txt:#cfccc5; --mut:#9a958c; --faint:#6b6760;
+    --green:#46c986; --red:#e06565; --zero:#8b9099; --yellow:#e8b53f;
+    --gold:#e8b54a; --goldtx:#e8b54a; --goldink:#161006;
     --glow:#181b20;
     --shadow:0 2px 6px rgba(0,0,0,.45), 0 10px 30px rgba(0,0,0,.5);
   }
@@ -52,52 +51,58 @@
     display:flex;flex-direction:column;padding:46px 56px 40px}
 
   /* ===== Title row ===== */
-  .topbar{display:flex;align-items:center;gap:22px;flex:none;margin-bottom:30px}
+  .topbar{display:flex;align-items:center;gap:22px;flex:none;margin-bottom:26px}
   .logo{width:64px;height:64px;flex:none;display:block}
   .logo-light{border-radius:16px;box-shadow:var(--shadow)}
-  .logo-dark{display:none}                                  /* gold mark on transparent — for dark ground */
+  .logo-dark{display:none}
   body.dark .logo-light{display:none}
   body.dark .logo-dark{display:block}
   .titles{display:flex;flex-direction:column;gap:5px}
   .titles h1{font-size:42px;font-weight:700;letter-spacing:-.6px;line-height:1;color:var(--ink)}
   .titles h1 .x{color:var(--goldtx)}
   .titles .sub{font-size:17px;font-weight:500;color:var(--mut)}
-  .legend{margin-left:auto;display:flex;gap:10px}
-  .chip{display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 15px;border-radius:var(--r-chip);
-    font-size:14px;font-weight:600;color:var(--txt);background:var(--card);border:1px solid var(--line2);box-shadow:var(--shadow)}
-  .chip .dot{width:11px;height:11px;border-radius:50%;flex:none}
-  .dot.g{background:var(--green)} .dot.r{background:var(--red)} .dot.n{background:var(--zero)}
 
-  /* ===== Two-column body: table (left) + hero average gauges (right) ===== */
+  /* ===== Operator control cluster (icon-only; replaces the legend) — deliberately faint on camera ===== */
+  .controls{margin-left:auto;display:flex;gap:10px;align-items:center}
+  .ctrl{width:46px;height:46px;flex:none;border-radius:12px;border:1px solid var(--line2);background:var(--card);
+    color:var(--mut);display:inline-flex;align-items:center;justify-content:center;cursor:pointer;opacity:.4;
+    transition:opacity .15s ease,color .15s ease,background .15s ease,border-color .15s ease}
+  .ctrl:hover{opacity:1;color:var(--goldtx);background:color-mix(in srgb,var(--gold) 14%,var(--card))}
+  .ctrl.on{opacity:1;color:var(--green);border-color:var(--green)}
+  .ctrl svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+  /* ===== Two-column body: table (left) + average panels (right) ===== */
   .body{flex:1;min-height:0;display:flex;gap:34px}
   .tablecard{flex:1;min-width:0;background:var(--card);border:1px solid var(--line2);border-radius:var(--r-card);
     box-shadow:var(--shadow);display:flex;flex-direction:column;overflow:hidden}
-  .thead{display:flex;align-items:center;height:50px;flex:none;padding:0 24px;
-    border-bottom:1px solid var(--line);color:var(--txt);font-size:18px;font-weight:700;letter-spacing:.1px}
-  .thead .c-net,.thead .c-tok{justify-content:center}
-  .rows{flex:1;display:flex;flex-direction:column;padding:0 24px}
-  .tr{display:flex;align-items:center;flex:1;min-height:0;border-bottom:1px solid var(--line);position:relative}
+  .thead{display:flex;align-items:center;height:52px;flex:none;padding:0 26px;
+    border-bottom:1px solid var(--line);color:var(--txt);font-size:19px;font-weight:700;letter-spacing:.1px}
+  .rows{flex:1;display:flex;flex-direction:column;padding:0 26px}
+  .tr{display:flex;align-items:center;flex:1;min-height:0;border-bottom:1px solid var(--line);position:relative;cursor:pointer}
   .tr:last-child{border-bottom:none}
-  .tr .rowveil{display:flex;align-items:center;width:100%;height:100%;
-    transition:filter .8s ease, opacity .8s ease}
-  .tr.hidden-scores .rowveil{filter:blur(11px) saturate(.7);opacity:.42;pointer-events:none}
-  .tr.just .rowveil{animation:landed 1.05s ease-out}
+  .tr.just{animation:landed 1.05s ease-out}
   @keyframes landed{0%{background:color-mix(in srgb, var(--gold) 20%, transparent)}100%{background:transparent}}
 
-  .c-num{width:34px;flex:none;font-size:15px;font-weight:600;color:var(--mut)}
-  .c-cat{flex:1;min-width:0;padding-right:22px;display:flex;align-items:center;flex-wrap:wrap;gap:9px}
-  .c-cat .lab{font-size:19.5px;font-weight:600;line-height:1.2;color:var(--ink)}
-  .scope{display:inline-flex;align-items:center;height:20px;padding:0 9px;border-radius:var(--r-chip);
-    font-size:10.5px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;
-    color:var(--mut);background:var(--card2);border:1px solid var(--line2)}
-  .scope.mw{color:var(--goldink);background:var(--gold);border-color:var(--gold)}
-  .c-net,.c-tok{width:158px;flex:none;display:flex;align-items:center;justify-content:center}
+  .c-num{width:42px;flex:none;font-size:22px;font-weight:700;color:var(--mut)}
+  .c-cat{flex:1;min-width:0;padding-right:18px;display:flex;align-items:center;gap:16px}
+  .c-cat .lab{font-size:32px;font-weight:700;line-height:1.05;color:var(--ink);
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .expand{flex:none;width:42px;height:42px;border-radius:10px;border:1px solid var(--line2);background:var(--card);
+    color:var(--mut);display:inline-flex;align-items:center;justify-content:center;cursor:pointer;opacity:.6;
+    transition:opacity .15s ease,color .15s ease,background .15s ease}
+  .expand:hover{opacity:1;color:var(--goldtx);background:color-mix(in srgb,var(--gold) 14%,var(--card))}
+  .expand svg{width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 
-  /* compact per-catalyst capsule: band word + score, band-coloured outline (saves horizontal space) */
-  .cap{display:inline-flex;align-items:center;gap:9px;height:38px;padding:0 16px;border-radius:var(--r-chip);
+  .c-net,.c-tok{width:176px;flex:none;display:flex;align-items:center;justify-content:center}
+  /* Blur veil applies to the SCORE capsules ONLY — catalyst text stays sharp. */
+  .scorecell{transition:filter .8s ease, opacity .8s ease}
+  .tr.hidden-scores .scorecell{filter:blur(11px) saturate(.7);opacity:.42}
+
+  /* per-catalyst capsule: band word + score, band-coloured outline (NOT a dial) */
+  .cap{display:inline-flex;align-items:center;gap:10px;height:46px;padding:0 18px;border-radius:var(--r-chip);
     border:2px solid var(--line2);background:var(--card)}
-  .cap .w{font-family:var(--sans);font-weight:700;font-size:12.5px;letter-spacing:.8px}
-  .cap .v{font-family:var(--mono);font-weight:700;font-size:20px;letter-spacing:-.5px;font-variant-numeric:tabular-nums}
+  .cap .w{font-family:var(--sans);font-weight:700;font-size:13px;letter-spacing:.8px}
+  .cap .v{font-family:var(--mono);font-weight:700;font-size:26px;letter-spacing:-.5px;font-variant-numeric:tabular-nums}
   .cap.bull{border-color:color-mix(in srgb,var(--green) 55%,var(--card));background:color-mix(in srgb,var(--green) 7%,var(--card))}
   .cap.bull .w,.cap.bull .v{color:var(--green)}
   .cap.bear{border-color:color-mix(in srgb,var(--red) 55%,var(--card));background:color-mix(in srgb,var(--red) 7%,var(--card))}
@@ -105,76 +110,83 @@
   .cap.neu{border-color:color-mix(in srgb,var(--zero) 50%,var(--card));background:color-mix(in srgb,var(--zero) 7%,var(--card))}
   .cap.neu .w,.cap.neu .v{color:var(--zero)}
 
-  /* ===== Hero AVERAGE gauges (right rail) — the two big gauges; nothing overlaps ===== */
+  /* ===== Right rail: running AVERAGES as numbers (no dials) ===== */
   .rail{width:620px;flex:none;display:flex;flex-direction:column;gap:30px}
   .avgcard{flex:1;background:var(--card);border:1px solid var(--line2);border-radius:var(--r-card);box-shadow:var(--shadow);
-    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:24px}
-  .avgcard .name{font-size:22px;font-weight:700;color:var(--ink);letter-spacing:-.2px}
-  .avgcard .gholder{display:flex;align-items:center;justify-content:center}
-  .avgcard .word{font-size:20px;font-weight:700;letter-spacing:.5px}
-  .avgcard .word.bull{color:var(--green)} .avgcard .word.bear{color:var(--red)} .avgcard .word.neu{color:var(--zero)}
-  .avgcard .count{font-size:14px;font-weight:500;color:var(--mut)}
-
-  /* ===== Footer legend strip ===== */
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:24px}
+  .avname{font-size:48px;font-weight:700;color:var(--goldtx);letter-spacing:-.5px;line-height:1}
+  .avnum{font-family:var(--mono);font-weight:700;font-size:108px;line-height:1;font-variant-numeric:tabular-nums;color:var(--zero)}
+  .avword{font-family:var(--mono);font-size:30px;font-weight:700;letter-spacing:1.5px}
+  .avnum.bull,.avword.bull{color:var(--green)} .avnum.bear,.avword.bear{color:var(--red)} .avnum.neu,.avword.neu{color:var(--zero)}
+  .count{font-size:18px;font-weight:500;color:var(--mut);margin-top:6px}
   .foot{flex:none;height:0}
 
-  /* ===== T·N·T verdict close (T) — high contrast, peer-aligned ===== */
+  /* ===== Per-catalyst DETAIL overlay (expand) — scores only, no dials ===== */
+  #detail{position:absolute;inset:0;z-index:60;display:flex;align-items:center;justify-content:center;
+    background:color-mix(in srgb, var(--bg) 58%, transparent);backdrop-filter:blur(10px);
+    opacity:0;pointer-events:none;transition:opacity .3s ease}
+  #detail.show{opacity:1;pointer-events:auto}
+  .detailcard{position:relative;background:var(--card);border:1px solid var(--line2);border-radius:26px;
+    box-shadow:0 30px 90px rgba(0,0,0,.42);padding:52px 72px 60px;width:1480px;max-width:95%;text-align:center}
+  .dclose{position:absolute;top:24px;right:24px;width:54px;height:54px;border-radius:50%;border:1px solid var(--line2);
+    background:var(--card2);color:var(--mut);display:flex;align-items:center;justify-content:center;cursor:pointer}
+  .dclose:hover{color:var(--ink)}
+  .dclose svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round}
+  .dnum{font-family:var(--mono);font-size:30px;font-weight:700;letter-spacing:1px;color:var(--goldtx);margin-bottom:14px}
+  .dtitle{font-size:74px;font-weight:700;letter-spacing:-1.3px;line-height:1.02;color:var(--ink)}
+  .dfull{font-size:30px;font-weight:500;color:var(--mut);margin-top:16px;line-height:1.35}
+  .dgauges{display:flex;gap:90px;justify-content:center;margin-top:48px}
+  .dg{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px}
+  .dgname{font-size:34px;font-weight:700;color:var(--ink);margin-bottom:4px}
+  .dscore{font-family:var(--mono);font-weight:700;font-size:118px;line-height:1;font-variant-numeric:tabular-nums;color:var(--zero)}
+  .dword{font-size:34px;font-weight:700;letter-spacing:.5px;color:var(--zero)}
+  .dscore.bull,.dword.bull{color:var(--green)} .dscore.bear,.dword.bear{color:var(--red)} .dscore.neu,.dword.neu{color:var(--zero)}
+
+  /* ===== T·N·T verdict close (T) — finalised design direction (netlify_root/index.html) ===== */
   #tntClose{position:absolute;inset:0;z-index:40;display:flex;align-items:center;justify-content:center;
     background:color-mix(in srgb, var(--bg) 70%, transparent);backdrop-filter:blur(8px);
     opacity:0;pointer-events:none;transition:opacity .5s ease}
   #tntClose.show{opacity:1;pointer-events:auto}
-  .closecard{background:var(--card);border:1px solid var(--line2);border-radius:22px;
-    box-shadow:0 24px 70px rgba(40,33,18,.22);padding:48px 64px 52px;width:1360px;max-width:94%}
-  .closecard h2{font-size:34px;font-weight:700;letter-spacing:-.5px;color:var(--ink);text-align:center}
-  .closecard .decoup{font-size:19px;color:var(--txt);text-align:center;margin-top:12px;line-height:1.45}
-  .closecard .decoup b.g{color:var(--green)} .closecard .decoup b.n{color:var(--zero)}
+  .closecard{position:relative;background:var(--card);border:1px solid var(--line2);border-radius:24px;
+    box-shadow:0 24px 70px rgba(0,0,0,.4);padding:40px 64px 48px;width:1500px;max-width:95%}
+  .closecard .bull{color:var(--green)} .closecard .bear{color:var(--red)} .closecard .neu{color:var(--zero)}
 
-  /* peer grid: Token | Network | divider | Technicals — identical alignment/font/size/weight across pillars */
-  .pgrid{margin-top:34px;display:grid;grid-template-columns:1fr 1fr 1px 1fr;column-gap:34px;
-    align-items:center;justify-items:center;row-gap:12px}
-  .pgrid .grp{font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--mut)}
-  .pgrid .grp.fund{grid-column:1 / span 2} .pgrid .grp.tech{grid-column:4}
-  .pgrid .pname{font-size:18px;font-weight:600;color:var(--ink)}
-  .pgrid .pword{font-size:18px;font-weight:700;letter-spacing:.5px}
-  .pgrid .pword.bull{color:var(--green)} .pgrid .pword.bear{color:var(--red)} .pgrid .pword.neu{color:var(--zero)}
-  .pdiv{grid-row:1 / span 4;grid-column:3;width:1px;background:var(--line2);align-self:stretch;justify-self:center}
-  .gp-token{grid-column:1} .gp-net{grid-column:2} .gp-tech{grid-column:4}
+  .vc-top{display:flex;align-items:center;justify-content:center;margin-bottom:20px}
+  .vc-asset{display:flex;align-items:center;gap:14px}
+  .vc-logo{width:46px;height:46px;display:block}
+  .vc-logo .xc{fill:#0e1014} .vc-logo .xp{fill:#f2f4f7}
+  .vc-asset b{font-size:34px;font-weight:700;color:var(--ink)}
+  .vc-asset .tick{font-family:var(--mono);font-size:22px;color:var(--mut)}
+  .vc-asof{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:22px;font-weight:500;color:var(--faint)}
+  .vc-asof svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 
-  .tntwrap{margin-top:38px;display:flex;flex-direction:column;align-items:center;gap:8px}
-  .tntwrap .tlab{font-size:14px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--mut)}
-  .tntwrap .tval{display:inline-flex;align-items:center;gap:14px;border-radius:14px;padding:12px 26px}
-  .tntwrap .tval.neu{background:color-mix(in srgb,var(--zero) 13%,var(--card));border:2px solid color-mix(in srgb,var(--zero) 50%,var(--card))}
-  .tntwrap .tval .num{font-family:var(--mono);font-weight:700;font-size:38px;color:var(--zero);font-variant-numeric:tabular-nums}
-  .tntwrap .tval .word{font-size:18px;font-weight:700;letter-spacing:.5px;color:var(--zero)}
-  .tntwrap .form{font-size:14px;color:var(--mut);margin-top:4px}
+  /* TNT block ON TOP — the ONLY dial; sits on a raised grey panel so it pops */
+  .vc-tnt{display:flex;align-items:center;gap:54px;background:var(--card2);border:1px solid var(--line);border-radius:18px;padding:32px 44px}
+  .vc-dial{flex:0 0 440px;display:flex;flex-direction:column;align-items:center}
+  .vc-lab{font-family:var(--mono);font-size:24px;font-weight:700;letter-spacing:3px;color:var(--txt);margin-bottom:4px}
+  .vc-dial .tnt-dial{display:block;width:340px;margin:0 auto -8px}
+  .vc-num{font-family:var(--mono);font-weight:700;font-size:104px;line-height:1;font-variant-numeric:tabular-nums}
+  .vc-word{font-family:var(--mono);font-size:30px;font-weight:700;letter-spacing:2px;margin-top:4px}
+  .vc-txt{flex:1;min-width:0}
+  .vc-txt h4{font-size:54px;font-weight:700;letter-spacing:-1px;line-height:1.06;color:var(--ink)}
+  .vc-txt p{font-size:28px;color:var(--mut);line-height:1.4;margin-top:18px}
 
-  /* ===== operator control panel — H hides it; unhide invisible at rest (zero chrome on camera) ===== */
-  #panel{position:fixed;right:18px;bottom:18px;z-index:80;background:var(--card);border:1px solid var(--line2);
-    border-radius:14px;padding:14px 16px;box-shadow:0 8px 28px rgba(40,33,18,.16);width:312px}
-  #panel h3{font-size:13px;font-weight:700;color:var(--goldtx);margin-bottom:10px}
-  #panel .btnrow{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
-  #panel button{background:var(--card2);border:1px solid var(--line2);color:var(--txt);border-radius:9px;
-    font-family:var(--sans);font-size:13px;font-weight:600;padding:8px 12px;cursor:pointer}
-  #panel button:hover{background:color-mix(in srgb,var(--gold) 16%,var(--card2))}
-  #panel button.primary{background:var(--gold);border-color:var(--gold);color:var(--goldink)}
-  #panel .rowbtns{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-bottom:10px}
-  #panel .rowbtns button{padding:7px 0;text-align:center;font-family:var(--mono);font-size:12px}
-  #panel .rowbtns button.on{background:color-mix(in srgb,var(--green) 16%,var(--card));border-color:var(--green);color:var(--green)}
-  #panel .hint{font-size:11px;color:var(--mut);line-height:1.55}
-  body.clean #panel{display:none}
-  #unhide{display:none;position:fixed;right:0;bottom:0;z-index:90;padding:9px 15px 8px 18px;background:var(--card2);
-    border-top-left-radius:12px;border:1px solid var(--line2);font-size:12px;color:var(--mut);cursor:pointer;
-    opacity:0;transition:opacity .15s ease}
-  body.clean #unhide{display:block} body.clean #unhide:hover{opacity:1}
+  /* three numeric scores BELOW */
+  .vc-strip{display:flex;gap:14px;margin-top:32px}
+  .vc-cell{flex:1;min-width:0;text-align:center}
+  .vc-pillar{font-family:var(--mono);font-size:26px;font-weight:600;letter-spacing:2px;color:var(--txt);text-transform:uppercase}
+  .vc-n{font-family:var(--mono);font-weight:700;font-size:78px;line-height:1.1;font-variant-numeric:tabular-nums}
+  .vc-w{font-family:var(--mono);font-size:24px;font-weight:700;letter-spacing:1.6px;margin-top:2px}
+  .vc-read{font-size:24px;color:var(--mut);margin-top:10px;line-height:1.3}
+
   :focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 </style>
 </head>
-<body>
+<body class="dark">
 
 <div id="stageWrap"><div id="stage">
 
   <div class="topbar">
-    <!-- light-theme mark: gold AB on black circle -->
     <svg class="logo logo-light" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Altcoin Buzz">
       <circle cx="256" cy="256" r="247.4" fill="#0b0b0d"/>
       <radialGradient id="abIconGrad" cx="255.2756" cy="80.4833" r="241.6842" gradientUnits="userSpaceOnUse">
@@ -195,7 +207,6 @@
         c13.2-5.6,26.9-9.8,40.8-12.5l41.3-71.5l41.3,71.5c13.9,2.8,27.5,6.9,40.7,12.5c3.6,1.5,7.1,3.1,10.6,4.8l-72-124.6l-19.5-33.7
         c12.5,0.1,24.8,1.5,36.6,4.1c78.4,17.3,137.2,87.4,137.2,170.9c0,16.1-2.2,31.6-6.3,46.4C420.1,316,414.5,329.4,407.4,341.9z"/>
     </svg>
-    <!-- dark-theme mark: gold AB, transparent ground (Logos/for dark background) -->
     <svg class="logo logo-dark" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Altcoin Buzz">
       <radialGradient id="abIconGradDark" cx="255.2756" cy="80.4833" r="241.6842" gradientUnits="userSpaceOnUse">
         <stop offset="0.1798" stop-color="#F4E8D9"/>
@@ -219,10 +230,19 @@
       <h1><span class="x">XRP</span> — 14 Catalysts Scored</h1>
       <div class="sub">Network &amp; token impact, scored catalyst by catalyst</div>
     </div>
-    <div class="legend">
-      <span class="chip"><span class="dot r"></span>Bearish 1.0–4.4</span>
-      <span class="chip"><span class="dot n"></span>Neutral 4.5–5.5</span>
-      <span class="chip"><span class="dot g"></span>Bullish 5.6–10.0</span>
+
+    <!-- Operator control cluster (icon-only). Intentionally faint — for the video team, not the viewer. -->
+    <div class="controls">
+      <button class="ctrl" id="btnBlur" title="Blur all scores" aria-label="Blur all scores" onclick="blurAll()">
+        <svg viewBox="0 0 24 24"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+      </button>
+      <button class="ctrl" id="btnReveal" title="Reveal all scores" aria-label="Reveal all scores" onclick="revealAll()">
+        <svg viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>
+      </button>
+      <button class="ctrl" id="btnVerdict" title="Verdict / TNT" aria-label="Verdict / TNT" onclick="toggleTNT()">
+        <svg viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+      </button>
+      <button class="ctrl" id="btnTheme" title="Dark / Light" aria-label="Dark / Light" onclick="toggleTheme()"></button>
     </div>
   </div>
 
@@ -237,220 +257,216 @@
       <div class="rows" id="rows"></div>
     </div>
 
-    <!-- Hero AVERAGE gauges. VIDEO-ONLY device — absent from the website scorecard. -->
     <div class="rail">
       <div class="avgcard">
-        <div class="name">Network average</div>
-        <div class="gholder" id="netGauge"></div>
-        <div class="word neu" id="netWord">—</div>
+        <div class="avname">Network average</div>
+        <div class="avnum neu" id="netNum">—</div>
+        <div class="avword neu" id="netWord">—</div>
         <div class="count" id="netCount">0 of 14 revealed</div>
       </div>
       <div class="avgcard">
-        <div class="name">Token average</div>
-        <div class="gholder" id="tokGauge"></div>
-        <div class="word neu" id="tokWord">—</div>
+        <div class="avname">Token average</div>
+        <div class="avnum neu" id="tokNum">—</div>
+        <div class="avword neu" id="tokWord">—</div>
         <div class="count" id="tokCount">0 of 14 revealed</div>
       </div>
     </div>
   </div>
   <div class="foot"></div>
 
-  <!-- T·N·T verdict — Token · Network · Technicals. All numbers REAL. -->
-  <div id="tntClose">
-    <div class="closecard">
-      <h2>The verdict — a bullish ledger over a neutral token</h2>
-      <div class="decoup">Across 14 catalysts the network keeps winning while the token stays capped:
-        Network <b class="g">6.0 Bullish</b> vs Token <b class="n">4.9 Neutral</b> — the decoupling.</div>
-      <div class="pgrid">
-        <div class="grp fund">Fundamentals</div>
-        <div class="grp tech">Technicals</div>
-        <div class="pdiv"></div>
-        <div class="pname gp-token">Token</div>
-        <div class="pname gp-net">Network</div>
-        <div class="pname gp-tech">Technicals · Weekly</div>
-        <div class="gp-token" id="cToken"></div>
-        <div class="gp-net" id="cNetwork"></div>
-        <div class="gp-tech" id="cTech"></div>
-        <div class="pword neu gp-token">NEUTRAL</div>
-        <div class="pword bull gp-net">BULLISH</div>
-        <div class="pword bear gp-tech">BEARISH</div>
+  <!-- Per-catalyst DETAIL overlay -->
+  <div id="detail" onclick="if(event.target===this)closeDetail()">
+    <div class="detailcard">
+      <button class="dclose" title="Close" aria-label="Close" onclick="closeDetail()">
+        <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+      <div class="dnum" id="dNum">Catalyst #1</div>
+      <h2 class="dtitle" id="dTitle">—</h2>
+      <div class="dfull" id="dFull">—</div>
+      <div class="dgauges">
+        <div class="dg"><div class="dgname">Network</div><div class="dscore" id="dNetN">—</div><div class="dword" id="dNetW">—</div></div>
+        <div class="dg"><div class="dgname">Token</div><div class="dscore" id="dTokN">—</div><div class="dword" id="dTokW">—</div></div>
       </div>
-      <div class="tntwrap">
-        <div class="tlab">TNT Score</div>
-        <div class="tval neu"><span class="num">4.7</span><span class="word">NEUTRAL</span></div>
-        <div class="form">Composite = 0.05 × Network + 0.45 × Token + 0.50 × Technicals = 4.7</div>
+    </div>
+  </div>
+
+  <!-- T·N·T verdict close — finalised design: TNT dial on top, three numeric scores below -->
+  <div id="tntClose" onclick="if(event.target===this)toggleTNT()">
+    <div class="closecard">
+      <button class="dclose" title="Close" aria-label="Close" onclick="toggleTNT()">
+        <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+      <div class="vc-top">
+        <span class="vc-asset">
+          <svg class="vc-logo" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="16" cy="16" r="16" class="xc"/><path class="xp" d="M23.07 8h2.89l-6.015 5.957a5.621 5.621 0 0 1-7.89 0L6.035 8H8.93l4.57 4.523a3.556 3.556 0 0 0 4.996 0L23.07 8zM8.895 24.563H6l6.055-5.993a5.621 5.621 0 0 1 7.89 0L26 24.562h-2.895L18.5 20a3.556 3.556 0 0 0-4.996 0l-4.61 4.563z"/></svg>
+          <b>XRP</b><span class="tick">XRP</span>
+        </span>
+      </div>
+
+      <div class="vc-tnt">
+        <div class="vc-dial">
+          <div class="vc-lab">TNT SCORE</div>
+          <div id="vcDial"></div>
+          <div class="vc-num neu">4.7</div>
+          <div class="vc-word neu">NEUTRAL</div>
+        </div>
+        <div class="vc-txt">
+          <h4>A winning network doesn't mean a winning price.</h4>
+          <p>XRP's network is strong and growing, but the token isn't capturing that strength — and the chart is weak short-term.</p>
+        </div>
+      </div>
+
+      <div class="vc-strip">
+        <div class="vc-cell"><div class="vc-pillar">Token</div><div class="vc-n neu">4.9</div><div class="vc-w neu">NEUTRAL</div><div class="vc-read">Token price not impacted</div></div>
+        <div class="vc-cell"><div class="vc-pillar">Network</div><div class="vc-n bull">6.0</div><div class="vc-w bull">BULLISH</div><div class="vc-read">Strong and growing</div></div>
+        <div class="vc-cell"><div class="vc-pillar">Technicals</div><div class="vc-n bear">4.4</div><div class="vc-w bear">BEARISH</div><div class="vc-read">Weak short-term</div></div>
       </div>
     </div>
   </div>
 
 </div></div>
 
-<div id="unhide" onclick="document.body.classList.remove('clean')" title="Show controls">&#9881; controls</div>
-<div id="panel">
-  <h3>Reveal control</h3>
-  <div class="btnrow">
-    <button class="primary" onclick="revealNext()">Reveal next&ensp;⎵</button>
-    <button onclick="undoLast()">Undo</button>
-    <button onclick="blurAll()">Blur all</button>
-    <button onclick="revealAll()">Reveal all</button>
-  </div>
-  <div class="rowbtns" id="rowbtns"></div>
-  <div class="btnrow">
-    <button onclick="toggleTNT()" id="tntBtn">Verdict / TNT&ensp;(T)</button>
-    <button onclick="toggleTheme()" id="themeBtn">☾ Dark&ensp;(D)</button>
-    <button onclick="document.body.classList.toggle('clean')">Hide panel&ensp;(H)</button>
-  </div>
-  <div class="hint">Space = reveal next · T = AVERAGES + TNT verdict · D = light/dark · H = hide this panel for capture. Record fullscreen at 1920×1080 for 1:1 pixels.</div>
-</div>
-
 <script>
-/* ===== Protected board — WORKSHOP_BRIEF §1 (QB-ratified). Exact numbers; never rescale/reorder/invent. ===== */
+/* ===== Protected board — WORKSHOP_BRIEF §1 (QB-ratified). Exact numbers; never rescale/reorder/invent.
+   `short` = 2–4 word on-screen label; `cat` = full text shown in the detail overlay. ===== */
 const DATA = [
- {n:1,  cat:"Goldman 13F: full XRP ETF exit ($153.8M)",                  scope:"XRP ONLY",    net:5.0, tok:2.0},
- {n:2,  cat:"US spot XRP ETF complex (~$1.42–1.44B in, 84% retail)",      scope:"XRP ONLY",    net:5.0, tok:5.8},
- {n:3,  cat:"May 6 Ondo/Kinexys(JPM)/Mastercard pilot on XRPL",           scope:"XRP ONLY",    net:8.0, tok:5.0},
- {n:4,  cat:"XRPL crosses $3B+ tokenized RWA",                            scope:"XRP ONLY",    net:7.0, tok:5.0},
- {n:5,  cat:"CLARITY Act (Senate calendar, floor vote pre-recess)",       scope:"MARKET-WIDE", net:6.0, tok:6.0},
- {n:6,  cat:"RLUSD growth (~$1.67B, 12.6x/yr; +Gate.io)",                 scope:"XRP ONLY",    net:7.0, tok:3.0},
- {n:7,  cat:"XRPL institutional DeFi stack (XLS-81/65/66, EVM sidechain)",scope:"XRP ONLY",    net:7.0, tok:5.8},
- {n:8,  cat:"Ripple escrow net leak (~300M XRP/mo)",                      scope:"XRP ONLY",    net:5.0, tok:3.5},
- {n:9,  cat:"SBI 2026 cluster (rewards, ¥10B bond, Japan ETF filing)",    scope:"XRP ONLY",    net:5.6, tok:5.8},
- {n:10, cat:"Evernorth XRPN treasury (~473M held; $233.7M impairment)",   scope:"XRP ONLY",    net:5.0, tok:5.6},
- {n:11, cat:"Ripple National Trust Bank (OCC conditional, pre-opening)",  scope:"XRP ONLY",    net:5.6, tok:5.0},
- {n:12, cat:"ODL corridor volume (~$14.2B Q1, est.)",                     scope:"XRP ONLY",    net:5.6, tok:5.8},
- {n:13, cat:"XRPL v3.2.0 mainnet upgrade (rippled→xrpld)",                scope:"XRP ONLY",    net:6.5, tok:5.0},
- {n:14, cat:"Ripple→Flutterwave RLUSD/payments (Africa)",                 scope:"XRP ONLY",    net:5.8, tok:5.0},
+ {n:1,  short:"Goldman XRP Exit",        cat:"Goldman 13F: full XRP ETF exit ($153.8M)",                  net:5.0, tok:2.0},
+ {n:2,  short:"US Spot XRP ETF",         cat:"US spot XRP ETF complex (~$1.42–1.44B in, 84% retail)",      net:5.0, tok:5.8},
+ {n:3,  short:"Ondo · JPM · Mastercard", cat:"May 6 Ondo/Kinexys(JPM)/Mastercard pilot on XRPL",           net:8.0, tok:5.0},
+ {n:4,  short:"XRPL $3B RWA",            cat:"XRPL crosses $3B+ tokenized RWA",                            net:7.0, tok:5.0},
+ {n:5,  short:"CLARITY Act",             cat:"CLARITY Act (Senate calendar, floor vote pre-recess)",       net:6.0, tok:6.0},
+ {n:6,  short:"RLUSD Growth",            cat:"RLUSD growth (~$1.67B, 12.6x/yr; +Gate.io)",                 net:7.0, tok:3.0},
+ {n:7,  short:"XRPL DeFi Stack",         cat:"XRPL institutional DeFi stack (XLS-81/65/66, EVM sidechain)",net:7.0, tok:5.8},
+ {n:8,  short:"Ripple Escrow Leak",      cat:"Ripple escrow net leak (~300M XRP/mo)",                      net:5.0, tok:3.5},
+ {n:9,  short:"SBI 2026 Cluster",        cat:"SBI 2026 cluster (rewards, ¥10B bond, Japan ETF filing)",    net:5.6, tok:5.8},
+ {n:10, short:"Evernorth Treasury",      cat:"Evernorth XRPN treasury (~473M held; $233.7M impairment)",   net:5.0, tok:5.6},
+ {n:11, short:"Ripple Trust Bank",       cat:"Ripple National Trust Bank (OCC conditional, pre-opening)",  net:5.6, tok:5.0},
+ {n:12, short:"ODL Corridor Volume",     cat:"ODL corridor volume (~$14.2B Q1, est.)",                     net:5.6, tok:5.8},
+ {n:13, short:"XRPL v3.2.0 Upgrade",     cat:"XRPL v3.2.0 mainnet upgrade (rippled→xrpld)",                net:6.5, tok:5.0},
+ {n:14, short:"Ripple → Flutterwave",    cat:"Ripple→Flutterwave RLUSD/payments (Africa)",                 net:5.8, tok:5.0},
 ];
 
 /* ===== Bands — SCORING_SYSTEM_V2 §1: Bearish 1.0–4.4 / Neutral 4.5–5.5 / Bullish 5.6–10.0 ===== */
 const BNB=4.45, BNL=5.55;
 const bandKey  = s => s>=BNL ? "bull" : (s>=BNB ? "neu" : "bear");
 const bandWord = s => s>=BNL ? "BULLISH" : (s>=BNB ? "NEUTRAL" : "BEARISH");
-const round1 = x => Math.round(x*10)/10;           // round-half-up, one decimal
+const round1 = x => Math.round(x*10)/10;
 const fmt1   = x => round1(x).toFixed(1);
-const pctOf  = s => ((s-1)/9*100);                 // bead position on a 1–10 track
 
-/* ===== Fear&Greed semicircle gauge (used ONLY by the two big averages + the verdict pillars) ===== */
-function polar(cx,cy,r,deg){ const a=deg*Math.PI/180; return [cx+r*Math.cos(a), cy-r*Math.sin(a)]; }
-const A = s => 180 - (s-1)/9*180;
-function arcSeg(cx,cy,r,a0,a1){
-  const steps=28, pts=[];
-  for(let k=0;k<=steps;k++){ const a=a0+(a1-a0)*k/steps; const p=polar(cx,cy,r,a); pts.push(p[0].toFixed(2)+" "+p[1].toFixed(2)); }
-  return "M"+pts.join(" L");
-}
-function gaugeSVG(score,r,th,numSize){
-  const pad=th/2+4, W=Math.round(r*2+th+10), cx=W/2, cy=r+pad, H=Math.round(cy+10);
-  const aB=[180,A(BNB)], aN=[A(BNB),A(BNL)], aU=[A(BNL),0];
-  let s=`<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" xmlns="http://www.w3.org/2000/svg" style="overflow:visible">`;
-  s+=`<path d="${arcSeg(cx,cy,r,aB[0],aB[1])}" fill="none" stroke="var(--red)"  stroke-width="${th}" stroke-linecap="round"/>`;
-  s+=`<path d="${arcSeg(cx,cy,r,aN[0],aN[1])}" fill="none" stroke="var(--zero)" stroke-width="${th}"/>`;
-  s+=`<path d="${arcSeg(cx,cy,r,aU[0],aU[1])}" fill="none" stroke="var(--green)" stroke-width="${th}" stroke-linecap="round"/>`;
-  if(score!=null){
-    const col=`var(--${bandKey(score)==='bull'?'green':bandKey(score)==='bear'?'red':'zero'})`;
-    const bp=polar(cx,cy,r,A(score));
-    s+=`<circle cx="${bp[0].toFixed(2)}" cy="${bp[1].toFixed(2)}" r="${(th/2+3).toFixed(1)}" fill="${col}" stroke="var(--card)" stroke-width="3"/>`;
-    s+=`<text x="${cx}" y="${(cy-2).toFixed(1)}" text-anchor="middle" font-family="var(--mono)" font-weight="700" font-size="${numSize}" fill="${col}">${fmt1(score)}</text>`;
-  } else {
-    s+=`<text x="${cx}" y="${(cy-2).toFixed(1)}" text-anchor="middle" font-family="var(--mono)" font-weight="700" font-size="${numSize}" fill="var(--mut)">–</text>`;
-  }
-  return s+`</svg>`;
-}
-
-/* ===== Compact per-catalyst band element: band-coloured number + Bearish→Bullish track + bead (no word) ===== */
 function bandCell(score){
   const k=bandKey(score);
   return `<span class="cap ${k}"><span class="w">${bandWord(score)}</span><span class="v">${fmt1(score)}</span></span>`;
 }
+
+/* ===== TNT dial — the ONLY dial. Fixed geometry (cx100 cy96 r78), bead computed for `score`.
+   Band colours match netlify_root/index.html: red / yellow (neutral) / green. ===== */
+function tntDialSVG(score){
+  const cx=100, cy=96, r=78;
+  const ang=(180-(score-1)/9*180)*Math.PI/180;
+  const bx=(cx+r*Math.cos(ang)).toFixed(2), by=(cy-r*Math.sin(ang)).toFixed(2);
+  return `<svg class="tnt-dial" viewBox="0 0 200 110" aria-hidden="true">
+    <path d="M22 96 A78 78 0 0 1 178 96" fill="none" stroke="var(--line)" stroke-width="14" stroke-linecap="round"/>
+    <path d="M22 96 A78 78 0 0 1 72.05 23.18" fill="none" stroke="var(--red)" stroke-width="14" stroke-linecap="round"/>
+    <path d="M72.05 23.18 A78 78 0 0 1 101.36 18.01" fill="none" stroke="var(--yellow)" stroke-width="14" stroke-linecap="round"/>
+    <path d="M101.36 18.01 A78 78 0 0 1 178 96" fill="none" stroke="var(--green)" stroke-width="14" stroke-linecap="round"/>
+    <circle cx="${bx}" cy="${by}" r="9.5" fill="var(--card2)"/>
+    <circle cx="${bx}" cy="${by}" r="7" fill="var(--ink)"/>
+  </svg>`;
+}
+
+const EXPAND_SVG = `<svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>`;
+const MOON_SVG = `<svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`;
+const SUN_SVG  = `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.2" y1="4.2" x2="5.6" y2="5.6"/><line x1="18.4" y1="18.4" x2="19.8" y2="19.8"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.2" y1="19.8" x2="5.6" y2="18.4"/><line x1="18.4" y1="5.6" x2="19.8" y2="4.2"/></svg>`;
 
 /* ===== Build the 14 rows ===== */
 const rowsEl=document.getElementById("rows");
 DATA.forEach((d,i)=>{
   const tr=document.createElement("div");
   tr.className="tr hidden-scores"; tr.dataset.i=i;
-  const scopeCls=d.scope==="MARKET-WIDE"?"scope mw":"scope";
   tr.innerHTML=
-    `<div class="rowveil">
-       <div class="c-num">${d.n}</div>
-       <div class="c-cat"><span class="lab">${d.cat}</span><span class="${scopeCls}">${d.scope}</span></div>
-       <div class="c-net">${bandCell(d.net)}</div>
-       <div class="c-tok">${bandCell(d.tok)}</div>
-     </div>`;
+    `<div class="c-num">${d.n}</div>
+     <div class="c-cat">
+       <span class="lab">${d.short}</span>
+       <button class="expand" title="Expand detail" aria-label="Expand detail">${EXPAND_SVG}</button>
+     </div>
+     <div class="c-net scorecell">${bandCell(d.net)}</div>
+     <div class="c-tok scorecell">${bandCell(d.tok)}</div>`;
   tr.onclick=()=>toggleRow(i);
+  tr.querySelector(".expand").onclick=e=>{e.stopPropagation();openDetail(i);};
   rowsEl.appendChild(tr);
 });
 const trs=[...document.querySelectorAll(".tr")];
 let order=[];
 
-const btnWrap=document.getElementById("rowbtns");
-DATA.forEach((d,i)=>{ const b=document.createElement("button"); b.textContent=d.n; b.id="rb"+i;
-  b.onclick=e=>{e.stopPropagation();toggleRow(i);}; btnWrap.appendChild(b); });
-
-/* ===== Running averages — equal-weight mean of revealed rows (lands 6.0 / 4.9 at row 14) ===== */
-function setAvg(gEl,wEl,cEl,avg,n){
-  gEl.innerHTML=gaugeSVG(avg,132,21,82);
-  if(avg==null){ wEl.textContent="—"; wEl.className="word neu"; }
-  else { wEl.textContent=bandWord(avg); wEl.className="word "+bandKey(avg); }
+/* ===== Running averages (numbers, no dials) ===== */
+function setAvg(numEl,wEl,cEl,avg,n){
+  if(avg==null){ numEl.textContent="—"; numEl.className="avnum neu"; wEl.textContent="—"; wEl.className="avword neu"; }
+  else { numEl.textContent=fmt1(avg); numEl.className="avnum "+bandKey(avg); wEl.textContent=bandWord(avg); wEl.className="avword "+bandKey(avg); }
   cEl.textContent=n+" of 14 revealed";
 }
 function recompute(){
   const rev=trs.filter(tr=>!tr.classList.contains("hidden-scores"));
   const n=rev.length; let na=null,ta=null;
   if(n){ let sn=0,st=0; rev.forEach(tr=>{const d=DATA[+tr.dataset.i]; sn+=d.net; st+=d.tok;}); na=sn/n; ta=st/n; }
-  setAvg(document.getElementById("netGauge"),document.getElementById("netWord"),document.getElementById("netCount"),na,n);
-  setAvg(document.getElementById("tokGauge"),document.getElementById("tokWord"),document.getElementById("tokCount"),ta,n);
+  setAvg(document.getElementById("netNum"),document.getElementById("netWord"),document.getElementById("netCount"),na,n);
+  setAvg(document.getElementById("tokNum"),document.getElementById("tokWord"),document.getElementById("tokCount"),ta,n);
 }
 
-function syncBtns(){ trs.forEach((tr,i)=>document.getElementById("rb"+i)
-  .classList.toggle("on",!tr.classList.contains("hidden-scores"))); }
 function toggleRow(i){
   const tr=trs[i], revealing=tr.classList.contains("hidden-scores");
   tr.classList.toggle("hidden-scores");
   if(revealing){ tr.classList.remove("just"); void tr.offsetWidth; tr.classList.add("just"); order.push(i); }
   else order=order.filter(x=>x!==i);
-  syncBtns(); recompute();
-}
-function revealNext(){ const i=trs.findIndex(tr=>tr.classList.contains("hidden-scores")); if(i>=0)toggleRow(i); }
-function undoLast(){
-  if(order.length){ const i=order.pop(); trs[i].classList.add("hidden-scores"); syncBtns(); recompute(); }
-  else if(document.getElementById("tntClose").classList.contains("show")) toggleTNT();
+  recompute();
 }
 function blurAll(){ trs.forEach(tr=>tr.classList.add("hidden-scores")); order=[];
   document.getElementById("tntClose").classList.remove("show");
-  document.getElementById("tntBtn").classList.remove("on"); syncBtns(); recompute(); }
-function revealAll(){ trs.forEach(tr=>tr.classList.remove("hidden-scores")); order=DATA.map((_,i)=>i); syncBtns(); recompute(); }
+  document.getElementById("btnVerdict").classList.remove("on"); recompute(); }
+function revealAll(){ trs.forEach(tr=>tr.classList.remove("hidden-scores")); order=DATA.map((_,i)=>i); recompute(); }
 
-/* ===== Verdict pillars — REAL: Token 4.9 NEUTRAL · Network 6.0 BULLISH · Technicals 4.4 BEARISH (Weekly). Peer-identical. ===== */
-function buildClose(){
-  document.getElementById("cToken").innerHTML   = gaugeSVG(4.9,72,13,46);
-  document.getElementById("cNetwork").innerHTML = gaugeSVG(6.0,72,13,46);
-  document.getElementById("cTech").innerHTML    = gaugeSVG(4.4,72,13,46);
+/* ===== Per-catalyst detail overlay (scores only) ===== */
+function openDetail(i){
+  const d=DATA[i];
+  document.getElementById("dNum").textContent="Catalyst #"+d.n;
+  document.getElementById("dTitle").textContent=d.short;
+  document.getElementById("dFull").textContent=d.cat;
+  const nn=document.getElementById("dNetN"); nn.textContent=fmt1(d.net); nn.className="dscore "+bandKey(d.net);
+  const nw=document.getElementById("dNetW"); nw.textContent=bandWord(d.net); nw.className="dword "+bandKey(d.net);
+  const tn=document.getElementById("dTokN"); tn.textContent=fmt1(d.tok); tn.className="dscore "+bandKey(d.tok);
+  const tw=document.getElementById("dTokW"); tw.textContent=bandWord(d.tok); tw.className="dword "+bandKey(d.tok);
+  document.getElementById("detail").classList.add("show");
 }
+function closeDetail(){ document.getElementById("detail").classList.remove("show"); }
+
+/* ===== Verdict (TNT) ===== */
+function buildClose(){ document.getElementById("vcDial").innerHTML = tntDialSVG(4.7); }
 function toggleTNT(){
   const el=document.getElementById("tntClose"); el.classList.toggle("show");
-  document.getElementById("tntBtn").classList.toggle("on", el.classList.contains("show"));
+  document.getElementById("btnVerdict").classList.toggle("on", el.classList.contains("show"));
 }
 function toggleTheme(){
   const dark=document.body.classList.toggle("dark");
-  const btn=document.getElementById("themeBtn");
-  btn.textContent = dark ? "☀ Light  (D)" : "☾ Dark  (D)";
-  btn.classList.toggle("on", dark);
+  const b=document.getElementById("btnTheme");
+  b.innerHTML = dark ? SUN_SVG : MOON_SVG;
+  b.classList.toggle("on", dark);
 }
 
 document.addEventListener("keydown",e=>{
-  if(e.code==="Space"){e.preventDefault();revealNext();}
+  if(e.key==="Escape"){ closeDetail(); const t=document.getElementById("tntClose"); if(t.classList.contains("show")) toggleTNT(); }
   if(e.key==="t"||e.key==="T")toggleTNT();
   if(e.key==="d"||e.key==="D")toggleTheme();
-  if(e.key==="h"||e.key==="H")document.body.classList.toggle("clean");
   if(e.key==="b"||e.key==="B")blurAll();
   if(e.key==="a"||e.key==="A")revealAll();
-  if(e.key==="u"||e.key==="U")undoLast();
 });
 
 function fit(){ const s=Math.min(innerWidth/1920,innerHeight/1080);
   const st=document.getElementById("stage"); st.style.transform=`scale(${s})`; st.style.transformOrigin="center"; }
 addEventListener("resize",fit);
 
-buildClose(); recompute(); syncBtns(); fit();
+/* init: dark by default (matches recorded videos); theme button shows the "switch to light" sun */
+document.getElementById("btnTheme").innerHTML = document.body.classList.contains("dark") ? SUN_SVG : MOON_SVG;
+document.getElementById("btnTheme").classList.toggle("on", document.body.classList.contains("dark"));
+buildClose(); recompute(); fit();
 </script>
 </body>
 </html>
