@@ -4,13 +4,14 @@
 <meta charset="UTF-8">
 <title>XRP — 14 Catalysts Scored · 16:9 screenshare</title>
 <!--
-  SCOREBOARD_BOARD_16x9.html — REVISION 2 (video-team mobile-readability + operator feedback r1; committed 2026-06-23).
+  SCOREBOARD_BOARD_16x9.html — REVISION 2 (video-team mobile-readability + operator feedback r1+r2; committed 2026-06-23).
   vs the live REVISION 1:
    1. Catalyst labels shortened to 2–4 words (full text kept for the detail overlay) + typography enlarged.
    2. Legend removed; icon-only operator cluster (Blur all · Reveal all · Verdict/TNT · Dark/Light) in the top-right slot.
    3. Bottom "Reveal control" panel removed entirely (no 1–14 buttons, Reveal-next, Undo, Hide-panel, hint line).
    4. "Blur all" blurs ONLY the score capsules — catalyst names stay sharp.
-   5. Per-catalyst detail overlay: "Catalyst #N", centered short title + full-name subtext, Network/Token as NUMBERS (no dials).
+   5. Per-catalyst detail overlay: "Catalyst #N", centered short title + full-name subtext, Network/Token as NUMBERS (no dials);
+      pinned to the TOP HALF of the stage to keep the bottom-right clear for a VO-talent overlay.
    6. Right-rail averages: labels enlarged + gold, shown as NUMBERS (no dials).
    7. Verdict popup rebuilt to the finalised design direction (Website/netlify_root/index.html):
       TNT dial + read on TOP, the three numeric scores (Token/Network/Technicals) BELOW; the TNT dial is the ONLY dial.
@@ -121,8 +122,9 @@
   .count{font-size:18px;font-weight:500;color:var(--mut);margin-top:6px}
   .foot{flex:none;height:0}
 
-  /* ===== Per-catalyst DETAIL overlay (expand) — scores only, no dials ===== */
-  #detail{position:absolute;inset:0;z-index:60;display:flex;align-items:center;justify-content:center;
+  /* ===== Per-catalyst DETAIL overlay (expand) — scores only, no dials.
+     Pinned to the TOP HALF of the stage so the bottom-right stays clear for a VO-talent overlay. ===== */
+  #detail{position:absolute;inset:0;z-index:60;display:flex;align-items:flex-start;justify-content:center;padding-top:32px;
     background:color-mix(in srgb, var(--bg) 58%, transparent);backdrop-filter:blur(10px);
     opacity:0;pointer-events:none;transition:opacity .3s ease}
   #detail.show{opacity:1;pointer-events:auto}
