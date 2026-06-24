@@ -151,6 +151,19 @@
   .dword{font-size:34px;font-weight:700;letter-spacing:.5px;color:var(--zero)}
   .dscore.bull,.dword.bull{color:var(--green)} .dscore.bear,.dword.bear{color:var(--red)} .dscore.neu,.dword.neu{color:var(--zero)}
 
+  /* Staged reveal INSIDE the detail overlay — mirrors the row two-stage blur.
+     stage 0 = both gauges blurred · 1 = Network shown · 2 = both shown. */
+  .dg{transition:filter .55s ease, opacity .55s ease}
+  #detail[data-stage="0"] .dg-net,
+  #detail[data-stage="0"] .dg-tok,
+  #detail[data-stage="1"] .dg-tok{filter:blur(22px) saturate(.7);opacity:.4}
+  #detail[data-stage="0"] .dg-net,
+  #detail[data-stage="0"] .dg-tok,
+  #detail[data-stage="1"] .dg-tok{cursor:pointer}
+  .dhint{font-family:var(--mono);font-size:19px;font-weight:600;letter-spacing:1.5px;color:var(--faint);
+    text-transform:uppercase;margin-top:34px;opacity:0;transition:opacity .3s ease}
+  #detail[data-stage="0"] .dhint,#detail[data-stage="1"] .dhint{opacity:.6}
+
   /* ===== T·N·T verdict close (T) — finalised design direction (netlify_root/index.html) ===== */
   #tntClose{position:absolute;inset:0;z-index:40;display:flex;align-items:center;justify-content:center;
     background:color-mix(in srgb, var(--bg) 70%, transparent);backdrop-filter:blur(8px);
@@ -307,9 +320,10 @@
       <h2 class="dtitle" id="dTitle">—</h2>
       <div class="dfull" id="dFull">—</div>
       <div class="dgauges">
-        <div class="dg"><div class="dgname">Network</div><div class="dscore" id="dNetN">—</div><div class="dword" id="dNetW">—</div></div>
-        <div class="dg"><div class="dgname">Token</div><div class="dscore" id="dTokN">—</div><div class="dword" id="dTokW">—</div></div>
+        <div class="dg dg-net"><div class="dgname">Network</div><div class="dscore" id="dNetN">—</div><div class="dword" id="dNetW">—</div></div>
+        <div class="dg dg-tok"><div class="dgname">Token</div><div class="dscore" id="dTokN">—</div><div class="dword" id="dTokW">—</div></div>
       </div>
+      <div class="dhint" id="dHint">Click a score to reveal</div>
     </div>
   </div>
 
@@ -468,9 +482,24 @@ function openDetail(i){
   const nw=document.getElementById("dNetW"); nw.textContent=bandWord(d.net); nw.className="dword "+bandKey(d.net);
   const tn=document.getElementById("dTokN"); tn.textContent=fmt1(d.tok); tn.className="dscore "+bandKey(d.tok);
   const tw=document.getElementById("dTokW"); tw.textContent=bandWord(d.tok); tw.className="dword "+bandKey(d.tok);
-  document.getElementById("detail").classList.add("show");
+  const el=document.getElementById("detail");
+  el.dataset.stage="0";            // always open with BOTH scores blurred (fresh for each take)
+  el.classList.add("show");
 }
 function closeDetail(){ document.getElementById("detail").classList.remove("show"); }
+
+/* Detail reveal: forward-only 0 → 1 (Network) → 2 (Token). Re-open to reset. */
+function detailReveal(stage){
+  const el=document.getElementById("detail");
+  if(!el.classList.contains("show")) return;
+  if(stage>+el.dataset.stage) el.dataset.stage=stage;   // never re-blur a revealed score
+}
+function detailRevealNext(){
+  const el=document.getElementById("detail");
+  if(el.classList.contains("show")) detailReveal(+el.dataset.stage+1);
+}
+document.querySelector("#detail .dg-net").addEventListener("click",()=>detailReveal(1)); // reveal Network
+document.querySelector("#detail .dg-tok").addEventListener("click",()=>detailReveal(2)); // reveal Token (Network too)
 
 /* ===== Verdict (TNT) ===== */
 function buildClose(){ document.getElementById("vcDial").innerHTML = tntDialSVG(4.7); }
@@ -486,6 +515,10 @@ function toggleTheme(){
 }
 
 document.addEventListener("keydown",e=>{
+  // Clicker / keyboard advance while the detail popup is open (Space or →)
+  if((e.key===" "||e.key==="ArrowRight") && document.getElementById("detail").classList.contains("show")){
+    e.preventDefault(); detailRevealNext(); return;
+  }
   if(e.key==="Escape"){ closeDetail(); const t=document.getElementById("tntClose"); if(t.classList.contains("show")) toggleTNT(); }
   if(e.key==="t"||e.key==="T")toggleTNT();
   if(e.key==="d"||e.key==="D")toggleTheme();
