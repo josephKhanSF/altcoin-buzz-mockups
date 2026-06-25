@@ -36,6 +36,11 @@
 <meta name="twitter:description" content="Every top altcoin scored three ways. See whether the news actually moves the token, or just the network. Free early access.">
 <meta name="twitter:image" content="https://josephkhansf.github.io/altcoin-buzz-mockups/og-image.png">
 <meta name="twitter:image:alt" content="Altcoin Buzz TNT Score. XRP scored Token 4.9, Network 6.0, Technicals 4.4.">
+<!-- og:/twitter: image:alt + the hero card mirror the FEATURED token (XRP) from the TNT
+     scoreboard CSV (Token 4.9 / Network 6.0 / Technicals 4.4 / TNT 4.7). Crawlers read static
+     HTML, so these stay static; the board script also refreshes the on-page hero from the JSON.
+     If the featured token changes, update FEATURED_TICKER in build_scoreboard_json.py + these
+     two alts + the hero card. The converter prints the values to paste. -->
 
 <!-- Analytics + ad pixels are consent-gated and configured near the bottom of this file
      (the TRACK config block). Nothing loads until the visitor accepts the cookie banner. -->
@@ -325,6 +330,13 @@ h1{font-size:clamp(34px,5vw,54px); line-height:1.03; font-weight:700; color:var(
 .board .sc{font-family:'JetBrains Mono',monospace; font-weight:700; font-size:15.5px; font-variant-numeric:tabular-nums}
 .board .real-row td{background:var(--gold-soft)}
 .board .real-row:hover td{background:var(--gold-soft)}
+/* PENDING - token has no live Technicals yet (no-TA rule): muted TNT pill + em-dash Technicals */
+.tnt-pill.pending{background:var(--lift-2); color:var(--faint); border:1px solid var(--lift-line);
+  font-size:9.5px; font-weight:700; letter-spacing:.6px}
+.board .sc.pending{color:var(--faint); font-weight:600}
+/* board freshness stamp + persistent brand-tag (real-data 'as of', DESIGN_BRIEF S6 / POSITIONING S6) */
+.bn-asof{display:block; margin-top:8px; color:var(--faint)}
+.bn-asof .brand-tag{color:var(--goldtx); font-weight:600; white-space:nowrap}
 .board-note{font-size:11.5px; color:var(--faint); padding:13px 16px; background:var(--lift-2); border-top:1px solid var(--lift-line); line-height:1.5}
 .legend{display:inline-flex; align-items:center; gap:5px; margin-right:14px; white-space:nowrap}
 .legend .sw{width:9px; height:9px; border-radius:3px; display:inline-block}
@@ -829,55 +841,13 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
             <th>Technicals</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td class="rk">1</td>
-            <td class="asset"><div class="ac"><span class="tlogo"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-label="SOL"><defs><linearGradient id="solg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9945FF"/><stop offset="1" stop-color="#14F195"/></linearGradient></defs><circle cx="16" cy="16" r="16" fill="#0e0f12"/><path fill="url(#solg)" d="M8 9L24 9L21 12L5 12Z M5 14.5L21 14.5L24 17.5L8 17.5Z M8 20L24 20L21 23L5 23Z"/></svg></span><div><b>SOL</b> <span class="smp">SAMPLE</span><div class="full">Solana</div></div></div></td>
-            <td class="price pcol">$148.20</td>
-            <td><span class="tnt-pill bull">7.9</span></td>
-            <td class="sc bull">7.7</td><td class="sc bull">8.1</td><td class="sc bull">7.6</td>
-          </tr>
-          <tr>
-            <td class="rk">2</td>
-            <td class="asset"><div class="ac"><span class="tlogo"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-label="LINK"><circle cx="16" cy="16" r="16" fill="#375BD2"/><path fill="#fff" fill-rule="evenodd" d="M16 7L23.79 11.5L23.79 20.5L16 25L8.21 20.5L8.21 11.5Z M16 11.5L19.9 13.75L19.9 18.25L16 20.5L12.1 18.25L12.1 13.75Z"/></svg></span><div><b>LINK</b> <span class="smp">SAMPLE</span><div class="full">Chainlink</div></div></div></td>
-            <td class="price pcol">$14.85</td>
-            <td><span class="tnt-pill bull">6.4</span></td>
-            <td class="sc bull">6.0</td><td class="sc bull">7.0</td><td class="sc bull">5.9</td>
-          </tr>
-          <tr>
-            <td class="rk">3</td>
-            <td class="asset"><div class="ac"><span class="tlogo"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-label="ADA"><circle cx="16" cy="16" r="16" fill="#0033AD"/><circle fill="#fff" cx="16" cy="16" r="2"/><circle fill="#fff" cx="16" cy="10" r="1.5"/><circle fill="#fff" cx="21.2" cy="13" r="1.5"/><circle fill="#fff" cx="21.2" cy="19" r="1.5"/><circle fill="#fff" cx="16" cy="22" r="1.5"/><circle fill="#fff" cx="10.8" cy="19" r="1.5"/><circle fill="#fff" cx="10.8" cy="13" r="1.5"/><circle fill="#fff" cx="16" cy="5.5" r="1.1"/><circle fill="#fff" cx="23.4" cy="8.6" r="1.1"/><circle fill="#fff" cx="26.5" cy="16" r="1.1"/><circle fill="#fff" cx="23.4" cy="23.4" r="1.1"/><circle fill="#fff" cx="16" cy="26.5" r="1.1"/><circle fill="#fff" cx="8.6" cy="23.4" r="1.1"/><circle fill="#fff" cx="5.5" cy="16" r="1.1"/><circle fill="#fff" cx="8.6" cy="8.6" r="1.1"/></svg></span><div><b>ADA</b> <span class="smp">SAMPLE</span><div class="full">Cardano</div></div></div></td>
-            <td class="price pcol">$0.41</td>
-            <td><span class="tnt-pill neut">5.0</span></td>
-            <td class="sc bear">4.2</td><td class="sc bull">6.5</td><td class="sc neut">4.6</td>
-          </tr>
-          <tr class="real-row">
-            <td class="rk">4</td>
-            <td class="asset"><div class="ac"><span class="tlogo"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-label="XRP"><circle cx="16" cy="16" r="16" class="xc"/><path class="xp" d="M23.07 8h2.89l-6.015 5.957a5.621 5.621 0 0 1-7.89 0L6.035 8H8.93l4.57 4.523a3.556 3.556 0 0 0 4.996 0L23.07 8zM8.895 24.563H6l6.055-5.993a5.621 5.621 0 0 1 7.89 0L26 24.562h-2.895L18.5 20a3.556 3.556 0 0 0-4.996 0l-4.61 4.563z"/></svg></span><div><b>XRP</b><div class="full">Ripple</div></div></div></td>
-            <td class="price pcol">$0.52</td>
-            <td><span class="tnt-pill neut">4.7</span></td>
-            <td class="sc neut">4.9</td><td class="sc bull">6.0</td><td class="sc bear">4.4</td>
-          </tr>
-          <tr>
-            <td class="rk">5</td>
-            <td class="asset"><div class="ac"><span class="tlogo"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-label="HBAR"><circle cx="16" cy="16" r="16" fill="#0e0f12"/><rect fill="#fff" x="10.5" y="9" width="2.6" height="14" rx="0.4"/><rect fill="#fff" x="18.9" y="9" width="2.6" height="14" rx="0.4"/><rect fill="#fff" x="10.5" y="13" width="11" height="2.1"/><rect fill="#fff" x="10.5" y="16.9" width="11" height="2.1"/></svg></span><div><b>HBAR</b> <span class="smp">SAMPLE</span><div class="full">Hedera</div></div></div></td>
-            <td class="price pcol">$0.07</td>
-            <td><span class="tnt-pill neut">4.6</span></td>
-            <td class="sc bear">4.4</td><td class="sc neut">5.2</td><td class="sc neut">4.5</td>
-          </tr>
-          <tr>
-            <td class="rk">6</td>
-            <td class="asset"><div class="ac"><span class="tlogo"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-label="DOGE"><circle cx="16" cy="16" r="16" fill="#C2A633"/><path fill="#E7C99B" d="M7.5 10.5L10.6 3.5L14.2 10.5Z"/><path fill="#E7C99B" d="M24.5 10.5L21.4 3.5L17.8 10.5Z"/><path fill="#C98A2E" d="M9.4 9.4L10.9 5.6L12.6 9.4Z"/><path fill="#C98A2E" d="M22.6 9.4L21.1 5.6L19.4 9.4Z"/><ellipse cx="16" cy="17.4" rx="8.4" ry="8.7" fill="#E7C99B"/><ellipse cx="16" cy="20.4" rx="5.7" ry="5.3" fill="#F7EAD1"/><path fill="#F7EAD1" d="M14.5 10.2Q16 8.4 17.5 10.2L16.9 17.6Q16 18.6 15.1 17.6Z"/><ellipse cx="12.4" cy="15.1" rx="1.35" ry="1.75" fill="#2E241A"/><ellipse cx="19.6" cy="15.1" rx="1.35" ry="1.75" fill="#2E241A"/><circle cx="12" cy="14.5" r="0.45" fill="#fff"/><circle cx="19.2" cy="14.5" r="0.45" fill="#fff"/><path fill="#2E241A" d="M14.5 18.2Q16 17.4 17.5 18.2Q16 20.1 14.5 18.2Z"/><path fill="none" stroke="#2E241A" stroke-width="0.75" stroke-linecap="round" d="M16 19.7L16 21.1M16 21.1Q13.7 22.4 12.7 20.8M16 21.1Q18.3 22.4 19.3 20.8"/></svg></span><div><b>DOGE</b> <span class="smp">SAMPLE</span><div class="full">Dogecoin</div></div></div></td>
-            <td class="price pcol">$0.12</td>
-            <td><span class="tnt-pill bear">3.6</span></td>
-            <td class="sc bear">3.2</td><td class="sc bear">3.9</td><td class="sc bear">4.0</td>
-          </tr>
-        </tbody>
+        <tbody id="board-body"><!-- rows rendered client-side from ./tnt_scoreboard.json (build_scoreboard_json.py) --></tbody>
       </table>
       <div class="board-note">
         <span class="legend"><span class="sw" style="background:var(--green)"></span>Bullish 5.6–10</span>
         <span class="legend"><span class="sw" style="background:var(--zero)"></span>Neutral 4.5–5.5</span>
         <span class="legend"><span class="sw" style="background:var(--red)"></span>Bearish 1.0–4.4</span>
+        <span class="bn-asof" id="board-asof"></span>
       </div>
     </div>
 
@@ -1383,6 +1353,130 @@ const isSet=(v)=> typeof v==='string' && v.indexOf('XXXX')===-1 && v.indexOf('PA
     });
   },{threshold:.18});
   document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+})();
+</script>
+<!-- == Board render - "Every coin, ranked" rows come from ./tnt_scoreboard.json ==
+     The JSON is a DERIVED view of the central TNT scoreboard CSV
+     (Channels/CH-003-altcoin-buzz/Leads/Token Scorecard/tnt_scoreboard.csv),
+     regenerated by Website/scripts/build_scoreboard_json.py. Edit the CSV, not this table.
+     Over HTTP (Netlify) the fetch loads automatically. Opened as a local file:// the
+     browser blocks the fetch - preview locally with a static server:
+        cd altcoin-buzz-mockups && python3 -m http.server 8000   -> http://localhost:8000/ -->
+<script>
+(function(){
+  var FEATURED = "XRP";
+  var BAND_CLASS = { BULLISH:"bull", NEUTRAL:"neut", BEARISH:"bear", PENDING:"pending" };
+
+  // Per-ticker brand mark. Crafted SVGs for the tokens we already had art for; a clean
+  // monogram badge (brand color + initial) for the rest. Presentation only - not data.
+  var LOGOS = {
+    XRP:  '<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-label="XRP"><circle cx="16" cy="16" r="16" class="xc"/><path class="xp" d="M23.07 8h2.89l-6.015 5.957a5.621 5.621 0 0 1-7.89 0L6.035 8H8.93l4.57 4.523a3.556 3.556 0 0 0 4.996 0L23.07 8zM8.895 24.563H6l6.055-5.993a5.621 5.621 0 0 1 7.89 0L26 24.562h-2.895L18.5 20a3.556 3.556 0 0 0-4.996 0l-4.61 4.563z"/></svg>',
+    LINK: '<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-label="LINK"><circle cx="16" cy="16" r="16" fill="#375BD2"/><path fill="#fff" fill-rule="evenodd" d="M16 7L23.79 11.5L23.79 20.5L16 25L8.21 20.5L8.21 11.5Z M16 11.5L19.9 13.75L19.9 18.25L16 20.5L12.1 18.25L12.1 13.75Z"/></svg>',
+    ADA:  '<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-label="ADA"><circle cx="16" cy="16" r="16" fill="#0033AD"/><circle fill="#fff" cx="16" cy="16" r="2"/><circle fill="#fff" cx="16" cy="10" r="1.5"/><circle fill="#fff" cx="21.2" cy="13" r="1.5"/><circle fill="#fff" cx="21.2" cy="19" r="1.5"/><circle fill="#fff" cx="16" cy="22" r="1.5"/><circle fill="#fff" cx="10.8" cy="19" r="1.5"/><circle fill="#fff" cx="10.8" cy="13" r="1.5"/><circle fill="#fff" cx="16" cy="5.5" r="1.1"/><circle fill="#fff" cx="23.4" cy="8.6" r="1.1"/><circle fill="#fff" cx="26.5" cy="16" r="1.1"/><circle fill="#fff" cx="23.4" cy="23.4" r="1.1"/><circle fill="#fff" cx="16" cy="26.5" r="1.1"/><circle fill="#fff" cx="8.6" cy="23.4" r="1.1"/><circle fill="#fff" cx="5.5" cy="16" r="1.1"/><circle fill="#fff" cx="8.6" cy="8.6" r="1.1"/></svg>',
+    DOGE: '<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-label="DOGE"><circle cx="16" cy="16" r="16" fill="#C2A633"/><path fill="#E7C99B" d="M7.5 10.5L10.6 3.5L14.2 10.5Z"/><path fill="#E7C99B" d="M24.5 10.5L21.4 3.5L17.8 10.5Z"/><path fill="#C98A2E" d="M9.4 9.4L10.9 5.6L12.6 9.4Z"/><path fill="#C98A2E" d="M22.6 9.4L21.1 5.6L19.4 9.4Z"/><ellipse cx="16" cy="17.4" rx="8.4" ry="8.7" fill="#E7C99B"/><ellipse cx="16" cy="20.4" rx="5.7" ry="5.3" fill="#F7EAD1"/><path fill="#F7EAD1" d="M14.5 10.2Q16 8.4 17.5 10.2L16.9 17.6Q16 18.6 15.1 17.6Z"/><ellipse cx="12.4" cy="15.1" rx="1.35" ry="1.75" fill="#2E241A"/><ellipse cx="19.6" cy="15.1" rx="1.35" ry="1.75" fill="#2E241A"/><circle cx="12" cy="14.5" r="0.45" fill="#fff"/><circle cx="19.2" cy="14.5" r="0.45" fill="#fff"/><path fill="#2E241A" d="M14.5 18.2Q16 17.4 17.5 18.2Q16 20.1 14.5 18.2Z"/><path fill="none" stroke="#2E241A" stroke-width="0.75" stroke-linecap="round" d="M16 19.7L16 21.1M16 21.1Q13.7 22.4 12.7 20.8M16 21.1Q18.3 22.4 19.3 20.8"/></svg>'
+  };
+  var BRAND = { AAVE:"#B6509E", JUP:"#2E9D8F", HYPE:"#1FA98F", ONDO:"#2D63E0", ENA:"#6E56CF", SOL:"#7C4DFF", HBAR:"#222831" };
+
+  function monogram(t){
+    var c = BRAND[t] || "#5a6473";
+    return '<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-label="'+t+'">'
+      + '<circle cx="16" cy="16" r="16" fill="'+c+'"/>'
+      + '<text x="16" y="16" text-anchor="middle" dominant-baseline="central" '
+      + 'font-family="Archivo,system-ui,sans-serif" font-size="13" font-weight="700" fill="#fff">'
+      + t.charAt(0) + '</text></svg>';
+  }
+  function logo(t){ return LOGOS[t] || monogram(t); }
+  function cls(band){ return BAND_CLASS[band] || "neut"; }
+  function one(n){ return (n==null) ? "—" : Number(n).toFixed(1); }
+  function esc(s){ return String(s==null?"":s).replace(/[&<>"]/g, function(m){
+    return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]; }); }
+
+  function sortTokens(toks){
+    return toks.slice().sort(function(a,b){
+      var as = a.tnt_score!=null, bs = b.tnt_score!=null;
+      if(as!==bs) return as ? -1 : 1;                    // scored before PENDING
+      var ap = as ? a.tnt_score : (a.token_score||0);    // then by TNT desc (PENDING: Token desc)
+      var bp = bs ? b.tnt_score : (b.token_score||0);
+      return bp - ap;
+    });
+  }
+
+  function rowHTML(t, rank){
+    var pending = (t.tnt_score==null);
+    var tnt = pending
+      ? '<span class="tnt-pill pending">PENDING</span>'
+      : '<span class="tnt-pill '+cls(t.tnt_band)+'">'+one(t.tnt_score)+'</span>';
+    var tech = (t.technicals_score==null)
+      ? '<td class="sc pending">—</td>'
+      : '<td class="sc '+cls(t.technicals_band)+'">'+one(t.technicals_score)+'</td>';
+    return '<tr'+(t.ticker===FEATURED?' class="real-row"':'')+'>'
+      + '<td class="rk">'+rank+'</td>'
+      + '<td class="asset"><div class="ac"><span class="tlogo">'+logo(t.ticker)+'</span>'
+      +   '<div><b>'+esc(t.ticker)+'</b><div class="full">'+esc(t.name)+'</div></div></div></td>'
+      + '<td class="price pcol">'+esc(t.price_display||"—")+'</td>'
+      + '<td>'+tnt+'</td>'
+      + '<td class="sc '+cls(t.token_band)+'">'+one(t.token_score)+'</td>'
+      + '<td class="sc '+cls(t.network_band)+'">'+one(t.network_score)+'</td>'
+      + tech
+      + '</tr>';
+  }
+
+  // Keep the on-page hero card in sync with the featured token's real numbers.
+  function updateHero(f){
+    if(!f) return;
+    var card = document.querySelector('.hero-card');
+    if(!card) return;
+    var cells = card.querySelectorAll('.tnt-strip .tnt-cell .n');
+    var trip = [[f.token_score,f.token_band],[f.network_score,f.network_band],[f.technicals_score,f.technicals_band]];
+    Array.prototype.forEach.call(cells, function(el,i){
+      if(!trip[i]) return;
+      el.className = 'n '+cls(trip[i][1]);
+      el.textContent = (trip[i][0]==null) ? '—' : Number(trip[i][0]).toFixed(1);
+    });
+    var num = card.querySelector('.tnt .tnt-num');
+    var word = card.querySelector('.tnt .tnt-word');
+    if(num)  num.textContent  = (f.tnt_score==null) ? 'PENDING' : Number(f.tnt_score).toFixed(1);
+    if(word) word.textContent = f.tnt_band || '';
+  }
+
+  function render(data){
+    var body = document.getElementById('board-body');
+    if(!body) return;
+    var toks = sortTokens(data.tokens||[]);
+    body.innerHTML = toks.map(function(t,i){ return rowHTML(t, i+1); }).join('');
+    var stamp = document.getElementById('board-asof');
+    if(stamp){
+      var dates = toks.map(function(t){ return t.as_of_date; }).filter(Boolean).sort();
+      var latest = dates.length ? dates[dates.length-1] : null;
+      stamp.innerHTML = 'Real Altcoin Buzz research - Token &amp; Network scored across all catalysts; '
+        + 'Technicals shown where live, else PENDING.'
+        + (latest ? ' Board updated '+esc(latest)+'.' : '')
+        + ' <span class="brand-tag">TNT Score · altcoinbuzz.com</span>';
+    }
+    var want = data.featured || FEATURED;
+    var feat = (data.tokens||[]).filter(function(t){ return t.ticker===want; })[0];
+    updateHero(feat);
+  }
+
+  function fail(err){
+    var body = document.getElementById('board-body');
+    if(body){
+      body.innerHTML = '<tr><td colspan="7" style="padding:26px 16px; color:var(--faint); '
+        + 'font-size:13px; text-align:center; line-height:1.55">Board data couldn’t load. '
+        + 'On the live site it loads automatically; to preview locally, serve this folder over HTTP '
+        + '(<code>python3 -m http.server</code>) rather than opening the file directly.</td></tr>';
+    }
+    if(window.console) console.warn('[board] tnt_scoreboard.json load failed:', err);
+  }
+
+  function init(){
+    fetch('./tnt_scoreboard.json', {cache:'no-store'})
+      .then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
+      .then(render)
+      .catch(fail);
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
 })();
 </script>
 </body>
