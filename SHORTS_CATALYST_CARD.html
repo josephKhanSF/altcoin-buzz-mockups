@@ -63,7 +63,9 @@
   body.dark{
     --bg:#121214; --card:#1c1c20; --card2:#242429; --line:#2c2c32; --line2:#3a3a42;
     --ink:#f6f3ec; --txt:#d8d3c8; --mut:#9a948a;
-    --green:#3fb56f; --red:#e06464; --zero:#8b909c;
+    /* Punchier gauge colours for screen-recorded Shorts — more saturated/luminous so they keep
+       energy through video compression. Grey (--zero) unchanged. */
+    --green:#22e07a; --red:#cc0d1a; --zero:#8b909c;
     --gold:#e0a93c; --goldtx:#e9c46a; --goldink:#1d1604;
     --shadow:0 2px 4px rgba(0,0,0,.40), 0 8px 24px rgba(0,0,0,.50);
     --glow:#23231f; --frame:#000000;
@@ -81,8 +83,12 @@
   body.r916 #card{width:1080px;height:1920px;padding:120px 96px 104px}
   body.r11  #card{width:1080px;height:1080px;padding:74px 92px 64px}
 
-  /* ===== Top bar — brand on the left, catalyst pill on the right (same level) ===== */
+  /* ===== Top bar — now an EMPTY gap (header content removed). On YouTube Shorts (9:16) it is
+     kept as deliberate breathing room below the platform's top UI overlays; on X (1:1) it
+     collapses entirely since no such overlay gap is needed. ===== */
   .topbar{flex:none;display:flex;align-items:center;justify-content:space-between;gap:24px}
+  body.r916 .topbar{height:96px}
+  body.r11  .topbar{display:none}
 
   /* ===== Brand mark (top) ===== */
   .brand{display:flex;align-items:center;gap:22px;flex:none}
@@ -121,8 +127,8 @@
   .pillar{display:flex;flex-direction:column;align-items:center;text-align:center;width:100%}
   /* pillar label = fixed BLACK PILL (score-independent), white text, doubled size */
   .pillar .plabel{display:inline-flex;align-items:center;font-weight:700;text-transform:uppercase;
-    letter-spacing:1px;color:#fff;background:#0b0b0d;border-radius:var(--r-chip);line-height:1}
-  body.dark .pillar .plabel{background:#2a2a30;color:var(--ink);box-shadow:inset 0 0 0 1px var(--line2)}
+    letter-spacing:1px;color:var(--goldink);background:var(--gold);border-radius:var(--r-chip);line-height:1}
+  body.dark .pillar .plabel{background:var(--gold);color:var(--goldink);box-shadow:none}
   body.r916 .pillar .plabel{font-size:42px;padding:11px 29px}
   body.r11  .pillar .plabel{font-size:31px;padding:8px 22px}
   .pillar .gholder{display:flex;align-items:center;justify-content:center}
@@ -145,6 +151,13 @@
     border-radius:14px;padding:14px 16px;box-shadow:0 8px 28px rgba(40,33,18,.18);width:320px;
     max-height:92vh;overflow:auto}
   #panel h3{font-size:13px;font-weight:700;color:var(--goldtx);margin-bottom:10px}
+  /* Header row — title left, small minimize icon top-right (replaces the old "Hide panel (H)" button) */
+  #panel .panel-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+  #panel .panel-head h3{margin-bottom:0}
+  #panel .min-btn{flex:none;width:26px;height:26px;display:flex;align-items:center;justify-content:center;
+    padding:0;background:var(--card2);border:1px solid var(--line2);border-radius:7px;color:var(--mut);
+    font-size:17px;font-weight:700;line-height:1;cursor:pointer}
+  #panel .min-btn:hover{background:color-mix(in srgb,var(--gold) 16%,var(--card2));color:var(--txt)}
   #panel .lab{font-size:11px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;color:var(--mut);margin:2px 0 6px}
   #panel .btnrow{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px}
   #panel button{background:var(--card2);border:1px solid var(--line2);color:var(--txt);border-radius:9px;
@@ -242,38 +255,10 @@
 
 <div id="wrap"><div id="card">
 
-  <div class="topbar">
-  <div class="brand">
-    <!-- Real logo: gold AB on black circle (the scoreboard's light-theme mark) — brand-consistent on a light card. -->
-    <svg class="logo" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Altcoin Buzz">
-      <circle cx="256" cy="256" r="247.4" fill="#0b0b0d"/>
-      <radialGradient id="abGrad" cx="255.2756" cy="80.4833" r="241.6842" gradientUnits="userSpaceOnUse">
-        <stop offset="0.1798" stop-color="#F4E8D9"/>
-        <stop offset="0.5899" stop-color="#EDD089"/>
-        <stop offset="1" stop-color="#C08329"/>
-      </radialGradient>
-      <path fill="url(#abGrad)" d="M449.5,173.4c-10.6-25.1-25.8-47.6-45.2-67c-19.4-19.4-41.9-34.6-67-45.2
-        c-8.4-3.5-16.9-6.5-25.6-8.9c-12.2-3.4-24.7-5.6-37.4-6.8c-6.3-0.6-12.6-0.9-19-0.9c-6.4,0-12.7,0.3-19,0.9
-        c-12.7,1.1-25.2,3.4-37.4,6.8c-8.7,2.4-17.3,5.4-25.7,8.9c-25.1,10.6-47.6,25.8-67,45.2c-19.4,19.4-34.6,41.9-45.2,67
-        c-11,26-16.6,53.6-16.6,82.1S50,311.5,61,337.5c0.6,1.5,1.2,2.9,1.9,4.3c5.6,12.4,12.3,24.1,20,35.1c1.2,1.6,2.4,3.3,3.6,4.9
-        c6,8,12.6,15.5,19.7,22.7c0.4,0.4,0.9,0.9,1.4,1.3c19.1,18.7,41.1,33.5,65.6,43.8c26,11,53.6,16.6,82.1,16.6
-        c28.5,0,56.1-5.6,82.1-16.6c24.5-10.4,46.6-25.1,65.7-43.9c0.4-0.4,0.9-0.9,1.3-1.3c7.1-7.1,13.7-14.7,19.7-22.7
-        c1.2-1.6,2.4-3.3,3.6-4.9c7.8-11,14.4-22.7,20-35.1c0.6-1.4,1.3-2.9,1.9-4.3c11-26,16.6-53.6,16.6-82.1S460.5,199.4,449.5,173.4z
-        M407.4,341.9c-0.8-1.4-1.6-2.7-2.4-4.1c-19.1-31.5-47.9-56.6-82.3-71l61.6,106.7c-32,35-78,57-129.1,57c-51,0-97-22-129.1-56.9
-        l61.7-106.8c-33.9,14.2-62.4,38.8-81.5,69.7c-1.1,1.8-2.2,3.6-3.2,5.4c-7.1-12.5-12.7-25.9-16.6-40c-4.1-14.8-6.3-30.3-6.3-46.4
-        c0-83.5,58.9-153.6,137.3-170.9c11.8-2.6,24-4,36.6-4.1l-19.5,33.7l-71.9,124.6c3.4-1.7,6.9-3.3,10.5-4.8
-        c13.2-5.6,26.9-9.8,40.8-12.5l41.3-71.5l41.3,71.5c13.9,2.8,27.5,6.9,40.7,12.5c3.6,1.5,7.1,3.1,10.6,4.8l-72-124.6l-19.5-33.7
-        c12.5,0.1,24.8,1.5,36.6,4.1c78.4,17.3,137.2,87.4,137.2,170.9c0,16.1-2.2,31.6-6.3,46.4C420.1,316,414.5,329.4,407.4,341.9z"/>
-    </svg>
-    <div class="wm">
-      <span class="n1">Altcoin Buzz</span>
-      <span class="n2"><span class="tnt">TNT</span> Score</span>
-    </div>
-  </div>
-
-    <!-- Catalyst pill — {TICKER} CATALYST #{n} — populated by render() from token + cat_no. -->
-    <div class="catpill" id="catpill"></div>
-  </div>
+  <!-- Header content (logo, Altcoin Buzz / TNT Score wordmark, catalyst pill) removed per video-team
+       request. The empty .topbar is KEPT as a deliberate top gap for YouTube Shorts (9:16) so the
+       headline clears the platform's top UI overlays. Collapsed on X (1:1) — see .topbar CSS. -->
+  <div class="topbar" aria-hidden="true"></div>
 
   <h1 class="headline" id="headline"></h1>
 
@@ -289,8 +274,6 @@
       <div class="pword" id="tokWord"></div>
     </div>
   </div>
-
-  <p class="takeaway" id="takeaway"></p>
 
   <!-- Generic CLOSE / overview endcap (Stage 3). DATA-FREE: no token, no catalyst #, no scores,
        no fixed catalyst count — reusable as-is for any token or pack size. Shown only on stage-close. -->
@@ -312,7 +295,10 @@
 <div id="themeToggle" onclick="toggleTheme()" title="Toggle light / dark (D)" aria-label="Toggle light or dark mode">&#9789;</div>
 <div id="unhide" onclick="document.body.classList.remove('clean')" title="Show controls">&#9881; controls</div>
 <div id="panel">
-  <h3>Shorts card control</h3>
+  <div class="panel-head">
+    <h3>Shorts card control</h3>
+    <button class="min-btn" onclick="document.body.classList.toggle('clean')" title="Minimize controls (H)" aria-label="Minimize controls">&#8211;</button>
+  </div>
 
   <div class="lab">1 · Aspect</div>
   <div class="btnrow">
@@ -347,9 +333,6 @@
   <div class="lab">5 · Close title (video title shown on the Close card)</div>
   <input type="text" id="closeTitleInput" class="tin" placeholder="Type the video title…" oninput="setCloseTitle(this.value)">
 
-  <div class="btnrow">
-    <button onclick="document.body.classList.toggle('clean')">Hide panel (H)</button>
-  </div>
   <div class="hint">Pick aspect, then catalyst, then step the reveal to match the beat you're capturing.
     <b>← / →</b> step reveal stage · <b>↑ / ↓</b> prev/next catalyst · press a catalyst's number (1–9) to jump ·
     <b>A</b> toggle aspect · <b>D</b> toggle light/dark · <b>H</b> hide panel for capture. Switching catalyst resets to Hook.
@@ -490,12 +473,7 @@ function buildCameo(){
 
 function render(){
   const c=CATALYSTS[idx], g=gaugeGeom();
-  /* Catalyst pill: {TICKER} CATALYST #{board row}. The number is c.cat_no — the RESEARCH
-     board row, identical to the script and SCOREBOARD_BOARD_16x9.html numbering. */
-  document.getElementById("catpill").textContent = c.token + " CATALYST #" + c.cat_no;
   document.getElementById("headline").textContent = c.headline;
-  /* takeaway lifted verbatim from the END-REVEAL line — rendered as plain text (no injected markup) */
-  document.getElementById("takeaway").textContent = c.takeaway;
   document.getElementById("netGauge").innerHTML = gaugeSVG(c.net,g.r,g.th,g.num);
   document.getElementById("tokGauge").innerHTML = gaugeSVG(c.tok,g.r,g.th,g.num);
   const nw=document.getElementById("netWord"), tw=document.getElementById("tokWord");
