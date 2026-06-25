@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>TNT Score · 5 Altcoins, 5 Catalysts — B-roll Scoreboard</title>
+<meta name="theme-color" content="#0d0f12">
+<!--
+  Altcoin Buzz — 5-token roundup scoreboard (b-roll).
+  Lead: 20260625-type1_roundup-5e7b9a14 · "5 Altcoins, 5 Bullish Catalysts".
+  Dark-only. One-screen (no scroll): all 5 rows fit a 16:9 / portrait frame; rows are
+  compact full-width horizontal strips. Self-contained (logos + bands inline; offline-safe).
+  Data source of truth: SERIES_PLAN featured-5 (Net/Tok) + catalyst_inventory.csv (X totals).
+
+  RECORDING CONTROLS (internal team)
+    Reveal next / Space / →   reveal next row (countdown 5 → 1, builds in place, no scroll)
+    tap a NETWORK / TOKEN tile  unblur that single score
+    ← / Backspace             hide last revealed row (retakes)
+    R reset · U unblur all visible · F fullscreen
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ── Brand DNA (DARK ONLY) — carried from altcoin-buzz-mockups ───────── */
+:root{
+  --bg:#0d0f12; --bg-soft:#141821; --card:#161a22; --card-soft:#1b2029;
+  --line:#262b35; --line2:#333a45;
+  --ink:#f2f4f7; --txt:#c5ccd6; --mut:#8a93a1; --faint:#5f6775;
+  --green:#22e07a; --red:#cc0d1a; --zero:#9aa1ad;
+  --gold:#e8b54a; --goldtx:#e8b54a; --goldink:#1a1304;
+  --green-soft:rgba(34,224,122,.13); --red-soft:rgba(204,13,26,.14); --zero-soft:rgba(138,144,155,.12);
+  --gold-soft:rgba(232,181,74,.12); --gold-line:rgba(232,181,74,.34);
+  --logo-wm:#f2f4f7; --logo-gold:#e8b54a; --disc-fill:transparent;
+  --lift:#1a212b; --lift-2:#222b37; --lift-line:#333d4b;
+  --radius:16px;
+  --shadow-lg:0 2px 6px rgba(0,0,0,.45), 0 18px 48px rgba(0,0,0,.5);
+  --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+  --sans:'Archivo',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:var(--sans); color:var(--txt); -webkit-font-smoothing:antialiased; line-height:1.4;
+  background:radial-gradient(125% 95% at 50% -8%, #161b24 0%, var(--bg) 55%) fixed;
+  height:100dvh; overflow:hidden; display:flex; flex-direction:column; align-items:center;
+  padding:clamp(12px,2.4vh,26px) 0 calc(clamp(10px,2vh,20px) + env(safe-area-inset-bottom)); }
+.stage{width:92vw; max-width:1180px; flex:1 1 auto; min-height:0; display:flex; flex-direction:column}
+:focus-visible{outline:2px solid var(--gold); outline-offset:3px}
+
+/* ── Board: 5 rows, centered, fills the frame, never scrolls ─────────── */
+.board{flex:1 1 auto; min-height:0; display:flex; flex-direction:column;
+  justify-content:center; gap:clamp(7px,1.5vh,15px)}
+
+.row{flex:0 0 auto; background:linear-gradient(180deg,var(--lift) 0%, #151b24 100%);
+  border:1px solid var(--lift-line); border-radius:var(--radius); box-shadow:var(--shadow-lg);
+  padding:clamp(9px,1.5vh,15px) clamp(13px,1.6vw,20px); position:relative; overflow:hidden;
+  display:flex; align-items:center; gap:clamp(11px,1.5vw,20px)}
+/* Every row box, rank, and score box/label is visible from the start. The identity (logo+ticker),
+   the #/X chip, and the catalyst text are BLURRED until [+] adds .revealed (bottom row first). */
+.asset,.catpill,.cat{transition:filter .55s ease, opacity .55s ease, transform .55s ease}
+.row:not(.revealed) .asset,
+.row:not(.revealed) .catpill,
+.row:not(.revealed) .cat{filter:blur(10px); opacity:.9}
+.row.revealed .asset,
+.row.revealed .catpill,
+.row.revealed .cat{filter:none; opacity:1; animation:sharpen .5s ease both}
+@keyframes sharpen{from{transform:translateY(5px)} to{transform:none}}
+.row.top{border-color:var(--gold-line)}
+.row.top::before{content:""; position:absolute; left:0; top:0; bottom:0; width:3px;
+  background:linear-gradient(180deg,#eaba50,#d99a2b)}
+
+/* rank */
+.rk{flex:0 0 auto; text-align:center; min-width:clamp(34px,3.4vw,52px)}
+.rk .n{display:block; font-family:var(--mono); font-weight:700; font-size:clamp(26px,4.2vh,42px); line-height:1; color:var(--ink); font-variant-numeric:tabular-nums}
+.row.top .rk .n{color:var(--gold)}
+
+/* asset */
+.asset{flex:0 0 auto; display:flex; align-items:center; gap:clamp(9px,1.1vw,14px); min-width:clamp(112px,12.5vw,176px)}
+.tlogo{flex:0 0 auto; display:inline-flex}
+.tlogo svg{width:clamp(38px,5.4vh,52px); height:clamp(38px,5.4vh,52px); display:block}
+.asset-tx{min-width:0}
+.asset-tx b{display:block; font-size:clamp(20px,3.3vh,31px); font-weight:700; color:var(--ink); letter-spacing:.2px; line-height:1.05}
+.asset-tx .full{font-family:var(--mono); font-size:clamp(12px,1.7vh,15px); color:var(--mut); font-weight:500}
+
+/* 1-of-X chip */
+.catpill{flex:0 0 auto; text-align:center; background:var(--gold-soft); border:1px solid var(--gold-line);
+  border-radius:11px; padding:clamp(5px,.8vh,8px) clamp(8px,.9vw,12px); line-height:1}
+.catpill .n{font-family:var(--mono); font-weight:700; font-size:clamp(18px,2.8vh,25px); color:var(--goldtx); font-variant-numeric:tabular-nums}
+.catpill .n small{font-size:1em; font-weight:700; opacity:1}
+.catpill .lab{display:block; font-family:var(--mono); font-size:clamp(8px,1vh,9.5px); font-weight:700; letter-spacing:1.2px; color:var(--goldtx); opacity:.85; margin-top:3px}
+
+/* catalyst (flexes to fill) */
+.cat{flex:1 1 auto; min-width:0; padding:0 clamp(6px,.8vw,14px)}
+.cat .name{font-size:clamp(17px,2.9vh,26px); font-weight:700; color:var(--ink); letter-spacing:-.01em; line-height:1.25}
+
+/* score tiles (blurred by default) */
+.scores{flex:0 0 auto; display:flex; gap:clamp(8px,1vw,12px)}
+.score{position:relative; cursor:pointer; text-align:center; width:clamp(98px,12vw,150px);
+  background:var(--card-soft); border:1px solid var(--lift-line); border-radius:13px;
+  padding:clamp(8px,1.1vh,12px) 8px clamp(10px,1.3vh,14px); font-family:inherit; color:inherit; overflow:hidden;
+  transition:border-color .2s, background .2s}
+.score:hover{border-color:var(--faint)}
+.score .s-lab{display:flex; align-items:center; justify-content:center; text-align:center; min-height:2.2em;
+  font-family:var(--mono); font-size:clamp(9.5px,1.3vh,11.5px); font-weight:700; letter-spacing:1.1px;
+  color:var(--goldtx); text-transform:uppercase; line-height:1.1}
+.s-fog{display:block; margin-top:3px; filter:blur(12px); transition:filter .45s ease, transform .45s ease; transform:scale(1.04)}
+.s-val{display:block; font-family:var(--mono); font-weight:700; font-size:clamp(30px,4.9vh,46px); line-height:1; font-variant-numeric:tabular-nums; color:var(--ink)}
+.s-word{display:block; font-family:var(--mono); font-size:clamp(9px,1.25vh,11.5px); font-weight:700; letter-spacing:1.3px; margin-top:5px; color:var(--mut)}
+.s-hint{position:absolute; left:0; right:0; bottom:clamp(5px,.8vh,8px); font-family:var(--mono); font-size:8px;
+  font-weight:700; letter-spacing:2px; color:var(--faint); pointer-events:none;
+  display:inline-flex; align-items:center; justify-content:center; gap:4px; transition:opacity .3s}
+.s-hint svg{width:10px; height:10px; fill:none; stroke:currentColor; stroke-width:2}
+.score[data-band="bull"] .s-val,.score[data-band="bull"] .s-word{color:var(--green)}
+.score[data-band="bear"] .s-val,.score[data-band="bear"] .s-word{color:var(--red)}
+.score[data-band="neut"] .s-val,.score[data-band="neut"] .s-word{color:var(--zero)}
+.score.shown{cursor:default}
+.score.shown .s-fog{filter:none; transform:none}
+.score.shown .s-hint{opacity:0}
+.score.shown[data-band="bull"]{background:var(--green-soft); border-color:color-mix(in srgb,var(--green) 34%,transparent)}
+.score.shown[data-band="bear"]{background:var(--red-soft); border-color:color-mix(in srgb,var(--red) 34%,transparent)}
+.score.shown[data-band="neut"]{background:var(--zero-soft); border-color:color-mix(in srgb,var(--zero) 30%,transparent)}
+.score.pop{animation:reveal .42s cubic-bezier(.2,.9,.3,1.4)}
+@keyframes reveal{0%{transform:scale(.9)}60%{transform:scale(1.05)}100%{transform:scale(1)}}
+
+/* ── Footer — brand/link (left) + grey icon controls (right) ─────────── */
+.ctl{flex:0 0 auto; margin-top:clamp(10px,1.8vh,18px); display:flex; align-items:center;
+  justify-content:space-between; gap:14px clamp(16px,3vw,40px); flex-wrap:wrap}
+.brandline{display:inline-flex; align-items:center; gap:clamp(11px,1.4vw,19px); text-decoration:none; min-width:0}
+.brandline .ab-logo{flex:0 0 auto; display:inline-flex}
+.brandline .ab-logo svg{height:clamp(28px,4vh,42px); width:auto; display:block}
+.logo circle[fill="#333333"]{fill:var(--disc-fill)}
+.logo path[fill="#333333"]{fill:var(--logo-wm)}
+.logo path[fill="#C08329"]{fill:var(--logo-gold)}
+.ab-text{font-size:clamp(16px,2.4vh,22px); color:var(--ink); font-weight:700; letter-spacing:.2px; line-height:1.2}
+.ab-text .reg{color:var(--goldtx); font-weight:600}
+.brandline:hover .ab-text b{color:var(--gold)}
+.ctl-btns{display:flex; align-items:center; gap:clamp(9px,1vw,14px)}
+.icon-btn{width:clamp(42px,5.2vh,52px); height:clamp(42px,5.2vh,52px); border-radius:11px;
+  border:1px solid var(--lift-line); background:var(--lift); color:var(--mut); cursor:pointer;
+  display:inline-flex; align-items:center; justify-content:center;
+  transition:color .15s, border-color .15s, background .15s, opacity .2s}
+.icon-btn:hover{color:var(--txt); border-color:var(--faint); background:var(--lift-2)}
+.icon-btn:active{transform:translateY(1px)}
+.icon-btn svg{width:48%; height:48%; fill:none; stroke:currentColor; stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round}
+.icon-btn[disabled]{opacity:.3; cursor:default; pointer-events:none}
+
+/* Narrow / portrait fallback: scores drop to a second line so the row never overflows */
+@media(max-width:600px){
+  .row{flex-wrap:wrap; row-gap:9px}
+  .cat{flex:1 1 100%; order:5; padding:0}
+  .scores{flex:1 1 100%; order:6}
+  .score{flex:1}
+  .asset-tx .full{display:none}
+}
+</style>
+</head>
+<body>
+<div class="stage">
+
+  <div class="board" id="board"></div>
+
+  <div class="ctl">
+    <a class="brandline" href="https://www.altcoinbuzz.com" target="_blank" rel="noopener">
+      <span class="ab-logo"><svg class="logo" viewBox="0 0 2048 382.3" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Altcoin Buzz"><radialGradient id="ab1" cx="285.45" cy="64.32" r="174.63" gradientUnits="userSpaceOnUse"><stop offset=".18" stop-color="#F4E8D9"/><stop offset=".59" stop-color="#EDD089"/><stop offset="1" stop-color="#C08329"/></radialGradient><circle fill="#333333" cx="286" cy="191.1" r="178.8"/><path fill="url(#ab1)" d="M425.8,131.5c-7.7-18.1-18.7-34.4-32.6-48.4c-14-14-30.3-25-48.4-32.6c-6.1-2.6-12.2-4.7-18.5-6.5c-8.8-2.4-17.8-4.1-27-4.9c-4.6-0.4-9.1-0.6-13.8-0.6c-4.6,0-9.2,0.2-13.7,0.6c-9.2,0.8-18.2,2.4-27,4.9c-6.3,1.7-12.5,3.9-18.6,6.5C208,58.1,191.7,69.1,177.7,83c-14,14-25,30.3-32.6,48.4c-7.9,18.8-12,38.7-12,59.3s4,40.5,12,59.3c0.4,1.1,0.9,2.1,1.4,3.1c4,8.9,8.9,17.4,14.5,25.4c0.8,1.2,1.7,2.4,2.6,3.5c4.3,5.8,9.1,11.2,14.2,16.4c0.3,0.3,0.7,0.6,1,1c13.8,13.5,29.7,24.2,47.4,31.7c18.8,7.9,38.7,12,59.3,12c20.6,0,40.5-4,59.3-12c17.7-7.5,33.7-18.2,47.5-31.7c0.3-0.3,0.6-0.6,1-0.9c5.2-5.2,9.9-10.6,14.2-16.4c0.9-1.2,1.8-2.4,2.6-3.6c5.6-7.9,10.4-16.4,14.4-25.3c0.5-1,0.9-2.1,1.4-3.1c7.9-18.8,12-38.7,12-59.3S433.7,150.2,425.8,131.5z M395.4,253.2c-0.6-1-1.1-2-1.7-3c-13.8-22.8-34.6-40.9-59.4-51.3l44.5,77.1c-23.1,25.3-56.4,41.2-93.3,41.2c-36.9,0-70.1-15.9-93.2-41.1l44.5-77.2c-24.5,10.3-45.1,28-58.9,50.4c-0.8,1.3-1.6,2.6-2.3,3.9c-5.1-9-9.2-18.7-12-28.9c-2.9-10.7-4.5-21.9-4.5-33.5c0-60.4,42.5-111,99.2-123.5c8.5-1.9,17.4-2.9,26.4-3l-14.1,24.4l-52,90c2.5-1.2,5-2.4,7.6-3.5c9.6-4,19.4-7.1,29.5-9.1l29.8-51.7l29.8,51.7c10.1,2,19.9,5,29.4,9.1c2.6,1.1,5.1,2.3,7.6,3.5l-52-90.1l-14.1-24.4c9.1,0.1,17.9,1.1,26.4,3c56.6,12.5,99.2,63.1,99.2,123.5c0,11.6-1.6,22.8-4.5,33.5C404.6,234.5,400.5,244.2,395.4,253.2z"/><path fill="#333333" d="M634.8,262.4h-32.3l-1.4-22.1h-51.4l-10.9,22.1h-30.9l74.1-142.4h41.8L634.8,262.4z M600,216.7l-4.4-68.2l-34.5,68.2H600z"/><path fill="#333333" d="M758.3,233.5l-6.2,28.9h-95.5l30-142.4h32.1l-24,113.6H758.3z"/><path fill="#333333" d="M848.6,147.9l-24.3,114.5h-32l24.3-114.5h-34.5l5.9-28h101.2l-5.9,28H848.6z"/><path fill="#333333" d="M987,262.4h-80.6c-7,0-12.1-1.3-15.3-3.8c-3.2-2.5-4.8-6.5-4.8-11.8c0-3.2,0.4-6.3,1.1-9.2l19.5-92.8c1.8-8.6,5.1-14.8,9.6-18.8c4.6-4,11.2-6,19.9-6h80.2l-5.9,28.4h-64.4c-3.4,0-5.6,0.5-6.8,1.6c-1.2,1.1-2.1,3.2-2.8,6.4l-15,69.5c-0.3,1.7-0.4,2.8-0.4,3.3c0,2.9,2.3,4.4,7,4.4h64.9L987,262.4z"/><path fill="#333333" d="M1107.9,262.4h-70.9c-7,0-12.1-1.3-15.4-3.8c-3.3-2.5-4.9-6.4-4.9-11.6c0-2.7,0.4-5.9,1.3-9.5l19.5-92.8c1.8-8.7,5-15,9.5-18.9c4.5-3.9,11.2-5.9,20-5.9h70.9c7,0,12.1,1.3,15.3,3.8c3.2,2.5,4.8,6.4,4.8,11.8c0,2.4-0.4,5.5-1.1,9.2l-19.5,92.8c-1.8,8.6-5.1,14.9-9.6,18.9C1123.2,260.4,1116.6,262.4,1107.9,262.4z M1107.5,226.8l15.2-70.9c0.3-1.7,0.4-2.8,0.4-3.4c0-3.2-2.5-4.8-7.4-4.8h-39.8c-2.8,0-4.8,0.6-6.1,1.8c-1.3,1.2-2.2,3.3-2.7,6.4l-15.2,70.9c-0.3,1.4-0.4,2.3-0.4,2.8c0,2.9,2.1,4.4,6.2,4.4h39.8c3.2,0,5.6-0.5,7-1.6C1105.9,231.3,1106.9,229.5,1107.5,226.8z"/><path fill="#333333" d="M1193.7,262.4h-32l30.1-142.4h32L1193.7,262.4z"/><path fill="#333333" d="M1349.2,262.4h-21.3l-53.9-93.4l-19.8,93.4h-29.6l30-142.4h30.1l46.8,85l17.9-85h29.9L1349.2,262.4z"/><path fill="#C08329" d="M1471.2,262.4h-89.9l24.5-115.3h18.9l-7.4,34.7h63.6c4.2,0,7.3-0.8,9.2-2.3c2-1.5,3.3-4.1,4-7.7l4.6-21.9c0.4-2.1,0.6-3.9,0.6-5.4c0-2.7-0.8-4.6-2.3-5.7c-1.5-1.1-4.1-1.7-7.6-1.7h-81.7l3.6-17.2h88c13.5,0,20.2,5.2,20.2,15.7c0,2.1-0.4,4.9-1.1,8.4l-5.7,26.7c-2.3,10.8-8.5,16.8-18.7,17.9c9,1,13.5,4.8,13.5,11.4c0,0.8-0.1,2.2-0.4,4.2l-7.2,33.8c-1.7,8.3-4.8,14.4-9.2,18.3C1486.3,260.4,1479.8,262.4,1471.2,262.4z M1482.3,232.5l5.2-25.1c0.3-2.3,0.4-3.6,0.4-4.1c0-2.5-0.8-4.3-2.3-5.2c-1.5-0.9-4.2-1.4-8-1.4h-63.5l-10.4,48.4h63.2c4.9,0,8.5-0.9,10.6-2.6C1479.8,240.7,1481.4,237.4,1482.3,232.5z"/><path fill="#C08329" d="M1619.3,262.4h-68.9c-6.9,0-11.8-1.3-14.9-3.8c-3.1-2.5-4.6-6.4-4.6-11.6c0-2.7,0.4-5.9,1.2-9.5l24.9-117.6h18.9L1552,233.1c-0.5,3.1-0.9,5-0.9,5.8c0,2.4,0.7,4,2.2,4.9c1.5,0.9,4,1.3,7.6,1.3h55.9c4.5,0,7.7-0.8,9.6-2.4c1.9-1.6,3.3-4.8,4.4-9.6l23.9-113.2h18.3l-24.8,117.6c-1.8,8.6-5,14.9-9.4,18.9S1627.9,262.4,1619.3,262.4z"/><path fill="#C08329" d="M1777.3,262.4h-102.7l3.1-15.1l102.8-110.2h-77.9l3.6-17.2h101.2l-3,14.7l-102.1,110.5h78.5L1777.3,262.4z"/><path fill="#C08329" d="M1910.7,262.4H1808l3.1-15.1l102.8-110.2H1836l3.6-17.2h101.2l-3,14.7l-102.1,110.5h78.5L1910.7,262.4z"/></svg></span>
+      <span class="ab-text"><b>www.altcoinbuzz.com</b><span class="reg"> — Register Now for Early Access</span></span>
+    </a>
+    <div class="ctl-btns">
+      <button class="icon-btn" id="next" title="Reveal next row" aria-label="Reveal next row">
+        <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+      </button>
+      <button class="icon-btn" id="back" title="Hide last row" aria-label="Hide last row">
+        <svg viewBox="0 0 24 24"><path d="M5 12h14"/></svg>
+      </button>
+      <button class="icon-btn" id="reset" title="Reset" aria-label="Reset">
+        <svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 2.6-6.4M3 4.5V9h4.5"/></svg>
+      </button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* Per-ticker brand mark — verbatim from altcoin-buzz-mockups index.html (offline-safe). */
+  var LOGOS = {
+    ADA:  '<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-label="ADA"><circle cx="16" cy="16" r="16" fill="#0033AD"/><circle fill="#fff" cx="16" cy="16" r="2"/><circle fill="#fff" cx="16" cy="10" r="1.5"/><circle fill="#fff" cx="21.2" cy="13" r="1.5"/><circle fill="#fff" cx="21.2" cy="19" r="1.5"/><circle fill="#fff" cx="16" cy="22" r="1.5"/><circle fill="#fff" cx="10.8" cy="19" r="1.5"/><circle fill="#fff" cx="10.8" cy="13" r="1.5"/><circle fill="#fff" cx="16" cy="5.5" r="1.1"/><circle fill="#fff" cx="23.4" cy="8.6" r="1.1"/><circle fill="#fff" cx="26.5" cy="16" r="1.1"/><circle fill="#fff" cx="23.4" cy="23.4" r="1.1"/><circle fill="#fff" cx="16" cy="26.5" r="1.1"/><circle fill="#fff" cx="8.6" cy="23.4" r="1.1"/><circle fill="#fff" cx="5.5" cy="16" r="1.1"/><circle fill="#fff" cx="8.6" cy="8.6" r="1.1"/></svg>',
+    LINK: '<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-label="LINK"><circle cx="16" cy="16" r="16" fill="#375BD2"/><path fill="#fff" fill-rule="evenodd" d="M16 7L23.79 11.5L23.79 20.5L16 25L8.21 20.5L8.21 11.5Z M16 11.5L19.9 13.75L19.9 18.25L16 20.5L12.1 18.25L12.1 13.75Z"/></svg>',
+    AAVE: '<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-label="AAVE"><defs><linearGradient id="lg-aave" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#B6509E"/><stop offset="1" stop-color="#2EBAC6"/></linearGradient></defs><circle cx="16" cy="16" r="16" fill="url(#lg-aave)"/><path fill="#fff" d="M10.2 22.4L10.2 13A5.8 5.8 0 0 1 21.8 13L21.8 22.4q-1.45 1.6 -2.9 0q-1.45 1.6 -2.9 0q-1.45 1.6 -2.9 0q-1.45 1.6 -2.9 0Z"/><circle cx="13.8" cy="13.8" r="1.3" fill="url(#lg-aave)"/><circle cx="18.2" cy="13.8" r="1.3" fill="url(#lg-aave)"/></svg>',
+    JUP:  '<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-label="JUP"><defs><linearGradient id="lg-jup" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C9F24E"/><stop offset="1" stop-color="#2E9D8F"/></linearGradient></defs><circle cx="16" cy="16" r="16" fill="url(#lg-jup)"/><circle cx="16" cy="16" r="6" fill="#0e2f2a" fill-opacity=".16"/><ellipse cx="16" cy="16" rx="13" ry="4.4" fill="none" stroke="#0e2f2a" stroke-opacity=".5" stroke-width="2" transform="rotate(-20 16 16)"/></svg>',
+    HYPE: '<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-label="HYPE"><circle cx="16" cy="16" r="16" fill="#50D2C1"/><path fill="#0b3b34" d="M11 9.5h2.8v4.3h4.4V9.5H21v13h-2.8v-4.4h-4.4v4.4H11z"/></svg>'
+  };
+
+  /* Featured-5 — SERIES_PLAN_20260625-type1_roundup-5e7b9a14 (Net/Tok) + catalyst_inventory.csv (X totals).
+     Order top→bottom = rank #1 → #5 (rank 1 on top). [+] reveals BOTTOM→UP (#5 first → #1 last). */
+  /* net = featured-catalyst Network · tok = featured-catalyst Token · all = full-board verdict
+     (All Catalysts) per SERIES_PLAN arc note: HYPE 5.4 / JUP 5.5 / AAVE 5.6 / LINK 4.6 / ADA 4.9. */
+  var TOKENS = [
+    { rank:1, ticker:"HYPE", name:"Hyperliquid", total:9,  cat:"Coinbase USDC treasury",        net:6.0, tok:6.8, all:5.4 },
+    { rank:2, ticker:"JUP",  name:"Jupiter",     total:10, cat:"Net-zero emissions + burn",     net:5.0, tok:6.8, all:5.5 },
+    { rank:3, ticker:"AAVE", name:"Aave",        total:10, cat:"Buy & Distribute buyback",      net:5.0, tok:6.5, all:5.6 },
+    { rank:4, ticker:"LINK", name:"Chainlink",   total:13, cat:"Payment Abstraction + Reserve", net:5.5, tok:6.5, all:4.6 },
+    { rank:5, ticker:"ADA",  name:"Cardano",     total:11, cat:"Spot ADA ETF",                 net:5.5, tok:6.5, all:4.9 }
+  ];
+
+  function band(n){ return n>=5.6 ? "bull" : (n>=4.5 ? "neut" : "bear"); }
+  function word(n){ return n>=5.6 ? "BULLISH" : (n>=4.5 ? "NEUTRAL" : "BEARISH"); }
+  function one(n){ return Number(n).toFixed(1); }
+
+  var EYE = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>';
+
+  function scoreTile(kind, val){
+    var b = band(val);
+    return '<button class="score" data-band="'+b+'" type="button" aria-pressed="false" aria-label="'+kind+' score, tap to reveal">'
+      + '<span class="s-lab">'+kind+'</span>'
+      + '<span class="s-fog"><span class="s-val">'+one(val)+'</span><span class="s-word">'+word(val)+'</span></span>'
+      + '<span class="s-hint">'+EYE+'TAP</span>'
+      + '</button>';
+  }
+
+  function rowHTML(t){
+    return '<div class="rk"><span class="n">'+t.rank+'</span></div>'
+      + '<div class="asset"><span class="tlogo">'+(LOGOS[t.ticker]||"")+'</span>'
+      +   '<div class="asset-tx"><b>'+t.ticker+'</b><span class="full">'+t.name+'</span></div></div>'
+      + '<div class="catpill"><span class="n">1<small>/'+t.total+'</small></span><span class="lab">CATALYSTS</span></div>'
+      + '<div class="cat"><div class="name">'+t.cat+'</div></div>'
+      + '<div class="scores">'+scoreTile("NETWORK", t.net)+scoreTile("TOKEN", t.tok)+scoreTile("ALL CATALYSTS", t.all)+'</div>';
+  }
+
+  /* Build all 5 rows up front — all visible & blurred. [+] sharpens content bottom→up. */
+  var board = document.getElementById("board");
+  var rowEls = TOKENS.map(function(t){
+    var el = document.createElement("div");
+    el.className = "row" + (t.rank===1 ? " top" : "");
+    el.innerHTML = rowHTML(t);
+    board.appendChild(el);
+    return el;
+  });
+
+  var nextBtn = document.getElementById("next");
+  var backBtn = document.getElementById("back");
+  var shown   = 0;
+
+  function updateControls(){
+    nextBtn.disabled = shown >= TOKENS.length;
+    backBtn.disabled = shown <= 0;
+  }
+
+  function revealNext(){                               // sharpen the next row, bottom → up
+    if(shown >= TOKENS.length) return;
+    rowEls[TOKENS.length - 1 - shown].classList.add("revealed");
+    shown++;
+    updateControls();
+  }
+
+  function hideLast(){                                 // re-blur the most-recently revealed row
+    if(shown <= 0) return;
+    shown--;
+    rowEls[TOKENS.length - 1 - shown].classList.remove("revealed");
+    updateControls();
+  }
+
+  function reset(){
+    shown = 0;
+    rowEls.forEach(function(el){
+      el.classList.remove("revealed");
+      el.querySelectorAll(".score").forEach(function(s){
+        s.classList.remove("shown","pop"); s.setAttribute("aria-pressed","false");
+      });
+    });
+    updateControls();
+  }
+
+  function unblurAllScores(){                          // optional power shortcut (U)
+    rowEls.forEach(function(el){
+      el.querySelectorAll(".score:not(.shown)").forEach(function(s){
+        s.classList.add("shown","pop"); s.setAttribute("aria-pressed","true");
+      });
+    });
+  }
+
+  /* Per-cell unblur (each score is its own click). */
+  board.addEventListener("click", function(e){
+    var s = e.target.closest(".score");
+    if(!s || s.classList.contains("shown")) return;
+    s.classList.add("shown","pop");
+    s.setAttribute("aria-pressed","true");
+  });
+
+  function toggleFull(){
+    if(document.fullscreenElement){ document.exitFullscreen(); }
+    else if(document.documentElement.requestFullscreen){ document.documentElement.requestFullscreen(); }
+  }
+  nextBtn.addEventListener("click", revealNext);
+  backBtn.addEventListener("click", hideLast);
+  document.getElementById("reset").addEventListener("click", reset);
+
+  document.addEventListener("keydown", function(e){
+    var k = e.key;
+    if(k===" " || k==="ArrowRight" || k==="Enter"){ e.preventDefault(); revealNext(); }
+    else if(k==="ArrowLeft" || k==="Backspace"){ e.preventDefault(); hideLast(); }
+    else if(k==="r" || k==="R"){ reset(); }
+    else if(k==="u" || k==="U"){ unblurAllScores(); }
+    else if(k==="f" || k==="F"){ toggleFull(); }
+  });
+
+  updateControls();
+})();
+</script>
+</body>
+</html>
