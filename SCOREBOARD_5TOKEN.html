@@ -12,15 +12,15 @@
   compact full-width horizontal strips. Self-contained (logos + bands inline; offline-safe).
   Data source of truth: SERIES_PLAN featured-5 (Net/Tok) + catalyst_inventory.csv (X totals).
 
-  RECORDING CONTROLS (internal team)
-    Reveal next / Space / →   reveal next row (countdown 5 → 1, builds in place, no scroll)
-    tap a NETWORK / TOKEN tile  unblur that single score
-    ← / Backspace             hide last revealed row (retakes)
-    R reset · U unblur all visible · F fullscreen
+  RECORDING CONTROLS (internal team) — everything is BLURRED by default; click to toggle.
+    click logo / identity     reveal token logo + name (click again to re-blur)
+    click chip / catalyst     reveal "N/X CATALYSTS" + catalyst text (click again to re-blur)
+    click a score tile        reveal that score (all three show "?", click again to re-hide)
+    R reset · U unblur everything · F fullscreen
 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600;700;800&display=swap" rel="stylesheet">
 <style>
 /* ── Brand DNA (DARK ONLY) — carried from altcoin-buzz-mockups ───────── */
 :root{
@@ -49,49 +49,50 @@ body{font-family:var(--sans); color:var(--txt); -webkit-font-smoothing:antialias
 
 /* ── Board: 5 rows, centered, fills the frame, never scrolls ─────────── */
 .board{flex:1 1 auto; min-height:0; display:flex; flex-direction:column;
-  justify-content:center; gap:clamp(7px,1.5vh,15px)}
+  justify-content:center; gap:clamp(6px,1.1vh,12px)}
 
 .row{flex:0 0 auto; background:linear-gradient(180deg,var(--lift) 0%, #151b24 100%);
   border:1px solid var(--lift-line); border-radius:var(--radius); box-shadow:var(--shadow-lg);
-  padding:clamp(9px,1.5vh,15px) clamp(13px,1.6vw,20px); position:relative; overflow:hidden;
+  padding:clamp(7px,1.2vh,13px) clamp(13px,1.6vw,20px); position:relative; overflow:hidden;
   display:flex; align-items:center; gap:clamp(11px,1.5vw,20px)}
-/* Every row box, rank, and score box/label is visible from the start. The identity (logo+ticker),
-   the #/X chip, and the catalyst text are BLURRED until [+] adds .revealed (bottom row first). */
-.asset,.catpill,.cat{transition:filter .55s ease, opacity .55s ease, transform .55s ease}
-.row:not(.revealed) .asset,
-.row:not(.revealed) .catpill,
-.row:not(.revealed) .cat{filter:blur(10px); opacity:.9}
-.row.revealed .asset,
-.row.revealed .catpill,
-.row.revealed .cat{filter:none; opacity:1; animation:sharpen .5s ease both}
+/* Row box, rank, and score boxes/labels are visible from the start. Everything else is BLURRED
+   by default and toggled by clicking: the identity (logo + name) is one group, the N/X chip +
+   catalyst text are another. Click to reveal, click again to re-blur. */
+.asset,.catpill,.cat{transition:filter .55s ease, opacity .55s ease, transform .55s ease; cursor:pointer}
+.row:not(.id-shown) .asset{filter:blur(10px); opacity:.9}
+.row.id-shown .asset{filter:none; opacity:1; animation:sharpen .5s ease both}
+.row:not(.cat-shown) .catpill,
+.row:not(.cat-shown) .cat{filter:blur(10px); opacity:.9}
+.row.cat-shown .catpill,
+.row.cat-shown .cat{filter:none; opacity:1; animation:sharpen .5s ease both}
 @keyframes sharpen{from{transform:translateY(5px)} to{transform:none}}
 .row.top{border-color:var(--gold-line)}
 .row.top::before{content:""; position:absolute; left:0; top:0; bottom:0; width:3px;
   background:linear-gradient(180deg,#eaba50,#d99a2b)}
 
 /* rank */
-.rk{flex:0 0 auto; text-align:center; min-width:clamp(34px,3.4vw,52px)}
-.rk .n{display:block; font-family:var(--mono); font-weight:700; font-size:clamp(26px,4.2vh,42px); line-height:1; color:var(--ink); font-variant-numeric:tabular-nums}
+.rk{flex:0 0 auto; text-align:center; min-width:clamp(38px,3.8vw,56px)}
+.rk .n{display:block; font-family:var(--mono); font-weight:700; font-size:clamp(30px,5vh,52px); line-height:1; color:var(--ink); font-variant-numeric:tabular-nums}
 .row.top .rk .n{color:var(--gold)}
 
 /* asset */
-.asset{flex:0 0 auto; display:flex; align-items:center; gap:clamp(9px,1.1vw,14px); min-width:clamp(112px,12.5vw,176px)}
+.asset{flex:0 0 auto; display:flex; align-items:center; gap:clamp(9px,1.1vw,15px); min-width:clamp(126px,13.2vw,196px)}
 .tlogo{flex:0 0 auto; display:inline-flex}
-.tlogo svg{width:clamp(38px,5.4vh,52px); height:clamp(38px,5.4vh,52px); display:block}
+.tlogo svg{width:clamp(44px,6.2vh,64px); height:clamp(44px,6.2vh,64px); display:block}
 .asset-tx{min-width:0}
-.asset-tx b{display:block; font-size:clamp(20px,3.3vh,31px); font-weight:700; color:var(--ink); letter-spacing:.2px; line-height:1.05}
-.asset-tx .full{font-family:var(--mono); font-size:clamp(12px,1.7vh,15px); color:var(--mut); font-weight:500}
+.asset-tx b{display:block; font-size:clamp(24px,4vh,38px); font-weight:700; color:var(--ink); letter-spacing:.2px; line-height:1.05}
+.asset-tx .full{font-family:var(--mono); font-size:clamp(12px,1.8vh,16px); color:var(--mut); font-weight:500}
 
 /* 1-of-X chip */
 .catpill{flex:0 0 auto; text-align:center; background:var(--gold-soft); border:1px solid var(--gold-line);
-  border-radius:11px; padding:clamp(5px,.8vh,8px) clamp(8px,.9vw,12px); line-height:1}
-.catpill .n{font-family:var(--mono); font-weight:700; font-size:clamp(18px,2.8vh,25px); color:var(--goldtx); font-variant-numeric:tabular-nums}
+  border-radius:11px; padding:clamp(5px,.9vh,9px) clamp(8px,.95vw,13px); line-height:1}
+.catpill .n{font-family:var(--mono); font-weight:700; font-size:clamp(21px,3.2vh,30px); color:var(--goldtx); font-variant-numeric:tabular-nums}
 .catpill .n small{font-size:1em; font-weight:700; opacity:1}
-.catpill .lab{display:block; font-family:var(--mono); font-size:clamp(8px,1vh,9.5px); font-weight:700; letter-spacing:1.2px; color:var(--goldtx); opacity:.85; margin-top:3px}
+.catpill .lab{display:block; font-family:var(--mono); font-size:clamp(8.5px,1.1vh,10.5px); font-weight:700; letter-spacing:1.2px; color:var(--goldtx); opacity:.85; margin-top:4px}
 
 /* catalyst (flexes to fill) */
 .cat{flex:1 1 auto; min-width:0; padding:0 clamp(6px,.8vw,14px)}
-.cat .name{font-size:clamp(17px,2.9vh,26px); font-weight:700; color:var(--ink); letter-spacing:-.01em; line-height:1.25}
+.cat .name{font-size:clamp(19px,3.1vh,30px); font-weight:700; color:var(--ink); letter-spacing:-.01em; line-height:1.2}
 
 /* score tiles (blurred by default) */
 .scores{flex:0 0 auto; display:flex; gap:clamp(8px,1vw,12px)}
@@ -101,21 +102,25 @@ body{font-family:var(--sans); color:var(--txt); -webkit-font-smoothing:antialias
   transition:border-color .2s, background .2s}
 .score:hover{border-color:var(--faint)}
 .score .s-lab{display:flex; align-items:center; justify-content:center; text-align:center; min-height:2.2em;
-  font-family:var(--mono); font-size:clamp(9.5px,1.3vh,11.5px); font-weight:700; letter-spacing:1.1px;
-  color:var(--goldtx); text-transform:uppercase; line-height:1.1}
-.s-fog{display:block; margin-top:3px; filter:blur(12px); transition:filter .45s ease, transform .45s ease; transform:scale(1.04)}
-.s-val{display:block; font-family:var(--mono); font-weight:700; font-size:clamp(30px,4.9vh,46px); line-height:1; font-variant-numeric:tabular-nums; color:var(--ink)}
+  font-family:var(--mono); font-size:clamp(11px,1.6vh,14.5px); font-weight:700; letter-spacing:1.1px;
+  color:var(--ink); text-transform:uppercase; line-height:1.1}
+.score .s-lab.s-lab-strong{font-weight:800; color:var(--goldtx)}
+.s-fog{display:block; margin-top:3px; filter:blur(12px); transition:filter .45s ease, opacity .35s ease, transform .45s ease; transform:scale(1.04)}
+.s-val{display:block; font-family:var(--mono); font-weight:700; font-size:clamp(27px,4.4vh,42px); line-height:1; font-variant-numeric:tabular-nums; color:var(--ink)}
 .s-word{display:block; font-family:var(--mono); font-size:clamp(9px,1.25vh,11.5px); font-weight:700; letter-spacing:1.3px; margin-top:5px; color:var(--mut)}
-.s-hint{position:absolute; left:0; right:0; bottom:clamp(5px,.8vh,8px); font-family:var(--mono); font-size:8px;
-  font-weight:700; letter-spacing:2px; color:var(--faint); pointer-events:none;
-  display:inline-flex; align-items:center; justify-content:center; gap:4px; transition:opacity .3s}
-.s-hint svg{width:10px; height:10px; fill:none; stroke:currentColor; stroke-width:2}
+/* "?" placeholder — shown for NETWORK / TOKEN tiles (qmode) while hidden */
+.s-q{position:absolute; left:0; right:0; top:0; bottom:0; display:none;
+  align-items:center; justify-content:center; pointer-events:none;
+  font-family:var(--mono); font-weight:700; font-size:clamp(27px,4.4vh,42px);
+  line-height:1; color:var(--mut)}
 .score[data-band="bull"] .s-val,.score[data-band="bull"] .s-word{color:var(--green)}
 .score[data-band="bear"] .s-val,.score[data-band="bear"] .s-word{color:var(--red)}
 .score[data-band="neut"] .s-val,.score[data-band="neut"] .s-word{color:var(--zero)}
-.score.shown{cursor:default}
 .score.shown .s-fog{filter:none; transform:none}
-.score.shown .s-hint{opacity:0}
+.score.qmode .s-fog{filter:none; transform:none; opacity:0}
+.score.qmode.shown .s-fog{opacity:1}
+.score.qmode .s-q{display:flex}
+.score.qmode.shown .s-q{display:none}
 .score.shown[data-band="bull"]{background:var(--green-soft); border-color:color-mix(in srgb,var(--green) 34%,transparent)}
 .score.shown[data-band="bear"]{background:var(--red-soft); border-color:color-mix(in srgb,var(--red) 34%,transparent)}
 .score.shown[data-band="neut"]{background:var(--zero-soft); border-color:color-mix(in srgb,var(--zero) 30%,transparent)}
@@ -123,16 +128,14 @@ body{font-family:var(--sans); color:var(--txt); -webkit-font-smoothing:antialias
 @keyframes reveal{0%{transform:scale(.9)}60%{transform:scale(1.05)}100%{transform:scale(1)}}
 
 /* ── Footer — brand/link (left) + grey icon controls (right) ─────────── */
-.ctl{flex:0 0 auto; margin-top:clamp(10px,1.8vh,18px); display:flex; align-items:center;
-  justify-content:space-between; gap:14px clamp(16px,3vw,40px); flex-wrap:wrap}
-.brandline{display:inline-flex; align-items:center; gap:clamp(11px,1.4vw,19px); text-decoration:none; min-width:0}
+.ctl{flex:0 0 auto; margin-top:clamp(7px,1.2vh,13px); display:flex; align-items:center;
+  justify-content:space-between; gap:10px clamp(14px,2.4vw,32px); flex-wrap:nowrap}
+.brandline{display:inline-flex; align-items:center; gap:clamp(9px,1.1vw,14px); text-decoration:none; min-width:0; flex:1 1 auto}
 .brandline .ab-logo{flex:0 0 auto; display:inline-flex}
-.brandline .ab-logo svg{height:clamp(28px,4vh,42px); width:auto; display:block}
-.logo circle[fill="#333333"]{fill:var(--disc-fill)}
-.logo path[fill="#333333"]{fill:var(--logo-wm)}
-.logo path[fill="#C08329"]{fill:var(--logo-gold)}
-.ab-text{font-size:clamp(16px,2.4vh,22px); color:var(--ink); font-weight:700; letter-spacing:.2px; line-height:1.2}
-.ab-text .reg{color:var(--goldtx); font-weight:600}
+.brandline .ab-logo svg{height:clamp(30px,4.4vh,46px); width:auto; display:block}
+.ab-text{font-size:clamp(19px,2.6vh,26px); color:var(--ink); font-weight:700; letter-spacing:.2px; line-height:1.25; min-width:0}
+.ab-text b{white-space:nowrap; color:var(--goldtx)}
+.ab-text .reg{color:var(--ink); font-weight:600}
 .brandline:hover .ab-text b{color:var(--gold)}
 .ctl-btns{display:flex; align-items:center; gap:clamp(9px,1vw,14px)}
 .icon-btn{width:clamp(42px,5.2vh,52px); height:clamp(42px,5.2vh,52px); border-radius:11px;
@@ -161,16 +164,10 @@ body{font-family:var(--sans); color:var(--txt); -webkit-font-smoothing:antialias
 
   <div class="ctl">
     <a class="brandline" href="https://www.altcoinbuzz.com" target="_blank" rel="noopener">
-      <span class="ab-logo"><svg class="logo" viewBox="0 0 2048 382.3" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Altcoin Buzz"><radialGradient id="ab1" cx="285.45" cy="64.32" r="174.63" gradientUnits="userSpaceOnUse"><stop offset=".18" stop-color="#F4E8D9"/><stop offset=".59" stop-color="#EDD089"/><stop offset="1" stop-color="#C08329"/></radialGradient><circle fill="#333333" cx="286" cy="191.1" r="178.8"/><path fill="url(#ab1)" d="M425.8,131.5c-7.7-18.1-18.7-34.4-32.6-48.4c-14-14-30.3-25-48.4-32.6c-6.1-2.6-12.2-4.7-18.5-6.5c-8.8-2.4-17.8-4.1-27-4.9c-4.6-0.4-9.1-0.6-13.8-0.6c-4.6,0-9.2,0.2-13.7,0.6c-9.2,0.8-18.2,2.4-27,4.9c-6.3,1.7-12.5,3.9-18.6,6.5C208,58.1,191.7,69.1,177.7,83c-14,14-25,30.3-32.6,48.4c-7.9,18.8-12,38.7-12,59.3s4,40.5,12,59.3c0.4,1.1,0.9,2.1,1.4,3.1c4,8.9,8.9,17.4,14.5,25.4c0.8,1.2,1.7,2.4,2.6,3.5c4.3,5.8,9.1,11.2,14.2,16.4c0.3,0.3,0.7,0.6,1,1c13.8,13.5,29.7,24.2,47.4,31.7c18.8,7.9,38.7,12,59.3,12c20.6,0,40.5-4,59.3-12c17.7-7.5,33.7-18.2,47.5-31.7c0.3-0.3,0.6-0.6,1-0.9c5.2-5.2,9.9-10.6,14.2-16.4c0.9-1.2,1.8-2.4,2.6-3.6c5.6-7.9,10.4-16.4,14.4-25.3c0.5-1,0.9-2.1,1.4-3.1c7.9-18.8,12-38.7,12-59.3S433.7,150.2,425.8,131.5z M395.4,253.2c-0.6-1-1.1-2-1.7-3c-13.8-22.8-34.6-40.9-59.4-51.3l44.5,77.1c-23.1,25.3-56.4,41.2-93.3,41.2c-36.9,0-70.1-15.9-93.2-41.1l44.5-77.2c-24.5,10.3-45.1,28-58.9,50.4c-0.8,1.3-1.6,2.6-2.3,3.9c-5.1-9-9.2-18.7-12-28.9c-2.9-10.7-4.5-21.9-4.5-33.5c0-60.4,42.5-111,99.2-123.5c8.5-1.9,17.4-2.9,26.4-3l-14.1,24.4l-52,90c2.5-1.2,5-2.4,7.6-3.5c9.6-4,19.4-7.1,29.5-9.1l29.8-51.7l29.8,51.7c10.1,2,19.9,5,29.4,9.1c2.6,1.1,5.1,2.3,7.6,3.5l-52-90.1l-14.1-24.4c9.1,0.1,17.9,1.1,26.4,3c56.6,12.5,99.2,63.1,99.2,123.5c0,11.6-1.6,22.8-4.5,33.5C404.6,234.5,400.5,244.2,395.4,253.2z"/><path fill="#333333" d="M634.8,262.4h-32.3l-1.4-22.1h-51.4l-10.9,22.1h-30.9l74.1-142.4h41.8L634.8,262.4z M600,216.7l-4.4-68.2l-34.5,68.2H600z"/><path fill="#333333" d="M758.3,233.5l-6.2,28.9h-95.5l30-142.4h32.1l-24,113.6H758.3z"/><path fill="#333333" d="M848.6,147.9l-24.3,114.5h-32l24.3-114.5h-34.5l5.9-28h101.2l-5.9,28H848.6z"/><path fill="#333333" d="M987,262.4h-80.6c-7,0-12.1-1.3-15.3-3.8c-3.2-2.5-4.8-6.5-4.8-11.8c0-3.2,0.4-6.3,1.1-9.2l19.5-92.8c1.8-8.6,5.1-14.8,9.6-18.8c4.6-4,11.2-6,19.9-6h80.2l-5.9,28.4h-64.4c-3.4,0-5.6,0.5-6.8,1.6c-1.2,1.1-2.1,3.2-2.8,6.4l-15,69.5c-0.3,1.7-0.4,2.8-0.4,3.3c0,2.9,2.3,4.4,7,4.4h64.9L987,262.4z"/><path fill="#333333" d="M1107.9,262.4h-70.9c-7,0-12.1-1.3-15.4-3.8c-3.3-2.5-4.9-6.4-4.9-11.6c0-2.7,0.4-5.9,1.3-9.5l19.5-92.8c1.8-8.7,5-15,9.5-18.9c4.5-3.9,11.2-5.9,20-5.9h70.9c7,0,12.1,1.3,15.3,3.8c3.2,2.5,4.8,6.4,4.8,11.8c0,2.4-0.4,5.5-1.1,9.2l-19.5,92.8c-1.8,8.6-5.1,14.9-9.6,18.9C1123.2,260.4,1116.6,262.4,1107.9,262.4z M1107.5,226.8l15.2-70.9c0.3-1.7,0.4-2.8,0.4-3.4c0-3.2-2.5-4.8-7.4-4.8h-39.8c-2.8,0-4.8,0.6-6.1,1.8c-1.3,1.2-2.2,3.3-2.7,6.4l-15.2,70.9c-0.3,1.4-0.4,2.3-0.4,2.8c0,2.9,2.1,4.4,6.2,4.4h39.8c3.2,0,5.6-0.5,7-1.6C1105.9,231.3,1106.9,229.5,1107.5,226.8z"/><path fill="#333333" d="M1193.7,262.4h-32l30.1-142.4h32L1193.7,262.4z"/><path fill="#333333" d="M1349.2,262.4h-21.3l-53.9-93.4l-19.8,93.4h-29.6l30-142.4h30.1l46.8,85l17.9-85h29.9L1349.2,262.4z"/><path fill="#C08329" d="M1471.2,262.4h-89.9l24.5-115.3h18.9l-7.4,34.7h63.6c4.2,0,7.3-0.8,9.2-2.3c2-1.5,3.3-4.1,4-7.7l4.6-21.9c0.4-2.1,0.6-3.9,0.6-5.4c0-2.7-0.8-4.6-2.3-5.7c-1.5-1.1-4.1-1.7-7.6-1.7h-81.7l3.6-17.2h88c13.5,0,20.2,5.2,20.2,15.7c0,2.1-0.4,4.9-1.1,8.4l-5.7,26.7c-2.3,10.8-8.5,16.8-18.7,17.9c9,1,13.5,4.8,13.5,11.4c0,0.8-0.1,2.2-0.4,4.2l-7.2,33.8c-1.7,8.3-4.8,14.4-9.2,18.3C1486.3,260.4,1479.8,262.4,1471.2,262.4z M1482.3,232.5l5.2-25.1c0.3-2.3,0.4-3.6,0.4-4.1c0-2.5-0.8-4.3-2.3-5.2c-1.5-0.9-4.2-1.4-8-1.4h-63.5l-10.4,48.4h63.2c4.9,0,8.5-0.9,10.6-2.6C1479.8,240.7,1481.4,237.4,1482.3,232.5z"/><path fill="#C08329" d="M1619.3,262.4h-68.9c-6.9,0-11.8-1.3-14.9-3.8c-3.1-2.5-4.6-6.4-4.6-11.6c0-2.7,0.4-5.9,1.2-9.5l24.9-117.6h18.9L1552,233.1c-0.5,3.1-0.9,5-0.9,5.8c0,2.4,0.7,4,2.2,4.9c1.5,0.9,4,1.3,7.6,1.3h55.9c4.5,0,7.7-0.8,9.6-2.4c1.9-1.6,3.3-4.8,4.4-9.6l23.9-113.2h18.3l-24.8,117.6c-1.8,8.6-5,14.9-9.4,18.9S1627.9,262.4,1619.3,262.4z"/><path fill="#C08329" d="M1777.3,262.4h-102.7l3.1-15.1l102.8-110.2h-77.9l3.6-17.2h101.2l-3,14.7l-102.1,110.5h78.5L1777.3,262.4z"/><path fill="#C08329" d="M1910.7,262.4H1808l3.1-15.1l102.8-110.2H1836l3.6-17.2h101.2l-3,14.7l-102.1,110.5h78.5L1910.7,262.4z"/></svg></span>
-      <span class="ab-text"><b>www.altcoinbuzz.com</b><span class="reg"> — Register Now for Early Access</span></span>
+      <span class="ab-logo"><svg class="ab-icon" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Altcoin Buzz"><radialGradient id="abIcon" cx="255.28" cy="80.48" r="241.68" gradientUnits="userSpaceOnUse"><stop offset=".18" stop-color="#F4E8D9"/><stop offset=".59" stop-color="#EDD089"/><stop offset="1" stop-color="#C08329"/></radialGradient><path fill="url(#abIcon)" d="M449.5,173.4c-10.6-25.1-25.8-47.6-45.2-67c-19.4-19.4-41.9-34.6-67-45.2c-8.4-3.5-16.9-6.5-25.6-8.9c-12.2-3.4-24.7-5.6-37.4-6.8c-6.3-0.6-12.6-0.9-19-0.9c-6.4,0-12.7,0.3-19,0.9c-12.7,1.1-25.2,3.4-37.4,6.8c-8.7,2.4-17.3,5.4-25.7,8.9c-25.1,10.6-47.6,25.8-67,45.2c-19.4,19.4-34.6,41.9-45.2,67c-11,26-16.6,53.6-16.6,82.1S50,311.5,61,337.5c0.6,1.5,1.2,2.9,1.9,4.3c5.6,12.4,12.3,24.1,20,35.1c1.2,1.6,2.4,3.3,3.6,4.9c6,8,12.6,15.5,19.7,22.7c0.4,0.4,0.9,0.9,1.4,1.3c19.1,18.7,41.1,33.5,65.6,43.8c26,11,53.6,16.6,82.1,16.6c28.5,0,56.1-5.6,82.1-16.6c24.5-10.4,46.6-25.1,65.7-43.9c0.4-0.4,0.9-0.9,1.3-1.3c7.1-7.1,13.7-14.7,19.7-22.7c1.2-1.6,2.4-3.3,3.6-4.9c7.8-11,14.4-22.7,20-35.1c0.6-1.4,1.3-2.9,1.9-4.3c11-26,16.6-53.6,16.6-82.1S460.5,199.4,449.5,173.4z M407.4,341.9c-0.8-1.4-1.6-2.7-2.4-4.1c-19.1-31.5-47.9-56.6-82.3-71l61.6,106.7c-32,35-78,57-129.1,57c-51,0-97-22-129.1-56.9l61.7-106.8c-33.9,14.2-62.4,38.8-81.5,69.7c-1.1,1.8-2.2,3.6-3.2,5.4c-7.1-12.5-12.7-25.9-16.6-40c-4.1-14.8-6.3-30.3-6.3-46.4c0-83.5,58.9-153.6,137.3-170.9c11.8-2.6,24-4,36.6-4.1l-19.5,33.7l-71.9,124.6c3.4-1.7,6.9-3.3,10.5-4.8c13.2-5.6,26.9-9.8,40.8-12.5l41.3-71.5l41.3,71.5c13.9,2.8,27.5,6.9,40.7,12.5c3.6,1.5,7.1,3.1,10.6,4.8l-72-124.6l-19.5-33.7c12.5,0.1,24.8,1.5,36.6,4.1c78.4,17.3,137.2,87.4,137.2,170.9c0,16.1-2.2,31.6-6.3,46.4C420.1,316,414.5,329.4,407.4,341.9z"/></svg></span>
+      <span class="ab-text"><b>www.altcoinbuzz.com</b><span class="reg"> &nbsp;|&nbsp; Find Out If the News Is Really Impacting the Token or only the Network.</span></span>
     </a>
     <div class="ctl-btns">
-      <button class="icon-btn" id="next" title="Reveal next row" aria-label="Reveal next row">
-        <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
-      </button>
-      <button class="icon-btn" id="back" title="Hide last row" aria-label="Hide last row">
-        <svg viewBox="0 0 24 24"><path d="M5 12h14"/></svg>
-      </button>
       <button class="icon-btn" id="reset" title="Reset" aria-label="Reset">
         <svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 2.6-6.4M3 4.5V9h4.5"/></svg>
       </button>
@@ -208,14 +205,13 @@ body{font-family:var(--sans); color:var(--txt); -webkit-font-smoothing:antialias
   function word(n){ return n>=5.6 ? "BULLISH" : (n>=4.5 ? "NEUTRAL" : "BEARISH"); }
   function one(n){ return Number(n).toFixed(1); }
 
-  var EYE = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>';
-
-  function scoreTile(kind, val){
+  function scoreTile(kind, val, qmode){
     var b = band(val);
-    return '<button class="score" data-band="'+b+'" type="button" aria-pressed="false" aria-label="'+kind+' score, tap to reveal">'
-      + '<span class="s-lab">'+kind+'</span>'
+    var labCls = "s-lab" + (kind === "ALL CATALYSTS" ? " s-lab-strong" : "");
+    return '<button class="score'+(qmode?" qmode":"")+'" data-band="'+b+'" type="button" aria-pressed="false" aria-label="'+kind+' score, click to toggle">'
+      + '<span class="'+labCls+'">'+kind+'</span>'
       + '<span class="s-fog"><span class="s-val">'+one(val)+'</span><span class="s-word">'+word(val)+'</span></span>'
-      + '<span class="s-hint">'+EYE+'TAP</span>'
+      + '<span class="s-q">?</span>'
       + '</button>';
   }
 
@@ -225,10 +221,10 @@ body{font-family:var(--sans); color:var(--txt); -webkit-font-smoothing:antialias
       +   '<div class="asset-tx"><b>'+t.ticker+'</b><span class="full">'+t.name+'</span></div></div>'
       + '<div class="catpill"><span class="n">1<small>/'+t.total+'</small></span><span class="lab">CATALYSTS</span></div>'
       + '<div class="cat"><div class="name">'+t.cat+'</div></div>'
-      + '<div class="scores">'+scoreTile("NETWORK", t.net)+scoreTile("TOKEN", t.tok)+scoreTile("ALL CATALYSTS", t.all)+'</div>';
+      + '<div class="scores">'+scoreTile("NETWORK", t.net, true)+scoreTile("TOKEN", t.tok, true)+scoreTile("ALL CATALYSTS", t.all, true)+'</div>';
   }
 
-  /* Build all 5 rows up front — all visible & blurred. [+] sharpens content bottom→up. */
+  /* Build all 5 rows up front — all blurred by default; each group is click-toggled. */
   var board = document.getElementById("board");
   var rowEls = TOKENS.map(function(t){
     var el = document.createElement("div");
@@ -238,74 +234,53 @@ body{font-family:var(--sans); color:var(--txt); -webkit-font-smoothing:antialias
     return el;
   });
 
-  var nextBtn = document.getElementById("next");
-  var backBtn = document.getElementById("back");
-  var shown   = 0;
-
-  function updateControls(){
-    nextBtn.disabled = shown >= TOKENS.length;
-    backBtn.disabled = shown <= 0;
-  }
-
-  function revealNext(){                               // sharpen the next row, bottom → up
-    if(shown >= TOKENS.length) return;
-    rowEls[TOKENS.length - 1 - shown].classList.add("revealed");
-    shown++;
-    updateControls();
-  }
-
-  function hideLast(){                                 // re-blur the most-recently revealed row
-    if(shown <= 0) return;
-    shown--;
-    rowEls[TOKENS.length - 1 - shown].classList.remove("revealed");
-    updateControls();
-  }
-
   function reset(){
-    shown = 0;
     rowEls.forEach(function(el){
-      el.classList.remove("revealed");
+      el.classList.remove("id-shown","cat-shown");
       el.querySelectorAll(".score").forEach(function(s){
         s.classList.remove("shown","pop"); s.setAttribute("aria-pressed","false");
       });
     });
-    updateControls();
   }
 
-  function unblurAllScores(){                          // optional power shortcut (U)
+  function unblurAll(){                                // power shortcut (U) — reveal everything
     rowEls.forEach(function(el){
+      el.classList.add("id-shown","cat-shown");
       el.querySelectorAll(".score:not(.shown)").forEach(function(s){
         s.classList.add("shown","pop"); s.setAttribute("aria-pressed","true");
       });
     });
   }
 
-  /* Per-cell unblur (each score is its own click). */
+  /* Click to toggle. Three independent groups per row:
+     score tile (each its own "?" toggle) · identity (logo + name) · chip + catalyst text. */
   board.addEventListener("click", function(e){
     var s = e.target.closest(".score");
-    if(!s || s.classList.contains("shown")) return;
-    s.classList.add("shown","pop");
-    s.setAttribute("aria-pressed","true");
+    if(s){
+      var on = s.classList.toggle("shown");
+      s.setAttribute("aria-pressed", on ? "true" : "false");
+      s.classList.remove("pop");
+      if(on){ void s.offsetWidth; s.classList.add("pop"); }
+      return;
+    }
+    var asset = e.target.closest(".asset");
+    if(asset){ asset.closest(".row").classList.toggle("id-shown"); return; }
+    var catEl = e.target.closest(".catpill, .cat");
+    if(catEl){ catEl.closest(".row").classList.toggle("cat-shown"); }
   });
 
   function toggleFull(){
     if(document.fullscreenElement){ document.exitFullscreen(); }
     else if(document.documentElement.requestFullscreen){ document.documentElement.requestFullscreen(); }
   }
-  nextBtn.addEventListener("click", revealNext);
-  backBtn.addEventListener("click", hideLast);
   document.getElementById("reset").addEventListener("click", reset);
 
   document.addEventListener("keydown", function(e){
     var k = e.key;
-    if(k===" " || k==="ArrowRight" || k==="Enter"){ e.preventDefault(); revealNext(); }
-    else if(k==="ArrowLeft" || k==="Backspace"){ e.preventDefault(); hideLast(); }
-    else if(k==="r" || k==="R"){ reset(); }
-    else if(k==="u" || k==="U"){ unblurAllScores(); }
+    if(k==="r" || k==="R"){ reset(); }
+    else if(k==="u" || k==="U"){ unblurAll(); }
     else if(k==="f" || k==="F"){ toggleFull(); }
   });
-
-  updateControls();
 })();
 </script>
 </body>
