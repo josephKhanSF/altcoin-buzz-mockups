@@ -95,7 +95,7 @@ body{font-family:var(--sans); color:var(--txt); -webkit-font-smoothing:antialias
 .cat .name{font-size:clamp(19px,3.1vh,30px); font-weight:700; color:var(--ink); letter-spacing:-.01em; line-height:1.2}
 
 /* score tiles (blurred by default) */
-.scores{flex:0 0 auto; display:flex; gap:clamp(8px,1vw,12px)}
+.scores{flex:0 0 auto; display:flex; align-items:center; gap:clamp(8px,1vw,12px)}
 .score{position:relative; cursor:pointer; text-align:center; width:clamp(98px,12vw,150px);
   background:var(--card-soft); border:1px solid var(--lift-line); border-radius:13px;
   padding:clamp(8px,1.1vh,12px) 8px clamp(10px,1.3vh,14px); font-family:inherit; color:inherit; overflow:hidden;
@@ -127,6 +127,13 @@ body{font-family:var(--sans); color:var(--txt); -webkit-font-smoothing:antialias
 /* ALL CATALYSTS: revealing the score rings its box in brand gold (the number keeps its band colour). */
 .score.score-all.shown{border-color:var(--gold);
   box-shadow:0 0 0 1px var(--gold), 0 0 20px 2px rgba(232,181,74,.38)}
+/* NETWORK & TOKEN sit slightly smaller than the emphasised ALL CATALYSTS tile */
+.score:not(.score-all){width:clamp(86px,10.6vw,131px);
+  padding:clamp(7px,1vh,10px) 7px clamp(8px,1.1vh,12px)}
+.score:not(.score-all) .s-lab{font-size:clamp(9.5px,1.4vh,12.5px)}
+.score:not(.score-all) .s-val,
+.score:not(.score-all) .s-q{font-size:clamp(24px,3.85vh,37px)}
+.score:not(.score-all) .s-word{font-size:clamp(8px,1.1vh,10.5px)}
 .score.pop{animation:reveal .42s cubic-bezier(.2,.9,.3,1.4)}
 @keyframes reveal{0%{transform:scale(.9)}60%{transform:scale(1.05)}100%{transform:scale(1)}}
 
@@ -171,7 +178,10 @@ body{font-family:var(--sans); color:var(--txt); -webkit-font-smoothing:antialias
       <span class="ab-text"><b>www.altcoinbuzz.com</b><span class="reg"> &nbsp;|&nbsp; Find Out If the News Is Really Impacting the Token or only the Network.</span></span>
     </a>
     <div class="ctl-btns">
-      <button class="icon-btn" id="reset" title="Reset" aria-label="Reset">
+      <button class="icon-btn" id="back" title="Undo last action" aria-label="Undo last action" disabled>
+        <svg viewBox="0 0 24 24"><path d="M9 14 4 9l5-5"/><path d="M4 9h11a5 5 0 0 1 0 10h-2"/></svg>
+      </button>
+      <button class="icon-btn" id="reset" title="Hide all / Show all" aria-label="Hide all or show all">
         <svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 2.6-6.4M3 4.5V9h4.5"/></svg>
       </button>
     </div>
@@ -233,10 +243,42 @@ body{font-family:var(--sans); color:var(--txt); -webkit-font-smoothing:antialias
   var rowEls = TOKENS.map(function(t){
     var el = document.createElement("div");
     el.className = "row" + (t.rank===1 ? " top" : "");
+    el.dataset.all  = t.all;   // ALL CATALYSTS score — the sort key
+    el.dataset.seed = t.rank;  // original board order — used for ties / hidden rows
     el.innerHTML = rowHTML(t);
     board.appendChild(el);
     return el;
   });
+
+  /* ── Live re-rank: when an ALL CATALYSTS score is revealed, rows slide into order
+     (revealed highest→lowest on top; hidden rows keep seed order below). Fixed 1–5 ladder —
+     the row content moves between the rungs, position 1 always shows the current leader. */
+  function allShown(el){ var s=el.querySelector(".score-all"); return !!s && s.classList.contains("shown"); }
+  function rankCompare(a,b){
+    var ar=allShown(a), br=allShown(b);
+    if(ar!==br) return ar ? -1 : 1;                         // revealed rows float above hidden
+    if(ar && br){ var d=parseFloat(b.dataset.all)-parseFloat(a.dataset.all); if(d) return d; }  // higher score first
+    return (+a.dataset.seed)-(+b.dataset.seed);             // tie / both hidden → seed order
+  }
+  function sortBoard(){
+    var firsts = rowEls.map(function(el){ return el.getBoundingClientRect().top; });  // FLIP: First
+    var order  = rowEls.slice().sort(rankCompare);
+    order.forEach(function(el){ board.appendChild(el); });                            // reorder DOM (Last)
+    order.forEach(function(el,i){                                                     // renumber the ladder
+      el.querySelector(".rk .n").textContent = (i+1);
+      el.classList.toggle("top", i===0);
+    });
+    rowEls.forEach(function(el,idx){                                                  // Invert + Play
+      var dy = firsts[idx] - el.getBoundingClientRect().top;
+      if(Math.abs(dy) < 0.5) return;
+      el.style.transition = "none";
+      el.style.transform  = "translateY(" + dy + "px)";
+      requestAnimationFrame(function(){
+        el.style.transition = "transform .85s cubic-bezier(.33,1.35,.62,1)";
+        el.style.transform  = "";
+      });
+    });
+  }
 
   function reset(){
     rowEls.forEach(function(el){
@@ -245,6 +287,7 @@ body{font-family:var(--sans); color:var(--txt); -webkit-font-smoothing:antialias
         s.classList.remove("shown","pop"); s.setAttribute("aria-pressed","false");
       });
     });
+    sortBoard();                                      // slide everything back to seed order
   }
 
   function unblurAll(){                                // power shortcut (U) — reveal everything
@@ -254,22 +297,69 @@ body{font-family:var(--sans); color:var(--txt); -webkit-font-smoothing:antialias
         s.classList.add("shown","pop"); s.setAttribute("aria-pressed","true");
       });
     });
+    sortBoard();                                      // settle into the full leaderboard
   }
+
+  /* ── Undo history + Hide-all / Show-all toggle ────────────────────────── */
+  var history = [];
+  var backBtn = document.getElementById("back");
+
+  function snapshot(){                                 // capture the full reveal state of every row
+    return rowEls.map(function(el){
+      return { id:el.classList.contains("id-shown"), cat:el.classList.contains("cat-shown"),
+        sc:[].map.call(el.querySelectorAll(".score"), function(s){ return s.classList.contains("shown"); }) };
+    });
+  }
+  function pushHistory(){
+    history.push(snapshot());
+    if(history.length > 200) history.shift();
+    if(backBtn) backBtn.disabled = false;
+  }
+  function applySnapshot(snap){                        // restore a captured state, then re-rank/animate
+    rowEls.forEach(function(el,i){
+      var st = snap[i];
+      el.classList.toggle("id-shown", st.id);
+      el.classList.toggle("cat-shown", st.cat);
+      [].forEach.call(el.querySelectorAll(".score"), function(s,j){
+        var on = st.sc[j];
+        s.classList.toggle("shown", on); s.classList.remove("pop");
+        s.setAttribute("aria-pressed", on ? "true" : "false");
+      });
+    });
+    sortBoard();
+  }
+  function back(){                                     // undo the previous action
+    if(!history.length) return;
+    applySnapshot(history.pop());
+    if(backBtn) backBtn.disabled = history.length === 0;
+  }
+
+  function anyShown(){
+    return rowEls.some(function(el){
+      return el.classList.contains("id-shown") || el.classList.contains("cat-shown")
+        || el.querySelector(".score.shown");
+    });
+  }
+  /* Reset button: hide everything if anything is showing, otherwise reveal everything. */
+  function toggleReset(){ pushHistory(); if(anyShown()) reset(); else unblurAll(); }
 
   /* Click to toggle. Three independent groups per row:
      score tile (each its own "?" toggle) · identity (logo + name) · chip + catalyst text. */
   board.addEventListener("click", function(e){
     var s = e.target.closest(".score");
+    var asset = s ? null : e.target.closest(".asset");
+    var catEl = (s || asset) ? null : e.target.closest(".catpill, .cat");
+    if(!s && !asset && !catEl) return;
+    pushHistory();
     if(s){
       var on = s.classList.toggle("shown");
       s.setAttribute("aria-pressed", on ? "true" : "false");
       s.classList.remove("pop");
       if(on){ void s.offsetWidth; s.classList.add("pop"); }
+      if(s.classList.contains("score-all")) sortBoard();   // re-rank on ALL CATALYSTS reveal/hide
       return;
     }
-    var asset = e.target.closest(".asset");
     if(asset){ asset.closest(".row").classList.toggle("id-shown"); return; }
-    var catEl = e.target.closest(".catpill, .cat");
     if(catEl){ catEl.closest(".row").classList.toggle("cat-shown"); }
   });
 
@@ -277,12 +367,14 @@ body{font-family:var(--sans); color:var(--txt); -webkit-font-smoothing:antialias
     if(document.fullscreenElement){ document.exitFullscreen(); }
     else if(document.documentElement.requestFullscreen){ document.documentElement.requestFullscreen(); }
   }
-  document.getElementById("reset").addEventListener("click", reset);
+  document.getElementById("reset").addEventListener("click", toggleReset);
+  backBtn.addEventListener("click", back);
 
   document.addEventListener("keydown", function(e){
     var k = e.key;
-    if(k==="r" || k==="R"){ reset(); }
-    else if(k==="u" || k==="U"){ unblurAll(); }
+    if(k==="r" || k==="R"){ toggleReset(); }
+    else if(k==="u" || k==="U"){ pushHistory(); unblurAll(); }
+    else if(k==="z" || k==="Z"){ back(); }
     else if(k==="f" || k==="F"){ toggleFull(); }
   });
 })();
