@@ -170,9 +170,11 @@
   /* grouped catalyst picker — a labelled group per source video (token-ready: token → source) */
   #catgroups{margin-bottom:10px}
   #catgroups .cgroup{margin-bottom:11px}
-  #catgroups .glabel{font-size:11px;font-weight:700;letter-spacing:.3px;color:var(--ink);margin:0 0 6px;
+  /* Panel is always white (chrome, not themed), so these labels use fixed dark colors —
+     never var(--ink)/var(--goldtx), which flip to near-white in dark mode and vanish here. */
+  #catgroups .glabel{font-size:11px;font-weight:700;letter-spacing:.3px;color:#15140f;margin:0 0 6px;
     padding-bottom:4px;border-bottom:1px solid var(--line)}
-  #catgroups .glabel .gtok{color:var(--goldtx);font-weight:700}
+  #catgroups .glabel .gtok{color:#9a6e12;font-weight:700}
   #catgroups .gbtns{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
   #catgroups .gbtns button{padding:9px 0;text-align:center;font-family:var(--mono);font-size:13px}
   #catgroups .gbtns button.on{background:var(--gold);border-color:var(--gold);color:var(--goldink)}
@@ -350,6 +352,7 @@
    ===================================================================================== */
   /* ===GENERATED:BEGIN=== */
 const CATALYSTS = [
+  // --- XRP (lead 20260610-xrp_ledger-e91604c8) — unchanged; lifted from END-REVEAL lines by build_shorts_card.py on 2026-06-18.
   { cat_no:1, headline:"Goldman dumps its entire $153.8M XRP stake", net:5.0, tok:2.0, takeaway:"Wall Street's biggest XRP buyer is gone — a verdict on the coin, not the tech.",
     source:"Video 1 (public deep-dive)", video_num:1, lead_id:"20260610-xrp_ledger-e91604c8", token:"XRP" },
   { cat_no:3, headline:"May 6 JPMorgan / Mastercard / Ondo pilot on XRPL", net:8.0, tok:5.0, takeaway:"Banks used the ledger. The coin earned a fraction of a cent.",
@@ -364,6 +367,20 @@ const CATALYSTS = [
     source:"Video 2 (public follow-up)", video_num:2, lead_id:"20260610-xrp_ledger-e91604c8", token:"XRP" },
   { cat_no:10, headline:"Evernorth XRPN treasury (~473M held · $233.7M impairment)", net:5.0, tok:5.6, takeaway:"473M locked looks huge — but it scores only a weak bull. Lockup is not buy pressure.",
     source:"Video 2 (public follow-up)", video_num:2, lead_id:"20260610-xrp_ledger-e91604c8", token:"XRP" },
+  // --- 5-altcoin roundup (lead 20260625-type1_roundup-5e7b9a14 · parent CP-...-video-001).
+  //     HAND-ADDED 2026-06-30 (Path 2): net/tok lifted VERBATIM from each "## SHORT NN" header; headline +
+  //     takeaway distilled from the short's catalyst + closing beat (this pack format carries no END-REVEAL line).
+  //     cat_no = FEATURED-5 board row (1–5). Pending the build_shorts_card.py parser update for this format.
+  { cat_no:1, headline:"Coinbase routes $5B of USDC interest into buying HYPE", net:6.0, tok:6.8, takeaway:"Real new buying of the token — steady income, but only as strong as interest rates.",
+    source:"Video 1 (5-altcoin roundup)", video_num:1, lead_id:"20260625-type1_roundup-5e7b9a14", token:"HYPE" },
+  { cat_no:2, headline:"Jupiter shut off its money printer — ~83% supply cut + 130M burn", net:5.0, tok:6.8, takeaway:"Fewer new tokens lifts every JUP you hold — but the freeze only covers 2026.",
+    source:"Video 1 (5-altcoin roundup)", video_num:1, lead_id:"20260625-type1_roundup-5e7b9a14", token:"JUP" },
+  { cat_no:3, headline:"Aave spends ~$50M a year buying AAVE on the open market", net:5.0, tok:6.5, takeaway:"Real cash buying AAVE today — but parked in a reserve, not burned.",
+    source:"Video 1 (5-altcoin roundup)", video_num:1, lead_id:"20260625-type1_roundup-5e7b9a14", token:"AAVE" },
+  { cat_no:4, headline:"Chainlink Reserve locks 3.9M+ LINK in a vault that never sells", net:5.5, tok:6.5, takeaway:"Permanently off the market, tightening supply — but it never flows back to holders.",
+    source:"Video 1 (5-altcoin roundup)", video_num:1, lead_id:"20260625-type1_roundup-5e7b9a14", token:"LINK" },
+  { cat_no:5, headline:"Spot ADA ETF — ~75% odds, decision around October", net:5.5, tok:6.5, takeaway:"If it passes, steady buying of ADA near five-year lows — but it's not approved yet.",
+    source:"Video 1 (5-altcoin roundup)", video_num:1, lead_id:"20260625-type1_roundup-5e7b9a14", token:"ADA" },
 ];
   /* ===GENERATED:END=== */
 
