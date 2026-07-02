@@ -28,19 +28,21 @@
 <meta property="og:image" content="https://josephkhansf.github.io/altcoin-buzz-mockups/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Altcoin Buzz TNT Score. XRP scored Token 4.9, Network 6.0, Technicals 4.4. The network is winning. Is the token?">
+<meta property="og:image:alt" content="Altcoin Buzz TNT Score. XRP composite TNT 4.2 bearish - Token 4.9, Network 6.0, Technicals 3.4. The network is winning. Is the token?">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@Altcoinbuzzio">
 <meta name="twitter:creator" content="@Altcoinbuzzio">
 <meta name="twitter:title" content="The network is winning. Is the token? · Altcoin Buzz TNT Score">
 <meta name="twitter:description" content="Every top altcoin scored three ways. See whether the news actually moves the token, or just the network. Free early access.">
 <meta name="twitter:image" content="https://josephkhansf.github.io/altcoin-buzz-mockups/og-image.png">
-<meta name="twitter:image:alt" content="Altcoin Buzz TNT Score. XRP scored Token 4.9, Network 6.0, Technicals 4.4.">
-<!-- og:/twitter: image:alt + the hero card mirror the FEATURED token (XRP) from the TNT
-     scoreboard CSV (Token 4.9 / Network 6.0 / Technicals 4.4 / TNT 4.7). Crawlers read static
-     HTML, so these stay static; the board script also refreshes the on-page hero from the JSON.
-     If the featured token changes, update FEATURED_TICKER in build_scoreboard_json.py + these
-     two alts + the hero card. The converter prints the values to paste. -->
+<meta name="twitter:image:alt" content="Altcoin Buzz TNT Score. XRP composite TNT 4.2 bearish - Token 4.9, Network 6.0, Technicals 3.4.">
+<!-- The two image:alt metas above + the hero/scorecard/story cards mirror the FEATURED
+     token from the TNT scoreboard CSV. All of it is MACHINE-WRITTEN by the
+     tnt-portal-sync skill (00_Pipeline/Skills/tnt-portal-sync/) inside GEN blocks:
+     edit the CSV (via tnt-scoreboard-sync), then run tnt-portal-sync - never hand-edit
+     scores/bands/dates here. Featured ticker + editorial band bindings live in
+     Website/scripts/portal_config.json. -->
+<!-- GEN:stamp ticker=XRP tnt=4.2 BEARISH token=4.9 network=6.0 technicals=3.4 asof_research=2026-06-16 asof_technicals=2026-06-26 sig=1f838f4a7caf (written by tnt-portal-sync; do not hand-edit) -->
 
 <!-- Analytics + ad pixels are consent-gated and configured near the bottom of this file
      (the TRACK config block). Nothing loads until the visitor accepts the cookie banner. -->
@@ -247,12 +249,16 @@ h1{font-size:clamp(34px,5vw,54px); line-height:1.03; font-weight:700; color:var(
 
 /* ── TNT composite block (the ONLY gauge dial; Token/Network/Technicals render as numbers) ──
    Used in the hero card, the scorecard callout, and the decoupling story card.
-   Score 4.7 is NEUTRAL, so tnt-num / tnt-word stay --zero gray (band rule; gold never colors a score). */
+   tnt-num / tnt-word take the band color via a band class machine-set by tnt-portal-sync
+   (band rule; gold never colors a score). */
 .tnt{display:flex; flex-direction:column; align-items:center}
 .tnt-lab{font-family:'JetBrains Mono',monospace; font-size:13px; font-weight:700; letter-spacing:2.2px; color:var(--txt); margin-bottom:2px}
 .tnt-dial{display:block; width:100%; max-width:168px; margin:0 auto -8px}
 .tnt-num{font-family:'JetBrains Mono',monospace; font-weight:700; font-size:44px; line-height:1; color:var(--zero); font-variant-numeric:tabular-nums}
 .tnt-word{font-family:'JetBrains Mono',monospace; font-size:13px; font-weight:700; letter-spacing:1.6px; color:var(--zero); margin-top:5px}
+.tnt-num.bear,.tnt-word.bear{color:var(--red)}   /* composite band classes - set by tnt-portal-sync */
+.tnt-num.bull,.tnt-word.bull{color:var(--green)}
+.tnt-num.neut,.tnt-word.neut{color:var(--zero)}
 .tnt-strip{display:flex; gap:8px; margin-top:14px; border-top:1px solid var(--line); padding-top:13px}
 .tnt-cell{flex:1; min-width:0; text-align:center}
 .tnt-cell .lab{font-family:'JetBrains Mono',monospace; font-size:12px; font-weight:600; letter-spacing:1.3px; color:var(--txt); text-transform:uppercase}
@@ -673,13 +679,14 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
          stamp (NOT EXAMPLE/SAMPLE - real-but-aging values carry the stamp per DESIGN_BRIEF §6).
          Answers the headline at a glance: Network 6.0 winning, Token 4.9 not. -->
     <div class="hero-right">
-      <div class="hero-card" role="img" aria-label="XRP TNT Score, as of 17 June 2026: composite TNT 4.7 neutral. Token 4.9 neutral, Network 6.0 bullish, Technicals 4.4 bearish.">
+      <!-- GEN:hero-card -->
+      <div class="hero-card" role="img" aria-label="XRP TNT Score, as of 26 June 2026: composite TNT 4.2 bearish. Token 4.9 neutral, Network 6.0 bullish, Technicals 3.4 bearish.">
         <div class="hc-top">
           <span class="hc-asset">
             <span class="tlogo"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="16" cy="16" r="16" class="xc"/><path class="xp" d="M23.07 8h2.89l-6.015 5.957a5.621 5.621 0 0 1-7.89 0L6.035 8H8.93l4.57 4.523a3.556 3.556 0 0 0 4.996 0L23.07 8zM8.895 24.563H6l6.055-5.993a5.621 5.621 0 0 1 7.89 0L26 24.562h-2.895L18.5 20a3.556 3.556 0 0 0-4.996 0l-4.61 4.563z"/></svg></span>
             <b>XRP</b><span class="hc-full">XRP</span>
           </span>
-          <span class="asof"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>as of 17 Jun 2026</span>
+          <span class="asof"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>as of 26 Jun 2026</span>
         </div>
         <div class="tnt">
           <div class="tnt-lab">TNT SCORE</div>
@@ -688,18 +695,19 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
             <path d="M22 96 A78 78 0 0 1 72.05 23.18" fill="none" stroke="var(--red)" stroke-width="14" stroke-linecap="round"/>
             <path d="M72.05 23.18 A78 78 0 0 1 101.36 18.01" fill="none" stroke="var(--yellow)" stroke-width="14" stroke-linecap="round"/>
             <path d="M101.36 18.01 A78 78 0 0 1 178 96" fill="none" stroke="var(--green)" stroke-width="14" stroke-linecap="round"/>
-            <circle cx="78.5" cy="21.02" r="9.5" fill="var(--card)"/>
-            <circle cx="78.5" cy="21.02" r="7" fill="var(--ink)"/>
+            <circle cx="65.81" cy="25.89" r="9.5" fill="var(--card)"/>
+            <circle cx="65.81" cy="25.89" r="7" fill="var(--ink)"/>
           </svg>
-          <div class="tnt-num">4.7</div>
-          <div class="tnt-word">NEUTRAL</div>
+          <div class="tnt-num bear">4.2</div>
+          <div class="tnt-word bear">BEARISH</div>
         </div>
         <div class="tnt-strip">
           <div class="tnt-cell"><div class="lab">Token</div><div class="n neut">4.9</div></div>
           <div class="tnt-cell"><div class="lab">Network</div><div class="n bull">6.0</div></div>
-          <div class="tnt-cell"><div class="lab">Technicals</div><div class="n bear">4.4</div></div>
+          <div class="tnt-cell"><div class="lab">Technicals</div><div class="n bear">3.4</div></div>
         </div>
       </div>
+      <!-- /GEN:hero-card -->
     </div>
   </div>
 </section>
@@ -760,6 +768,7 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
     <p class="p-sub">Which news actually reaches the token, and which only helps the network.</p>
   </div>
   <div class="wrap">
+    <!-- GEN:scorecard -->
     <div class="card reveal" id="scorecard">
       <div class="card-top">
         <div class="card-asset">
@@ -768,7 +777,7 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
         </div>
         <!-- Real ratified XRP numbers - freshness stamp (NOT a SAMPLE tag; SAMPLE/EXAMPLE
              stay reserved for genuinely invented data). -->
-        <span class="asof"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>as of 17 Jun 2026</span>
+        <span class="asof"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>as of 26 Jun 2026</span>
       </div>
       <!-- Three equal score columns (no FUNDAMENTALS/TECHNICALS grouping); the composite read lives in the callout below -->
       <div class="sc-row">
@@ -784,9 +793,9 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
           <div class="word word-bull">BULLISH</div>
           <div class="read">Strong and growing</div>
         </div>
-        <div class="gauge" data-score="4.4">
+        <div class="gauge" data-score="3.4">
           <div class="pillar">Technicals</div>
-          <div class="num num-bear">4.4</div>
+          <div class="num num-bear">3.4</div>
           <div class="word word-bear">BEARISH</div>
           <div class="read">Weak short-term</div>
         </div>
@@ -799,11 +808,11 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
             <path d="M22 96 A78 78 0 0 1 72.05 23.18" fill="none" stroke="var(--red)" stroke-width="14" stroke-linecap="round"/>
             <path d="M72.05 23.18 A78 78 0 0 1 101.36 18.01" fill="none" stroke="var(--yellow)" stroke-width="14" stroke-linecap="round"/>
             <path d="M101.36 18.01 A78 78 0 0 1 178 96" fill="none" stroke="var(--green)" stroke-width="14" stroke-linecap="round"/>
-            <circle cx="78.5" cy="21.02" r="9.5" fill="var(--lift-2)"/>
-            <circle cx="78.5" cy="21.02" r="7" fill="var(--ink)"/>
+            <circle cx="65.81" cy="25.89" r="9.5" fill="var(--lift-2)"/>
+            <circle cx="65.81" cy="25.89" r="7" fill="var(--ink)"/>
           </svg>
-          <div class="tnt-num">4.7</div>
-          <div class="tnt-word">NEUTRAL</div>
+          <div class="tnt-num bear">4.2</div>
+          <div class="tnt-word bear">BEARISH</div>
         </div>
         <div class="tnt-txt">
           <h4>A winning network doesn't mean a winning price.</h4>
@@ -811,6 +820,7 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
         </div>
       </div>
     </div>
+    <!-- /GEN:scorecard -->
   </div>
 </section>
 
@@ -888,6 +898,7 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
     <div class="pm-eye"><span class="n">2</span>THE DECOUPLING, CALLED OUT</div>
     <div class="pm-title">We surface the divergence for you</div>
     <p class="pm-desc">The portal doesn't just hand you numbers. It leads with the read. When a network runs ahead of its chart, you'll see it flagged across the board automatically.</p>
+    <!-- GEN:story -->
     <div class="story">
       <div class="flag"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V4s-1 1-4 1-5-2-8-2-4 1-4 1z"/><path d="M4 22v-7"/></svg>FLAGGED HIGHLIGHT</div>
       <div class="story-main">
@@ -898,11 +909,11 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
             <path d="M22 96 A78 78 0 0 1 72.05 23.18" fill="none" stroke="var(--red)" stroke-width="14" stroke-linecap="round"/>
             <path d="M72.05 23.18 A78 78 0 0 1 101.36 18.01" fill="none" stroke="var(--yellow)" stroke-width="14" stroke-linecap="round"/>
             <path d="M101.36 18.01 A78 78 0 0 1 178 96" fill="none" stroke="var(--green)" stroke-width="14" stroke-linecap="round"/>
-            <circle cx="78.5" cy="21.02" r="9.5" fill="var(--lift)"/>
-            <circle cx="78.5" cy="21.02" r="7" fill="var(--ink)"/>
+            <circle cx="65.81" cy="25.89" r="9.5" fill="var(--lift)"/>
+            <circle cx="65.81" cy="25.89" r="7" fill="var(--ink)"/>
           </svg>
-          <div class="tnt-num">4.7</div>
-          <div class="tnt-word">NEUTRAL</div>
+          <div class="tnt-num bear">4.2</div>
+          <div class="tnt-word bear">BEARISH</div>
         </div>
         <div class="story-body">
           <div class="one"><span class="tlogo"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-label="XRP"><circle cx="16" cy="16" r="16" class="xc"/><path class="xp" d="M23.07 8h2.89l-6.015 5.957a5.621 5.621 0 0 1-7.89 0L6.035 8H8.93l4.57 4.523a3.556 3.556 0 0 0 4.996 0L23.07 8zM8.895 24.563H6l6.055-5.993a5.621 5.621 0 0 1 7.89 0L26 24.562h-2.895L18.5 20a3.556 3.556 0 0 0-4.996 0l-4.61 4.563z"/></svg></span>The network is winning. The token isn't.</div>
@@ -910,11 +921,12 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
           <div class="tnt-strip story-strip">
             <div class="tnt-cell"><div class="lab">Token</div><div class="n neut" data-count="4.9">4.9</div></div>
             <div class="tnt-cell"><div class="lab">Network</div><div class="n bull" data-count="6.0">6.0</div></div>
-            <div class="tnt-cell"><div class="lab">Technicals</div><div class="n bear" data-count="4.4">4.4</div></div>
+            <div class="tnt-cell"><div class="lab">Technicals</div><div class="n bear" data-count="3.4">3.4</div></div>
           </div>
         </div>
       </div>
     </div>
+    <!-- /GEN:story -->
   </div>
 
   <!-- MODULE 3 · Catalyst breakdown -->
@@ -966,8 +978,8 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
       </div>
       <div class="buzz-body">
         <div class="msg you"><span class="who">YOU ASKED</span><div class="bubble user">If XRP has bullish news, why is the price flat?</div></div>
-        <div class="msg ai"><span class="who">ASK BUZZ</span><div class="bubble ai">Right now XRP's Network scores 6.0 (bullish) but the Token scores 4.9 (neutral). Most recent catalysts strengthen the ledger and partners, not direct demand for the token. Technicals are weak at 4.4 (bearish). So the "good news" is mostly reaching the network, not the price.
-          <span class="cite"><svg viewBox="0 0 24 24" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>Source: XRP scorecard · as of 17 Jun 2026</span>
+        <div class="msg ai"><span class="who">ASK BUZZ</span><div class="bubble ai">Right now XRP's Network scores 6.0 (bullish) but the Token scores 4.9 (neutral). Most recent catalysts strengthen the ledger and partners, not direct demand for the token. Technicals are weak at 3.4 (bearish). So the "good news" is mostly reaching the network, not the price.
+          <span class="cite"><svg viewBox="0 0 24 24" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>Source: XRP scorecard · as of 26 Jun 2026</span>
         </div></div>
         <div class="disc">Ask Buzz explains scores. It is not financial advice and won't tell you to buy or sell.</div>
         <div class="chips-label">TRY ASKING</div>
@@ -1426,22 +1438,73 @@ const isSet=(v)=> typeof v==='string' && v.indexOf('XXXX')===-1 && v.indexOf('PA
       + '</tr>';
   }
 
-  // Keep the on-page hero card in sync with the featured token's real numbers.
+  // Keep the on-page featured cards in sync with the featured token's real numbers.
+  // Runtime SAFETY NET only: the static HTML is the system of record, machine-written
+  // by the tnt-portal-sync skill from the scoreboard CSV (see the GEN blocks). This
+  // heals any drift between deploys; it should normally be a visual no-op.
+  var MON_A=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  function fmtAsof(iso){
+    if(!iso) return null;
+    var p=String(iso).split('-'); if(p.length!==3) return null;
+    return (+p[2])+' '+MON_A[(+p[1])-1]+' '+p[0];
+  }
+  function setDial(root, score){
+    if(score==null) return;
+    var ang=(180-180*((score-1)/9))*Math.PI/180;
+    var x=(100+78*Math.cos(ang)).toFixed(2), y=(96-78*Math.sin(ang)).toFixed(2);
+    Array.prototype.forEach.call(root.querySelectorAll('.tnt-dial circle'), function(c){
+      c.setAttribute('cx',x); c.setAttribute('cy',y);
+    });
+  }
+  function setComposite(root, f){
+    var num=root.querySelector('.tnt .tnt-num'), word=root.querySelector('.tnt .tnt-word');
+    var c=cls(f.tnt_band);
+    if(num){ num.className='tnt-num '+c; num.textContent=(f.tnt_score==null)?'PENDING':one(f.tnt_score); }
+    if(word){ word.className='tnt-word '+c; word.textContent=f.tnt_band||''; }
+    setDial(root, f.tnt_score);
+  }
+  function setStrip(root, f){
+    var trip=[[f.token_score,f.token_band],[f.network_score,f.network_band],[f.technicals_score,f.technicals_band]];
+    Array.prototype.forEach.call(root.querySelectorAll('.tnt-strip .tnt-cell .n'), function(el,i){
+      if(!trip[i]) return;
+      el.className='n '+cls(trip[i][1]);
+      if(el.hasAttribute('data-count')) el.setAttribute('data-count', one(trip[i][0]));
+      el.textContent=(trip[i][0]==null)?'—':one(trip[i][0]);
+    });
+  }
+  function setAsof(root, asof){
+    var st=root.querySelector('.asof');
+    if(st&&asof&&st.lastChild&&st.lastChild.nodeType===3){ st.lastChild.nodeValue='as of '+asof; }
+  }
   function updateHero(f){
     if(!f) return;
-    var card = document.querySelector('.hero-card');
-    if(!card) return;
-    var cells = card.querySelectorAll('.tnt-strip .tnt-cell .n');
-    var trip = [[f.token_score,f.token_band],[f.network_score,f.network_band],[f.technicals_score,f.technicals_band]];
-    Array.prototype.forEach.call(cells, function(el,i){
-      if(!trip[i]) return;
-      el.className = 'n '+cls(trip[i][1]);
-      el.textContent = (trip[i][0]==null) ? '—' : Number(trip[i][0]).toFixed(1);
-    });
-    var num = card.querySelector('.tnt .tnt-num');
-    var word = card.querySelector('.tnt .tnt-word');
-    if(num)  num.textContent  = (f.tnt_score==null) ? 'PENDING' : Number(f.tnt_score).toFixed(1);
-    if(word) word.textContent = f.tnt_band || '';
+    var asof=fmtAsof(f.technicals_as_of_date);
+    var lc=function(b){ return String(b||'').toLowerCase(); };
+    var hero=document.querySelector('.hero-card');
+    if(hero){
+      setComposite(hero,f); setStrip(hero,f); setAsof(hero,asof);
+      if(asof){
+        hero.setAttribute('aria-label', f.ticker+' TNT Score, as of '+asof+': composite TNT '
+          +one(f.tnt_score)+' '+lc(f.tnt_band)+'. Token '+one(f.token_score)+' '+lc(f.token_band)
+          +', Network '+one(f.network_score)+' '+lc(f.network_band)
+          +', Technicals '+one(f.technicals_score)+' '+lc(f.technicals_band)+'.');
+      }
+    }
+    var sc=document.getElementById('scorecard');
+    if(sc){
+      setComposite(sc,f); setAsof(sc,asof);
+      var vals=[[f.token_score,f.token_band],[f.network_score,f.network_band],[f.technicals_score,f.technicals_band]];
+      Array.prototype.forEach.call(sc.querySelectorAll('.sc-row .gauge'), function(g,i){
+        if(!vals[i]) return;
+        var c=cls(vals[i][1]);
+        g.setAttribute('data-score', one(vals[i][0]));
+        var n=g.querySelector('.num'), w=g.querySelector('.word');
+        if(n){ n.className='num num-'+c; n.textContent=one(vals[i][0]); }
+        if(w){ w.className='word word-'+c; w.textContent=vals[i][1]||''; }
+      });
+    }
+    var story=document.querySelector('.story');
+    if(story){ setComposite(story,f); setStrip(story,f); }
   }
 
   function render(data){
