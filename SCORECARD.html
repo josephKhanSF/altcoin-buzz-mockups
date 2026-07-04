@@ -288,7 +288,7 @@
         c12.5,0.1,24.8,1.5,36.6,4.1c78.4,17.3,137.2,87.4,137.2,170.9c0,16.1-2.2,31.6-6.3,46.4C420.1,316,414.5,329.4,407.4,341.9z"/>
     </svg>
     <div class="titles">
-      <h1><span class="x">AAVE</span> — 11 Catalysts Scored</h1>
+      <h1 id="boardTitle"></h1>
     </div>
 
     <!-- Operator control cluster (icon-only). Intentionally faint — for the video team, not the viewer. -->
@@ -355,10 +355,11 @@
       <button class="dclose" title="Close" aria-label="Close" onclick="toggleTNT()">
         <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
+      <!-- Verdict popup content is rendered from BOARD by renderVerdict() (scorecard-sync owns the data). -->
       <div class="vc-top">
         <span class="vc-asset">
-          <svg class="vc-logo" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-label="AAVE"><defs><linearGradient id="lg-aave" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#B6509E"/><stop offset="1" stop-color="#2EBAC6"/></linearGradient></defs><circle cx="16" cy="16" r="16" fill="url(#lg-aave)"/><path fill="#fff" d="M10.2 22.4L10.2 13A5.8 5.8 0 0 1 21.8 13L21.8 22.4q-1.45 1.6 -2.9 0q-1.45 1.6 -2.9 0q-1.45 1.6 -2.9 0q-1.45 1.6 -2.9 0Z"/><circle cx="13.8" cy="13.8" r="1.3" fill="url(#lg-aave)"/><circle cx="18.2" cy="13.8" r="1.3" fill="url(#lg-aave)"/></svg>
-          <b>Aave</b><span class="tick">AAVE</span>
+          <span id="vcLogo"></span>
+          <b id="vcName"></b><span class="tick" id="vcTick"></span>
         </span>
         <span class="vc-div">|</span>
         <a class="reg-inline" href="https://www.altcoinbuzz.com" target="_blank" rel="noopener"><span class="reg-cap">www.altcoinbuzz.com</span> Register Now for Early Access</a>
@@ -368,19 +369,19 @@
         <div class="vc-dial">
           <div class="vc-lab">TNT SCORE</div>
           <div id="vcDial"></div>
-          <div class="vc-num bull">6.2</div>
-          <div class="vc-word bull">BULLISH</div>
+          <div class="vc-num neu" id="vcTntNum">—</div>
+          <div class="vc-word neu" id="vcTntWord">—</div>
         </div>
         <div class="vc-txt">
-          <h4>The token is finally catching the network.</h4>
-          <p>Aave's immutable buyback and Standard Chartered's coverage have pulled the token up to meet a strong network — both now bullish, and the chart agrees.</p>
+          <h4 id="vcHead">—</h4>
+          <p id="vcPara">—</p>
         </div>
       </div>
 
       <div class="vc-strip">
-        <div class="vc-cell"><div class="vc-pillar">Token</div><div class="vc-n bull">5.8</div><div class="vc-w bull">BULLISH</div><div class="vc-read">Value-capture now immutable</div></div>
-        <div class="vc-cell"><div class="vc-pillar">Network</div><div class="vc-n bull">5.8</div><div class="vc-w bull">BULLISH</div><div class="vc-read">Strong and expanding</div></div>
-        <div class="vc-cell vc-tech" id="vcTech"><div class="vc-pillar">Technicals</div><div class="vc-techval"><div class="vc-n bull">6.5</div><div class="vc-w bull">BULLISH</div><div class="vc-read">Breakout — long favoured</div></div><div class="vc-techdash">—</div></div>
+        <div class="vc-cell"><div class="vc-pillar">Token</div><div class="vc-n neu" id="vcTokN">—</div><div class="vc-w neu" id="vcTokW">—</div><div class="vc-read" id="vcTokR">—</div></div>
+        <div class="vc-cell"><div class="vc-pillar">Network</div><div class="vc-n neu" id="vcNetN">—</div><div class="vc-w neu" id="vcNetW">—</div><div class="vc-read" id="vcNetR">—</div></div>
+        <div class="vc-cell vc-tech" id="vcTech"><div class="vc-pillar">Technicals</div><div class="vc-techval"><div class="vc-n neu" id="vcTechN">—</div><div class="vc-w neu" id="vcTechW">—</div><div class="vc-read" id="vcTechR">—</div></div><div class="vc-techdash">—</div></div>
       </div>
     </div>
   </div>
@@ -388,21 +389,124 @@
 </div></div>
 
 <script>
-/* ===== Protected board — WORKSHOP_BRIEF §1 (QB-ratified). Exact numbers; never rescale/reorder/invent.
-   `short` = 2–4 word on-screen label; `cat` = full text shown in the detail overlay. ===== */
-const DATA = [
- {n:1,  short:"Revenue → DAO",           cat:"“Aave Will Win” — 100% product revenue → DAO",                          net:5.8, tok:6.7},
- {n:2,  short:"Aavenomics Buyback",      cat:"Aavenomics 3.0 — immutable automated buyback",                          net:5.0, tok:7.2},
- {n:3,  short:"Aave V4 + Expansion",     cat:"Aave V4 live + Arc/Avalanche expansion + securities-finance roadmap",   net:7.9, tok:5.7},
- {n:4,  short:"Horizon RWA Market",      cat:"Horizon institutional RWA market",                                      net:7.1, tok:5.6},
- {n:5,  short:"Risk Overhang Cleared",   cat:"KelpDAO exploit + Umbrella slashing + $320M resolution + binding risk framework", net:5.3, tok:5.5},
- {n:6,  short:"Spot AAVE ETF Filings",   cat:"Grayscale + Bitwise spot-AAVE ETF filings (+ SEC probe closed)",         net:5.0, tok:5.6},
- {n:7,  short:"Grayscale DCF Note",      cat:"Grayscale DCF note ($80–100 base / $175 bull)",                         net:5.0, tok:5.5},
- {n:8,  short:"GHO + GENIUS Act",        cat:"GHO + sGHO growth + GENIUS Act dynamic",                                net:6.5, tok:5.5},
- {n:9,  short:"Anti-GHO Routing",        cat:"Anti-GHO → stkAAVE value routing",                                      net:5.2, tok:5.3},
- {n:10, short:"Revenue / TVL Base",      cat:"Revenue / TVL fundamentals + lending-share defense",                    net:6.3, tok:4.8},
- {n:11, short:"Standard Chartered Call", cat:"Standard Chartered initiates AAVE coverage ($3,500 by 2030)",           net:5.0, tok:6.3},
-];
+/* ===== GEN:BOARD — scorecard-sync owns this block. DO NOT hand-edit; run the `scorecard-sync` skill.
+   All token-specific data for ONE token, sourced VERBATIM from catalyst_inventory.csv (rows) +
+   tnt_scoreboard.csv (totals / tnt / technicals). Verdict copy + short labels are the editorial
+   layer (model-distilled, operator-approved, cached by row_id / ticker). Bands are DERIVED in-page
+   from the numbers (never stored). `short` = 2-4 word on-screen label; `cat` = detail-overlay text. ===== */
+const BOARD = {
+  "ticker": "AAVE",
+  "name": "Aave",
+  "as_of": "2026-07-04",
+  "totals": {
+    "net": 5.9,
+    "tok": 5.6
+  },
+  "tnt": 6.1,
+  "technicals": 6.5,
+  "verdict": {
+    "headline": "The token is finally catching the network.",
+    "paragraph": "Aave's immutable buyback and Standard Chartered's coverage have pulled the token up to meet a strong network — both now bullish, and the chart agrees.",
+    "reads": {
+      "token": "Value-capture now immutable",
+      "network": "Strong and expanding",
+      "technicals": "Breakout — long favoured"
+    }
+  },
+  "logo": "<svg class=\"vc-logo\" viewBox=\"0 0 32 32\" xmlns=\"http://www.w3.org/2000/svg\" aria-label=\"AAVE\"><defs><linearGradient id=\"lg-aave\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"1\"><stop offset=\"0\" stop-color=\"#B6509E\"/><stop offset=\"1\" stop-color=\"#2EBAC6\"/></linearGradient></defs><circle cx=\"16\" cy=\"16\" r=\"16\" fill=\"url(#lg-aave)\"/><path fill=\"#fff\" d=\"M10.2 22.4L10.2 13A5.8 5.8 0 0 1 21.8 13L21.8 22.4q-1.45 1.6 -2.9 0q-1.45 1.6 -2.9 0q-1.45 1.6 -2.9 0q-1.45 1.6 -2.9 0Z\"/><circle cx=\"13.8\" cy=\"13.8\" r=\"1.3\" fill=\"url(#lg-aave)\"/><circle cx=\"18.2\" cy=\"13.8\" r=\"1.3\" fill=\"url(#lg-aave)\"/></svg>",
+  "rows": [
+    {
+      "n": 1,
+      "row_id": "aave-revenue-to-dao",
+      "short": "Revenue → DAO",
+      "cat": "\"Aave Will Win\" — 100% product revenue → DAO",
+      "net": 8.0,
+      "tok": 7.0
+    },
+    {
+      "n": 2,
+      "row_id": "aave-buyback",
+      "short": "Aavenomics Buyback",
+      "cat": "Aavenomics 3.0 — immutable automated buyback",
+      "net": 5.0,
+      "tok": 7.5
+    },
+    {
+      "n": 3,
+      "row_id": "aave-v4-expansion",
+      "short": "Aave V4 + Expansion",
+      "cat": "Aave V4 live + Arc/Avalanche expansion + securities-finance roadmap",
+      "net": 8.0,
+      "tok": 5.2
+    },
+    {
+      "n": 4,
+      "row_id": "aave-horizon",
+      "short": "Horizon RWA Market",
+      "cat": "Horizon institutional RWA market",
+      "net": 8.0,
+      "tok": 5.7
+    },
+    {
+      "n": 5,
+      "row_id": "aave-risk-overhang",
+      "short": "Risk Overhang Cleared",
+      "cat": "KelpDAO exploit + Umbrella slashing + $320M resolution + binding risk framework",
+      "net": 5.0,
+      "tok": 5.0
+    },
+    {
+      "n": 6,
+      "row_id": "aave-etf",
+      "short": "Spot AAVE ETF Filings",
+      "cat": "Grayscale + Bitwise spot-AAVE ETF filings (+ SEC probe closed)",
+      "net": 5.0,
+      "tok": 4.9
+    },
+    {
+      "n": 7,
+      "row_id": "aave-grayscale-dcf",
+      "short": "Grayscale DCF Note",
+      "cat": "Grayscale DCF note ($80–100 base / $175 bull)",
+      "net": 5.0,
+      "tok": 4.5
+    },
+    {
+      "n": 8,
+      "row_id": "aave-gho",
+      "short": "GHO + GENIUS Act",
+      "cat": "GHO + sGHO growth + GENIUS Act dynamic",
+      "net": 6.8,
+      "tok": 5.8
+    },
+    {
+      "n": 9,
+      "row_id": "aave-anti-gho",
+      "short": "Anti-GHO Routing",
+      "cat": "Anti-GHO → stkAAVE value routing",
+      "net": 5.0,
+      "tok": 5.6
+    },
+    {
+      "n": 10,
+      "row_id": "aave-tvl-fundamentals",
+      "short": "Revenue / TVL Base",
+      "cat": "Revenue / TVL fundamentals + lending-share defense",
+      "net": 4.2,
+      "tok": 5.0
+    },
+    {
+      "n": 11,
+      "row_id": "aave-stanchart-coverage",
+      "short": "Standard Chartered Call",
+      "cat": "Standard Chartered initiates AAVE coverage ($3,500 by 2030)",
+      "net": 5.0,
+      "tok": 5.5
+    }
+  ]
+};
+/* /GEN:BOARD */
+const DATA = BOARD.rows;   // rows render from BOARD; the rest of the view is a stable renderer
 
 /* ===== Bands — SCORING_SYSTEM_V2 §1: Bearish 1.0–4.4 / Neutral 4.5–5.5 / Bullish 5.6–10.0 ===== */
 const BNB=4.45, BNL=5.55;
@@ -460,7 +564,7 @@ const trs=[...document.querySelectorAll(".tr")];
      revealed; otherwise both blank.
    Totals are the reconciled board roll-up (tnt_scoreboard.csv — the daily-synced single source):
    Network 5.8 BULLISH · Token 5.8 BULLISH — sourced, never recomputed/invented. */
-const NET_TOTAL=5.8, TOK_TOTAL=5.8;
+const NET_TOTAL=BOARD.totals.net, TOK_TOTAL=BOARD.totals.tok;
 let hlIndex=null;   // the single highlighted row (gold), or null
 
 function setBig(capEl,numEl,wEl,val,caption){
@@ -563,8 +667,30 @@ document.querySelector("#detail .dg-net").addEventListener("click",()=>detailRev
 document.querySelector("#detail .dg-tok").addEventListener("click",()=>detailReveal(2)); // reveal Token (Network too)
 
 /* ===== Verdict (TNT) ===== */
-/* TNT dial value = AAVE TNT 6.2 (tnt_scoreboard.csv: Token 5.8 / Network 5.8 as-of 2026-07-01; Technicals 6.5 as-of 2026-06-26). */
-function buildClose(){ document.getElementById("vcDial").innerHTML = tntDialSVG(6.2); }
+/* TNT dial value + all verdict-popup content come from BOARD (scorecard-sync). */
+function buildClose(){ document.getElementById("vcDial").innerHTML = tntDialSVG(BOARD.tnt); }
+
+/* Render the board title + the whole verdict popup from BOARD — bands DERIVED from the numbers. */
+function renderTitle(){
+  document.title = BOARD.ticker+" — "+BOARD.rows.length+" Catalysts Scored · 16:9 screenshare";
+  document.getElementById("boardTitle").innerHTML =
+    '<span class="x">'+BOARD.ticker+'</span> — '+BOARD.rows.length+' Catalysts Scored';
+}
+function bandFill(el, base, score){ el.className = base+" "+bandKey(score); }
+function renderVerdict(){
+  const b=BOARD, v=b.verdict, t=b.totals;
+  document.getElementById("vcLogo").innerHTML = b.logo;
+  document.getElementById("vcName").textContent = b.name;
+  document.getElementById("vcTick").textContent = b.ticker;
+  const set=(id,base,score)=>{ const el=document.getElementById(id); el.textContent=fmt1(score); bandFill(el,base,score); };
+  const setW=(id,base,score)=>{ const el=document.getElementById(id); el.textContent=bandWord(score); bandFill(el,base,score); };
+  set("vcTntNum","vc-num",b.tnt);   setW("vcTntWord","vc-word",b.tnt);
+  document.getElementById("vcHead").textContent = v.headline;
+  document.getElementById("vcPara").textContent = v.paragraph;
+  set("vcTokN","vc-n",t.tok);       setW("vcTokW","vc-w",t.tok);   document.getElementById("vcTokR").textContent=v.reads.token;
+  set("vcNetN","vc-n",t.net);       setW("vcNetW","vc-w",t.net);   document.getElementById("vcNetR").textContent=v.reads.network;
+  set("vcTechN","vc-n",b.technicals);setW("vcTechW","vc-w",b.technicals);document.getElementById("vcTechR").textContent=v.reads.technicals;
+}
 function toggleTNT(){
   const el=document.getElementById("tntClose");
   const showing=el.classList.toggle("show");
@@ -589,7 +715,7 @@ function fit(){ const s=Math.min(innerWidth/1920,innerHeight/1080);
 addEventListener("resize",fit);
 
 /* init: dark board only (light theme removed) */
-buildClose(); recompute(); fit();
+renderTitle(); renderVerdict(); buildClose(); recompute(); fit();
 </script>
 </body>
 </html>
