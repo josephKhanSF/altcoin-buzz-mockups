@@ -17,12 +17,16 @@
                                              10-, 12- or 14-catalyst token all use the identical close.
     These shorts are committed to the two-gauge Network·Token format (no TNT composite dial); the
     "TNT-gets-the-dial, Token/Network render as numbers" portal direction is the NEXT card generation.
-  DATA-DRIVEN (2026-06-18): catalyst data is GENERATED, never hand-typed. The block between the
-    /* ===GENERATED:BEGIN=== */ … /* ===GENERATED:END=== */ markers below is written by
-    Website/Assets/build_shorts_card.py, which lifts every value verbatim from the YouTube
-    SHORTS_*.md packs' END-REVEAL lines. To re-populate: run the generator (see §6 of the brief).
-    Canonical record also written to Website/Assets/shorts_cards.json.
-  Built to: Website/WORKSHOP_BRIEF_SHORTS_CARD_GENERATOR_2026-06-18.md.
+  DATA-DRIVEN: catalyst data is GENERATED, never hand-typed. The block between the
+    /* ===GENERATED:BEGIN=== */ … /* ===GENERATED:END=== */ markers below is written by the
+    shorts-card-sync skill (00_Pipeline/Skills/shorts-card-sync) — an operator-triggered, dry-run-first
+    KEYED UPSERT (key = pack = lead_id + video_num) that lifts the two scores verbatim from the YouTube
+    SHORTS_*.md packs' gauge-overlay headers. To re-populate: run shorts-card-sync on a SHORTS_*.md
+    (dry-run → apply). Canonical record also written to Website/Assets/shorts_cards.json.
+    Data contract: Website/CARD_DATA_CONTRACT.md.
+  Retired 2026-06-30: the prior generator (Website/Assets/build_shorts_card.py + make_shorts_card.py)
+    and its workshop briefs are archived under Website/Archive/RETIRED_2026-06-30_shorts-card-generator/
+    — they keyed off the removed END-REVEAL line and were non-functional against the live format.
   Visual authority: Website/DESIGN_BRIEF.md (clean consumer-fintech §1, components §2, constraints §6).
     Matches the TNT gauge/band look of Website/Assets/SCOREBOARD_BOARD_16x9.html for asset consistency.
     VISUAL_FOUNDATIONS.md supplies ONLY the carried primitives — band colours (--green/--red/--zero),
@@ -126,11 +130,13 @@
   body.r11  .gauges{margin-top:30px;column-gap:40px}
   .pillar{display:flex;flex-direction:column;align-items:center;text-align:center;width:100%}
   /* pillar label = fixed BLACK PILL (score-independent), white text, doubled size */
-  .pillar .plabel{display:inline-flex;align-items:center;font-weight:700;text-transform:uppercase;
-    letter-spacing:1px;color:var(--goldink);background:var(--gold);border-radius:var(--r-chip);line-height:1}
+  .pillar .plabel{display:flex;align-items:center;justify-content:center;width:100%;
+    font-weight:700;text-transform:uppercase;letter-spacing:.5px;white-space:nowrap;
+    color:var(--goldink);background:var(--gold);border-radius:var(--r-chip);line-height:1;
+    box-shadow:var(--shadow)}
   body.dark .pillar .plabel{background:var(--gold);color:var(--goldink);box-shadow:none}
-  body.r916 .pillar .plabel{font-size:42px;padding:11px 29px}
-  body.r11  .pillar .plabel{font-size:31px;padding:8px 22px}
+  body.r916 .pillar .plabel{font-size:38px;padding:18px 24px}
+  body.r11  .pillar .plabel{font-size:28px;padding:13px 20px}
   .pillar .gholder{display:flex;align-items:center;justify-content:center}
   body.r916 .pillar .gholder{margin-top:30px} body.r11 .pillar .gholder{margin-top:18px}
   .pillar .pword{font-weight:700;letter-spacing:1.2px}
@@ -143,6 +149,14 @@
   body.r916 .takeaway{font-size:60px;margin-top:70px;line-height:1.26}
   body.r11  .takeaway{font-size:41px;margin-top:34px;line-height:1.26}
   .takeaway .em{color:var(--ink);font-weight:700}
+
+  /* ===== Persistent portal CTA — small tag just below the dials. It is the §6 "free early access"
+     brand-tag: a zero-verbal-ask, non-competing reinforcement (NOT a second spoken ask). Hidden on
+     the Close stage, where the single parent-video CTA takes over (short → video → portal, §5). ===== */
+  .ctabar{flex:none;text-align:center;font-weight:600;color:var(--mut);letter-spacing:.3px;white-space:nowrap}
+  .ctabar .dom{color:var(--goldtx);font-weight:700}
+  body.r916 .ctabar{font-size:34px;margin-top:44px}
+  body.r11  .ctabar{font-size:24px;margin-top:26px}
 
   .spacer{flex:1;min-height:0}
 
@@ -197,19 +211,18 @@
   body.dark #themeToggle:hover{background:color-mix(in srgb,var(--gold) 22%,#1c1c20)}
   body.clean #themeToggle{display:none}
 
-  /* ===== Staged reveal — blur is a VISUAL overlay only; no score data changes. ============
-     Blur radius scales with aspect so the veil reads the same at 9:16 and 1:1.
-     Only the dial+number (gholder) and band word blur; the NETWORK/TOKEN label pills and the
-     catalyst headline stay sharp so structure is legible while the value is withheld. */
-  body.r916{--blur:24px} body.r11{--blur:16px}
-  #netGauge,#tokGauge,#netWord,#tokWord{transition:filter .2s ease,opacity .2s ease}
-  .blurred{filter:blur(var(--blur));opacity:.5}
+  /* ===== Staged reveal (2026-07-05) — the GAUGE ARC IS ALWAYS SHARP; only the SCORE readout is
+     staged. A veiled gauge draws a "?" where the needle + number go (see gaugeSVG's reveal branch)
+     and hides its band word; a revealed gauge draws the real needle + number + word. No blur — the
+     dial never turns into a blurred blob. Score DATA is never altered, only whether it is shown. */
+  #netWord,#tokWord{transition:opacity .2s ease}
 
   /* ===== Generic CLOSE / overview endcap — DATA-FREE, count-agnostic, reusable for any token ===== */
   .closecard{display:none}
   body.stage-close .catpill,
   body.stage-close .headline,
   body.stage-close .gauges,
+  body.stage-close .ctabar,
   body.stage-close .takeaway{display:none}
   /* Close content is TOP-ANCHORED so the lower half of the frame stays clear for green-screen talent. */
   body.stage-close .closecard{flex:1;min-height:0;display:flex;flex-direction:column;
@@ -266,16 +279,19 @@
 
   <div class="gauges">
     <div class="pillar">
-      <div class="plabel" id="netLabel">Network</div>
+      <div class="plabel" id="netLabel">Network Score</div>
       <div class="gholder" id="netGauge"></div>
       <div class="pword" id="netWord"></div>
     </div>
     <div class="pillar">
-      <div class="plabel" id="tokLabel">Token</div>
+      <div class="plabel" id="tokLabel">Token Score</div>
       <div class="gholder" id="tokGauge"></div>
       <div class="pword" id="tokWord"></div>
     </div>
   </div>
+
+  <!-- Persistent portal CTA — small tag just below the dials (§6 free-early-access brand-tag). -->
+  <div class="ctabar" aria-label="Free early access at altcoinbuzz.com">Free early access → <span class="dom">altcoinbuzz.com</span></div>
 
   <!-- Generic CLOSE / overview endcap (Stage 3). DATA-FREE: no token, no catalyst #, no scores,
        no fixed catalyst count — reusable as-is for any token or pack size. Shown only on stage-close. -->
@@ -353,9 +369,10 @@
   /* ===GENERATED:BEGIN=== */
 const CATALYSTS = [
   // --- XRP (lead 20260610-xrp_ledger-e91604c8) — lifted from END-REVEAL lines by build_shorts_card.py on 2026-06-18.
-  //     HAND-ADDED 2026-06-30: 3 catalysts the parser missed — Video 1 row 5 (CLARITY Act) and Video 2 rows 12 (ODL
-  //     corridors) + 9 (SBI rewards). net/tok lifted VERBATIM from each pack's "## SHORT NN" header + score cross-check;
-  //     headline + takeaway distilled from the short's catalyst + hard-truth beat. Order = covered-row order in each pack.
+  //     RE-BASELINED 2026-06-30 PM (QB-ratified re-baseline, option a): the 3 hand-added rows — V1 cat 5 (CLARITY Act),
+  //     V2 cat 12 (ODL corridors), V2 cat 9 (SBI rewards) — were reverted so the card's XRP set matches the 7-row
+  //     shorts_cards.json mirror exactly. shorts-card-sync re-establishes XRP coverage from the locked SHORTS_*.md packs
+  //     on the next per-pack sync (pack key = lead_id + video_num; XRP carries two packs, video-001 + video-002).
   { cat_no:1, headline:"Goldman dumps its entire $153.8M XRP stake", net:5.0, tok:2.0, takeaway:"Wall Street's biggest XRP buyer is gone — a verdict on the coin, not the tech.",
     source:"Video 1 (public deep-dive)", video_num:1, lead_id:"20260610-xrp_ledger-e91604c8", token:"XRP" },
   { cat_no:3, headline:"May 6 JPMorgan / Mastercard / Ondo pilot on XRPL", net:8.0, tok:5.0, takeaway:"Banks used the ledger. The coin earned a fraction of a cent.",
@@ -364,32 +381,32 @@ const CATALYSTS = [
     source:"Video 1 (public deep-dive)", video_num:1, lead_id:"20260610-xrp_ledger-e91604c8", token:"XRP" },
   { cat_no:8, headline:"Ripple escrow net leak (~300M XRP/mo)", net:5.0, tok:3.5, takeaway:"More supply arriving than buyers absorb — a slow, telegraphed drag.",
     source:"Video 1 (public deep-dive)", video_num:1, lead_id:"20260610-xrp_ledger-e91604c8", token:"XRP" },
-  { cat_no:5, headline:"CLARITY Act clears Senate committee 15–9 (floor vote pre-recess)", net:6.0, tok:6.0, takeaway:"The lone conditional bull — permission for banks to hold XRP, not a buy order. The path back.",
-    source:"Video 1 (public deep-dive)", video_num:1, lead_id:"20260610-xrp_ledger-e91604c8", token:"XRP" },
+  // --- XRP's $3 Billion Trap: The Ledger Wins, The Token Doesn't. Here's Why (lead 20260610-xrp_ledger-e91604c8 · video 2 · CP-...-video-002) — synced by shorts-card-sync on 2026-06-30.
+  //     net/tok lifted VERBATIM from each '## SHORT NN' header; headline + takeaway distilled
+  //     from the cold-open caption + closing beat. Splice key = (lead_id, video_num).
   { cat_no:4, headline:"XRPL crosses $3B+ tokenized RWA (+124% Q1)", net:7.0, tok:5.0, takeaway:"The biggest number on the board. Almost none of it reaches the coin.",
-    source:"Video 2 (public follow-up)", video_num:2, lead_id:"20260610-xrp_ledger-e91604c8", token:"XRP" },
+    source:"Video 2 (public follow-up)", video_num:2, lead_id:"20260610-xrp_ledger-e91604c8", token:"XRP", pack_title:"XRP's $3 Billion Trap: The Ledger Wins, The Token Doesn't. Here's Why" },
   { cat_no:12, headline:"XRP payment corridors (~$14B ODL volume last quarter)", net:5.6, tok:5.8, takeaway:"The one place XRP is the product — but the coin's held for seconds. A toll booth, not a vault.",
-    source:"Video 2 (public follow-up)", video_num:2, lead_id:"20260610-xrp_ledger-e91604c8", token:"XRP" },
+    source:"Video 2 (public follow-up)", video_num:2, lead_id:"20260610-xrp_ledger-e91604c8", token:"XRP", pack_title:"XRP's $3 Billion Trap: The Ledger Wins, The Token Doesn't. Here's Why" },
   { cat_no:7, headline:"XRPL institutional DeFi stack (XLS-81/65/66 · EVM sidechain)", net:7.0, tok:5.8, takeaway:"The one mechanism that could re-couple the coin — built, live, and empty. A bull on option value.",
-    source:"Video 2 (public follow-up)", video_num:2, lead_id:"20260610-xrp_ledger-e91604c8", token:"XRP" },
+    source:"Video 2 (public follow-up)", video_num:2, lead_id:"20260610-xrp_ledger-e91604c8", token:"XRP", pack_title:"XRP's $3 Billion Trap: The Ledger Wins, The Token Doesn't. Here's Why" },
   { cat_no:9, headline:"SBI XRP shareholder rewards (Ripple's oldest partner)", net:5.6, tok:5.8, takeaway:"Steady, named-buyer demand — but the buy size is undisclosed, so new demand could be near zero.",
-    source:"Video 2 (public follow-up)", video_num:2, lead_id:"20260610-xrp_ledger-e91604c8", token:"XRP" },
+    source:"Video 2 (public follow-up)", video_num:2, lead_id:"20260610-xrp_ledger-e91604c8", token:"XRP", pack_title:"XRP's $3 Billion Trap: The Ledger Wins, The Token Doesn't. Here's Why" },
   { cat_no:10, headline:"Evernorth XRPN treasury (~473M held · $233.7M impairment)", net:5.0, tok:5.6, takeaway:"473M locked looks huge — but it scores only a weak bull. Lockup is not buy pressure.",
-    source:"Video 2 (public follow-up)", video_num:2, lead_id:"20260610-xrp_ledger-e91604c8", token:"XRP" },
-  // --- 5-altcoin roundup (lead 20260625-type1_roundup-5e7b9a14 · parent CP-...-video-001).
-  //     HAND-ADDED 2026-06-30 (Path 2): net/tok lifted VERBATIM from each "## SHORT NN" header; headline +
-  //     takeaway distilled from the short's catalyst + closing beat (this pack format carries no END-REVEAL line).
-  //     cat_no = FEATURED-5 board row (1–5). Pending the build_shorts_card.py parser update for this format.
+    source:"Video 2 (public follow-up)", video_num:2, lead_id:"20260610-xrp_ledger-e91604c8", token:"XRP", pack_title:"XRP's $3 Billion Trap: The Ledger Wins, The Token Doesn't. Here's Why" },
+  // --- 5 Altcoins. 5 Bullish Catalysts: Which Impacts the Token Price Most (lead 20260625-type1_roundup-5e7b9a14 · video 1 · CP-...-video-001) — synced by shorts-card-sync on 2026-06-30.
+  //     net/tok lifted VERBATIM from each '## SHORT NN' header; headline + takeaway distilled
+  //     from the cold-open caption + closing beat. Splice key = (lead_id, video_num).
   { cat_no:1, headline:"Coinbase routes $5B of USDC interest into buying HYPE", net:6.0, tok:6.8, takeaway:"Real new buying of the token — steady income, but only as strong as interest rates.",
-    source:"Video 1 (5-altcoin roundup)", video_num:1, lead_id:"20260625-type1_roundup-5e7b9a14", token:"HYPE" },
+    source:"Video 1 (5-altcoin roundup)", video_num:1, lead_id:"20260625-type1_roundup-5e7b9a14", token:"HYPE", pack_title:"5 Altcoins. 5 Bullish Catalysts: Which Impacts the Token Price Most" },
   { cat_no:2, headline:"Jupiter shut off its money printer — ~83% supply cut + 130M burn", net:5.0, tok:6.8, takeaway:"Fewer new tokens lifts every JUP you hold — but the freeze only covers 2026.",
-    source:"Video 1 (5-altcoin roundup)", video_num:1, lead_id:"20260625-type1_roundup-5e7b9a14", token:"JUP" },
+    source:"Video 1 (5-altcoin roundup)", video_num:1, lead_id:"20260625-type1_roundup-5e7b9a14", token:"JUP", pack_title:"5 Altcoins. 5 Bullish Catalysts: Which Impacts the Token Price Most" },
   { cat_no:3, headline:"Aave spends ~$50M a year buying AAVE on the open market", net:5.0, tok:6.5, takeaway:"Real cash buying AAVE today — but parked in a reserve, not burned.",
-    source:"Video 1 (5-altcoin roundup)", video_num:1, lead_id:"20260625-type1_roundup-5e7b9a14", token:"AAVE" },
+    source:"Video 1 (5-altcoin roundup)", video_num:1, lead_id:"20260625-type1_roundup-5e7b9a14", token:"AAVE", pack_title:"5 Altcoins. 5 Bullish Catalysts: Which Impacts the Token Price Most" },
   { cat_no:4, headline:"Chainlink Reserve locks 3.9M+ LINK in a vault that never sells", net:5.5, tok:6.5, takeaway:"Permanently off the market, tightening supply — but it never flows back to holders.",
-    source:"Video 1 (5-altcoin roundup)", video_num:1, lead_id:"20260625-type1_roundup-5e7b9a14", token:"LINK" },
+    source:"Video 1 (5-altcoin roundup)", video_num:1, lead_id:"20260625-type1_roundup-5e7b9a14", token:"LINK", pack_title:"5 Altcoins. 5 Bullish Catalysts: Which Impacts the Token Price Most" },
   { cat_no:5, headline:"Spot ADA ETF — ~75% odds, decision around October", net:5.5, tok:6.5, takeaway:"If it passes, steady buying of ADA near five-year lows — but it's not approved yet.",
-    source:"Video 1 (5-altcoin roundup)", video_num:1, lead_id:"20260625-type1_roundup-5e7b9a14", token:"ADA" },
+    source:"Video 1 (5-altcoin roundup)", video_num:1, lead_id:"20260625-type1_roundup-5e7b9a14", token:"ADA", pack_title:"5 Altcoins. 5 Bullish Catalysts: Which Impacts the Token Price Most" },
 ];
   /* ===GENERATED:END=== */
 
@@ -410,7 +427,9 @@ function arcSeg(cx,cy,r,a0,a1){
   for(let k=0;k<=steps;k++){ const a=a0+(a1-a0)*k/steps; const p=polar(cx,cy,r,a); pts.push(p[0].toFixed(2)+" "+p[1].toFixed(2)); }
   return "M"+pts.join(" L");
 }
-function gaugeSVG(score,r,th,numSize){
+/* reveal=false → the arc stays fully drawn, but the needle + number are withheld and a "?" is
+   shown in the number's place (muted). reveal=true → real needle + colour-coded number. */
+function gaugeSVG(score,r,th,numSize,reveal){
   const pad=th/2+5, W=Math.round(r*2+th+12), cx=W/2, cy=r+pad, H=Math.round(cy+12);
   const aB=[180,A(BNB)], aN=[A(BNB),A(BNL)], aU=[A(BNL),0];
   let s=`<svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" xmlns="http://www.w3.org/2000/svg" style="overflow:visible">`;
@@ -418,9 +437,13 @@ function gaugeSVG(score,r,th,numSize){
   s+=`<path d="${arcSeg(cx,cy,r,aN[0],aN[1])}" fill="none" stroke="var(--zero)" stroke-width="${th}"/>`;
   s+=`<path d="${arcSeg(cx,cy,r,aU[0],aU[1])}" fill="none" stroke="var(--green)" stroke-width="${th}" stroke-linecap="round"/>`;
   const col=colVar(score);
-  const bp=polar(cx,cy,r,A(score));
-  s+=`<circle cx="${bp[0].toFixed(2)}" cy="${bp[1].toFixed(2)}" r="${(th/2+4).toFixed(1)}" fill="${col}" stroke="var(--card)" stroke-width="4"/>`;
-  s+=`<text x="${cx}" y="${(cy-4).toFixed(1)}" text-anchor="middle" font-family="var(--mono)" font-weight="700" font-size="${numSize}" fill="${col}">${fmt1(score)}</text>`;
+  if(reveal){
+    const bp=polar(cx,cy,r,A(score));
+    s+=`<circle cx="${bp[0].toFixed(2)}" cy="${bp[1].toFixed(2)}" r="${(th/2+4).toFixed(1)}" fill="${col}" stroke="var(--card)" stroke-width="4"/>`;
+    s+=`<text x="${cx}" y="${(cy-4).toFixed(1)}" text-anchor="middle" font-family="var(--mono)" font-weight="700" font-size="${numSize}" fill="${col}">${fmt1(score)}</text>`;
+  } else {
+    s+=`<text x="${cx}" y="${(cy-4).toFixed(1)}" text-anchor="middle" font-family="var(--mono)" font-weight="700" font-size="${numSize}" fill="var(--mut)">?</text>`;
+  }
   return s+`</svg>`;
 }
 
@@ -428,16 +451,22 @@ let idx=0, ratio='916', stage=0;  /* stage 0 HOOK · 1 NETWORK · 2 TWIN · 3 CL
 
 function gaugeGeom(){ return ratio==='916' ? {r:188,th:30,num:122} : {r:132,th:22,num:88}; }
 
-/* ===== Staged reveal — blur is purely visual; the score DATA is never altered. =====
-   Stage 0 (Hook): both scores blurred.  Stage 1 (Network): Network sharp, Token blurred.
-   Stage 2 (Twin): both sharp.  Stage 3 (Close): per-catalyst content hidden, generic endcap shown. */
+/* ===== Staged reveal — the arc is always sharp; only the readout is withheld ("?"). Score DATA is
+   never altered, only whether the needle + number are shown. =====
+   Stage 0 (Hook): both scores "?".  Stage 1 (Network): Network shown, Token "?".
+   Stage 2 (Twin): both shown.  Stage 3 (Close): per-catalyst content hidden, generic endcap shown. */
 function applyStage(){
-  const netBlur = stage===0;        // Network is veiled only in the Hook
-  const tokBlur = stage<2;          // Token is veiled in Hook + Network
-  document.getElementById("netGauge").classList.toggle("blurred",netBlur);
-  document.getElementById("netWord").classList.toggle("blurred",netBlur);
-  document.getElementById("tokGauge").classList.toggle("blurred",tokBlur);
-  document.getElementById("tokWord").classList.toggle("blurred",tokBlur);
+  const c=CATALYSTS[idx], g=gaugeGeom();
+  const netReveal = stage>=1;       // Network score shown from +Network onward (veiled only in Hook)
+  const tokReveal = stage>=2;       // Token score shown from +Token onward (veiled in Hook + Network)
+  /* Redraw the gauges for this stage: the arc is identical either way, only the needle+number vs "?"
+     differ. Score data is read fresh from the catalyst — never mutated. */
+  document.getElementById("netGauge").innerHTML = gaugeSVG(c.net,g.r,g.th,g.num,netReveal);
+  document.getElementById("tokGauge").innerHTML = gaugeSVG(c.tok,g.r,g.th,g.num,tokReveal);
+  /* Band word (BULLISH/NEUTRAL/BEARISH) appears only once its gauge is revealed; kept in layout so
+     nothing shifts when it fades in. */
+  document.getElementById("netWord").style.visibility = netReveal ? "visible" : "hidden";
+  document.getElementById("tokWord").style.visibility = tokReveal ? "visible" : "hidden";
   document.body.classList.toggle("stage-close",stage===3);
   [...document.querySelectorAll("#stagebtns button")].forEach((b,i)=>b.classList.toggle("on",i===stage));
 }
@@ -498,10 +527,8 @@ function buildCameo(){
 }
 
 function render(){
-  const c=CATALYSTS[idx], g=gaugeGeom();
+  const c=CATALYSTS[idx];
   document.getElementById("headline").textContent = c.headline;
-  document.getElementById("netGauge").innerHTML = gaugeSVG(c.net,g.r,g.th,g.num);
-  document.getElementById("tokGauge").innerHTML = gaugeSVG(c.tok,g.r,g.th,g.num);
   const nw=document.getElementById("netWord"), tw=document.getElementById("tokWord");
   nw.textContent=bandWord(c.net); nw.className="pword "+bandKey(c.net);
   tw.textContent=bandWord(c.tok); tw.className="pword "+bandKey(c.tok);
