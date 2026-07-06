@@ -319,15 +319,15 @@
     <div class="rail">
       <div class="avgcard" id="netCard">
         <div class="avcap" id="netCap"></div>
-        <div class="avname">Network</div>
-        <div class="avnum neu" id="netNum">—</div>
-        <div class="avword neu" id="netWord">—</div>
+        <div class="avname">Network Score</div>
+        <div class="avnum neu" id="netNum">?</div>
+        <div class="avword neu" id="netWord"></div>
       </div>
       <div class="avgcard" id="tokCard">
         <div class="avcap" id="tokCap"></div>
-        <div class="avname">Token</div>
-        <div class="avnum neu" id="tokNum">—</div>
-        <div class="avword neu" id="tokWord">—</div>
+        <div class="avname">Token Score</div>
+        <div class="avnum neu" id="tokNum">?</div>
+        <div class="avword neu" id="tokWord"></div>
       </div>
     </div>
   </div>
@@ -568,7 +568,9 @@ const NET_TOTAL=BOARD.totals.net, TOK_TOTAL=BOARD.totals.tok;
 let hlIndex=null;   // the single highlighted row (gold), or null
 
 function setBig(capEl,numEl,wEl,val,caption){
-  if(val==null){ capEl.textContent=""; numEl.textContent="—"; numEl.className="avnum neu"; wEl.textContent="—"; wEl.className="avword neu"; }
+  /* Hidden/blank state shows a "?" in place of the big score (consistent with the shorts card);
+     the band word is blanked so the box reads "?" alone, not "? / —". */
+  if(val==null){ capEl.textContent=""; numEl.textContent="?"; numEl.className="avnum neu"; wEl.textContent=""; wEl.className="avword neu"; }
   else { capEl.textContent=caption||""; numEl.textContent=fmt1(val); numEl.className="avnum "+bandKey(val); wEl.textContent=bandWord(val); wEl.className="avword "+bandKey(val); }
 }
 function setHighlight(idx){
