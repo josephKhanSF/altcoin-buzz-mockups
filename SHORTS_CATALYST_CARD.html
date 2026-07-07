@@ -91,7 +91,10 @@
      kept as deliberate breathing room below the platform's top UI overlays; on X (1:1) it
      collapses entirely since no such overlay gap is needed. ===== */
   .topbar{flex:none;display:flex;align-items:center;justify-content:space-between;gap:24px}
-  body.r916 .topbar{height:96px}
+  /* 9:16 top gap raised 96→246px (2026-07-08): the headline was landing under the iPhone status
+     bar + YouTube back/search row (~300px dead zone). --yoff is the operator-tunable extra offset
+     (panel section 2 / [ and ] keys) so the video team can dial it in without code edits. */
+  body.r916 .topbar{height:calc(246px + var(--yoff,0px))}
   body.r11  .topbar{display:none}
 
   /* ===== Brand mark (top) ===== */
@@ -155,10 +158,28 @@
      the Close stage, where the single parent-video CTA takes over (short → video → portal, §5). ===== */
   .ctabar{flex:none;text-align:center;font-weight:600;color:var(--mut);letter-spacing:.3px;white-space:nowrap}
   .ctabar .dom{color:var(--goldtx);font-weight:700}
-  body.r916 .ctabar{font-size:34px;margin-top:44px}
+  body.r916 .ctabar{font-size:34px;margin-top:16px}
   body.r11  .ctabar{font-size:24px;margin-top:26px}
 
   .spacer{flex:1;min-height:0}
+
+  /* ===== Safe-zone overlay (2026-07-08) — GUIDE ONLY, never in captures. Shows the phone/YouTube
+     UI dead zones over the 9:16 card so the editor can verify placement before capture:
+       top    ~300px — iPhone status bar / notch + YouTube back & search row
+       bottom ~420px — title/caption text, channel row, phone nav bar
+       right  ~170px rail — like / comment / share / remix stack
+     Toggled from the panel or the G key. Hidden on 1:1 (no such overlays on X) and hidden by
+     body.clean (H) so it can never land in a capture. */
+  #safezone{display:none;position:absolute;inset:0;z-index:60;pointer-events:none}
+  body.safezone.r916 #safezone{display:block}
+  body.clean #safezone{display:none}
+  #safezone .sz{position:absolute;background:rgba(204,13,26,.18);border:2px dashed rgba(204,13,26,.55);
+    display:flex;align-items:center;justify-content:center;font-weight:700;font-size:26px;
+    letter-spacing:.6px;text-transform:uppercase;color:rgba(204,13,26,.85);text-align:center}
+  #safezone .sz-top{left:0;right:0;top:0;height:300px}
+  #safezone .sz-bot{left:0;right:0;bottom:0;height:420px}
+  #safezone .sz-right{right:0;top:760px;width:170px;height:640px;font-size:20px;
+    writing-mode:vertical-rl}
 
   /* ===== Operator control panel — H hides it; hidden = zero chrome on capture ===== */
   #panel{position:fixed;right:18px;bottom:18px;z-index:80;background:#fff;border:1px solid var(--line2);
@@ -275,6 +296,13 @@
        headline clears the platform's top UI overlays. Collapsed on X (1:1) — see .topbar CSS. -->
   <div class="topbar" aria-hidden="true"></div>
 
+  <!-- Safe-zone guide overlay — chrome only (G toggles; hidden on capture/clean; 9:16 only). -->
+  <div id="safezone" aria-hidden="true">
+    <div class="sz sz-top">Phone status bar + YouTube top UI</div>
+    <div class="sz sz-bot">Caption · channel row · phone nav</div>
+    <div class="sz sz-right">Like / share rail</div>
+  </div>
+
   <h1 class="headline" id="headline"></h1>
 
   <div class="gauges">
@@ -330,6 +358,20 @@
     <button id="bDark" onclick="setTheme('dark')">☾ Dark</button>
   </div>
 
+  <div class="lab">Top offset (9:16) — push content down/up · <span id="yoffVal">+0px</span></div>
+  <div class="btnrow">
+    <button onclick="setYoff(yoff-50)">−50</button>
+    <button onclick="setYoff(yoff-10)">−10</button>
+    <button onclick="setYoff(0)">Reset</button>
+    <button onclick="setYoff(yoff+10)">+10</button>
+    <button onclick="setYoff(yoff+50)">+50</button>
+  </div>
+
+  <div class="lab">Safe-zone guide (phone/YouTube UI dead zones)</div>
+  <div class="btnrow">
+    <button id="bSafe" onclick="toggleSafezone()">Show guide (G)</button>
+  </div>
+
   <div class="lab">2 · Catalyst # (RESEARCH board row) — grouped by source video</div>
   <div id="catgroups"></div>
 
@@ -353,12 +395,14 @@
 
   <div class="hint">Pick aspect, then catalyst, then step the reveal to match the beat you're capturing.
     <b>← / →</b> step reveal stage · <b>↑ / ↓</b> prev/next catalyst · press a catalyst's number (1–9) to jump ·
-    <b>A</b> toggle aspect · <b>D</b> toggle light/dark · <b>H</b> hide panel for capture. Switching catalyst resets to Hook.
+    <b>A</b> toggle aspect · <b>D</b> toggle light/dark · <b>H</b> hide panel for capture ·
+    <b>[ / ]</b> nudge top offset (Shift = ±50) · <b>G</b> safe-zone guide. Switching catalyst resets to Hook.
     On the <b>Close</b> stage, drop the parent video's 16:9 thumbnail onto the frame (or use “Load thumbnail…”)
     and type the video title in <b>section 5</b> — it shows under the thumbnail (blank = hidden).
     Capture #card at 100% (1080×1920 or 1080×1080).</div>
 </div>
 
+<!-- CARD_SLOTS: net,tok -->
 <script>
 /* =====================================================================================
    CATALYST DATA — GENERATED, DO NOT EDIT BY HAND.
@@ -452,6 +496,11 @@ const CATALYSTS = [
     source:"Catalyst Drop (2026-06-30)", video_num:1, lead_id:"20260630-catalyst_drop", token:"ENA", pack_title:"8 Catalysts" },
   { cat_no:8, headline:"Ethena's fee switch: ready, still off", net:5.0, tok:5.6, takeaway:"Every box is ticked — but nine months on, the vote to flip it still hasn't come.",
     source:"Catalyst Drop (2026-06-30)", video_num:1, lead_id:"20260630-catalyst_drop", token:"ENA", pack_title:"8 Catalysts" },
+  // --- LINK DTCC Re-cut (lead 20260707-link_dtcc_recut · video 1 · CP-...-video-001) — synced by shorts-card-sync on 2026-07-07.
+  //     net/tok lifted VERBATIM from each '## SHORT NN' header; headline + takeaway distilled
+  //     from the cold-open caption + closing beat. Splice key = (lead_id, video_num).
+  { cat_no:1, headline:"DTCC builds a 24/7 collateral system on Chainlink", net:8.0, tok:5.2, takeaway:"The network just landed a giant Wall Street client, but LINK only wins if fees route back to the token — a maybe, not a yes, and still months from full launch.",
+    source:"LINK DTCC Re-cut (catalyst-shorts, no parent video)", video_num:1, lead_id:"20260707-link_dtcc_recut", token:"LINK", pack_title:"LINK DTCC Re-cut" },
 
 ];
   /* ===GENERATED:END=== */
@@ -517,6 +566,25 @@ function applyStage(){
   [...document.querySelectorAll("#stagebtns button")].forEach((b,i)=>b.classList.toggle("on",i===stage));
 }
 function setStage(s){ stage=Math.max(0,Math.min(3,s)); applyStage(); }
+
+/* ===== Top offset (2026-07-08) — operator-tunable extra push-down for the 9:16 card. Feeds the
+   --yoff CSS variable read by body.r916 .topbar. Chrome only: session-scoped, never persisted,
+   never touches score data. Clamped so content can't be pushed off-canvas. */
+let yoff=0;
+function setYoff(v){
+  yoff=Math.max(-246,Math.min(600,Math.round(v/10)*10));
+  document.getElementById("card").style.setProperty("--yoff",yoff+"px");
+  const el=document.getElementById("yoffVal");
+  if(el) el.textContent=(yoff>=0?"+":"−")+Math.abs(yoff)+"px";
+}
+
+/* ===== Safe-zone guide — chrome-only overlay of the phone/YouTube UI dead zones (9:16 only).
+   Hidden by body.clean (H) so it can never land in a capture. */
+function toggleSafezone(){
+  const on=document.body.classList.toggle("safezone");
+  const b=document.getElementById("bSafe");
+  if(b){ b.classList.toggle("on",on); b.textContent=(on?"Hide":"Show")+" guide (G)"; }
+}
 
 /* ===== Theme — light is the default; dark is a body class. The toggle is pure chrome,
    it never changes any score data. Both the top-right icon and the panel buttons sync here. */
@@ -637,6 +705,10 @@ document.addEventListener("keydown",e=>{
   if(e.key==="a"||e.key==="A")setRatio(ratio==='916'?'11':'916');
   if(e.key==="d"||e.key==="D")toggleTheme();
   if(e.key==="h"||e.key==="H")document.body.classList.toggle("clean");
+  /* [ / ] nudge the 9:16 top offset (shift = bigger steps) · G toggles the safe-zone guide */
+  if(e.key==="[")setYoff(yoff-(e.shiftKey?50:10));
+  if(e.key==="]")setYoff(yoff+(e.shiftKey?50:10));
+  if(e.key==="g"||e.key==="G")toggleSafezone();
 });
 
 /* scale the fixed-pixel card to fit the viewport (capture at 100% for true 1080-px pixels) */
