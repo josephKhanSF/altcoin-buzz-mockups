@@ -129,12 +129,8 @@
 
   /* ===== Two gauges — NETWORK then TOKEN (locked per-catalyst order) ===== */
   .gauges{flex:none;display:grid;grid-template-columns:1fr 1fr;align-items:start;justify-items:center}
-<<<<<<< HEAD
-  body.r916 .gauges{margin-top:55px;column-gap:56px}
-=======
   /* 55px base + --ggap, the operator-tunable headline→pills gap (panel ±10 buttons). */
   body.r916 .gauges{margin-top:calc(55px + var(--ggap,0px));column-gap:56px}
->>>>>>> 731aad6 (Portal deploy 2026-07-08)
   body.r11  .gauges{margin-top:30px;column-gap:40px}
   .pillar{display:flex;flex-direction:column;align-items:center;text-align:center;width:100%}
   /* pillar label = fixed BLACK PILL (score-independent), white text, doubled size */
@@ -372,8 +368,6 @@
     <button onclick="setYoff(yoff+50)">+50</button>
   </div>
 
-<<<<<<< HEAD
-=======
   <div class="lab">Headline → pills gap (9:16) · <span id="ggapVal">+0px</span></div>
   <div class="btnrow">
     <button onclick="setGgap(ggap-10)">−10</button>
@@ -381,7 +375,6 @@
     <button onclick="setGgap(ggap+10)">+10</button>
   </div>
 
->>>>>>> 731aad6 (Portal deploy 2026-07-08)
   <div class="lab">Safe-zone guide (phone/YouTube UI dead zones)</div>
   <div class="btnrow">
     <button id="bSafe" onclick="toggleSafezone()">Show guide (G)</button>
@@ -593,8 +586,6 @@ function setYoff(v){
   if(el) el.textContent=(yoff>=0?"+":"−")+Math.abs(yoff)+"px";
 }
 
-<<<<<<< HEAD
-=======
 /* ===== Headline → pills gap (2026-07-08) — same pattern as setYoff: feeds --ggap read by
    body.r916 .gauges. Chrome only, session-scoped, never persisted. Clamped so the pills can't
    ride up over the headline or crowd out the CTA. */
@@ -606,7 +597,6 @@ function setGgap(v){
   if(el) el.textContent=(ggap>=0?"+":"−")+Math.abs(ggap)+"px";
 }
 
->>>>>>> 731aad6 (Portal deploy 2026-07-08)
 /* ===== Safe-zone guide — chrome-only overlay of the phone/YouTube UI dead zones (9:16 only).
    Hidden by body.clean (H) so it can never land in a capture. */
 function toggleSafezone(){
