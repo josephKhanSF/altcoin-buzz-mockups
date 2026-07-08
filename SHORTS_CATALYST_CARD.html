@@ -159,7 +159,8 @@
      the Close stage, where the single parent-video CTA takes over (short → video → portal, §5). ===== */
   .ctabar{flex:none;text-align:center;font-weight:600;color:var(--mut);letter-spacing:.3px;white-space:nowrap}
   .ctabar .dom{color:var(--goldtx);font-weight:700}
-  body.r916 .ctabar{font-size:34px;margin-top:8px}
+  /* 15px base + --cgap, the operator-tunable pills→CTA gap (panel ±10 buttons). */
+  body.r916 .ctabar{font-size:34px;margin-top:calc(15px + var(--cgap,0px))}
   body.r11  .ctabar{font-size:24px;margin-top:26px}
 
   .spacer{flex:1;min-height:0}
@@ -373,6 +374,13 @@
     <button onclick="setGgap(ggap-10)">−10</button>
     <button onclick="setGgap(0)">Reset</button>
     <button onclick="setGgap(ggap+10)">+10</button>
+  </div>
+
+  <div class="lab">Pills → CTA gap (9:16) · <span id="cgapVal">+0px</span></div>
+  <div class="btnrow">
+    <button onclick="setCgap(cgap-3)">−3</button>
+    <button onclick="setCgap(0)">Reset</button>
+    <button onclick="setCgap(cgap+3)">+3</button>
   </div>
 
   <div class="lab">Safe-zone guide (phone/YouTube UI dead zones)</div>
@@ -595,6 +603,16 @@ function setGgap(v){
   document.getElementById("card").style.setProperty("--ggap",ggap+"px");
   const el=document.getElementById("ggapVal");
   if(el) el.textContent=(ggap>=0?"+":"−")+Math.abs(ggap)+"px";
+}
+
+/* ===== Pills → CTA gap (2026-07-08) — same pattern as setYoff/setGgap: feeds --cgap read by
+   body.r916 .ctabar (15px base). Fine-grained ±3 steps. Chrome only, session-scoped, never persisted. */
+let cgap=0;
+function setCgap(v){
+  cgap=Math.max(-15,Math.min(120,Math.round(v)));
+  document.getElementById("card").style.setProperty("--cgap",cgap+"px");
+  const el=document.getElementById("cgapVal");
+  if(el) el.textContent=(cgap>=0?"+":"−")+Math.abs(cgap)+"px";
 }
 
 /* ===== Safe-zone guide — chrome-only overlay of the phone/YouTube UI dead zones (9:16 only).
