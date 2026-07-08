@@ -91,7 +91,10 @@
      kept as deliberate breathing room below the platform's top UI overlays; on X (1:1) it
      collapses entirely since no such overlay gap is needed. ===== */
   .topbar{flex:none;display:flex;align-items:center;justify-content:space-between;gap:24px}
-  body.r916 .topbar{height:96px}
+  /* 9:16 top gap raised 96→246px (2026-07-08): the headline was landing under the iPhone status
+     bar + YouTube back/search row (~300px dead zone). --yoff is the operator-tunable extra offset
+     (panel section 2 / [ and ] keys) so the video team can dial it in without code edits. */
+  body.r916 .topbar{height:calc(246px + var(--yoff,0px))}
   body.r11  .topbar{display:none}
 
   /* ===== Brand mark (top) ===== */
@@ -126,7 +129,8 @@
 
   /* ===== Two gauges — NETWORK then TOKEN (locked per-catalyst order) ===== */
   .gauges{flex:none;display:grid;grid-template-columns:1fr 1fr;align-items:start;justify-items:center}
-  body.r916 .gauges{margin-top:74px;column-gap:56px}
+  /* 55px base + --ggap, the operator-tunable headline→pills gap (panel ±10 buttons). */
+  body.r916 .gauges{margin-top:calc(55px + var(--ggap,0px));column-gap:56px}
   body.r11  .gauges{margin-top:30px;column-gap:40px}
   .pillar{display:flex;flex-direction:column;align-items:center;text-align:center;width:100%}
   /* pillar label = fixed BLACK PILL (score-independent), white text, doubled size */
@@ -155,10 +159,28 @@
      the Close stage, where the single parent-video CTA takes over (short → video → portal, §5). ===== */
   .ctabar{flex:none;text-align:center;font-weight:600;color:var(--mut);letter-spacing:.3px;white-space:nowrap}
   .ctabar .dom{color:var(--goldtx);font-weight:700}
-  body.r916 .ctabar{font-size:34px;margin-top:44px}
+  body.r916 .ctabar{font-size:34px;margin-top:8px}
   body.r11  .ctabar{font-size:24px;margin-top:26px}
 
   .spacer{flex:1;min-height:0}
+
+  /* ===== Safe-zone overlay (2026-07-08) — GUIDE ONLY, never in captures. Shows the phone/YouTube
+     UI dead zones over the 9:16 card so the editor can verify placement before capture:
+       top    ~300px — iPhone status bar / notch + YouTube back & search row
+       bottom ~420px — title/caption text, channel row, phone nav bar
+       right  ~170px rail — like / comment / share / remix stack
+     Toggled from the panel or the G key. Hidden on 1:1 (no such overlays on X) and hidden by
+     body.clean (H) so it can never land in a capture. */
+  #safezone{display:none;position:absolute;inset:0;z-index:60;pointer-events:none}
+  body.safezone.r916 #safezone{display:block}
+  body.clean #safezone{display:none}
+  #safezone .sz{position:absolute;background:rgba(204,13,26,.18);border:2px dashed rgba(204,13,26,.55);
+    display:flex;align-items:center;justify-content:center;font-weight:700;font-size:26px;
+    letter-spacing:.6px;text-transform:uppercase;color:rgba(204,13,26,.85);text-align:center}
+  #safezone .sz-top{left:0;right:0;top:0;height:300px}
+  #safezone .sz-bot{left:0;right:0;bottom:0;height:420px}
+  #safezone .sz-right{right:0;top:760px;width:170px;height:640px;font-size:20px;
+    writing-mode:vertical-rl}
 
   /* ===== Operator control panel — H hides it; hidden = zero chrome on capture ===== */
   #panel{position:fixed;right:18px;bottom:18px;z-index:80;background:#fff;border:1px solid var(--line2);
@@ -275,6 +297,13 @@
        headline clears the platform's top UI overlays. Collapsed on X (1:1) — see .topbar CSS. -->
   <div class="topbar" aria-hidden="true"></div>
 
+  <!-- Safe-zone guide overlay — chrome only (G toggles; hidden on capture/clean; 9:16 only). -->
+  <div id="safezone" aria-hidden="true">
+    <div class="sz sz-top">Phone status bar + YouTube top UI</div>
+    <div class="sz sz-bot">Caption · channel row · phone nav</div>
+    <div class="sz sz-right">Like / share rail</div>
+  </div>
+
   <h1 class="headline" id="headline"></h1>
 
   <div class="gauges">
@@ -330,6 +359,27 @@
     <button id="bDark" onclick="setTheme('dark')">☾ Dark</button>
   </div>
 
+  <div class="lab">Top offset (9:16) — push content down/up · <span id="yoffVal">+0px</span></div>
+  <div class="btnrow">
+    <button onclick="setYoff(yoff-50)">−50</button>
+    <button onclick="setYoff(yoff-10)">−10</button>
+    <button onclick="setYoff(0)">Reset</button>
+    <button onclick="setYoff(yoff+10)">+10</button>
+    <button onclick="setYoff(yoff+50)">+50</button>
+  </div>
+
+  <div class="lab">Headline → pills gap (9:16) · <span id="ggapVal">+0px</span></div>
+  <div class="btnrow">
+    <button onclick="setGgap(ggap-10)">−10</button>
+    <button onclick="setGgap(0)">Reset</button>
+    <button onclick="setGgap(ggap+10)">+10</button>
+  </div>
+
+  <div class="lab">Safe-zone guide (phone/YouTube UI dead zones)</div>
+  <div class="btnrow">
+    <button id="bSafe" onclick="toggleSafezone()">Show guide (G)</button>
+  </div>
+
   <div class="lab">2 · Catalyst # (RESEARCH board row) — grouped by source video</div>
   <div id="catgroups"></div>
 
@@ -353,12 +403,14 @@
 
   <div class="hint">Pick aspect, then catalyst, then step the reveal to match the beat you're capturing.
     <b>← / →</b> step reveal stage · <b>↑ / ↓</b> prev/next catalyst · press a catalyst's number (1–9) to jump ·
-    <b>A</b> toggle aspect · <b>D</b> toggle light/dark · <b>H</b> hide panel for capture. Switching catalyst resets to Hook.
+    <b>A</b> toggle aspect · <b>D</b> toggle light/dark · <b>H</b> hide panel for capture ·
+    <b>[ / ]</b> nudge top offset (Shift = ±50) · <b>G</b> safe-zone guide. Switching catalyst resets to Hook.
     On the <b>Close</b> stage, drop the parent video's 16:9 thumbnail onto the frame (or use “Load thumbnail…”)
     and type the video title in <b>section 5</b> — it shows under the thumbnail (blank = hidden).
     Capture #card at 100% (1080×1920 or 1080×1080).</div>
 </div>
 
+<!-- CARD_SLOTS: net,tok -->
 <script>
 /* =====================================================================================
    CATALYST DATA — GENERATED, DO NOT EDIT BY HAND.
@@ -407,6 +459,57 @@ const CATALYSTS = [
     source:"Video 1 (5-altcoin roundup)", video_num:1, lead_id:"20260625-type1_roundup-5e7b9a14", token:"LINK", pack_title:"5 Altcoins. 5 Bullish Catalysts: Which Impacts the Token Price Most" },
   { cat_no:5, headline:"Spot ADA ETF — ~75% odds, decision around October", net:5.5, tok:6.5, takeaway:"If it passes, steady buying of ADA near five-year lows — but it's not approved yet.",
     source:"Video 1 (5-altcoin roundup)", video_num:1, lead_id:"20260625-type1_roundup-5e7b9a14", token:"ADA", pack_title:"5 Altcoins. 5 Bullish Catalysts: Which Impacts the Token Price Most" },
+  // --- TNT-Catalyst-Drop-A_2026-07-06 (lead 20260706-catalyst_drop_a · video 1 · CP-...-video-001) — synced by shorts-card-sync on 2026-07-06.
+  //     net/tok lifted VERBATIM from each '## SHORT NN' header; headline + takeaway distilled
+  //     from the cold-open caption + closing beat. Splice key = (lead_id, video_num).
+  { cat_no:1, headline:"SWIFT plugs Chainlink into global banking", net:8.0, tok:4.5, takeaway:"The tech won the biggest client in finance — the coin isn't part of the payment.",
+    source:"Catalyst Drop A (2026-07-06)", video_num:1, lead_id:"20260706-catalyst_drop_a", token:"LINK", pack_title:"TNT-Catalyst-Drop-A_2026-07-06" },
+  { cat_no:2, headline:"Ethena prints $363M in fees, $0 owed to ENA", net:8.0, tok:3.8, takeaway:"The machine is real — but ENA holders have no claim on the cash flows.",
+    source:"Catalyst Drop A (2026-07-06)", video_num:1, lead_id:"20260706-catalyst_drop_a", token:"ENA", pack_title:"TNT-Catalyst-Drop-A_2026-07-06" },
+  { cat_no:3, headline:"Jupiter buys back JUP with 50% of revenue", net:5.0, tok:7.5, takeaway:"Jupiter's clearest value lever — the push to 70% has no vote scheduled yet.",
+    source:"Catalyst Drop A (2026-07-06)", video_num:1, lead_id:"20260706-catalyst_drop_a", token:"JUP", pack_title:"TNT-Catalyst-Drop-A_2026-07-06" },
+  { cat_no:4, headline:"Cardano's Ouroboros Leios hits testnet", net:6.8, tok:5.0, takeaway:"The upgrade is real — but until usage shows up, faster blocks don't buy ADA.",
+    source:"Catalyst Drop A (2026-07-06)", video_num:1, lead_id:"20260706-catalyst_drop_a", token:"ADA", pack_title:"TNT-Catalyst-Drop-A_2026-07-06" },
+  { cat_no:5, headline:"Hyperliquid's RWA perps hit $1.4B in a day", net:6.8, tok:6.2, takeaway:"Mostly bullish — but 90%+ of that open interest sits with a single builder.",
+    source:"Catalyst Drop A (2026-07-06)", video_num:1, lead_id:"20260706-catalyst_drop_a", token:"HYPE", pack_title:"TNT-Catalyst-Drop-A_2026-07-06" },
+  // --- TNT-Catalyst-Drop-B_2026-07-06 (lead 20260706-catalyst_drop_b · video 1 · CP-...-video-001) — synced by shorts-card-sync on 2026-07-06.
+  //     net/tok lifted VERBATIM from each '## SHORT NN' header; headline + takeaway distilled
+  //     from the cold-open caption + closing beat. Splice key = (lead_id, video_num).
+  { cat_no:1, headline:"Ondo's tokenized-stock platform passes $1B", net:8.0, tok:4.5, takeaway:"A record platform — but the coin captures none of the cash it throws off.",
+    source:"Catalyst Drop B (2026-07-06)", video_num:1, lead_id:"20260706-catalyst_drop_b", token:"ONDO", pack_title:"TNT-Catalyst-Drop-B_2026-07-06" },
+  { cat_no:2, headline:"Tron settles $2T in USDT flow", net:8.0, tok:6.2, takeaway:"Some of that flow reaches TRX via the burn — but only a thin slice, not the river.",
+    source:"Catalyst Drop B (2026-07-06)", video_num:1, lead_id:"20260706-catalyst_drop_b", token:"TRX", pack_title:"TNT-Catalyst-Drop-B_2026-07-06" },
+  { cat_no:3, headline:"Aave sends 100% of revenue to the DAO", net:8.0, tok:7.0, takeaway:"One of the rare catalysts where the money genuinely lands on the token.",
+    source:"Catalyst Drop B (2026-07-06)", video_num:1, lead_id:"20260706-catalyst_drop_b", token:"AAVE", pack_title:"TNT-Catalyst-Drop-B_2026-07-06" },
+  { cat_no:4, headline:"Solana's Alpenglow consensus upgrade lands", net:8.0, tok:5.0, takeaway:"Solana's tech is winning — but the coin doesn't capture the win directly.",
+    source:"Catalyst Drop B (2026-07-06)", video_num:1, lead_id:"20260706-catalyst_drop_b", token:"SOL", pack_title:"TNT-Catalyst-Drop-B_2026-07-06" },
+  { cat_no:5, headline:"$292M KelpDAO bridge exploit hits LayerZero", net:5.0, tok:3.0, takeaway:"The network survived — but the token wore the loss, and that lingers.",
+    source:"Catalyst Drop B (2026-07-06)", video_num:1, lead_id:"20260706-catalyst_drop_b", token:"ZRO", pack_title:"TNT-Catalyst-Drop-B_2026-07-06" },
+  // --- 8 Catalysts (lead 20260630-catalyst_drop · video 1 · CP-...-video-001) — synced by shorts-card-sync on 2026-06-30.
+  //     net/tok lifted VERBATIM from each '## SHORT NN' header; headline + takeaway distilled
+  //     from the cold-open caption + closing beat. Splice key = (lead_id, video_num).
+  { cat_no:1, headline:"SWIFT adopts Chainlink's cross-chain standard", net:8.5, tok:4.0, takeaway:"Chainlink won the biggest prize in finance — but the token isn't in the loop.",
+    source:"Catalyst Drop (2026-06-30)", video_num:1, lead_id:"20260630-catalyst_drop", token:"LINK", pack_title:"8 Catalysts" },
+  { cat_no:2, headline:"Hyperliquid buys back HYPE every month", net:5.0, tok:6.5, takeaway:"A real buyback that reaches the token — but it's been shrinking each quarter.",
+    source:"Catalyst Drop (2026-06-30)", video_num:1, lead_id:"20260630-catalyst_drop", token:"HYPE", pack_title:"8 Catalysts" },
+  { cat_no:3, headline:"Ondo's tokenized stocks pass $1 billion", net:7.5, tok:4.8, takeaway:"The platform is winning — but no mechanism sends those fees to the coin.",
+    source:"Catalyst Drop (2026-06-30)", video_num:1, lead_id:"20260630-catalyst_drop", token:"ONDO", pack_title:"8 Catalysts" },
+  { cat_no:4, headline:"Aave routes 100% of revenue to its DAO", net:5.8, tok:6.5, takeaway:"The money reaches the token — indirectly, through the treasury, not your wallet.",
+    source:"Catalyst Drop (2026-06-30)", video_num:1, lead_id:"20260630-catalyst_drop", token:"AAVE", pack_title:"8 Catalysts" },
+  { cat_no:5, headline:"DTCC builds its collateral AppChain on Chainlink", net:8.0, tok:4.5, takeaway:"A Q4 2026 launch — and the win reaches LINK only if fees get pointed back at it.",
+    source:"Catalyst Drop (2026-06-30)", video_num:1, lead_id:"20260630-catalyst_drop", token:"LINK", pack_title:"8 Catalysts" },
+  { cat_no:6, headline:"Jupiter locks half its revenue into buybacks", net:5.0, tok:6.5, takeaway:"Mostly good — the caveat is the team floated pausing it back in January.",
+    source:"Catalyst Drop (2026-06-30)", video_num:1, lead_id:"20260630-catalyst_drop", token:"JUP", pack_title:"8 Catalysts" },
+  { cat_no:7, headline:"Ethena earns $360M a year, ENA gets $0", net:6.5, tok:4.0, takeaway:"The network's a cash machine — but no contract points any of it at ENA.",
+    source:"Catalyst Drop (2026-06-30)", video_num:1, lead_id:"20260630-catalyst_drop", token:"ENA", pack_title:"8 Catalysts" },
+  { cat_no:8, headline:"Ethena's fee switch: ready, still off", net:5.0, tok:5.6, takeaway:"Every box is ticked — but nine months on, the vote to flip it still hasn't come.",
+    source:"Catalyst Drop (2026-06-30)", video_num:1, lead_id:"20260630-catalyst_drop", token:"ENA", pack_title:"8 Catalysts" },
+  // --- LINK DTCC Re-cut (lead 20260707-link_dtcc_recut · video 1 · CP-...-video-001) — synced by shorts-card-sync on 2026-07-07.
+  //     net/tok lifted VERBATIM from each '## SHORT NN' header; headline + takeaway distilled
+  //     from the cold-open caption + closing beat. Splice key = (lead_id, video_num).
+  { cat_no:1, headline:"DTCC builds a 24/7 collateral system on Chainlink", net:8.0, tok:5.2, takeaway:"The network just landed a giant Wall Street client, but LINK only wins if fees route back to the token — a maybe, not a yes, and still months from full launch.",
+    source:"LINK DTCC Re-cut (catalyst-shorts, no parent video)", video_num:1, lead_id:"20260707-link_dtcc_recut", token:"LINK", pack_title:"LINK DTCC Re-cut" },
+
 ];
   /* ===GENERATED:END=== */
 
@@ -471,6 +574,36 @@ function applyStage(){
   [...document.querySelectorAll("#stagebtns button")].forEach((b,i)=>b.classList.toggle("on",i===stage));
 }
 function setStage(s){ stage=Math.max(0,Math.min(3,s)); applyStage(); }
+
+/* ===== Top offset (2026-07-08) — operator-tunable extra push-down for the 9:16 card. Feeds the
+   --yoff CSS variable read by body.r916 .topbar. Chrome only: session-scoped, never persisted,
+   never touches score data. Clamped so content can't be pushed off-canvas. */
+let yoff=0;
+function setYoff(v){
+  yoff=Math.max(-246,Math.min(600,Math.round(v/10)*10));
+  document.getElementById("card").style.setProperty("--yoff",yoff+"px");
+  const el=document.getElementById("yoffVal");
+  if(el) el.textContent=(yoff>=0?"+":"−")+Math.abs(yoff)+"px";
+}
+
+/* ===== Headline → pills gap (2026-07-08) — same pattern as setYoff: feeds --ggap read by
+   body.r916 .gauges. Chrome only, session-scoped, never persisted. Clamped so the pills can't
+   ride up over the headline or crowd out the CTA. */
+let ggap=0;
+function setGgap(v){
+  ggap=Math.max(-50,Math.min(200,Math.round(v/10)*10));
+  document.getElementById("card").style.setProperty("--ggap",ggap+"px");
+  const el=document.getElementById("ggapVal");
+  if(el) el.textContent=(ggap>=0?"+":"−")+Math.abs(ggap)+"px";
+}
+
+/* ===== Safe-zone guide — chrome-only overlay of the phone/YouTube UI dead zones (9:16 only).
+   Hidden by body.clean (H) so it can never land in a capture. */
+function toggleSafezone(){
+  const on=document.body.classList.toggle("safezone");
+  const b=document.getElementById("bSafe");
+  if(b){ b.classList.toggle("on",on); b.textContent=(on?"Hide":"Show")+" guide (G)"; }
+}
 
 /* ===== Theme — light is the default; dark is a body class. The toggle is pure chrome,
    it never changes any score data. Both the top-right icon and the panel buttons sync here. */
@@ -591,6 +724,10 @@ document.addEventListener("keydown",e=>{
   if(e.key==="a"||e.key==="A")setRatio(ratio==='916'?'11':'916');
   if(e.key==="d"||e.key==="D")toggleTheme();
   if(e.key==="h"||e.key==="H")document.body.classList.toggle("clean");
+  /* [ / ] nudge the 9:16 top offset (shift = bigger steps) · G toggles the safe-zone guide */
+  if(e.key==="[")setYoff(yoff-(e.shiftKey?50:10));
+  if(e.key==="]")setYoff(yoff+(e.shiftKey?50:10));
+  if(e.key==="g"||e.key==="G")toggleSafezone();
 });
 
 /* scale the fixed-pixel card to fit the viewport (capture at 100% for true 1080-px pixels) */
