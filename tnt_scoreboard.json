@@ -1,6 +1,6 @@
 {
   "schema": "tnt_scoreboard_portal/v1",
-  "generated_at": "2026-07-09T00:57:33.691Z",
+  "generated_at": "2026-07-09T01:21:36.000Z",
   "source_csv": "Channels/CH-003-altcoin-buzz/Leads/Token Scorecard/tnt_scoreboard.csv",
   "featured": "XRP",
   "bands": {
@@ -332,9 +332,9 @@
       "technicals_band": "PENDING",
       "verdict_band": "NEUTRAL",
       "catalyst_count": 11,
-      "price_usd": null,
-      "price_display": null,
-      "price_as_of": null,
+      "price_usd": 468.32,
+      "price_display": "$468.32",
+      "price_as_of": "2026-07-09T01:21:36.000Z",
       "as_of_date": "2026-07-08",
       "technicals_as_of_date": null,
       "ta_status": "upcoming"
@@ -352,9 +352,9 @@
       "technicals_band": "PENDING",
       "verdict_band": "NEUTRAL",
       "catalyst_count": 10,
-      "price_usd": null,
-      "price_display": null,
-      "price_as_of": null,
+      "price_usd": 2.31,
+      "price_display": "$2.31",
+      "price_as_of": "2026-07-09T01:21:36.000Z",
       "as_of_date": "2026-07-08",
       "technicals_as_of_date": null,
       "ta_status": "upcoming"
@@ -392,9 +392,9 @@
       "technicals_band": "PENDING",
       "verdict_band": "NEUTRAL",
       "catalyst_count": 10,
-      "price_usd": null,
-      "price_display": null,
-      "price_as_of": null,
+      "price_usd": 28.95,
+      "price_display": "$28.95",
+      "price_as_of": "2026-07-09T01:21:36.000Z",
       "as_of_date": "2026-07-08",
       "technicals_as_of_date": null,
       "ta_status": "upcoming"
