@@ -1468,7 +1468,7 @@ const isSet=(v)=> typeof v==='string' && v.indexOf('XXXX')===-1 && v.indexOf('PA
     var tech = (t.technicals_score==null)
       ? '<td class="sc comp pending"><span class="pend-badge">PENDING</span><span class="pend-dash">—</span></td>'
       : '<td class="sc comp '+cls(t.technicals_band)+'">'+one(t.technicals_score)+'</td>';
-    return '<tr'+(t.ticker===FEATURED?' class="real-row"':'')+'>'
+    return '<tr>'
       + '<td class="rk">'+rank+'</td>'
       + '<td class="asset"><div class="ac"><span class="tlogo">'+logo(t.ticker)+'</span>'
       +   '<div><b>'+esc(t.ticker)+'</b><div class="full">'+esc(t.name)+'</div></div></div></td>'
