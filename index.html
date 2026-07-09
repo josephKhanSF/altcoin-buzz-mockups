@@ -342,6 +342,22 @@ h1{font-size:clamp(34px,5vw,54px); line-height:1.03; font-weight:700; color:var(
 .tnt-pill.pending{background:var(--lift-2); color:var(--faint); border:1px solid var(--lift-line);
   font-size:9.5px; font-weight:700; letter-spacing:.6px}
 .board .sc.pending{color:var(--faint); font-weight:600}
+/* #130 — TNT is the composite that CONTAINS Token/Network/Technicals.
+   Grouped "SCORE BREAKDOWN" header + faint gold tray; component numbers de-emphasised. */
+.board thead th.tnt-col{border-right:2px solid var(--gold-line)}
+.board thead th.bd-grp{color:var(--goldtx); font-weight:700; font-size:9px; letter-spacing:1.8px;
+  border-bottom:1px solid var(--gold-line); padding-bottom:7px}
+.board thead th.comp{font-size:10px; padding-top:9px}
+.board thead th.comp .lbl-abbr{display:none}
+.board td.comp, .board th.comp, .board th.bd-grp{background:color-mix(in srgb, var(--gold) 4.5%, transparent)}
+.board td.comp-first, .board th.comp-first, .board th.bd-grp{border-left:2px solid var(--gold-line)}
+.board td.comp.sc{font-size:14px; font-weight:600}
+.board tbody tr:hover td.comp{background:color-mix(in srgb, var(--gold) 8%, transparent)}
+.board .real-row td.comp{background:color-mix(in srgb, var(--gold) 11%, transparent)}
+.board .pend-badge{display:inline-flex; align-items:center; justify-content:center; font-family:'JetBrains Mono',monospace;
+  font-weight:700; font-size:9.5px; letter-spacing:.6px; padding:4px 9px; border-radius:8px;
+  background:var(--lift-2); color:var(--faint); border:1px solid var(--lift-line)}
+.board .pend-dash{display:none; color:var(--faint); font-weight:600}
 /* board freshness stamp + persistent brand-tag (real-data 'as of', DESIGN_BRIEF S6 / POSITIONING S6) */
 .bn-asof{display:block; margin-top:8px; color:var(--faint)}
 .bn-asof .brand-tag{color:var(--goldtx); font-weight:600; white-space:nowrap}
@@ -576,6 +592,10 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
   .board thead th, .board tbody td{padding:11px 7px}
   .board .asset .full{display:none}
   .board .pcol{display:none}
+  .board thead th.comp .lbl-full{display:none}
+  .board thead th.comp .lbl-abbr{display:inline}
+  .board .pend-badge{display:none}
+  .board .pend-dash{display:inline}
   .peers{flex-direction:column} .vrule{display:none}
   .pmod{padding-top:47px}
   .pmod + .pmod{border-top:2px solid var(--line2)}
@@ -846,13 +866,16 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
         <colgroup><col class="c-rk"><col class="c-as"><col class="c-pr"><col class="c-tnt"><col class="c-sc"><col class="c-sc"><col class="c-sc"></colgroup>
         <thead>
           <tr>
-            <th class="lft">#</th>
-            <th class="lft">Asset</th>
-            <th class="pcol">Price</th>
-            <th class="tnt-col">TNT</th>
-            <th>Token</th>
-            <th>Network</th>
-            <th>Technicals</th>
+            <th class="lft" rowspan="2">#</th>
+            <th class="lft" rowspan="2">Asset</th>
+            <th class="pcol" rowspan="2">Price</th>
+            <th class="tnt-col" rowspan="2">TNT</th>
+            <th class="bd-grp" colspan="3">SCORE BREAKDOWN</th>
+          </tr>
+          <tr>
+            <th class="comp comp-first"><span class="lbl-full">Token</span><span class="lbl-abbr">TOK</span></th>
+            <th class="comp"><span class="lbl-full">Network</span><span class="lbl-abbr">NET</span></th>
+            <th class="comp"><span class="lbl-full">Technicals</span><span class="lbl-abbr">TECH</span></th>
           </tr>
         </thead>
         <tbody id="board-body"><!-- rows rendered client-side from ./tnt_scoreboard.json (build_scoreboard_json.py) --></tbody>
@@ -1443,16 +1466,16 @@ const isSet=(v)=> typeof v==='string' && v.indexOf('XXXX')===-1 && v.indexOf('PA
       ? '<span class="tnt-pill pending">PENDING</span>'
       : '<span class="tnt-pill '+cls(t.tnt_band)+'">'+one(t.tnt_score)+'</span>';
     var tech = (t.technicals_score==null)
-      ? '<td class="sc pending">—</td>'
-      : '<td class="sc '+cls(t.technicals_band)+'">'+one(t.technicals_score)+'</td>';
+      ? '<td class="sc comp pending"><span class="pend-badge">PENDING</span><span class="pend-dash">—</span></td>'
+      : '<td class="sc comp '+cls(t.technicals_band)+'">'+one(t.technicals_score)+'</td>';
     return '<tr'+(t.ticker===FEATURED?' class="real-row"':'')+'>'
       + '<td class="rk">'+rank+'</td>'
       + '<td class="asset"><div class="ac"><span class="tlogo">'+logo(t.ticker)+'</span>'
       +   '<div><b>'+esc(t.ticker)+'</b><div class="full">'+esc(t.name)+'</div></div></div></td>'
       + '<td class="price pcol">'+esc(t.price_display||"—")+'</td>'
       + '<td>'+tnt+'</td>'
-      + '<td class="sc '+cls(t.token_band)+'">'+one(t.token_score)+'</td>'
-      + '<td class="sc '+cls(t.network_band)+'">'+one(t.network_score)+'</td>'
+      + '<td class="sc comp comp-first '+cls(t.token_band)+'">'+one(t.token_score)+'</td>'
+      + '<td class="sc comp '+cls(t.network_band)+'">'+one(t.network_score)+'</td>'
       + tech
       + '</tr>';
   }
