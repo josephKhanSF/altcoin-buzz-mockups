@@ -129,8 +129,8 @@
 
   /* ===== Two gauges — NETWORK then TOKEN (locked per-catalyst order) ===== */
   .gauges{flex:none;display:grid;grid-template-columns:1fr 1fr;align-items:start;justify-items:center}
-  /* 55px base + --ggap, the operator-tunable headline→pills gap (panel ±10 buttons). */
-  body.r916 .gauges{margin-top:calc(55px + var(--ggap,0px));column-gap:56px}
+  /* 35px base + --ggap, the operator-tunable headline→pills gap (panel ±10 buttons). */
+  body.r916 .gauges{margin-top:calc(35px + var(--ggap,0px));column-gap:56px}
   body.r11  .gauges{margin-top:30px;column-gap:40px}
   .pillar{display:flex;flex-direction:column;align-items:center;text-align:center;width:100%}
   /* pillar label = fixed BLACK PILL (score-independent), white text, doubled size */
@@ -153,6 +153,15 @@
   body.r916 .takeaway{font-size:60px;margin-top:70px;line-height:1.26}
   body.r11  .takeaway{font-size:41px;margin-top:34px;line-height:1.26}
   .takeaway .em{color:var(--ink);font-weight:700}
+
+  /* ===== Persistent portal CTA — small tag just below the dials. It is the §6 "free early access"
+     brand-tag: a zero-verbal-ask, non-competing reinforcement (NOT a second spoken ask). Hidden on
+     the Close stage, where the single parent-video CTA takes over (short → video → portal, §5). ===== */
+  .ctabar{flex:none;text-align:center;font-weight:600;color:var(--mut);letter-spacing:.3px;white-space:nowrap}
+  .ctabar .dom{color:var(--goldtx);font-weight:700}
+  /* 24px base + --cgap, the operator-tunable pills→CTA gap (panel ±3 buttons). */
+  body.r916 .ctabar{font-size:34px;margin-top:calc(24px + var(--cgap,0px))}
+  body.r11  .ctabar{font-size:24px;margin-top:26px}
 
   .spacer{flex:1;min-height:0}
 
@@ -236,6 +245,7 @@
   body.stage-close .catpill,
   body.stage-close .headline,
   body.stage-close .gauges,
+  body.stage-close .ctabar,
   body.stage-close .takeaway{display:none}
   /* Close content is TOP-ANCHORED so the lower half of the frame stays clear for green-screen talent. */
   body.stage-close .closecard{flex:1;min-height:0;display:flex;flex-direction:column;
@@ -310,6 +320,9 @@
     </div>
   </div>
 
+  <!-- Persistent portal CTA — small tag just below the dials (§6 free-early-access brand-tag). -->
+  <div class="ctabar" aria-label="Free early access at altcoinbuzz.com">Free early access → <span class="dom">altcoinbuzz.com</span></div>
+
   <!-- Generic CLOSE / overview endcap (Stage 3). DATA-FREE: no token, no catalyst #, no scores,
        no fixed catalyst count — reusable as-is for any token or pack size. Shown only on stage-close. -->
   <div class="closecard" id="closeScreen" aria-hidden="true">
@@ -363,6 +376,13 @@
     <button onclick="setGgap(ggap+10)">+10</button>
   </div>
 
+  <div class="lab">Pills → CTA gap (9:16) · <span id="cgapVal">+0px</span></div>
+  <div class="btnrow">
+    <button onclick="setCgap(cgap-3)">−3</button>
+    <button onclick="setCgap(0)">Reset</button>
+    <button onclick="setCgap(cgap+3)">+3</button>
+  </div>
+
   <div class="lab">Safe-zone guide (phone/YouTube UI dead zones)</div>
   <div class="btnrow">
     <button id="bSafe" onclick="toggleSafezone()">Show guide (G)</button>
@@ -408,88 +428,15 @@
    ===================================================================================== */
   /* ===GENERATED:BEGIN=== */
 const CATALYSTS = [
-  // --- XRP (lead 20260610-xrp_ledger-e91604c8) — lifted from END-REVEAL lines by build_shorts_card.py on 2026-06-18.
-  //     RE-BASELINED 2026-06-30 PM (QB-ratified re-baseline, option a): the 3 hand-added rows — V1 cat 5 (CLARITY Act),
-  //     V2 cat 12 (ODL corridors), V2 cat 9 (SBI rewards) — were reverted so the card's XRP set matches the 7-row
-  //     shorts_cards.json mirror exactly. shorts-card-sync re-establishes XRP coverage from the locked SHORTS_*.md packs
-  //     on the next per-pack sync (pack key = lead_id + video_num; XRP carries two packs, video-001 + video-002).
-  { cat_no:1, headline:"Goldman dumps its entire $153.8M XRP stake", net:5.0, tok:2.0, takeaway:"Wall Street's biggest XRP buyer is gone — a verdict on the coin, not the tech.",
-    source:"Video 1 (public deep-dive)", video_num:1, lead_id:"20260610-xrp_ledger-e91604c8", token:"XRP" },
-  { cat_no:3, headline:"May 6 JPMorgan / Mastercard / Ondo pilot on XRPL", net:8.0, tok:5.0, takeaway:"Banks used the ledger. The coin earned a fraction of a cent.",
-    source:"Video 1 (public deep-dive)", video_num:1, lead_id:"20260610-xrp_ledger-e91604c8", token:"XRP" },
-  { cat_no:6, headline:"RLUSD growth (~$1.67B · now ~1.8× the XRP ETF market)", net:7.0, tok:3.0, takeaway:"The decoupling made visible — the substitute outgrew the coin's own demand sink.",
-    source:"Video 1 (public deep-dive)", video_num:1, lead_id:"20260610-xrp_ledger-e91604c8", token:"XRP" },
-  { cat_no:8, headline:"Ripple escrow net leak (~300M XRP/mo)", net:5.0, tok:3.5, takeaway:"More supply arriving than buyers absorb — a slow, telegraphed drag.",
-    source:"Video 1 (public deep-dive)", video_num:1, lead_id:"20260610-xrp_ledger-e91604c8", token:"XRP" },
-  // --- XRP's $3 Billion Trap: The Ledger Wins, The Token Doesn't. Here's Why (lead 20260610-xrp_ledger-e91604c8 · video 2 · CP-...-video-002) — synced by shorts-card-sync on 2026-06-30.
-  //     net/tok lifted VERBATIM from each '## SHORT NN' header; headline + takeaway distilled
-  //     from the cold-open caption + closing beat. Splice key = (lead_id, video_num).
-  { cat_no:4, headline:"XRPL crosses $3B+ tokenized RWA (+124% Q1)", net:7.0, tok:5.0, takeaway:"The biggest number on the board. Almost none of it reaches the coin.",
-    source:"Video 2 (public follow-up)", video_num:2, lead_id:"20260610-xrp_ledger-e91604c8", token:"XRP", pack_title:"XRP's $3 Billion Trap: The Ledger Wins, The Token Doesn't. Here's Why" },
-  { cat_no:12, headline:"XRP payment corridors (~$14B ODL volume last quarter)", net:5.6, tok:5.8, takeaway:"The one place XRP is the product — but the coin's held for seconds. A toll booth, not a vault.",
-    source:"Video 2 (public follow-up)", video_num:2, lead_id:"20260610-xrp_ledger-e91604c8", token:"XRP", pack_title:"XRP's $3 Billion Trap: The Ledger Wins, The Token Doesn't. Here's Why" },
-  { cat_no:7, headline:"XRPL institutional DeFi stack (XLS-81/65/66 · EVM sidechain)", net:7.0, tok:5.8, takeaway:"The one mechanism that could re-couple the coin — built, live, and empty. A bull on option value.",
-    source:"Video 2 (public follow-up)", video_num:2, lead_id:"20260610-xrp_ledger-e91604c8", token:"XRP", pack_title:"XRP's $3 Billion Trap: The Ledger Wins, The Token Doesn't. Here's Why" },
-  { cat_no:9, headline:"SBI XRP shareholder rewards (Ripple's oldest partner)", net:5.6, tok:5.8, takeaway:"Steady, named-buyer demand — but the buy size is undisclosed, so new demand could be near zero.",
-    source:"Video 2 (public follow-up)", video_num:2, lead_id:"20260610-xrp_ledger-e91604c8", token:"XRP", pack_title:"XRP's $3 Billion Trap: The Ledger Wins, The Token Doesn't. Here's Why" },
-  { cat_no:10, headline:"Evernorth XRPN treasury (~473M held · $233.7M impairment)", net:5.0, tok:5.6, takeaway:"473M locked looks huge — but it scores only a weak bull. Lockup is not buy pressure.",
-    source:"Video 2 (public follow-up)", video_num:2, lead_id:"20260610-xrp_ledger-e91604c8", token:"XRP", pack_title:"XRP's $3 Billion Trap: The Ledger Wins, The Token Doesn't. Here's Why" },
-  // --- 5 Altcoins. 5 Bullish Catalysts: Which Impacts the Token Price Most (lead 20260625-type1_roundup-5e7b9a14 · video 1 · CP-...-video-001) — synced by shorts-card-sync on 2026-06-30.
-  //     net/tok lifted VERBATIM from each '## SHORT NN' header; headline + takeaway distilled
-  //     from the cold-open caption + closing beat. Splice key = (lead_id, video_num).
-  { cat_no:1, headline:"Coinbase routes $5B of USDC interest into buying HYPE", net:6.0, tok:6.8, takeaway:"Real new buying of the token — steady income, but only as strong as interest rates.",
-    source:"Video 1 (5-altcoin roundup)", video_num:1, lead_id:"20260625-type1_roundup-5e7b9a14", token:"HYPE", pack_title:"5 Altcoins. 5 Bullish Catalysts: Which Impacts the Token Price Most" },
-  { cat_no:2, headline:"Jupiter shut off its money printer — ~83% supply cut + 130M burn", net:5.0, tok:6.8, takeaway:"Fewer new tokens lifts every JUP you hold — but the freeze only covers 2026.",
-    source:"Video 1 (5-altcoin roundup)", video_num:1, lead_id:"20260625-type1_roundup-5e7b9a14", token:"JUP", pack_title:"5 Altcoins. 5 Bullish Catalysts: Which Impacts the Token Price Most" },
-  { cat_no:3, headline:"Aave spends ~$50M a year buying AAVE on the open market", net:5.0, tok:6.5, takeaway:"Real cash buying AAVE today — but parked in a reserve, not burned.",
-    source:"Video 1 (5-altcoin roundup)", video_num:1, lead_id:"20260625-type1_roundup-5e7b9a14", token:"AAVE", pack_title:"5 Altcoins. 5 Bullish Catalysts: Which Impacts the Token Price Most" },
-  { cat_no:4, headline:"Chainlink Reserve locks 3.9M+ LINK in a vault that never sells", net:5.5, tok:6.5, takeaway:"Permanently off the market, tightening supply — but it never flows back to holders.",
-    source:"Video 1 (5-altcoin roundup)", video_num:1, lead_id:"20260625-type1_roundup-5e7b9a14", token:"LINK", pack_title:"5 Altcoins. 5 Bullish Catalysts: Which Impacts the Token Price Most" },
-  { cat_no:5, headline:"Spot ADA ETF — ~75% odds, decision around October", net:5.5, tok:6.5, takeaway:"If it passes, steady buying of ADA near five-year lows — but it's not approved yet.",
-    source:"Video 1 (5-altcoin roundup)", video_num:1, lead_id:"20260625-type1_roundup-5e7b9a14", token:"ADA", pack_title:"5 Altcoins. 5 Bullish Catalysts: Which Impacts the Token Price Most" },
-  // --- TNT-Catalyst-Drop-A_2026-07-06 (lead 20260706-catalyst_drop_a · video 1 · CP-...-video-001) — synced by shorts-card-sync on 2026-07-06.
-  //     net/tok lifted VERBATIM from each '## SHORT NN' header; headline + takeaway distilled
-  //     from the cold-open caption + closing beat. Splice key = (lead_id, video_num).
-  { cat_no:1, headline:"SWIFT plugs Chainlink into global banking", net:8.0, tok:4.5, takeaway:"The tech won the biggest client in finance — the coin isn't part of the payment.",
-    source:"Catalyst Drop A (2026-07-06)", video_num:1, lead_id:"20260706-catalyst_drop_a", token:"LINK", pack_title:"TNT-Catalyst-Drop-A_2026-07-06" },
-  { cat_no:2, headline:"Ethena prints $363M in fees, $0 owed to ENA", net:8.0, tok:3.8, takeaway:"The machine is real — but ENA holders have no claim on the cash flows.",
-    source:"Catalyst Drop A (2026-07-06)", video_num:1, lead_id:"20260706-catalyst_drop_a", token:"ENA", pack_title:"TNT-Catalyst-Drop-A_2026-07-06" },
-  { cat_no:3, headline:"Jupiter buys back JUP with 50% of revenue", net:5.0, tok:7.5, takeaway:"Jupiter's clearest value lever — the push to 70% has no vote scheduled yet.",
-    source:"Catalyst Drop A (2026-07-06)", video_num:1, lead_id:"20260706-catalyst_drop_a", token:"JUP", pack_title:"TNT-Catalyst-Drop-A_2026-07-06" },
-  { cat_no:4, headline:"Cardano's Ouroboros Leios hits testnet", net:6.8, tok:5.0, takeaway:"The upgrade is real — but until usage shows up, faster blocks don't buy ADA.",
-    source:"Catalyst Drop A (2026-07-06)", video_num:1, lead_id:"20260706-catalyst_drop_a", token:"ADA", pack_title:"TNT-Catalyst-Drop-A_2026-07-06" },
-  { cat_no:5, headline:"Hyperliquid's RWA perps hit $1.4B in a day", net:6.8, tok:6.2, takeaway:"Mostly bullish — but 90%+ of that open interest sits with a single builder.",
-    source:"Catalyst Drop A (2026-07-06)", video_num:1, lead_id:"20260706-catalyst_drop_a", token:"HYPE", pack_title:"TNT-Catalyst-Drop-A_2026-07-06" },
-  // --- TNT-Catalyst-Drop-B_2026-07-06 (lead 20260706-catalyst_drop_b · video 1 · CP-...-video-001) — synced by shorts-card-sync on 2026-07-06.
-  //     net/tok lifted VERBATIM from each '## SHORT NN' header; headline + takeaway distilled
-  //     from the cold-open caption + closing beat. Splice key = (lead_id, video_num).
-  { cat_no:1, headline:"Ondo's tokenized-stock platform passes $1B", net:8.0, tok:4.5, takeaway:"A record platform — but the coin captures none of the cash it throws off.",
-    source:"Catalyst Drop B (2026-07-06)", video_num:1, lead_id:"20260706-catalyst_drop_b", token:"ONDO", pack_title:"TNT-Catalyst-Drop-B_2026-07-06" },
-  { cat_no:2, headline:"Tron settles $2T in USDT flow", net:8.0, tok:6.2, takeaway:"Some of that flow reaches TRX via the burn — but only a thin slice, not the river.",
-    source:"Catalyst Drop B (2026-07-06)", video_num:1, lead_id:"20260706-catalyst_drop_b", token:"TRX", pack_title:"TNT-Catalyst-Drop-B_2026-07-06" },
-  { cat_no:3, headline:"Aave sends 100% of revenue to the DAO", net:8.0, tok:7.0, takeaway:"One of the rare catalysts where the money genuinely lands on the token.",
-    source:"Catalyst Drop B (2026-07-06)", video_num:1, lead_id:"20260706-catalyst_drop_b", token:"AAVE", pack_title:"TNT-Catalyst-Drop-B_2026-07-06" },
-  { cat_no:4, headline:"Solana's Alpenglow consensus upgrade lands", net:8.0, tok:5.0, takeaway:"Solana's tech is winning — but the coin doesn't capture the win directly.",
-    source:"Catalyst Drop B (2026-07-06)", video_num:1, lead_id:"20260706-catalyst_drop_b", token:"SOL", pack_title:"TNT-Catalyst-Drop-B_2026-07-06" },
-  { cat_no:5, headline:"$292M KelpDAO bridge exploit hits LayerZero", net:5.0, tok:3.0, takeaway:"The network survived — but the token wore the loss, and that lingers.",
-    source:"Catalyst Drop B (2026-07-06)", video_num:1, lead_id:"20260706-catalyst_drop_b", token:"ZRO", pack_title:"TNT-Catalyst-Drop-B_2026-07-06" },
   // --- 8 Catalysts (lead 20260630-catalyst_drop · video 1 · CP-...-video-001) — synced by shorts-card-sync on 2026-06-30.
   //     net/tok lifted VERBATIM from each '## SHORT NN' header; headline + takeaway distilled
   //     from the cold-open caption + closing beat. Splice key = (lead_id, video_num).
-  { cat_no:1, headline:"SWIFT adopts Chainlink's cross-chain standard", net:8.5, tok:4.0, takeaway:"Chainlink won the biggest prize in finance — but the token isn't in the loop.",
-    source:"Catalyst Drop (2026-06-30)", video_num:1, lead_id:"20260630-catalyst_drop", token:"LINK", pack_title:"8 Catalysts" },
   { cat_no:2, headline:"Hyperliquid buys back HYPE every month", net:5.0, tok:6.5, takeaway:"A real buyback that reaches the token — but it's been shrinking each quarter.",
     source:"Catalyst Drop (2026-06-30)", video_num:1, lead_id:"20260630-catalyst_drop", token:"HYPE", pack_title:"8 Catalysts" },
-  { cat_no:3, headline:"Ondo's tokenized stocks pass $1 billion", net:7.5, tok:4.8, takeaway:"The platform is winning — but no mechanism sends those fees to the coin.",
-    source:"Catalyst Drop (2026-06-30)", video_num:1, lead_id:"20260630-catalyst_drop", token:"ONDO", pack_title:"8 Catalysts" },
   { cat_no:4, headline:"Aave routes 100% of revenue to its DAO", net:5.8, tok:6.5, takeaway:"The money reaches the token — indirectly, through the treasury, not your wallet.",
     source:"Catalyst Drop (2026-06-30)", video_num:1, lead_id:"20260630-catalyst_drop", token:"AAVE", pack_title:"8 Catalysts" },
   { cat_no:5, headline:"DTCC builds its collateral AppChain on Chainlink", net:8.0, tok:4.5, takeaway:"A Q4 2026 launch — and the win reaches LINK only if fees get pointed back at it.",
     source:"Catalyst Drop (2026-06-30)", video_num:1, lead_id:"20260630-catalyst_drop", token:"LINK", pack_title:"8 Catalysts" },
-  { cat_no:6, headline:"Jupiter locks half its revenue into buybacks", net:5.0, tok:6.5, takeaway:"Mostly good — the caveat is the team floated pausing it back in January.",
-    source:"Catalyst Drop (2026-06-30)", video_num:1, lead_id:"20260630-catalyst_drop", token:"JUP", pack_title:"8 Catalysts" },
-  { cat_no:7, headline:"Ethena earns $360M a year, ENA gets $0", net:6.5, tok:4.0, takeaway:"The network's a cash machine — but no contract points any of it at ENA.",
-    source:"Catalyst Drop (2026-06-30)", video_num:1, lead_id:"20260630-catalyst_drop", token:"ENA", pack_title:"8 Catalysts" },
   { cat_no:8, headline:"Ethena's fee switch: ready, still off", net:5.0, tok:5.6, takeaway:"Every box is ticked — but nine months on, the vote to flip it still hasn't come.",
     source:"Catalyst Drop (2026-06-30)", video_num:1, lead_id:"20260630-catalyst_drop", token:"ENA", pack_title:"8 Catalysts" },
   // --- LINK DTCC Re-cut (lead 20260707-link_dtcc_recut · video 1 · CP-...-video-001) — synced by shorts-card-sync on 2026-07-07.
@@ -497,6 +444,27 @@ const CATALYSTS = [
   //     from the cold-open caption + closing beat. Splice key = (lead_id, video_num).
   { cat_no:1, headline:"DTCC builds a 24/7 collateral system on Chainlink", net:8.0, tok:5.2, takeaway:"The network just landed a giant Wall Street client, but LINK only wins if fees route back to the token — a maybe, not a yes, and still months from full launch.",
     source:"LINK DTCC Re-cut (catalyst-shorts, no parent video)", video_num:1, lead_id:"20260707-link_dtcc_recut", token:"LINK", pack_title:"LINK DTCC Re-cut" },
+  // --- TNT Catalyst Drop (9 Catalysts) (lead 20260709-catalyst_drop · video 1 · CP-...-video-001) — synced by shorts-card-sync on 2026-07-09.
+  //     net/tok lifted VERBATIM from each '## SHORT NN' header; headline + takeaway distilled
+  //     from the cold-open caption + closing beat. Splice key = (lead_id, video_num).
+  { cat_no:1, headline:"Robinhood makes Lighter its default perps venue", net:8.0, tok:6.2, takeaway:"Real adoption piping into Robinhood's base; value reaches LIT through trading fees and the buyback.",
+    source:"TNT Catalyst Drop (9 Catalysts)", video_num:1, lead_id:"20260709-catalyst_drop", token:"LIT", pack_title:"TNT Catalyst Drop (9 Catalysts)" },
+  { cat_no:2, headline:"Grayscale files the first US privacy-coin ETF", net:5.0, tok:8.0, takeaway:"An ETF that buys and holds real ZEC, so demand lands straight on the coin. Our highest token score on record.",
+    source:"TNT Catalyst Drop (9 Catalysts)", video_num:1, lead_id:"20260709-catalyst_drop", token:"ZEC", pack_title:"TNT Catalyst Drop (9 Catalysts)" },
+  { cat_no:3, headline:"Tachyon: planet-scale private payments, quantum-proof by 2027", net:8.0, tok:5.0, takeaway:"Elite network tech, but a roadmap routes no dollars to the coin. The network wins, the token watches.",
+    source:"TNT Catalyst Drop (9 Catalysts)", video_num:1, lead_id:"20260709-catalyst_drop", token:"ZEC", pack_title:"TNT Catalyst Drop (9 Catalysts)" },
+  { cat_no:4, headline:"Lighter climbs to #3 in perps", net:8.0, tok:6.7, takeaway:"A top-three franchise priced at 20-25x revenue while Hyperliquid trades near 70x. That gap is the bull case.",
+    source:"TNT Catalyst Drop (9 Catalysts)", video_num:1, lead_id:"20260709-catalyst_drop", token:"LIT", pack_title:"TNT Catalyst Drop (9 Catalysts)" },
+  { cat_no:5, headline:"Rio + Visa: Polygon carries ~54% of USDC transfers", net:8.0, tok:6.2, takeaway:"A payments rail winning real traffic; every transaction burns a little POL, just not as much as the volume suggests.",
+    source:"TNT Catalyst Drop (9 Catalysts)", video_num:1, lead_id:"20260709-catalyst_drop", token:"POL", pack_title:"TNT Catalyst Drop (9 Catalysts)" },
+  { cat_no:6, headline:"ether.fi buys back ~$2M of ETHFI a month with real revenue", net:5.0, tok:7.0, takeaway:"A revenue-funded buyback worth about 7% of the market cap a year; mostly burn for now with only ~5% staked.",
+    source:"TNT Catalyst Drop (9 Catalysts)", video_num:1, lead_id:"20260709-catalyst_drop", token:"ETHFI", pack_title:"TNT Catalyst Drop (9 Catalysts)" },
+  { cat_no:7, headline:"3.6B+ POL staked to secure the AggLayer", net:8.0, tok:5.7, takeaway:"Cross-chain settlement revenue routes to POL stakers, so this one reaches the coin, though it is still early.",
+    source:"TNT Catalyst Drop (9 Catalysts)", video_num:1, lead_id:"20260709-catalyst_drop", token:"POL", pack_title:"TNT Catalyst Drop (9 Catalysts)" },
+  { cat_no:8, headline:"ether.fi is the #1 LRT with nearly $4B TVL", net:8.0, tok:5.0, takeaway:"A dominant, winning network whose yield goes to depositors, not the token. It mostly skips the coin.",
+    source:"TNT Catalyst Drop (9 Catalysts)", video_num:1, lead_id:"20260709-catalyst_drop", token:"ETHFI", pack_title:"TNT Catalyst Drop (9 Catalysts)" },
+  { cat_no:9, headline:"Cypherpunk treasury buying toward 5% of all ZEC", net:5.0, tok:7.0, takeaway:"Real money buying and holding the actual coin, about 1.9% of supply already, with most of the buying still ahead.",
+    source:"TNT Catalyst Drop (9 Catalysts)", video_num:1, lead_id:"20260709-catalyst_drop", token:"ZEC", pack_title:"TNT Catalyst Drop (9 Catalysts)" },
 
 ];
   /* ===GENERATED:END=== */
@@ -583,6 +551,16 @@ function setGgap(v){
   document.getElementById("card").style.setProperty("--ggap",ggap+"px");
   const el=document.getElementById("ggapVal");
   if(el) el.textContent=(ggap>=0?"+":"−")+Math.abs(ggap)+"px";
+}
+
+/* ===== Pills → CTA gap (2026-07-08) — same pattern as setYoff/setGgap: feeds --cgap read by
+   body.r916 .ctabar (24px base). Fine-grained ±3 steps. Chrome only, session-scoped, never persisted. */
+let cgap=0;
+function setCgap(v){
+  cgap=Math.max(-15,Math.min(120,Math.round(v)));
+  document.getElementById("card").style.setProperty("--cgap",cgap+"px");
+  const el=document.getElementById("cgapVal");
+  if(el) el.textContent=(cgap>=0?"+":"−")+Math.abs(cgap)+"px";
 }
 
 /* ===== Safe-zone guide — chrome-only overlay of the phone/YouTube UI dead zones (9:16 only).
