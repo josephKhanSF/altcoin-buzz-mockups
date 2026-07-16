@@ -91,10 +91,11 @@
   /* ===== Title row ===== */
   .topbar{display:flex;align-items:center;gap:22px;flex:none;margin-bottom:26px}
   .logo{width:64px;height:64px;flex:none;display:block}
-  .titles{display:flex;flex-direction:column;gap:5px}
-  .titles h1{font-size:42px;font-weight:700;letter-spacing:-.6px;line-height:1;color:var(--ink)}
-  .titles h1 .x{color:var(--goldtx)}
-  .titles .sub{font-size:17px;font-weight:500;color:var(--mut)}
+  .titles{display:flex;flex-direction:row;align-items:center;gap:22px}
+  .titles h1{font-size:42px;font-weight:700;letter-spacing:-.6px;line-height:1;color:#fff;white-space:nowrap}
+  .titles h1 .x{color:#fff}
+  .titles h1 .tnt{color:var(--goldtx)}
+  .titles .vpill{font-size:28px;font-weight:700;line-height:1;color:var(--goldink);background:var(--gold);padding:9px 22px;border-radius:999px;letter-spacing:.2px;white-space:nowrap}
 
   /* ===== Operator control cluster (icon-only; replaces the legend) — deliberately faint on camera ===== */
   .controls{margin-left:auto;display:flex;gap:10px;align-items:center}
@@ -201,6 +202,8 @@
 
   /* Register CTA — footer line (main board) + inline divider line (verdict popup) */
   .reg-foot,.reg-inline{font-size:26px;font-weight:600;color:var(--mut);text-decoration:none;letter-spacing:.2px}
+  .reg-foot{font-size:34px;color:var(--ink)}
+  .reg-foot .sep{color:var(--faint);font-weight:400;margin:0 .5em}
   .reg-foot b,.reg-inline b{color:var(--goldtx);font-weight:700}
   .reg-foot:hover b,.reg-inline:hover b{text-decoration:underline}
   /* Verdict popup: domain rendered as a GOLD capsule with near-black text */
@@ -289,6 +292,7 @@
     </svg>
     <div class="titles">
       <h1 id="boardTitle"></h1>
+      <span class="vpill" id="boardSub"></span>
     </div>
 
     <!-- Operator control cluster (icon-only). Intentionally faint — for the video team, not the viewer. -->
@@ -331,7 +335,7 @@
       </div>
     </div>
   </div>
-  <div class="foot"><a class="reg-foot" href="https://www.altcoinbuzz.com" target="_blank" rel="noopener"><b>www.altcoinbuzz.com</b> — Register Now for Early Access</a></div>
+  <div class="foot"><a class="reg-foot" href="https://www.altcoinbuzz.com" target="_blank" rel="noopener"><b>www.altcoinbuzz.com</b><span class="sep">|</span>Register Now for Early Access</a></div>
 
   <!-- Per-catalyst DETAIL overlay -->
   <div id="detail" onclick="if(event.target===this)closeDetail()">
@@ -683,8 +687,8 @@ function buildClose(){ document.getElementById("vcDial").innerHTML = tntDialSVG(
 /* Render the board title + the whole verdict popup from BOARD — bands DERIVED from the numbers. */
 function renderTitle(){
   document.title = BOARD.ticker+" — "+BOARD.rows.length+" Catalysts Scored · 16:9 screenshare";
-  document.getElementById("boardTitle").innerHTML =
-    '<span class="x">'+BOARD.ticker+'</span> — '+BOARD.rows.length+' Catalysts Scored';
+  document.getElementById("boardTitle").innerHTML = BOARD.ticker+' <span class="tnt">TNT</span> Scorecard';
+  document.getElementById("boardSub").innerHTML = BOARD.rows.length+' catalysts scored for token and network impact';
 }
 function bandFill(el, base, score){ el.className = base+" "+bandKey(score); }
 function renderVerdict(){

@@ -22,27 +22,27 @@
         altcoinbuzz.com, switch og:url + og:image + twitter:image back to the altcoinbuzz.com domain. -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Altcoin Buzz">
-<meta property="og:title" content="The network's winning. Is your wallet? · Altcoin Buzz TNT Score">
+<meta property="og:title" content="The network's winning. Is the token? · Altcoin Buzz TNT Score">
 <meta property="og:description" content="Every top altcoin scored three ways: Token, Network and Technicals. See whether the news actually reaches the token, or just the network. Get free early access.">
 <meta property="og:url" content="https://josephkhansf.github.io/altcoin-buzz-mockups/">
 <meta property="og:image" content="https://josephkhansf.github.io/altcoin-buzz-mockups/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Altcoin Buzz TNT Score. XRP composite TNT 5.3 neutral - Token 4.7, Network 5.9, Technicals 5.7. The network's winning. Is your wallet?">
+<meta property="og:image:alt" content="Altcoin Buzz TNT Score. LIT composite TNT 5.8 bullish - Token 5.3, Network 5.7, Technicals 6.3. The network's winning. Is the token?">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@Altcoinbuzzio">
 <meta name="twitter:creator" content="@Altcoinbuzzio">
-<meta name="twitter:title" content="The network's winning. Is your wallet? · Altcoin Buzz TNT Score">
+<meta name="twitter:title" content="The network's winning. Is the token? · Altcoin Buzz TNT Score">
 <meta name="twitter:description" content="Every top altcoin scored three ways. See whether the news actually moves the token, or just the network. Free early access.">
 <meta name="twitter:image" content="https://josephkhansf.github.io/altcoin-buzz-mockups/og-image.png">
-<meta name="twitter:image:alt" content="Altcoin Buzz TNT Score. XRP composite TNT 5.3 neutral - Token 4.7, Network 5.9, Technicals 5.7.">
+<meta name="twitter:image:alt" content="Altcoin Buzz TNT Score. LIT composite TNT 5.8 bullish - Token 5.3, Network 5.7, Technicals 6.3.">
 <!-- The two image:alt metas above + the hero/scorecard/story cards mirror the FEATURED
      token from the TNT scoreboard CSV. All of it is MACHINE-WRITTEN by the
      tnt-portal-sync skill (00_Pipeline/Skills/tnt-portal-sync/) inside GEN blocks:
      edit the CSV (via tnt-scoreboard-sync), then run tnt-portal-sync - never hand-edit
      scores/bands/dates here. Featured ticker + editorial band bindings live in
      Website/scripts/portal_config.json. -->
-<!-- GEN:stamp ticker=XRP tnt=5.3 NEUTRAL token=4.7 network=5.9 technicals=5.7 asof_research=2026-07-06 asof_technicals=2026-07-06 sig=16c62d7ac8d8 (written by tnt-portal-sync; do not hand-edit) -->
+<!-- GEN:stamp ticker=LIT tnt=5.8 BULLISH token=5.3 network=5.7 technicals=6.3 asof_research=2026-07-08 asof_technicals=2026-07-14 sig=96760376a78e (written by tnt-portal-sync; do not hand-edit) -->
 
 <!-- Analytics + ad pixels are consent-gated and configured near the bottom of this file
      (the TRACK config block). Nothing loads until the visitor accepts the cookie banner. -->
@@ -71,7 +71,7 @@
   --green-soft:rgba(21,130,74,.10); --red-soft:rgba(191,61,61,.10); --zero-soft:rgba(112,116,123,.10);
   --gold-soft:rgba(224,169,60,.10); --gold-line:rgba(224,169,60,.30);
   --lift:#ffffff; --lift-2:#f4f6fa; --lift-line:#d8dee7; --lift-div:rgba(0,0,0,.06);
-  --xrp-disc:#13161b; --xrp-mark:#ffffff;
+  --lit-disc:#141414; --lit-mark:#f5d142;
   --radius:18px; --radius-s:12px;
   --shadow:0 1px 2px rgba(20,30,55,.05), 0 8px 24px rgba(20,30,55,.06);
   --shadow-lg:0 2px 6px rgba(20,30,55,.06), 0 18px 50px rgba(20,30,55,.10);
@@ -90,7 +90,7 @@
   --green-soft:rgba(34,224,122,.13); --red-soft:rgba(204,13,26,.14); --zero-soft:rgba(138,144,155,.12);
   --gold-soft:rgba(232,181,74,.12); --gold-line:rgba(232,181,74,.34);
   --lift:#222b37; --lift-2:#2b3441; --lift-line:#3b4655; --lift-div:rgba(255,255,255,.08);
-  --xrp-disc:#0e1014; --xrp-mark:#f2f4f7;
+  --lit-disc:#141414; --lit-mark:#f5d142;
   --shadow:0 1px 2px rgba(0,0,0,.4);
   --shadow-lg:0 2px 6px rgba(0,0,0,.4), 0 18px 50px rgba(0,0,0,.5);
 }
@@ -186,12 +186,12 @@ h1{font-size:clamp(34px,5vw,54px); line-height:1.03; font-weight:700; color:var(
 .success p{font-size:14.5px; color:var(--mut); max-width:32em; margin:0 auto; line-height:1.5}
 .success .hint{font-size:12px; color:var(--faint); margin-top:16px; padding-top:14px; border-top:1px solid var(--line)}
 
-/* ── Hero two-column: text + form (left) · OG-style XRP scorecard (right) ──
+/* ── Hero two-column: text + form (left) · OG-style TNT scorecard (right) ──
    The hero is ALWAYS dark, so the card is styled for a dark surface in both themes. */
 .hero-card{background:var(--card); border:1px solid var(--line2); border-radius:18px;
   box-shadow:var(--shadow-lg); padding:20px 22px; text-align:left; width:100%; max-width:400px; margin:32px auto 0}
-.hero-card .tlogo .xc{fill:#f2f4f7}   /* crisp white XRP disc on the dark card (OG look) */
-.hero-card .tlogo .xp{fill:#0d0f12}
+.hero-card .tlogo .xc{fill:#f2f4f7}   /* crisp white disc on the dark card (OG look) */
+.hero-card .tlogo .xp{fill:#141414}   /* LIT bolt sits dark on the white hero disc for contrast */
 .hc-top{display:flex; align-items:center; justify-content:space-between; padding-bottom:14px; margin-bottom:4px; border-bottom:1px solid var(--line)}
 .hc-asset{display:flex; align-items:center; gap:9px}
 .hc-asset .tlogo svg{width:24px; height:24px; display:block}
@@ -299,10 +299,10 @@ h1{font-size:clamp(34px,5vw,54px); line-height:1.03; font-weight:700; color:var(
 .pm-title{font-size:20px; font-weight:700; color:var(--ink); letter-spacing:-.01em; margin-bottom:6px; line-height:1.25}
 .pm-desc{font-size:14.5px; color:var(--mut); max-width:46em; margin-bottom:20px}
 
-/* token logos (carried from version-b MVP, theme-aware XRP) */
+/* token logos (carried from version-b MVP, theme-aware featured mark) */
 .tlogo{display:inline-flex; flex:0 0 auto}
 .tlogo svg{width:22px; height:22px; display:block}
-.tlogo .xc{fill:var(--xrp-disc)} .tlogo .xp{fill:var(--xrp-mark)}
+.tlogo .xc{fill:var(--lit-disc)} .tlogo .xp{fill:var(--lit-mark)}
 
 .smp{display:inline-block; font-family:'JetBrains Mono',monospace; font-size:8.5px; font-weight:700; letter-spacing:1px;
   color:var(--goldtx); background:var(--gold-soft); border:1px solid var(--gold-line); border-radius:4px; padding:1px 5px; vertical-align:middle}
@@ -699,18 +699,18 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
     </div>
     </div><!-- /.hero-left -->
 
-    <!-- OG-style XRP scorecard preview beside the form. REAL ratified data + an "as of" freshness
+    <!-- OG-style LIT scorecard preview beside the form. REAL ratified data + an "as of" freshness
          stamp (NOT EXAMPLE/SAMPLE - real-but-aging values carry the stamp per DESIGN_BRIEF §6).
-         Answers the headline at a glance: Network 6.0 winning, Token 4.9 not. -->
+         Answers the headline at a glance: Network 5.7 winning, Token 5.3 lagging. -->
     <div class="hero-right">
       <!-- GEN:hero-card -->
-      <div class="hero-card" role="img" aria-label="XRP TNT Score, as of 6 July 2026: composite TNT 5.3 neutral. Token 4.7 neutral, Network 5.9 bullish, Technicals 5.7 bullish.">
+      <div class="hero-card" role="img" aria-label="LIT TNT Score, as of 14 July 2026: composite TNT 5.8 bullish. Token 5.3 neutral, Network 5.7 bullish, Technicals 6.3 bullish.">
         <div class="hc-top">
           <span class="hc-asset">
-            <span class="tlogo"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="16" cy="16" r="16" class="xc"/><path class="xp" d="M23.07 8h2.89l-6.015 5.957a5.621 5.621 0 0 1-7.89 0L6.035 8H8.93l4.57 4.523a3.556 3.556 0 0 0 4.996 0L23.07 8zM8.895 24.563H6l6.055-5.993a5.621 5.621 0 0 1 7.89 0L26 24.562h-2.895L18.5 20a3.556 3.556 0 0 0-4.996 0l-4.61 4.563z"/></svg></span>
-            <b>XRP</b><span class="hc-full">XRP</span>
+            <span class="tlogo"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="16" cy="16" r="16" class="xc"/><path class="xp" d="M18.4 5l-9 13h5.1l-2 9 9.5-14h-5.4z"/></svg></span>
+            <b>LIT</b><span class="hc-full">LIT</span>
           </span>
-          <span class="asof"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>as of 6 Jul 2026</span>
+          <span class="asof"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>as of 14 Jul 2026</span>
         </div>
         <div class="tnt">
           <div class="tnt-lab">TNT SCORE</div>
@@ -719,16 +719,16 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
             <path d="M22 96 A78 78 0 0 1 72.05 23.18" fill="none" stroke="var(--red)" stroke-width="14" stroke-linecap="round"/>
             <path d="M72.05 23.18 A78 78 0 0 1 101.36 18.01" fill="none" stroke="var(--yellow)" stroke-width="14" stroke-linecap="round"/>
             <path d="M101.36 18.01 A78 78 0 0 1 178 96" fill="none" stroke="var(--green)" stroke-width="14" stroke-linecap="round"/>
-            <circle cx="94.56" cy="18.19" r="9.5" fill="var(--card)"/>
-            <circle cx="94.56" cy="18.19" r="7" fill="var(--ink)"/>
+            <circle cx="108.15" cy="18.43" r="9.5" fill="var(--card)"/>
+            <circle cx="108.15" cy="18.43" r="7" fill="var(--ink)"/>
           </svg>
-          <div class="tnt-num neut">5.3</div>
-          <div class="tnt-word neut">NEUTRAL</div>
+          <div class="tnt-num bull">5.8</div>
+          <div class="tnt-word bull">BULLISH</div>
         </div>
         <div class="tnt-strip">
-          <div class="tnt-cell"><div class="lab">Token</div><div class="n neut">4.7</div></div>
-          <div class="tnt-cell"><div class="lab">Network</div><div class="n bull">5.9</div></div>
-          <div class="tnt-cell"><div class="lab">Technicals</div><div class="n bull">5.7</div></div>
+          <div class="tnt-cell"><div class="lab">Token</div><div class="n neut">5.3</div></div>
+          <div class="tnt-cell"><div class="lab">Network</div><div class="n bull">5.7</div></div>
+          <div class="tnt-cell"><div class="lab">Technicals</div><div class="n bull">6.3</div></div>
         </div>
       </div>
       <!-- /GEN:hero-card -->
@@ -740,9 +740,9 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
      operator 2026-06-19). The two section SHELLS below are unchanged - `.proof` (borderless,
      flows from the hero) and `.painband` (top-divider, sits above the portal) keep their exact
      bg/border; only the CONTENT inside the two bands was swapped.
-     Data integrity: the three chips are REAL ratified XRP catalysts (Altcoin Buzz research,
-     as of 16–17 Jun 2026) - no SAMPLE tag needed. The red line is SCHEMATIC (no axis, no
-     numbers) - a concept illustration of "flat/sagging," NOT an invented price claim. -->
+     Data integrity: the three chips are REAL ratified LIT catalysts (Altcoin Buzz research,
+     as of 8 Jul 2026) - no SAMPLE tag needed. The red line is SCHEMATIC (no axis, no
+     numbers) - a concept illustration of the token lagging the network, NOT an invented price claim. -->
 <section class="proof">
   <div class="wrap-n">
     <div class="pain reveal">
@@ -750,15 +750,15 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
         <div class="pv-col left">
           <div class="pv-col-h up"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 17l6-6 4 4 6-7"/><path d="M16 8h5v5"/></svg>Bullish news</div>
           <div class="pv-chips">
-            <div class="pv-chip"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.4 12.4l2.4 2.4 4.6-5"/></svg><span>JPMorgan &amp; Mastercard pilot on the XRP Ledger</span></div>
-            <div class="pv-chip"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.4 12.4l2.4 2.4 4.6-5"/></svg><span>$3B+ in tokenized assets on the ledger</span></div>
-            <div class="pv-chip"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.4 12.4l2.4 2.4 4.6-5"/></svg><span>Spot ETF inflows top $1.4B</span></div>
+            <div class="pv-chip"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.4 12.4l2.4 2.4 4.6-5"/></svg><span>Robinhood Chain launches with Lighter as its default perps DEX</span></div>
+            <div class="pv-chip"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.4 12.4l2.4 2.4 4.6-5"/></svg><span>#3 perp DEX by volume — $1.7T traded all-time</span></div>
+            <div class="pv-chip"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.4 12.4l2.4 2.4 4.6-5"/></svg><span>Revenue-funded buybacks now burned — ~$18M of LIT repurchased</span></div>
           </div>
         </div>
         <div class="pv-col right">
           <div class="pv-col-h dn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7l6 6 4-4 6 7"/><path d="M16 16h5v-5"/></svg>But flat price</div>
           <div class="pv-chartcard">
-            <div class="xrp">XRP</div>
+            <div class="xrp">LIT</div>
             <svg class="pv-chart" viewBox="0 0 300 168" role="img" aria-label="A flat, weak red candlestick chart drifting slightly down. Schematic illustration, not real price data.">
               <line x1="14" y1="70" x2="286" y2="70" stroke="var(--line2)" stroke-width="1.5" stroke-dasharray="3 5"/>
               <g stroke="var(--red)" stroke-width="1.6"><line x1="30" y1="56" x2="30" y2="86"/><line x1="62" y1="60" x2="62" y2="90"/></g>
@@ -779,13 +779,13 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
           </div>
         </div>
       </div>
-      <div class="pain-cap">Every headline is <span class="g">green</span>.<br><span class="r">The price isn't.</span> <span class="why">Why?</span></div>
-      <div class="pain-foot">Catalysts are real (Altcoin Buzz research, as of 16–17 Jun 2026). Price chart is schematic, not real data.</div>
+      <div class="pain-cap">Every headline is <span class="g">green</span>.<br><span class="r">The token score isn't.</span> <span class="why">Why?</span></div>
+      <div class="pain-foot">Catalysts are real (Altcoin Buzz research, as of 8 Jul 2026). Price chart is schematic, not real data.</div>
     </div>
   </div>
 </section>
 
-<!-- ══ PROOF - real ratified XRP board + freshness stamp (now below the pain band) ══ -->
+<!-- ══ PROOF - real ratified LIT board + freshness stamp (now below the pain band) ══ -->
 <section class="painband">
   <div class="wrap-n proof-head reveal">
     <h2 class="p-title">The TNT Score shows you why.</h2>
@@ -796,32 +796,32 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
     <div class="card reveal" id="scorecard">
       <div class="card-top">
         <div class="card-asset">
-          <span class="tlogo"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-label="XRP"><circle cx="16" cy="16" r="16" class="xc"/><path class="xp" d="M23.07 8h2.89l-6.015 5.957a5.621 5.621 0 0 1-7.89 0L6.035 8H8.93l4.57 4.523a3.556 3.556 0 0 0 4.996 0L23.07 8zM8.895 24.563H6l6.055-5.993a5.621 5.621 0 0 1 7.89 0L26 24.562h-2.895L18.5 20a3.556 3.556 0 0 0-4.996 0l-4.61 4.563z"/></svg></span>
-          <b>XRP</b><span>XRP</span>
+          <span class="tlogo"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-label="LIT"><circle cx="16" cy="16" r="16" class="xc"/><path class="xp" d="M18.4 5l-9 13h5.1l-2 9 9.5-14h-5.4z"/></svg></span>
+          <b>LIT</b><span>LIT</span>
         </div>
-        <!-- Real ratified XRP numbers - freshness stamp (NOT a SAMPLE tag; SAMPLE/EXAMPLE
+        <!-- Real ratified LIT numbers - freshness stamp (NOT a SAMPLE tag; SAMPLE/EXAMPLE
              stay reserved for genuinely invented data). -->
-        <span class="asof"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>as of 6 Jul 2026</span>
+        <span class="asof"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>as of 14 Jul 2026</span>
       </div>
       <!-- Three equal score columns (no FUNDAMENTALS/TECHNICALS grouping); the composite read lives in the callout below -->
       <div class="sc-row">
-        <div class="gauge" data-score="4.7">
+        <div class="gauge" data-score="5.3">
           <div class="pillar">Token</div>
-          <div class="num num-neut">4.7</div>
+          <div class="num num-neut">5.3</div>
           <div class="word word-neut">NEUTRAL</div>
-          <div class="read">Token price not impacted</div>
-        </div>
-        <div class="gauge" data-score="5.9">
-          <div class="pillar">Network</div>
-          <div class="num num-bull">5.9</div>
-          <div class="word word-bull">BULLISH</div>
-          <div class="read">Strong and growing</div>
+          <div class="read">Real accrual, but capped</div>
         </div>
         <div class="gauge" data-score="5.7">
-          <div class="pillar">Technicals</div>
+          <div class="pillar">Network</div>
           <div class="num num-bull">5.7</div>
           <div class="word word-bull">BULLISH</div>
-          <div class="read">Weak short-term</div>
+          <div class="read">Top-3 DEX, growing fast</div>
+        </div>
+        <div class="gauge" data-score="6.3">
+          <div class="pillar">Technicals</div>
+          <div class="num num-bull">6.3</div>
+          <div class="word word-bull">BULLISH</div>
+          <div class="read">Chart's turned up</div>
         </div>
       </div>
       <div class="callout tnt-callout">
@@ -832,15 +832,15 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
             <path d="M22 96 A78 78 0 0 1 72.05 23.18" fill="none" stroke="var(--red)" stroke-width="14" stroke-linecap="round"/>
             <path d="M72.05 23.18 A78 78 0 0 1 101.36 18.01" fill="none" stroke="var(--yellow)" stroke-width="14" stroke-linecap="round"/>
             <path d="M101.36 18.01 A78 78 0 0 1 178 96" fill="none" stroke="var(--green)" stroke-width="14" stroke-linecap="round"/>
-            <circle cx="94.56" cy="18.19" r="9.5" fill="var(--lift-2)"/>
-            <circle cx="94.56" cy="18.19" r="7" fill="var(--ink)"/>
+            <circle cx="108.15" cy="18.43" r="9.5" fill="var(--lift-2)"/>
+            <circle cx="108.15" cy="18.43" r="7" fill="var(--ink)"/>
           </svg>
-          <div class="tnt-num neut">5.3</div>
-          <div class="tnt-word neut">NEUTRAL</div>
+          <div class="tnt-num bull">5.8</div>
+          <div class="tnt-word bull">BULLISH</div>
         </div>
         <div class="tnt-txt">
-          <h4>A winning network doesn't mean a winning price.</h4>
-          <p>XRP's network is strong and growing, and the chart has turned up short-term — but the token still isn't capturing that strength. Open Fundamentals or Technicals for the full breakdown.</p>
+          <h4>A winning network, real accrual — and one big catch.</h4>
+          <p>LIT is a top-3 perp DEX with real revenue, and unusually its token does capture some of it — buybacks are now burned and staking locks up supply. But a 50%-of-supply insider unlock lands around the end of 2026, so the token reads neutral, not bullish. Open Fundamentals or Technicals for the full breakdown.</p>
         </div>
       </div>
     </div>
@@ -891,12 +891,12 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
     <!-- Item 2 · "Check your coin" - waitlist capture WITH CONTEXT (NOT a score lookup).
          Reuses the page's single .magnet/.js-signup mechanism; the coin rides along as the
          MC_COIN_FIELD merge field. Data integrity: the success copy NEVER shows a score for an
-         un-scored coin - XRP stays the one already-live example. -->
+         un-scored coin - LIT stays the one already-live example. -->
     <!-- HIDDEN (operator request, 2026-06-19): "Check your coin" capture is commented out. The coin cannot be recorded per subscriber through the embedded Mailchimp form, so the per-coin promise was removed for now. The hero and closer email forms are independent and still capture signups. To restore, delete this opening comment marker and the matching closing marker directly below the block.
     <div class="magnet coincheck">
       <form class="js-signup cc-form" data-loc="leaderboard" novalidate>
         <div class="cc-eye">CHECK YOUR COIN</div>
-        <div class="cc-sub">Hold something that isn't XRP? Tell us which coin. We'll have its TNT Score ready at launch and email you the moment it's live.</div>
+        <div class="cc-sub">Hold something that isn't LIT? Tell us which coin. We'll have its TNT Score ready at launch and email you the moment it's live.</div>
         <div class="field cc-field">
           <input type="text" class="cc-coin js-coin" name="COIN" inputmode="text" autocomplete="off" spellcheck="false"
                  placeholder="Coin (e.g. SOL)" aria-label="Coin ticker" maxlength="8">
@@ -936,19 +936,19 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
             <path d="M22 96 A78 78 0 0 1 72.05 23.18" fill="none" stroke="var(--red)" stroke-width="14" stroke-linecap="round"/>
             <path d="M72.05 23.18 A78 78 0 0 1 101.36 18.01" fill="none" stroke="var(--yellow)" stroke-width="14" stroke-linecap="round"/>
             <path d="M101.36 18.01 A78 78 0 0 1 178 96" fill="none" stroke="var(--green)" stroke-width="14" stroke-linecap="round"/>
-            <circle cx="94.56" cy="18.19" r="9.5" fill="var(--lift)"/>
-            <circle cx="94.56" cy="18.19" r="7" fill="var(--ink)"/>
+            <circle cx="108.15" cy="18.43" r="9.5" fill="var(--lift)"/>
+            <circle cx="108.15" cy="18.43" r="7" fill="var(--ink)"/>
           </svg>
-          <div class="tnt-num neut">5.3</div>
-          <div class="tnt-word neut">NEUTRAL</div>
+          <div class="tnt-num bull">5.8</div>
+          <div class="tnt-word bull">BULLISH</div>
         </div>
         <div class="story-body">
-          <div class="one"><span class="tlogo"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-label="XRP"><circle cx="16" cy="16" r="16" class="xc"/><path class="xp" d="M23.07 8h2.89l-6.015 5.957a5.621 5.621 0 0 1-7.89 0L6.035 8H8.93l4.57 4.523a3.556 3.556 0 0 0 4.996 0L23.07 8zM8.895 24.563H6l6.055-5.993a5.621 5.621 0 0 1 7.89 0L26 24.562h-2.895L18.5 20a3.556 3.556 0 0 0-4.996 0l-4.61 4.563z"/></svg></span>The network is winning. The token isn't.</div>
-          <div class="sline">XRP has a strong, growing network and a chart that's turned up short-term, but the token still isn't capturing it.</div>
+          <div class="one"><span class="tlogo"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-label="LIT"><circle cx="16" cy="16" r="16" class="xc"/><path class="xp" d="M18.4 5l-9 13h5.1l-2 9 9.5-14h-5.4z"/></svg></span>The network's ahead of the token — but not by much.</div>
+          <div class="sline">LIT runs a top-3 perp DEX with real, growing revenue, and unusually the token actually captures some of it — so the gap is narrow. What holds the token at neutral is a huge unlock ahead, not value leaking away.</div>
           <div class="tnt-strip story-strip">
-            <div class="tnt-cell"><div class="lab">Token</div><div class="n neut" data-count="4.7">4.7</div></div>
-            <div class="tnt-cell"><div class="lab">Network</div><div class="n bull" data-count="5.9">5.9</div></div>
-            <div class="tnt-cell"><div class="lab">Technicals</div><div class="n bull" data-count="5.7">5.7</div></div>
+            <div class="tnt-cell"><div class="lab">Token</div><div class="n neut" data-count="5.3">5.3</div></div>
+            <div class="tnt-cell"><div class="lab">Network</div><div class="n bull" data-count="5.7">5.7</div></div>
+            <div class="tnt-cell"><div class="lab">Technicals</div><div class="n bull" data-count="6.3">6.3</div></div>
           </div>
         </div>
       </div>
@@ -963,16 +963,16 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
     <p class="pm-desc">Every coin's page scores the news event by event. Open any catalyst to see how much it really reaches the token you can buy, versus the network behind it.</p>
     <div class="cat">
       <div class="cat-h">
-        <span class="ttl"><span class="tlogo"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-label="XRP"><circle cx="16" cy="16" r="16" class="xc"/><path class="xp" d="M23.07 8h2.89l-6.015 5.957a5.621 5.621 0 0 1-7.89 0L6.035 8H8.93l4.57 4.523a3.556 3.556 0 0 0 4.996 0L23.07 8zM8.895 24.563H6l6.055-5.993a5.621 5.621 0 0 1 7.89 0L26 24.562h-2.895L18.5 20a3.556 3.556 0 0 0-4.996 0l-4.61 4.563z"/></svg></span>XRP · FUNDAMENTALS SCORECARD</span>
+        <span class="ttl"><span class="tlogo"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-label="LIT"><circle cx="16" cy="16" r="16" class="xc"/><path class="xp" d="M18.4 5l-9 13h5.1l-2 9 9.5-14h-5.4z"/></svg></span>LIT · FUNDAMENTALS SCORECARD</span>
         <!-- GEN:cat-asof -->
-        <span class="asof"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>as of 6 Jul 2026</span>
+        <span class="asof"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>as of 8 Jul 2026</span>
         <!-- /GEN:cat-asof -->
       </div>
       <div class="cat-row">
         <div class="cat-top">
           <div class="cat-head">
-            <span class="scope">XRP ONLY</span>
-            <h4>JPMorgan, Mastercard &amp; Ondo settle a tokenized-Treasury pilot on the XRP Ledger</h4>
+            <span class="scope">LIT ONLY</span>
+            <h4>Robinhood Chain launches with Lighter as its default perpetuals DEX</h4>
           </div>
           <span class="chev"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
         </div>
@@ -981,15 +981,15 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
             <div class="sub">
               <div class="lab">Network impact</div>
               <div class="val"><span class="n bull" data-count="8.0">8.0</span><span class="w bull">BULLISH</span></div>
-              <div class="why">Marquee ledger validation: JPMorgan's Kinexys, Mastercard and Ondo all settling on XRPL.</div>
+              <div class="why">Robinhood Wallet routes perps trading to Lighter — a mainstream retail funnel plugged straight into the network. LIT rose ~17% on the news.</div>
             </div>
             <div class="sub">
               <div class="lab">Token impact</div>
-              <div class="val"><span class="n neut" data-count="4.5">4.5</span><span class="w neut">NEUTRAL</span></div>
-              <div class="why">Value moved as tokenized Treasuries and fiat. XRP earned only sub-cent fees, so no real token demand.</div>
+              <div class="val"><span class="n bull" data-count="6.2">6.2</span><span class="w bull">BULLISH</span></div>
+              <div class="why">Unlike a pure decoupling, this one does reach the token: new volume → fees → the revenue-funded buyback-and-burn. Indirect, and softened by $11M of LIT user incentives.</div>
             </div>
           </div>
-          <div class="takeaway"><b>Strong network impact, neutral token impact:</b> huge bullish headlines (JPMorgan and Mastercard) helped the <em>network</em> but created almost no new demand for the XRP <em>token</em>.</div>
+          <div class="takeaway"><b>Strong network impact, and real token impact:</b> Robinhood's distribution lifts the <em>network</em>, and because LIT burns revenue-funded buybacks, some of that value genuinely reaches the <em>token</em> — the catch is the big insider unlock still ahead.</div>
         </div>
       </div>
     </div>
@@ -1003,13 +1003,13 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
     <div class="buzz">
       <div class="buzz-h">
         <div class="buzz-dot"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l1.9 5.6 5.6 1.9-5.6 1.9L12 17.5l-1.9-5.6L4.5 10l5.6-1.9z"/><path d="M18.5 14l.95 2.55L22 17.5l-2.55.95L18.5 21l-.95-2.55L15 17.5l2.55-.95z"/></svg></div>
-        <div><div class="nm">Ask Buzz</div><div class="st">GROUNDED ON XRP'S SCORECARD</div></div>
+        <div><div class="nm">Ask Buzz</div><div class="st">GROUNDED ON LIT'S SCORECARD</div></div>
       </div>
       <div class="buzz-body">
-        <div class="msg you"><span class="who">YOU ASKED</span><div class="bubble user">If XRP has bullish news, why is the price flat?</div></div>
-        <div class="msg ai"><span class="who">ASK BUZZ</span><div class="bubble ai">Right now XRP's Network scores 5.9 (bullish) but the Token scores 4.7 (neutral). Most recent catalysts strengthen the ledger and partners, not direct demand for the token. Technicals have turned up, now at 5.7 (bullish). So even with the chart improving, the "good news" is still mostly reaching the network, not the price.
+        <div class="msg you"><span class="who">YOU ASKED</span><div class="bubble user">LIT actually burns its buybacks, so why is the Token score only neutral?</div></div>
+        <div class="msg ai"><span class="who">ASK BUZZ</span><div class="bubble ai">Right now LIT's Network scores <span data-buzz="net">5.7</span> (bullish) — a real top-3 perp DEX with a marquee Robinhood slot. The Token scores <span data-buzz="tok">5.3</span> (neutral): unusually, value does reach it — buybacks are burned and staking locks up supply — but a 50%-of-supply insider unlock around the end of 2026, plus fierce competition, cap the read. Technicals sit at <span data-buzz="tech">6.3</span> (bullish), with the chart turned up. So the network is clearly winning and the token partly captures it — just not enough to clear the unlock overhang yet.
           <!-- GEN:buzz-cite -->
-          <span class="cite"><svg viewBox="0 0 24 24" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>Source: XRP scorecard · as of 6 Jul 2026</span>
+          <span class="cite"><svg viewBox="0 0 24 24" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>Source: LIT scorecard · as of 14 Jul 2026</span>
           <!-- /GEN:buzz-cite -->
         </div></div>
         <div class="disc">Ask Buzz explains scores. It is not financial advice and won't tell you to buy or sell.</div>
@@ -1019,7 +1019,7 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
           <span class="chip">Which catalyst helped the network most?</span>
           <span class="chip">How is the Technicals read calculated?</span>
         </div>
-        <div class="askbar"><span class="ph">Ask about XRP's scores…</span><span class="send" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+        <div class="askbar"><span class="ph">Ask about LIT's scores…</span><span class="send" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
       </div>
     </div>
   </div>
@@ -1302,11 +1302,11 @@ const isSet=(v)=> typeof v==='string' && v.indexOf('XXXX')===-1 && v.indexOf('PA
     }
     function showSuccess(coin){
       // Item 2 - contextual copy for the coin-capture variant (data-integrity: NEVER shows a score
-      // for an un-scored coin; XRP is acknowledged as the one already-live example).
+      // for an un-scored coin; LIT is acknowledged as the one already-live example).
       if(coinInput){
         const line=success.querySelector('.js-coin-line');
         if(line){
-          if(coin==='XRP'){ line.innerHTML="XRP's TNT Score is already live. It's the scorecard above, and we'll have every other coin ready at launch."; }
+          if(coin==='LIT'){ line.innerHTML="LIT's TNT Score is already live. It's the scorecard above, and we'll have every other coin ready at launch."; }
           else{ line.textContent="We'll have "+(coin||'your coin')+"'s TNT Score ready at launch."; }
         }
       }
@@ -1407,7 +1407,7 @@ const isSet=(v)=> typeof v==='string' && v.indexOf('XXXX')===-1 && v.indexOf('PA
         cd altcoin-buzz-mockups && python3 -m http.server 8000   -> http://localhost:8000/ -->
 <script>
 (function(){
-  var FEATURED = "XRP";
+  var FEATURED = "LIT";
   var BAND_CLASS = { BULLISH:"bull", NEUTRAL:"neut", BEARISH:"bear", PENDING:"pending" };
 
   // Per-ticker brand mark — INLINED at sync time by tnt-portal-sync from the

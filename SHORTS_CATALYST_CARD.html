@@ -123,9 +123,12 @@
   body.r11  .catpill{font-size:28px;padding:11px 22px}
 
   /* ===== Catalyst headline ===== */
+  /* --hsize is the operator-tunable catalyst-text-size delta (panel: Catalyst text size, ±1px steps).
+     Base 62px (9:16) / 44px (1:1); the operator shrinks it so a long headline drops from 3 lines to
+     the video-team's 2-line max without any re-write. Chrome only, session-scoped, never persisted. */
   .headline{flex:none;color:var(--ink);font-weight:700;letter-spacing:-.8px;line-height:1.08;text-align:center}
-  body.r916 .headline{font-size:62px;margin-top:64px}
-  body.r11  .headline{font-size:44px;margin-top:30px}
+  body.r916 .headline{font-size:calc(62px + var(--hsize,0px));margin-top:64px}
+  body.r11  .headline{font-size:calc(44px + var(--hsize,0px));margin-top:30px}
 
   /* ===== Two gauges — NETWORK then TOKEN (locked per-catalyst order) ===== */
   .gauges{flex:none;display:grid;grid-template-columns:1fr 1fr;align-items:start;justify-items:center}
@@ -383,6 +386,13 @@
     <button onclick="setCgap(cgap+3)">+3</button>
   </div>
 
+  <div class="lab">Catalyst text size · <span id="hsizeVal">+0px</span></div>
+  <div class="btnrow">
+    <button onclick="setHsize(hsize-1)">−</button>
+    <button onclick="setHsize(0)">Default</button>
+    <button onclick="setHsize(hsize+1)">+</button>
+  </div>
+
   <div class="lab">Safe-zone guide (phone/YouTube UI dead zones)</div>
   <div class="btnrow">
     <button id="bSafe" onclick="toggleSafezone()">Show guide (G)</button>
@@ -561,6 +571,19 @@ function setCgap(v){
   document.getElementById("card").style.setProperty("--cgap",cgap+"px");
   const el=document.getElementById("cgapVal");
   if(el) el.textContent=(cgap>=0?"+":"−")+Math.abs(cgap)+"px";
+}
+
+/* ===== Catalyst text size (2026-07-16, video-team request) — operator-tunable delta on the headline
+   font-size, same pattern as setYoff/setGgap/setCgap. Feeds --hsize read by .headline (both aspects,
+   base 62px 9:16 / 44px 1:1). ±1px steps: the operator shrinks a long headline until it drops from 3
+   lines to the 2-line max — no re-write of the generated headline needed. Chrome only, session-scoped,
+   never persisted, never touches score data. Clamped so text can't vanish or blow past the frame. */
+let hsize=0;
+function setHsize(v){
+  hsize=Math.max(-34,Math.min(30,Math.round(v)));
+  document.getElementById("card").style.setProperty("--hsize",hsize+"px");
+  const el=document.getElementById("hsizeVal");
+  if(el) el.textContent=(hsize>=0?"+":"−")+Math.abs(hsize)+"px";
 }
 
 /* ===== Safe-zone guide — chrome-only overlay of the phone/YouTube UI dead zones (9:16 only).
