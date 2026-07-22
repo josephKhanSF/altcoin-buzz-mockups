@@ -17,6 +17,10 @@
     click chip / catalyst     reveal "N/X CATALYSTS" + catalyst text (click again to re-blur)
     click a score tile        reveal that score (all three show "?", click again to re-hide)
     R reset · U unblur everything · F fullscreen
+
+  LADDER SORT — two-tier: while a row's ALL CATALYSTS tile is HIDDEN the ladder ranks it on its
+    TOKEN score; revealing ALL CATALYSTS is the FINAL reveal that re-ranks that row on the
+    full-board aggregate. Un-revealed rows keep seed order below the revealed ones.
 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -137,18 +141,15 @@ body{font-family:var(--sans); color:var(--txt); -webkit-font-smoothing:antialias
 .score.pop{animation:reveal .42s cubic-bezier(.2,.9,.3,1.4)}
 @keyframes reveal{0%{transform:scale(.9)}60%{transform:scale(1.05)}100%{transform:scale(1)}}
 
-/* ── Footer — brand/link (left) + grey icon controls (right) ─────────── */
+/* ── Footer — register CTA (left) + grey icon controls (right) ─────────── */
 .ctl{flex:0 0 auto; margin-top:clamp(7px,1.2vh,13px); display:flex; align-items:center;
   justify-content:space-between; gap:10px clamp(14px,2.4vw,32px); flex-wrap:nowrap}
-.brandline{display:inline-flex; align-items:center; gap:clamp(9px,1.1vw,14px); text-decoration:none; min-width:0; flex:1 1 auto}
-.brandline .ab-logo{flex:0 0 auto; display:inline-flex}
-.brandline .ab-logo svg{height:clamp(30px,4.4vh,46px); width:auto; display:block}
-.ab-text{font-size:clamp(14px,1.95vh,19.5px); color:var(--ink); font-weight:700; letter-spacing:.2px; line-height:1.25; min-width:0}
-.ab-text b{white-space:nowrap}
-.ab-text .gold{color:var(--goldtx); font-weight:700}
-.ab-text .white{color:var(--ink); font-weight:600}
-.ab-text .url{color:var(--goldtx); font-weight:700; white-space:nowrap}
-.brandline:hover .ab-text b{color:var(--gold)}
+/* Register CTA — footer line, styled to match SCORECARD.html .reg-foot */
+.reg-foot{flex:1 1 auto; min-width:0; font-size:clamp(15px,2.4vh,26px); font-weight:600;
+  color:var(--ink); text-decoration:none; letter-spacing:.2px; line-height:1.25}
+.reg-foot b{color:var(--goldtx); font-weight:700}
+.reg-foot .sep{color:var(--faint); font-weight:400; margin:0 .5em}
+.reg-foot:hover b{text-decoration:underline}
 .ctl-btns{display:flex; align-items:center; gap:clamp(9px,1vw,14px)}
 .icon-btn{width:clamp(42px,5.2vh,52px); height:clamp(42px,5.2vh,52px); border-radius:11px;
   border:1px solid var(--lift-line); background:var(--lift); color:var(--mut); cursor:pointer;
@@ -175,11 +176,7 @@ body{font-family:var(--sans); color:var(--txt); -webkit-font-smoothing:antialias
   <div class="board" id="board"></div>
 
   <div class="ctl">
-    <a class="brandline" href="https://www.altcoinbuzz.com" target="_blank" rel="noopener">
-      <span class="ab-text"><span class="gold">News Benefiting the Token or Only the Network?</span><span class="white"> &nbsp; Get Early Access to the full Scoreboard &rarr; &nbsp;</span></span>
-      <span class="ab-logo"><svg class="ab-icon" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Altcoin Buzz"><radialGradient id="abIcon" cx="255.28" cy="80.48" r="241.68" gradientUnits="userSpaceOnUse"><stop offset=".18" stop-color="#F4E8D9"/><stop offset=".59" stop-color="#EDD089"/><stop offset="1" stop-color="#C08329"/></radialGradient><path fill="url(#abIcon)" d="M449.5,173.4c-10.6-25.1-25.8-47.6-45.2-67c-19.4-19.4-41.9-34.6-67-45.2c-8.4-3.5-16.9-6.5-25.6-8.9c-12.2-3.4-24.7-5.6-37.4-6.8c-6.3-0.6-12.6-0.9-19-0.9c-6.4,0-12.7,0.3-19,0.9c-12.7,1.1-25.2,3.4-37.4,6.8c-8.7,2.4-17.3,5.4-25.7,8.9c-25.1,10.6-47.6,25.8-67,45.2c-19.4,19.4-34.6,41.9-45.2,67c-11,26-16.6,53.6-16.6,82.1S50,311.5,61,337.5c0.6,1.5,1.2,2.9,1.9,4.3c5.6,12.4,12.3,24.1,20,35.1c1.2,1.6,2.4,3.3,3.6,4.9c6,8,12.6,15.5,19.7,22.7c0.4,0.4,0.9,0.9,1.4,1.3c19.1,18.7,41.1,33.5,65.6,43.8c26,11,53.6,16.6,82.1,16.6c28.5,0,56.1-5.6,82.1-16.6c24.5-10.4,46.6-25.1,65.7-43.9c0.4-0.4,0.9-0.9,1.3-1.3c7.1-7.1,13.7-14.7,19.7-22.7c1.2-1.6,2.4-3.3,3.6-4.9c7.8-11,14.4-22.7,20-35.1c0.6-1.4,1.3-2.9,1.9-4.3c11-26,16.6-53.6,16.6-82.1S460.5,199.4,449.5,173.4z M407.4,341.9c-0.8-1.4-1.6-2.7-2.4-4.1c-19.1-31.5-47.9-56.6-82.3-71l61.6,106.7c-32,35-78,57-129.1,57c-51,0-97-22-129.1-56.9l61.7-106.8c-33.9,14.2-62.4,38.8-81.5,69.7c-1.1,1.8-2.2,3.6-3.2,5.4c-7.1-12.5-12.7-25.9-16.6-40c-4.1-14.8-6.3-30.3-6.3-46.4c0-83.5,58.9-153.6,137.3-170.9c11.8-2.6,24-4,36.6-4.1l-19.5,33.7l-71.9,124.6c3.4-1.7,6.9-3.3,10.5-4.8c13.2-5.6,26.9-9.8,40.8-12.5l41.3-71.5l41.3,71.5c13.9,2.8,27.5,6.9,40.7,12.5c3.6,1.5,7.1,3.1,10.6,4.8l-72-124.6l-19.5-33.7c12.5,0.1,24.8,1.5,36.6,4.1c78.4,17.3,137.2,87.4,137.2,170.9c0,16.1-2.2,31.6-6.3,46.4C420.1,316,414.5,329.4,407.4,341.9z"/></svg></span>
-      <span class="ab-text"><span class="url">www.altcoinbuzz.com</span></span>
-    </a>
+    <a class="reg-foot" href="https://www.altcoinbuzz.com" target="_blank" rel="noopener"><b>www.altcoinbuzz.com</b><span class="sep">|</span>Register Now for Early Access</a>
     <div class="ctl-btns">
       <button class="icon-btn" id="back" title="Undo last action" aria-label="Undo last action" disabled>
         <svg viewBox="0 0 24 24"><path d="M9 14 4 9l5-5"/><path d="M4 9h11a5 5 0 0 1 0 10h-2"/></svg>
@@ -224,7 +221,9 @@ body{font-family:var(--sans); color:var(--txt); -webkit-font-smoothing:antialias
   function scoreTile(kind, val, qmode){
     var b = band(val);
     var labCls = "s-lab" + (kind === "ALL CATALYSTS" ? " s-lab-strong" : "");
-    var tileCls = "score" + (qmode?" qmode":"") + (kind === "ALL CATALYSTS" ? " score-all" : "");
+    var tileCls = "score" + (qmode?" qmode":"")
+      + (kind === "ALL CATALYSTS" ? " score-all" : "")
+      + (kind === "TOKEN" ? " score-tok" : "");
     return '<button class="'+tileCls+'" data-band="'+b+'" type="button" aria-pressed="false" aria-label="'+kind+' score, click to toggle">'
       + '<span class="'+labCls+'">'+kind+'</span>'
       + '<span class="s-fog"><span class="s-val">'+one(val)+'</span><span class="s-word">'+word(val)+'</span></span>'
@@ -246,21 +245,31 @@ body{font-family:var(--sans); color:var(--txt); -webkit-font-smoothing:antialias
   var rowEls = TOKENS.map(function(t){
     var el = document.createElement("div");
     el.className = "row" + (t.rank===1 ? " top" : "");
-    el.dataset.all  = t.all;   // ALL CATALYSTS score — the sort key
+    el.dataset.all  = t.all;   // ALL CATALYSTS aggregate — sort key AFTER its final reveal
+    el.dataset.tok  = t.tok;   // TOKEN score — sort key WHILE All-Catalysts stays hidden
     el.dataset.seed = t.rank;  // original board order — used for ties / hidden rows
     el.innerHTML = rowHTML(t);
     board.appendChild(el);
     return el;
   });
 
-  /* ── Live re-rank: when an ALL CATALYSTS score is revealed, rows slide into order
-     (revealed highest→lowest on top; hidden rows keep seed order below). Fixed 1–5 ladder —
-     the row content moves between the rungs, position 1 always shows the current leader. */
-  function allShown(el){ var s=el.querySelector(".score-all"); return !!s && s.classList.contains("shown"); }
+  /* ── Live re-rank: revealing a score slides rows into order (highest→lowest on top;
+     un-revealed rows keep seed order below). Fixed 1–5 ladder — the row content moves
+     between the rungs, position 1 always shows the current leader.
+     Two-tier key: while a row's ALL CATALYSTS tile is hidden the ladder sorts on its TOKEN
+     score; the ALL CATALYSTS reveal is the FINAL reveal that re-sorts the row on the aggregate. */
+  function scoreShown(el,sel){ var s=el.querySelector(sel); return !!s && s.classList.contains("shown"); }
+  function allShown(el){ return scoreShown(el,".score-all"); }
+  function tokShown(el){ return scoreShown(el,".score-tok"); }
+  function sortInfo(el){
+    if(allShown(el)) return { tier:2, val:parseFloat(el.dataset.all) };   // final: All-Catalysts aggregate
+    if(tokShown(el)) return { tier:1, val:parseFloat(el.dataset.tok) };   // interim: Token column
+    return { tier:0, val:0 };                                            // neither shown → parked below
+  }
   function rankCompare(a,b){
-    var ar=allShown(a), br=allShown(b);
-    if(ar!==br) return ar ? -1 : 1;                         // revealed rows float above hidden
-    if(ar && br){ var d=parseFloat(b.dataset.all)-parseFloat(a.dataset.all); if(d) return d; }  // higher score first
+    var ia=sortInfo(a), ib=sortInfo(b);
+    if(ia.tier!==ib.tier) return ib.tier-ia.tier;          // higher tier floats up (All > Token > hidden)
+    if(ia.tier>0){ var d=ib.val-ia.val; if(d) return d; }  // higher score first
     return (+a.dataset.seed)-(+b.dataset.seed);             // tie / both hidden → seed order
   }
   function sortBoard(){
@@ -359,7 +368,7 @@ body{font-family:var(--sans); color:var(--txt); -webkit-font-smoothing:antialias
       s.setAttribute("aria-pressed", on ? "true" : "false");
       s.classList.remove("pop");
       if(on){ void s.offsetWidth; s.classList.add("pop"); }
-      if(s.classList.contains("score-all")) sortBoard();   // re-rank on ALL CATALYSTS reveal/hide
+      if(s.classList.contains("score-all") || s.classList.contains("score-tok")) sortBoard();   // re-rank on TOKEN (interim) or ALL CATALYSTS (final) reveal/hide
       return;
     }
     if(asset){ asset.closest(".row").classList.toggle("id-shown"); return; }
