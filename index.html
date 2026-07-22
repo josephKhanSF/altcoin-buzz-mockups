@@ -28,21 +28,21 @@
 <meta property="og:image" content="https://josephkhansf.github.io/altcoin-buzz-mockups/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Altcoin Buzz TNT Score. LIT composite TNT 5.8 bullish - Token 5.3, Network 5.7, Technicals 6.3. The network's winning. Is the token?">
+<meta property="og:image:alt" content="Altcoin Buzz TNT Score. PUMP composite TNT 6.1 bullish - Token 5.0, Network 5.7, Technicals 7.2. The network's winning. Is the token?">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@Altcoinbuzzio">
 <meta name="twitter:creator" content="@Altcoinbuzzio">
 <meta name="twitter:title" content="The network's winning. Is the token? · Altcoin Buzz TNT Score">
 <meta name="twitter:description" content="Every top altcoin scored three ways. See whether the news actually moves the token, or just the network. Free early access.">
 <meta name="twitter:image" content="https://josephkhansf.github.io/altcoin-buzz-mockups/og-image.png">
-<meta name="twitter:image:alt" content="Altcoin Buzz TNT Score. LIT composite TNT 5.8 bullish - Token 5.3, Network 5.7, Technicals 6.3.">
+<meta name="twitter:image:alt" content="Altcoin Buzz TNT Score. PUMP composite TNT 6.1 bullish - Token 5.0, Network 5.7, Technicals 7.2.">
 <!-- The two image:alt metas above + the hero/scorecard/story cards mirror the FEATURED
      token from the TNT scoreboard CSV. All of it is MACHINE-WRITTEN by the
      tnt-portal-sync skill (00_Pipeline/Skills/tnt-portal-sync/) inside GEN blocks:
      edit the CSV (via tnt-scoreboard-sync), then run tnt-portal-sync - never hand-edit
      scores/bands/dates here. Featured ticker + editorial band bindings live in
      Website/scripts/portal_config.json. -->
-<!-- GEN:stamp ticker=LIT tnt=5.8 BULLISH token=5.3 network=5.7 technicals=6.3 asof_research=2026-07-08 asof_technicals=2026-07-14 sig=96760376a78e (written by tnt-portal-sync; do not hand-edit) -->
+<!-- GEN:stamp ticker=PUMP tnt=6.1 BULLISH token=5.0 network=5.7 technicals=7.2 asof_research=2026-07-22 asof_technicals=2026-07-21 sig=b2de9695939c (written by tnt-portal-sync; do not hand-edit) -->
 
 <!-- Analytics + ad pixels are consent-gated and configured near the bottom of this file
      (the TRACK config block). Nothing loads until the visitor accepts the cookie banner. -->
@@ -135,13 +135,14 @@ header{position:sticky; top:0; z-index:50; background:var(--header-bg);
 .hero{padding:54px 0 50px; text-align:center; background:var(--bg)}
 .launch-pill{display:inline-flex; align-items:center; gap:7px; font-family:'JetBrains Mono',monospace;
   font-size:10.5px; font-weight:600; letter-spacing:1.6px; color:var(--goldtx);
-  background:var(--gold-soft); border:1px solid var(--gold-line); border-radius:30px; padding:6px 14px; margin-bottom:20px}
-.launch-pill .dot{width:6px; height:6px; border-radius:50%; background:var(--gold); box-shadow:0 0 0 4px var(--gold-soft)}
+  background:var(--gold-soft); border-radius:30px; padding:6px 14px; margin-bottom:20px}
 h1{font-size:clamp(34px,5vw,54px); line-height:1.03; font-weight:700; color:var(--ink);
   letter-spacing:-.022em; margin-bottom:16px}
 .subhead{font-size:17.5px; color:var(--mut); max-width:35em; margin:0 auto 22px}
-.hero-eyebrow{font-size:clamp(15px,2.2vw,20px); font-weight:600; color:var(--mut); letter-spacing:-.01em; margin:0 0 6px}
-.hero-support{font-size:14.5px; color:var(--faint); max-width:35em; margin:0 auto 22px}
+.hero h1{line-height:1.12; margin:0 0 14px}
+.h1-dim{color:var(--mut)}
+.hero-support{font-size:15px; color:var(--faint); max-width:35em; margin:0 auto 24px}
+.micro-gold{color:var(--goldtx); font-weight:600}
 .trust{display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:8px 18px;
   font-size:12.5px; color:var(--faint); margin:0 auto 28px; max-width:40em}
 .trust span{display:inline-flex; align-items:center; gap:7px}
@@ -658,11 +659,9 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
 <section class="hero" id="get-access">
   <div class="wrap hero-grid">
     <div class="hero-left">
-    <div class="launch-pill"><span class="dot"></span>EARLY ACCESS · LAUNCHING Q3 2026</div>
-    <p class="hero-eyebrow">The network's winning.</p>
-    <h1>Is your wallet?</h1>
-    <p class="subhead">Does the news reach your wallet?</p>
-    <p class="hero-support">Every top altcoin, scored 3 ways: Token, Network and Technicals (TNT), to help you see if the news is really going to impact the token, or not.</p>
+    <div class="launch-pill">EARLY ACCESS · Q3 2026</div>
+    <h1><span class="h1-dim">The network's winning.</span><br>Is the token?</h1>
+    <p class="hero-support">Every top altcoin, scored 3 ways: Token, Network, Technicals.</p>
 
     <!-- Email-capture lead magnet (reusable: .magnet wraps .js-signup + .js-success).
          ⚠ CONFIG: until SIGNUP_ENDPOINT (bottom of file) is wired to the operator's Mailchimp
@@ -675,10 +674,6 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
             mechanism is provisioned, the static "first 500" line below stays as-is. -->
     <div class="magnet">
       <form class="js-signup" data-loc="hero" novalidate>
-        <div class="incentive">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.4 5 5.5.8-4 3.9.9 5.5L12 21.4 7.2 18.2l.9-5.5-4-3.9 5.5-.8z"/></svg>
-          The first 500 to sign up get access to our Beta portal at launch
-        </div>
         <div class="field">
           <input type="email" class="js-email" name="EMAIL" inputmode="email" autocomplete="email"
                  placeholder="you@email.com" aria-label="Email address" required>
@@ -688,7 +683,7 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
           <input type="text" class="js-honeypot" tabindex="-1" value="">
         </div>
         <div class="form-msg js-msg" role="status" aria-live="polite"></div>
-        <div class="microcopy">No spam, unsubscribe anytime.</div>
+        <div class="microcopy"><span class="micro-gold">First 500 signups</span> get Beta portal access at launch &middot; No spam, unsubscribe anytime.</div>
       </form>
       <div class="success js-success" role="status" aria-live="polite">
         <div class="tick"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
@@ -699,18 +694,18 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
     </div>
     </div><!-- /.hero-left -->
 
-    <!-- OG-style LIT scorecard preview beside the form. REAL ratified data + an "as of" freshness
+    <!-- OG-style PUMP scorecard preview beside the form. REAL ratified data + an "as of" freshness
          stamp (NOT EXAMPLE/SAMPLE - real-but-aging values carry the stamp per DESIGN_BRIEF §6).
-         Answers the headline at a glance: Network 5.7 winning, Token 5.3 lagging. -->
+         Answers the headline at a glance: Network 5.7 winning, Token 5.0 lagging. -->
     <div class="hero-right">
       <!-- GEN:hero-card -->
-      <div class="hero-card" role="img" aria-label="LIT TNT Score, as of 14 July 2026: composite TNT 5.8 bullish. Token 5.3 neutral, Network 5.7 bullish, Technicals 6.3 bullish.">
+      <div class="hero-card" role="img" aria-label="PUMP TNT Score, as of 21 July 2026: composite TNT 6.1 bullish. Token 5.0 neutral, Network 5.7 bullish, Technicals 7.2 bullish.">
         <div class="hc-top">
           <span class="hc-asset">
-            <span class="tlogo"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="16" cy="16" r="16" class="xc"/><path class="xp" d="M18.4 5l-9 13h5.1l-2 9 9.5-14h-5.4z"/></svg></span>
-            <b>LIT</b><span class="hc-full">LIT</span>
+            <span class="tlogo"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="16" cy="16" r="16" fill="#5FCB88"/><g transform="rotate(-40 16 16)"><rect x="6.5" y="11.75" width="19" height="8.5" rx="4.25" fill="#fff" stroke="#1D3934" stroke-width="1.8"/><line x1="16" y1="12.4" x2="16" y2="19.6" stroke="#1D3934" stroke-width="1.8"/></g></svg></span>
+            <b>PUMP</b><span class="hc-full">PUMP</span>
           </span>
-          <span class="asof"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>as of 14 Jul 2026</span>
+          <span class="asof"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>as of 21 Jul 2026</span>
         </div>
         <div class="tnt">
           <div class="tnt-lab">TNT SCORE</div>
@@ -719,16 +714,16 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
             <path d="M22 96 A78 78 0 0 1 72.05 23.18" fill="none" stroke="var(--red)" stroke-width="14" stroke-linecap="round"/>
             <path d="M72.05 23.18 A78 78 0 0 1 101.36 18.01" fill="none" stroke="var(--yellow)" stroke-width="14" stroke-linecap="round"/>
             <path d="M101.36 18.01 A78 78 0 0 1 178 96" fill="none" stroke="var(--green)" stroke-width="14" stroke-linecap="round"/>
-            <circle cx="108.15" cy="18.43" r="9.5" fill="var(--card)"/>
-            <circle cx="108.15" cy="18.43" r="7" fill="var(--ink)"/>
+            <circle cx="116.22" cy="19.70" r="9.5" fill="var(--card)"/>
+            <circle cx="116.22" cy="19.70" r="7" fill="var(--ink)"/>
           </svg>
-          <div class="tnt-num bull">5.8</div>
+          <div class="tnt-num bull">6.1</div>
           <div class="tnt-word bull">BULLISH</div>
         </div>
         <div class="tnt-strip">
-          <div class="tnt-cell"><div class="lab">Token</div><div class="n neut">5.3</div></div>
+          <div class="tnt-cell"><div class="lab">Token</div><div class="n neut">5.0</div></div>
           <div class="tnt-cell"><div class="lab">Network</div><div class="n bull">5.7</div></div>
-          <div class="tnt-cell"><div class="lab">Technicals</div><div class="n bull">6.3</div></div>
+          <div class="tnt-cell"><div class="lab">Technicals</div><div class="n bull">7.2</div></div>
         </div>
       </div>
       <!-- /GEN:hero-card -->
@@ -740,8 +735,8 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
      operator 2026-06-19). The two section SHELLS below are unchanged - `.proof` (borderless,
      flows from the hero) and `.painband` (top-divider, sits above the portal) keep their exact
      bg/border; only the CONTENT inside the two bands was swapped.
-     Data integrity: the three chips are REAL ratified LIT catalysts (Altcoin Buzz research,
-     as of 8 Jul 2026) - no SAMPLE tag needed. The red line is SCHEMATIC (no axis, no
+     Data integrity: the three chips are REAL ratified PUMP catalysts (Altcoin Buzz research,
+     as of 22 Jul 2026) - no SAMPLE tag needed. The red line is SCHEMATIC (no axis, no
      numbers) - a concept illustration of the token lagging the network, NOT an invented price claim. -->
 <section class="proof">
   <div class="wrap-n">
@@ -750,15 +745,15 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
         <div class="pv-col left">
           <div class="pv-col-h up"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 17l6-6 4 4 6-7"/><path d="M16 8h5v5"/></svg>Bullish news</div>
           <div class="pv-chips">
-            <div class="pv-chip"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.4 12.4l2.4 2.4 4.6-5"/></svg><span>Robinhood Chain launches with Lighter as its default perps DEX</span></div>
-            <div class="pv-chip"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.4 12.4l2.4 2.4 4.6-5"/></svg><span>#3 perp DEX by volume — $1.7T traded all-time</span></div>
-            <div class="pv-chip"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.4 12.4l2.4 2.4 4.6-5"/></svg><span>Revenue-funded buybacks now burned — ~$18M of LIT repurchased</span></div>
+            <div class="pv-chip"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.4 12.4l2.4 2.4 4.6-5"/></svg><span>Pump.fun burns $370M of PUMP — ~36% of supply — in a single buyback</span></div>
+            <div class="pv-chip"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.4 12.4l2.4 2.4 4.6-5"/></svg><span>#1 Solana launchpad — 10–25% of all Solana volume, $800M+ lifetime fees</span></div>
+            <div class="pv-chip"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M8.4 12.4l2.4 2.4 4.6-5"/></svg><span>50% of all revenue hard-wired to an on-chain buyback-and-burn</span></div>
           </div>
         </div>
         <div class="pv-col right">
           <div class="pv-col-h dn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7l6 6 4-4 6 7"/><path d="M16 16h5v-5"/></svg>But flat price</div>
           <div class="pv-chartcard">
-            <div class="xrp">LIT</div>
+            <div class="xrp">PUMP</div>
             <svg class="pv-chart" viewBox="0 0 300 168" role="img" aria-label="A flat, weak red candlestick chart drifting slightly down. Schematic illustration, not real price data.">
               <line x1="14" y1="70" x2="286" y2="70" stroke="var(--line2)" stroke-width="1.5" stroke-dasharray="3 5"/>
               <g stroke="var(--red)" stroke-width="1.6"><line x1="30" y1="56" x2="30" y2="86"/><line x1="62" y1="60" x2="62" y2="90"/></g>
@@ -780,12 +775,12 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
         </div>
       </div>
       <div class="pain-cap">Every headline is <span class="g">green</span>.<br><span class="r">The token score isn't.</span> <span class="why">Why?</span></div>
-      <div class="pain-foot">Catalysts are real (Altcoin Buzz research, as of 8 Jul 2026). Price chart is schematic, not real data.</div>
+      <div class="pain-foot">Catalysts are real (Altcoin Buzz research, as of 22 Jul 2026). Price chart is schematic, not real data.</div>
     </div>
   </div>
 </section>
 
-<!-- ══ PROOF - real ratified LIT board + freshness stamp (now below the pain band) ══ -->
+<!-- ══ PROOF - real ratified PUMP board + freshness stamp (now below the pain band) ══ -->
 <section class="painband">
   <div class="wrap-n proof-head reveal">
     <h2 class="p-title">The TNT Score shows you why.</h2>
@@ -796,18 +791,18 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
     <div class="card reveal" id="scorecard">
       <div class="card-top">
         <div class="card-asset">
-          <span class="tlogo"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-label="LIT"><circle cx="16" cy="16" r="16" class="xc"/><path class="xp" d="M18.4 5l-9 13h5.1l-2 9 9.5-14h-5.4z"/></svg></span>
-          <b>LIT</b><span>LIT</span>
+          <span class="tlogo"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-label="PUMP"><circle cx="16" cy="16" r="16" fill="#5FCB88"/><g transform="rotate(-40 16 16)"><rect x="6.5" y="11.75" width="19" height="8.5" rx="4.25" fill="#fff" stroke="#1D3934" stroke-width="1.8"/><line x1="16" y1="12.4" x2="16" y2="19.6" stroke="#1D3934" stroke-width="1.8"/></g></svg></span>
+          <b>PUMP</b><span>PUMP</span>
         </div>
-        <!-- Real ratified LIT numbers - freshness stamp (NOT a SAMPLE tag; SAMPLE/EXAMPLE
+        <!-- Real ratified PUMP numbers - freshness stamp (NOT a SAMPLE tag; SAMPLE/EXAMPLE
              stay reserved for genuinely invented data). -->
-        <span class="asof"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>as of 14 Jul 2026</span>
+        <span class="asof"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>as of 21 Jul 2026</span>
       </div>
       <!-- Three equal score columns (no FUNDAMENTALS/TECHNICALS grouping); the composite read lives in the callout below -->
       <div class="sc-row">
-        <div class="gauge" data-score="5.3">
+        <div class="gauge" data-score="5.0">
           <div class="pillar">Token</div>
-          <div class="num num-neut">5.3</div>
+          <div class="num num-neut">5.0</div>
           <div class="word word-neut">NEUTRAL</div>
           <div class="read">Real accrual, but capped</div>
         </div>
@@ -815,11 +810,11 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
           <div class="pillar">Network</div>
           <div class="num num-bull">5.7</div>
           <div class="word word-bull">BULLISH</div>
-          <div class="read">Top-3 DEX, growing fast</div>
+          <div class="read">#1 launchpad, real fees</div>
         </div>
-        <div class="gauge" data-score="6.3">
+        <div class="gauge" data-score="7.2">
           <div class="pillar">Technicals</div>
-          <div class="num num-bull">6.3</div>
+          <div class="num num-bull">7.2</div>
           <div class="word word-bull">BULLISH</div>
           <div class="read">Chart's turned up</div>
         </div>
@@ -832,15 +827,15 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
             <path d="M22 96 A78 78 0 0 1 72.05 23.18" fill="none" stroke="var(--red)" stroke-width="14" stroke-linecap="round"/>
             <path d="M72.05 23.18 A78 78 0 0 1 101.36 18.01" fill="none" stroke="var(--yellow)" stroke-width="14" stroke-linecap="round"/>
             <path d="M101.36 18.01 A78 78 0 0 1 178 96" fill="none" stroke="var(--green)" stroke-width="14" stroke-linecap="round"/>
-            <circle cx="108.15" cy="18.43" r="9.5" fill="var(--lift-2)"/>
-            <circle cx="108.15" cy="18.43" r="7" fill="var(--ink)"/>
+            <circle cx="116.22" cy="19.70" r="9.5" fill="var(--lift-2)"/>
+            <circle cx="116.22" cy="19.70" r="7" fill="var(--ink)"/>
           </svg>
-          <div class="tnt-num bull">5.8</div>
+          <div class="tnt-num bull">6.1</div>
           <div class="tnt-word bull">BULLISH</div>
         </div>
         <div class="tnt-txt">
           <h4>A winning network, real accrual — and one big catch.</h4>
-          <p>LIT is a top-3 perp DEX with real revenue, and unusually its token does capture some of it — buybacks are now burned and staking locks up supply. But a 50%-of-supply insider unlock lands around the end of 2026, so the token reads neutral, not bullish. Open Fundamentals or Technicals for the full breakdown.</p>
+          <p>PUMP is the #1 Solana launchpad with real revenue, and unusually its token does capture some of it — half of all fees fund an on-chain buyback that's already burned ~36% of supply. But a wave of insider unlocks and a $5.5B lawsuit sit ahead, so the token reads neutral, not bullish. Open Fundamentals or Technicals for the full breakdown.</p>
         </div>
       </div>
     </div>
@@ -891,12 +886,12 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
     <!-- Item 2 · "Check your coin" - waitlist capture WITH CONTEXT (NOT a score lookup).
          Reuses the page's single .magnet/.js-signup mechanism; the coin rides along as the
          MC_COIN_FIELD merge field. Data integrity: the success copy NEVER shows a score for an
-         un-scored coin - LIT stays the one already-live example. -->
+         un-scored coin - PUMP stays the one already-live example. -->
     <!-- HIDDEN (operator request, 2026-06-19): "Check your coin" capture is commented out. The coin cannot be recorded per subscriber through the embedded Mailchimp form, so the per-coin promise was removed for now. The hero and closer email forms are independent and still capture signups. To restore, delete this opening comment marker and the matching closing marker directly below the block.
     <div class="magnet coincheck">
       <form class="js-signup cc-form" data-loc="leaderboard" novalidate>
         <div class="cc-eye">CHECK YOUR COIN</div>
-        <div class="cc-sub">Hold something that isn't LIT? Tell us which coin. We'll have its TNT Score ready at launch and email you the moment it's live.</div>
+        <div class="cc-sub">Hold something that isn't PUMP? Tell us which coin. We'll have its TNT Score ready at launch and email you the moment it's live.</div>
         <div class="field cc-field">
           <input type="text" class="cc-coin js-coin" name="COIN" inputmode="text" autocomplete="off" spellcheck="false"
                  placeholder="Coin (e.g. SOL)" aria-label="Coin ticker" maxlength="8">
@@ -936,19 +931,19 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
             <path d="M22 96 A78 78 0 0 1 72.05 23.18" fill="none" stroke="var(--red)" stroke-width="14" stroke-linecap="round"/>
             <path d="M72.05 23.18 A78 78 0 0 1 101.36 18.01" fill="none" stroke="var(--yellow)" stroke-width="14" stroke-linecap="round"/>
             <path d="M101.36 18.01 A78 78 0 0 1 178 96" fill="none" stroke="var(--green)" stroke-width="14" stroke-linecap="round"/>
-            <circle cx="108.15" cy="18.43" r="9.5" fill="var(--lift)"/>
-            <circle cx="108.15" cy="18.43" r="7" fill="var(--ink)"/>
+            <circle cx="116.22" cy="19.70" r="9.5" fill="var(--lift)"/>
+            <circle cx="116.22" cy="19.70" r="7" fill="var(--ink)"/>
           </svg>
-          <div class="tnt-num bull">5.8</div>
+          <div class="tnt-num bull">6.1</div>
           <div class="tnt-word bull">BULLISH</div>
         </div>
         <div class="story-body">
-          <div class="one"><span class="tlogo"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-label="LIT"><circle cx="16" cy="16" r="16" class="xc"/><path class="xp" d="M18.4 5l-9 13h5.1l-2 9 9.5-14h-5.4z"/></svg></span>The network's ahead of the token — but not by much.</div>
-          <div class="sline">LIT runs a top-3 perp DEX with real, growing revenue, and unusually the token actually captures some of it — so the gap is narrow. What holds the token at neutral is a huge unlock ahead, not value leaking away.</div>
+          <div class="one"><span class="tlogo"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-label="PUMP"><circle cx="16" cy="16" r="16" fill="#5FCB88"/><g transform="rotate(-40 16 16)"><rect x="6.5" y="11.75" width="19" height="8.5" rx="4.25" fill="#fff" stroke="#1D3934" stroke-width="1.8"/><line x1="16" y1="12.4" x2="16" y2="19.6" stroke="#1D3934" stroke-width="1.8"/></g></svg></span>The network's ahead of the token — but not by much.</div>
+          <div class="sline">PUMP runs the #1 Solana launchpad with real, cash-generative revenue, and unusually the token actually captures some of it — half the fees are burned. What holds the token at neutral is a wall of insider unlocks and a $5.5B lawsuit ahead, not value leaking away.</div>
           <div class="tnt-strip story-strip">
-            <div class="tnt-cell"><div class="lab">Token</div><div class="n neut" data-count="5.3">5.3</div></div>
+            <div class="tnt-cell"><div class="lab">Token</div><div class="n neut" data-count="5.0">5.0</div></div>
             <div class="tnt-cell"><div class="lab">Network</div><div class="n bull" data-count="5.7">5.7</div></div>
-            <div class="tnt-cell"><div class="lab">Technicals</div><div class="n bull" data-count="6.3">6.3</div></div>
+            <div class="tnt-cell"><div class="lab">Technicals</div><div class="n bull" data-count="7.2">7.2</div></div>
           </div>
         </div>
       </div>
@@ -963,16 +958,16 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
     <p class="pm-desc">Every coin's page scores the news event by event. Open any catalyst to see how much it really reaches the token you can buy, versus the network behind it.</p>
     <div class="cat">
       <div class="cat-h">
-        <span class="ttl"><span class="tlogo"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-label="LIT"><circle cx="16" cy="16" r="16" class="xc"/><path class="xp" d="M18.4 5l-9 13h5.1l-2 9 9.5-14h-5.4z"/></svg></span>LIT · FUNDAMENTALS SCORECARD</span>
+        <span class="ttl"><span class="tlogo"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-label="PUMP"><circle cx="16" cy="16" r="16" fill="#5FCB88"/><g transform="rotate(-40 16 16)"><rect x="6.5" y="11.75" width="19" height="8.5" rx="4.25" fill="#fff" stroke="#1D3934" stroke-width="1.8"/><line x1="16" y1="12.4" x2="16" y2="19.6" stroke="#1D3934" stroke-width="1.8"/></g></svg></span>PUMP · FUNDAMENTALS SCORECARD</span>
         <!-- GEN:cat-asof -->
-        <span class="asof"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>as of 8 Jul 2026</span>
+        <span class="asof"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>as of 22 Jul 2026</span>
         <!-- /GEN:cat-asof -->
       </div>
       <div class="cat-row">
         <div class="cat-top">
           <div class="cat-head">
-            <span class="scope">LIT ONLY</span>
-            <h4>Robinhood Chain launches with Lighter as its default perpetuals DEX</h4>
+            <span class="scope">PUMP ONLY</span>
+            <h4>Pump.fun is the #1 Solana launchpad — and routes half its revenue into a PUMP buyback</h4>
           </div>
           <span class="chev"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
         </div>
@@ -980,16 +975,16 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
           <div class="sub-pair">
             <div class="sub">
               <div class="lab">Network impact</div>
-              <div class="val"><span class="n bull" data-count="8.0">8.0</span><span class="w bull">BULLISH</span></div>
-              <div class="why">Robinhood Wallet routes perps trading to Lighter — a mainstream retail funnel plugged straight into the network. LIT rose ~17% on the news.</div>
+              <div class="val"><span class="n bull" data-count="7.5">7.5</span><span class="w bull">BULLISH</span></div>
+              <div class="why">PumpSwap plus a 1% fee on 10–25% of all Solana token volume make Pump.fun the dominant, cash-generative launchpad — the network read is clearly bullish.</div>
             </div>
             <div class="sub">
               <div class="lab">Token impact</div>
               <div class="val"><span class="n bull" data-count="6.2">6.2</span><span class="w bull">BULLISH</span></div>
-              <div class="why">Unlike a pure decoupling, this one does reach the token: new volume → fees → the revenue-funded buyback-and-burn. Indirect, and softened by $11M of LIT user incentives.</div>
+              <div class="why">Real, but throttled: only ~50% of fees fund the buyback-and-burn that reaches PUMP, and the revenue run-rate has roughly halved from its 2025 peak.</div>
             </div>
           </div>
-          <div class="takeaway"><b>Strong network impact, and real token impact:</b> Robinhood's distribution lifts the <em>network</em>, and because LIT burns revenue-funded buybacks, some of that value genuinely reaches the <em>token</em> — the catch is the big insider unlock still ahead.</div>
+          <div class="takeaway"><b>Strong network dominance, and real token capture:</b> Pump.fun's fees fund a buyback that burns PUMP, so value genuinely reaches the <em>token</em> — the catch is that only half the (shrinking) revenue gets there, with a big insider unlock still ahead.</div>
         </div>
       </div>
     </div>
@@ -1003,13 +998,13 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
     <div class="buzz">
       <div class="buzz-h">
         <div class="buzz-dot"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l1.9 5.6 5.6 1.9-5.6 1.9L12 17.5l-1.9-5.6L4.5 10l5.6-1.9z"/><path d="M18.5 14l.95 2.55L22 17.5l-2.55.95L18.5 21l-.95-2.55L15 17.5l2.55-.95z"/></svg></div>
-        <div><div class="nm">Ask Buzz</div><div class="st">GROUNDED ON LIT'S SCORECARD</div></div>
+        <div><div class="nm">Ask Buzz</div><div class="st">GROUNDED ON PUMP'S SCORECARD</div></div>
       </div>
       <div class="buzz-body">
-        <div class="msg you"><span class="who">YOU ASKED</span><div class="bubble user">LIT actually burns its buybacks, so why is the Token score only neutral?</div></div>
-        <div class="msg ai"><span class="who">ASK BUZZ</span><div class="bubble ai">Right now LIT's Network scores <span data-buzz="net">5.7</span> (bullish) — a real top-3 perp DEX with a marquee Robinhood slot. The Token scores <span data-buzz="tok">5.3</span> (neutral): unusually, value does reach it — buybacks are burned and staking locks up supply — but a 50%-of-supply insider unlock around the end of 2026, plus fierce competition, cap the read. Technicals sit at <span data-buzz="tech">6.3</span> (bullish), with the chart turned up. So the network is clearly winning and the token partly captures it — just not enough to clear the unlock overhang yet.
+        <div class="msg you"><span class="who">YOU ASKED</span><div class="bubble user">PUMP actually burns its buybacks, so why is the Token score only neutral?</div></div>
+        <div class="msg ai"><span class="who">ASK BUZZ</span><div class="bubble ai">Right now PUMP's Network scores <span data-buzz="net">5.7</span> (bullish) — the #1 Solana launchpad with real, cash-generative revenue. The Token scores <span data-buzz="tok">5.0</span> (neutral): unusually, value does reach it — half of all fees are burned via buyback and ~36% of supply is already gone — but a wave of insider unlocks, a $5.5B lawsuit, and a cooling memecoin cycle cap the read. Technicals sit at <span data-buzz="tech">7.2</span> (bullish), with the chart at a two-month high. So the network is clearly winning and the token partly captures it — just not enough to clear the unlock overhang yet.
           <!-- GEN:buzz-cite -->
-          <span class="cite"><svg viewBox="0 0 24 24" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>Source: LIT scorecard · as of 14 Jul 2026</span>
+          <span class="cite"><svg viewBox="0 0 24 24" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg>Source: PUMP scorecard · as of 21 Jul 2026</span>
           <!-- /GEN:buzz-cite -->
         </div></div>
         <div class="disc">Ask Buzz explains scores. It is not financial advice and won't tell you to buy or sell.</div>
@@ -1019,7 +1014,7 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
           <span class="chip">Which catalyst helped the network most?</span>
           <span class="chip">How is the Technicals read calculated?</span>
         </div>
-        <div class="askbar"><span class="ph">Ask about LIT's scores…</span><span class="send" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+        <div class="askbar"><span class="ph">Ask about PUMP's scores…</span><span class="send" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
       </div>
     </div>
   </div>
@@ -1302,11 +1297,11 @@ const isSet=(v)=> typeof v==='string' && v.indexOf('XXXX')===-1 && v.indexOf('PA
     }
     function showSuccess(coin){
       // Item 2 - contextual copy for the coin-capture variant (data-integrity: NEVER shows a score
-      // for an un-scored coin; LIT is acknowledged as the one already-live example).
+      // for an un-scored coin; PUMP is acknowledged as the one already-live example).
       if(coinInput){
         const line=success.querySelector('.js-coin-line');
         if(line){
-          if(coin==='LIT'){ line.innerHTML="LIT's TNT Score is already live. It's the scorecard above, and we'll have every other coin ready at launch."; }
+          if(coin==='PUMP'){ line.innerHTML="PUMP's TNT Score is already live. It's the scorecard above, and we'll have every other coin ready at launch."; }
           else{ line.textContent="We'll have "+(coin||'your coin')+"'s TNT Score ready at launch."; }
         }
       }
@@ -1407,7 +1402,7 @@ const isSet=(v)=> typeof v==='string' && v.indexOf('XXXX')===-1 && v.indexOf('PA
         cd altcoin-buzz-mockups && python3 -m http.server 8000   -> http://localhost:8000/ -->
 <script>
 (function(){
-  var FEATURED = "LIT";
+  var FEATURED = "PUMP";
   var BAND_CLASS = { BULLISH:"bull", NEUTRAL:"neut", BEARISH:"bear", PENDING:"pending" };
 
   // Per-ticker brand mark — INLINED at sync time by tnt-portal-sync from the
