@@ -331,6 +331,16 @@ h1{font-size:clamp(34px,5vw,54px); line-height:1.03; font-weight:700; color:var(
 .board .asset b{color:var(--ink); font-size:14.5px; font-weight:700}
 .board .asset .full{font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--mut); font-weight:500; margin-top:1px}
 .board .price{font-family:'JetBrains Mono',monospace; color:var(--txt); font-size:13px}
+.board .price .pv{font-variant-numeric:tabular-nums}
+.board .price .pmove{font-size:10px; margin-left:5px; font-weight:600; letter-spacing:.2px}
+.board .price .pmove.up{color:var(--green)}
+.board .price .pmove.down{color:var(--red)}
+.board .price .pmove.flat{color:var(--zero)}
+.bn-live{display:none; margin-left:8px; padding:1px 7px; border-radius:999px; font-family:'JetBrains Mono',monospace;
+  font-size:9px; font-weight:700; letter-spacing:.6px; text-transform:uppercase; color:var(--green);
+  background:var(--green-soft); border:1px solid color-mix(in srgb,var(--green) 30%,transparent)}
+.bn-live.on{display:inline-flex; align-items:center}
+.bn-live::before{content:""; width:5px; height:5px; margin-right:5px; border-radius:50%; background:var(--green)}
 .tnt-pill{display:inline-flex; align-items:center; justify-content:center; min-width:46px; font-family:'JetBrains Mono',monospace;
   font-weight:700; font-size:14px; padding:4px 10px; border-radius:8px; font-variant-numeric:tabular-nums}
 .tnt-pill.bull{background:var(--green-soft); color:var(--green); border:1px solid color-mix(in srgb,var(--green) 30%,transparent)}
@@ -880,6 +890,7 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
         <span class="legend"><span class="sw" style="background:var(--zero)"></span>Neutral 4.5–5.5</span>
         <span class="legend"><span class="sw" style="background:var(--red)"></span>Bearish 1.0–4.4</span>
         <span class="bn-asof" id="board-asof"></span>
+        <span class="bn-live" id="prices-live" title="Live USD price + 24h move, refreshed every 10 minutes">Prices live</span>
       </div>
     </div>
 
@@ -1483,7 +1494,7 @@ const isSet=(v)=> typeof v==='string' && v.indexOf('XXXX')===-1 && v.indexOf('PA
       + '<td class="rk">'+rank+'</td>'
       + '<td class="asset"><div class="ac"><span class="tlogo">'+logo(t.ticker)+'</span>'
       +   '<div><b>'+esc(t.ticker)+'</b><div class="full">'+esc(t.name)+'</div></div></div></td>'
-      + '<td class="price pcol">'+esc(t.price_display||"—")+'</td>'
+      + '<td class="price pcol" data-cgid="'+esc(t.coingecko_id||'')+'">'+esc(t.price_display||"—")+'</td>'
       + '<td>'+tnt+'</td>'
       + '<td class="sc comp comp-first '+cls(t.token_band)+'">'+one(t.token_score)+'</td>'
       + '<td class="sc comp '+cls(t.network_band)+'">'+one(t.network_score)+'</td>'
@@ -1590,11 +1601,67 @@ const isSet=(v)=> typeof v==='string' && v.indexOf('XXXX')===-1 && v.indexOf('PA
     if(window.console) console.warn('[board] tnt_scoreboard.json load failed:', err);
   }
 
+  // ---- Live price feed (WS1 Netlify function) --------------------------------
+  // Paints a live USD price + a 24h ▲/▼ move onto each board row that carries a
+  // coingecko id, fetched from the WS1 price proxy. The static price_display in
+  // each cell is the fallback: if the feed is down, times out, or an id is
+  // missing, the cell keeps its static text. The column must never break/blank.
+  var PRICE_FN = 'https://altcoin-buzz-price-proxy.netlify.app/.netlify/functions/prices';
+
+  // Mirror build_scoreboard_json.py _price_display so live prices match the
+  // static style exactly: >=$1 -> 2dp; >=$0.01 -> 4dp; else 6dp; thousands + "$".
+  function fmtPrice(v){
+    var n = Number(v);
+    if(!isFinite(n)) return null;
+    var dp = (n >= 1) ? 2 : (n >= 0.01 ? 4 : 6);
+    return '$' + n.toLocaleString('en-US', {minimumFractionDigits:dp, maximumFractionDigits:dp});
+  }
+
+  function paintPrices(){
+    try{
+      var cells = Array.prototype.slice.call(
+          document.querySelectorAll('#board-body td.price[data-cgid]'))
+        .filter(function(c){ return c.getAttribute('data-cgid'); });
+      if(!cells.length) return;                       // nothing to paint (board not rendered / no ids)
+      var seen = {};
+      cells.forEach(function(c){ seen[c.getAttribute('data-cgid')] = 1; });
+      var qs = Object.keys(seen).map(encodeURIComponent).join(',');
+      if(!qs) return;
+      fetch(PRICE_FN + '?ids=' + qs, {cache:'no-store'})
+        .then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
+        .then(function(data){
+          if(!data || typeof data !== 'object') return;
+          var painted = 0;
+          cells.forEach(function(c){
+            var row = data[c.getAttribute('data-cgid')];
+            if(!row) return;                            // id absent -> keep static text
+            var px = fmtPrice(row.usd);
+            if(px == null) return;                      // bad number -> keep static text
+            var pct = Number(row.pct24h);
+            var dir = !isFinite(pct) ? 'flat' : (pct > 0 ? 'up' : (pct < 0 ? 'down' : 'flat'));
+            var glyph = (dir === 'up') ? '▲' : (dir === 'down') ? '▼' : '·';
+            var move = isFinite(pct)
+              ? '<span class="pmove '+dir+'">'+glyph+' '+Math.abs(pct).toFixed(1)+'%</span>'
+              : '';
+            c.innerHTML = '<span class="pv">'+esc(px)+'</span>'+move;
+            painted++;
+          });
+          if(painted > 0){
+            var badge = document.getElementById('prices-live');   // only claim "live" once a price paints
+            if(badge) badge.classList.add('on');
+          }
+        })
+        .catch(function(err){ if(window.console) console.warn('[prices] feed unavailable, keeping static:', err); });
+    }catch(err){ if(window.console) console.warn('[prices] paint skipped, keeping static:', err); }
+  }
+
   function init(){
     fetch('./tnt_scoreboard.json', {cache:'no-store'})
       .then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
       .then(render)
+      .then(function(){ paintPrices(); })     // live prices, right after board rows render
       .catch(fail);
+    setInterval(paintPrices, 600000);          // re-poll every 600 s
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', init);
   else init();
