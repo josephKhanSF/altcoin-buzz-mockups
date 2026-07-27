@@ -17,7 +17,7 @@
       10.0
     ]
   },
-  "token_count": 34,
+  "token_count": 38,
   "tokens": [
     {
       "ticker": "ZEC",
@@ -52,7 +52,7 @@
       "verdict_band": "NEUTRAL",
       "catalyst_count": 9,
       "coingecko_id": "injective-protocol",
-      "price_display": "$5.38",
+      "price_display": "$4.93",
       "as_of_date": "2026-07-22",
       "technicals_as_of_date": "2026-07-21",
       "ta_status": "live"
@@ -71,7 +71,7 @@
       "verdict_band": "NEUTRAL",
       "catalyst_count": 12,
       "coingecko_id": "aave",
-      "price_display": "$95.45",
+      "price_display": "$99.78",
       "as_of_date": "2026-07-22",
       "technicals_as_of_date": "2026-07-14",
       "ta_status": "live"
@@ -109,7 +109,7 @@
       "verdict_band": "NEUTRAL",
       "catalyst_count": 9,
       "coingecko_id": "lido-dao",
-      "price_display": "$0.3946",
+      "price_display": "$0.3877",
       "as_of_date": "2026-07-23",
       "technicals_as_of_date": "2026-07-24",
       "ta_status": "live"
@@ -128,7 +128,7 @@
       "verdict_band": "NEUTRAL",
       "catalyst_count": 8,
       "coingecko_id": "pump-fun",
-      "price_display": "$0.001818",
+      "price_display": "$0.001975",
       "as_of_date": "2026-07-22",
       "technicals_as_of_date": "2026-07-21",
       "ta_status": "live"
@@ -166,7 +166,7 @@
       "verdict_band": "NEUTRAL",
       "catalyst_count": 8,
       "coingecko_id": "pyth-network",
-      "price_display": "$0.0468",
+      "price_display": "$0.0433",
       "as_of_date": "2026-07-24",
       "technicals_as_of_date": "2026-07-14",
       "ta_status": "live"
@@ -185,7 +185,7 @@
       "verdict_band": "BULLISH",
       "catalyst_count": 7,
       "coingecko_id": "venice-token",
-      "price_display": "$12.18",
+      "price_display": "$14.06",
       "as_of_date": "2026-07-22",
       "technicals_as_of_date": "2026-07-21",
       "ta_status": "live"
@@ -204,7 +204,7 @@
       "verdict_band": "NEUTRAL",
       "catalyst_count": 11,
       "coingecko_id": "ether-fi",
-      "price_display": "$0.4521",
+      "price_display": "$0.4279",
       "as_of_date": "2026-07-20",
       "technicals_as_of_date": "2026-07-14",
       "ta_status": "live"
@@ -223,7 +223,7 @@
       "verdict_band": "NEUTRAL",
       "catalyst_count": 8,
       "coingecko_id": "litecoin",
-      "price_display": "$46.66",
+      "price_display": "$47.37",
       "as_of_date": "2026-07-22",
       "technicals_as_of_date": "2026-07-21",
       "ta_status": "live"
@@ -299,7 +299,7 @@
       "verdict_band": "NEUTRAL",
       "catalyst_count": 8,
       "coingecko_id": "arbitrum",
-      "price_display": "$0.0850",
+      "price_display": "$0.0821",
       "as_of_date": "2026-07-24",
       "technicals_as_of_date": "2026-07-14",
       "ta_status": "live"
@@ -337,7 +337,7 @@
       "verdict_band": "NEUTRAL",
       "catalyst_count": 9,
       "coingecko_id": "polygon-ecosystem-token",
-      "price_display": "$0.0772",
+      "price_display": "$0.0775",
       "as_of_date": "2026-07-08",
       "technicals_as_of_date": "2026-07-09",
       "ta_status": "live"
@@ -375,7 +375,7 @@
       "verdict_band": "NEUTRAL",
       "catalyst_count": 15,
       "coingecko_id": "chainlink",
-      "price_display": "$8.43",
+      "price_display": "$8.77",
       "as_of_date": "2026-07-20",
       "technicals_as_of_date": "2026-07-14",
       "ta_status": "live"
@@ -394,7 +394,7 @@
       "verdict_band": "NEUTRAL",
       "catalyst_count": 8,
       "coingecko_id": "hedera-hashgraph",
-      "price_display": "$0.0710",
+      "price_display": "$0.0699",
       "as_of_date": "2026-07-23",
       "technicals_as_of_date": "2026-07-24",
       "ta_status": "live"
@@ -413,7 +413,7 @@
       "verdict_band": "NEUTRAL",
       "catalyst_count": 9,
       "coingecko_id": "hyperliquid",
-      "price_display": "$58.40",
+      "price_display": "$59.51",
       "as_of_date": "2026-07-24",
       "technicals_as_of_date": "2026-07-14",
       "ta_status": "live"
@@ -432,7 +432,7 @@
       "verdict_band": "NEUTRAL",
       "catalyst_count": 10,
       "coingecko_id": "jupiter-exchange-solana",
-      "price_display": "$0.1883",
+      "price_display": "$0.1911",
       "as_of_date": "2026-07-24",
       "technicals_as_of_date": "2026-07-14",
       "ta_status": "live"
@@ -451,7 +451,7 @@
       "verdict_band": "NEUTRAL",
       "catalyst_count": 10,
       "coingecko_id": "solana",
-      "price_display": "$75.68",
+      "price_display": "$76.39",
       "as_of_date": "2026-07-06",
       "technicals_as_of_date": "2026-07-14",
       "ta_status": "live"
@@ -470,7 +470,7 @@
       "verdict_band": "NEUTRAL",
       "catalyst_count": 12,
       "coingecko_id": "cardano",
-      "price_display": "$0.1673",
+      "price_display": "$0.1653",
       "as_of_date": "2026-07-22",
       "technicals_as_of_date": "2026-07-14",
       "ta_status": "live"
@@ -508,7 +508,7 @@
       "verdict_band": "NEUTRAL",
       "catalyst_count": 13,
       "coingecko_id": "aerodrome-finance",
-      "price_display": "$0.4359",
+      "price_display": "$0.4304",
       "as_of_date": "2026-07-24",
       "technicals_as_of_date": "2026-07-14",
       "ta_status": "live"
@@ -527,7 +527,7 @@
       "verdict_band": "NEUTRAL",
       "catalyst_count": 8,
       "coingecko_id": "virtual-protocol",
-      "price_display": "$0.6077",
+      "price_display": "$0.6051",
       "as_of_date": "2026-07-22",
       "technicals_as_of_date": "2026-07-14",
       "ta_status": "live"
@@ -565,7 +565,7 @@
       "verdict_band": "NEUTRAL",
       "catalyst_count": 10,
       "coingecko_id": "dogecoin",
-      "price_display": "$0.0690",
+      "price_display": "$0.0729",
       "as_of_date": "2026-07-07",
       "technicals_as_of_date": "2026-07-14",
       "ta_status": "live"
@@ -584,7 +584,7 @@
       "verdict_band": "BEARISH",
       "catalyst_count": 8,
       "coingecko_id": "bitcoin",
-      "price_display": "$65,303.07",
+      "price_display": "$65,294.15",
       "as_of_date": "2026-07-06",
       "technicals_as_of_date": "2026-07-14",
       "ta_status": "live"
@@ -603,7 +603,7 @@
       "verdict_band": "NEUTRAL",
       "catalyst_count": 5,
       "coingecko_id": "wormhole",
-      "price_display": "$0.008824",
+      "price_display": "$0.009180",
       "as_of_date": "2026-07-13",
       "technicals_as_of_date": "2026-07-14",
       "ta_status": "live"
@@ -622,7 +622,7 @@
       "verdict_band": "NEUTRAL",
       "catalyst_count": 8,
       "coingecko_id": "layerzero",
-      "price_display": "$0.7951",
+      "price_display": "$0.8892",
       "as_of_date": "2026-07-22",
       "technicals_as_of_date": "2026-07-14",
       "ta_status": "live"
@@ -641,7 +641,7 @@
       "verdict_band": "NEUTRAL",
       "catalyst_count": 11,
       "coingecko_id": "ondo-finance",
-      "price_display": "$0.4050",
+      "price_display": "$0.4052",
       "as_of_date": "2026-07-20",
       "technicals_as_of_date": "2026-07-14",
       "ta_status": "live"
@@ -664,6 +664,82 @@
       "as_of_date": "2026-07-24",
       "technicals_as_of_date": "2026-07-24",
       "ta_status": "live"
+    },
+    {
+      "ticker": "XDC",
+      "name": "XDC",
+      "tnt_score": null,
+      "tnt_band": "PENDING",
+      "token_score": 5.4,
+      "token_band": "NEUTRAL",
+      "network_score": 6.1,
+      "network_band": "BULLISH",
+      "technicals_score": null,
+      "technicals_band": "PENDING",
+      "verdict_band": "NEUTRAL",
+      "catalyst_count": 8,
+      "coingecko_id": null,
+      "price_display": null,
+      "as_of_date": "2026-07-24",
+      "technicals_as_of_date": null,
+      "ta_status": "upcoming"
+    },
+    {
+      "ticker": "CRO",
+      "name": "CRO",
+      "tnt_score": null,
+      "tnt_band": "PENDING",
+      "token_score": 5.2,
+      "token_band": "NEUTRAL",
+      "network_score": 5.6,
+      "network_band": "BULLISH",
+      "technicals_score": null,
+      "technicals_band": "PENDING",
+      "verdict_band": "NEUTRAL",
+      "catalyst_count": 8,
+      "coingecko_id": null,
+      "price_display": "$0.0573",
+      "as_of_date": "2026-07-24",
+      "technicals_as_of_date": null,
+      "ta_status": "upcoming"
+    },
+    {
+      "ticker": "JTO",
+      "name": "JTO",
+      "tnt_score": null,
+      "tnt_band": "PENDING",
+      "token_score": 5.0,
+      "token_band": "NEUTRAL",
+      "network_score": 6.0,
+      "network_band": "BULLISH",
+      "technicals_score": null,
+      "technicals_band": "PENDING",
+      "verdict_band": "NEUTRAL",
+      "catalyst_count": 8,
+      "coingecko_id": null,
+      "price_display": "$0.5958",
+      "as_of_date": "2026-07-24",
+      "technicals_as_of_date": null,
+      "ta_status": "upcoming"
+    },
+    {
+      "ticker": "STABLE",
+      "name": "STABLE",
+      "tnt_score": null,
+      "tnt_band": "PENDING",
+      "token_score": 3.9,
+      "token_band": "BEARISH",
+      "network_score": 5.5,
+      "network_band": "NEUTRAL",
+      "technicals_score": null,
+      "technicals_band": "PENDING",
+      "verdict_band": "BEARISH",
+      "catalyst_count": 7,
+      "coingecko_id": null,
+      "price_display": "$0.0393",
+      "as_of_date": "2026-07-24",
+      "technicals_as_of_date": null,
+      "ta_status": "upcoming"
     }
   ]
 }

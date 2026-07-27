@@ -12,7 +12,7 @@
   Dark-only. One-screen (no scroll): all 5 rows fit a 16:9 / portrait frame; rows are
   compact full-width horizontal strips. Self-contained (logos + bands inline; offline-safe).
   Data source of truth (as-of 2026-07-22): catalyst_inventory.csv (per-catalyst net/tok, X = per-token
-  full-board catalyst count) + tnt_scoreboard.csv (all = full-board TNT / "All Catalysts" verdict).
+  full-board catalyst count) + tnt_scoreboard.csv (all = full-board aggregated Token score / "All Catalysts" = token_score).
 
   RECORDING CONTROLS (internal team) — everything is BLURRED by default; click to toggle.
     click logo / identity     reveal token logo + name (click again to re-blur)
@@ -210,16 +210,16 @@ body{font-family:var(--sans); color:var(--txt); -webkit-font-smoothing:antialias
 
   /* "Top Upcoming" 5 — scorecard-long #177 pilot. Source of truth (as-of 2026-07-22):
      catalyst_inventory.csv (per-catalyst net/tok, X = per-token full-board catalyst count) +
-     tnt_scoreboard.csv (all = full-board TNT / "All Catalysts" verdict = tnt_score).
+     tnt_scoreboard.csv (all = full-board aggregated Token score / "All Catalysts" = token_score).
      Order top→bottom = rank #1 → #5 (rank 1 on top). [+] reveals BOTTOM→UP (#5 first → #1 last). */
-  /* net = featured-catalyst Network · tok = featured-catalyst Token · all = full-board All-Catalysts
-     verdict: ADA 4.9 / ZRO 4.5 / ZEC 6.1 / ENA 4.9 / INJ 6.1. */
+  /* net = featured-catalyst Network · tok = featured-catalyst Token · all = full-board aggregated
+     Token score (token_score): ADA 5.1 / ZRO 4.5 / ZEC 5.6 / ENA 4.9 / INJ 5.4. */
   var TOKENS = [
-    { rank:1, ticker:"ADA", name:"Cardano",   total:12, cat:"Spot ADA ETF",                 net:5.0, tok:8.0, all:4.9 },
+    { rank:1, ticker:"ADA", name:"Cardano",   total:12, cat:"Spot ADA ETF",                 net:5.0, tok:8.0, all:5.1 },
     { rank:2, ticker:"ZRO", name:"LayerZero",  total:8,  cat:"Zero L1 + institutional backing", net:8.0, tok:5.7, all:4.5 },
-    { rank:3, ticker:"ZEC", name:"Zcash",      total:11, cat:"Grayscale spot ZEC ETF",       net:5.0, tok:7.5, all:6.1 },
+    { rank:3, ticker:"ZEC", name:"Zcash",      total:11, cat:"Grayscale spot ZEC ETF",       net:5.0, tok:7.5, all:5.6 },
     { rank:4, ticker:"ENA", name:"Ethena",     total:12, cat:"ENA fee switch / sENA",        net:5.0, tok:5.7, all:4.9 },
-    { rank:5, ticker:"INJ", name:"Injective",  total:9,  cat:"Spot INJ ETF (staked)",        net:5.0, tok:6.2, all:6.1 }
+    { rank:5, ticker:"INJ", name:"Injective",  total:9,  cat:"Spot INJ ETF (staked)",        net:5.0, tok:6.2, all:5.4 }
   ];
 
   function band(n){ return n>=5.6 ? "bull" : (n>=4.5 ? "neut" : "bear"); }
