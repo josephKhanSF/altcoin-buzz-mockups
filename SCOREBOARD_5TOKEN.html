@@ -7,17 +7,18 @@
 <meta name="theme-color" content="#0d0f12">
 <!--
   Altcoin Buzz — 5-token "Top Upcoming" scoreboard (b-roll).
-  Serves the scorecard-long "Top Upcoming" cut (#177 pilot): 5 upcoming catalysts ranked on
+  Serves the scorecard-long "The August Window" cut: 5 dated August catalysts ranked on
   Token Score, with the All-Catalysts final-reveal coda.
   Dark-only. One-screen (no scroll): all 5 rows fit a 16:9 / portrait frame; rows are
   compact full-width horizontal strips. Self-contained (logos + bands inline; offline-safe).
-  Data source of truth (as-of 2026-07-22): catalyst_inventory.csv (per-catalyst net/tok, X = per-token
+  Data source of truth (as-of 2026-07-30, calibration v2.1): catalyst_inventory.csv (per-catalyst net/tok, X = per-token
   full-board catalyst count) + tnt_scoreboard.csv (all = full-board aggregated Token score / "All Catalysts" = token_score).
 
   RECORDING CONTROLS (internal team) — everything is BLURRED by default; click to toggle.
     click logo / identity     reveal token logo + name (click again to re-blur)
-    click chip / catalyst     reveal "N/X CATALYSTS" + catalyst text (click again to re-blur)
+    click catalyst text       reveal the catalyst (click again to re-blur)
     click a score tile        reveal that score (all three show "?", click again to re-hide)
+                              the ALL tile carries the token full-board count: "ALL 20 CATALYSTS"
     R reset · U unblur everything · F fullscreen
 
   LADDER SORT — two-tier: while a row's ALL CATALYSTS tile is HIDDEN the ladder ranks it on its
@@ -62,14 +63,12 @@ body{font-family:var(--sans); color:var(--txt); -webkit-font-smoothing:antialias
   padding:clamp(7px,1.2vh,13px) clamp(13px,1.6vw,20px); position:relative; overflow:hidden;
   display:flex; align-items:center; gap:clamp(11px,1.5vw,20px)}
 /* Row box, rank, and score boxes/labels are visible from the start. Everything else is BLURRED
-   by default and toggled by clicking: the identity (logo + name) is one group, the N/X chip +
-   catalyst text are another. Click to reveal, click again to re-blur. */
-.asset,.catpill,.cat{transition:filter .55s ease, opacity .55s ease, transform .55s ease; cursor:pointer}
+   by default and toggled by clicking: the identity (logo + name) is one group, the catalyst
+   text is another. Click to reveal, click again to re-blur. */
+.asset,.cat{transition:filter .55s ease, opacity .55s ease, transform .55s ease; cursor:pointer}
 .row:not(.id-shown) .asset{filter:blur(10px); opacity:.9}
 .row.id-shown .asset{filter:none; opacity:1; animation:sharpen .5s ease both}
-.row:not(.cat-shown) .catpill,
 .row:not(.cat-shown) .cat{filter:blur(10px); opacity:.9}
-.row.cat-shown .catpill,
 .row.cat-shown .cat{filter:none; opacity:1; animation:sharpen .5s ease both}
 @keyframes sharpen{from{transform:translateY(5px)} to{transform:none}}
 .row.top{border-color:var(--gold-line)}
@@ -85,24 +84,19 @@ body{font-family:var(--sans); color:var(--txt); -webkit-font-smoothing:antialias
 .asset{flex:0 0 auto; display:flex; align-items:center; gap:clamp(9px,1.1vw,15px); min-width:clamp(126px,13.2vw,196px)}
 .tlogo{flex:0 0 auto; display:inline-flex}
 .tlogo svg{width:clamp(44px,6.2vh,64px); height:clamp(44px,6.2vh,64px); display:block}
+/* XRP's mark ships unfilled and class-themed (.xc disc / .xp glyph) — theme it or it renders black on the dark row. */
+.tlogo .xc{fill:#f2f4f7} .tlogo .xp{fill:#141414}
 .asset-tx{min-width:0}
 .asset-tx b{display:block; font-size:clamp(24px,4vh,38px); font-weight:700; color:var(--ink); letter-spacing:.2px; line-height:1.05}
 .asset-tx .full{font-family:var(--mono); font-size:clamp(12px,1.8vh,16px); color:var(--mut); font-weight:500}
 
-/* 1-of-X chip */
-.catpill{flex:0 0 auto; text-align:center; background:var(--gold-soft); border:1px solid var(--gold-line);
-  border-radius:11px; padding:clamp(5px,.9vh,9px) clamp(8px,.95vw,13px); line-height:1}
-.catpill .n{font-family:var(--mono); font-weight:700; font-size:clamp(21px,3.2vh,30px); color:var(--goldtx); font-variant-numeric:tabular-nums}
-.catpill .n small{font-size:1em; font-weight:700; opacity:1}
-.catpill .lab{display:block; font-family:var(--mono); font-size:clamp(8.5px,1.1vh,10.5px); font-weight:700; letter-spacing:1.2px; color:var(--goldtx); opacity:.85; margin-top:4px}
-
-/* catalyst (flexes to fill) */
+/* catalyst (flexes to fill — absorbs the width the retired N/X chip used to hold) */
 .cat{flex:1 1 auto; min-width:0; padding:0 clamp(6px,.8vw,14px)}
 .cat .name{font-size:clamp(19px,3.1vh,30px); font-weight:700; color:var(--ink); letter-spacing:-.01em; line-height:1.2}
 
 /* score tiles (blurred by default) */
 .scores{flex:0 0 auto; display:flex; align-items:center; gap:clamp(8px,1vw,12px)}
-.score{position:relative; cursor:pointer; text-align:center; width:clamp(98px,12vw,150px);
+.score{position:relative; cursor:pointer; text-align:center; width:clamp(122px,15.2vw,192px);
   background:var(--card-soft); border:1px solid var(--lift-line); border-radius:13px;
   padding:clamp(8px,1.1vh,12px) 8px clamp(10px,1.3vh,14px); font-family:inherit; color:inherit; overflow:hidden;
   transition:border-color .2s, background .2s}
@@ -205,35 +199,51 @@ body{font-family:var(--sans); color:var(--txt); -webkit-font-smoothing:antialias
     INJ:  '<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-label="INJ"><defs><linearGradient id="lg-inj" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#0082FA"/><stop offset="1" stop-color="#00F2FE"/></linearGradient></defs><circle cx="16" cy="16" r="16" fill="url(#lg-inj)"/><g transform="translate(4.4,4.4) scale(0.058)" fill="#fff"><path d="M48.5,69.1C51,66,53.6,63,56.2,60c0.1-0.1,0.4-0.2,0.5-0.3c0.2-0.3,0.6-0.5,0.9-0.8l0.2-0.3 c1.8-1.7,3.8-3.5,6-5.2c8-6,16.2-10.6,24.9-13.7c28-9.8,59.1-3.8,83.5,19.3c34.1,31.9,31,83.4,3.8,117.6 c-34.4,51-93.4,122.1-11.7,185.8c14.7,11.5,25.6,20.9,71.9,34.3c-30.3,5.6-58.4,3.8-89.6-4.1c-22.1-12.5-56.9-39.2-68.7-75.3 c-17.9-54.7,31.5-136.6,55.3-168.1c32.7-43.6-20.2-90.8-59.3-38.1C53.7,138.6,18,216.3,30.4,274c7.2,32.7,16.9,56.5,55.2,89.3 c-7.1-4.2-14-8.9-20.7-14.3C-24,266.1-13.7,137.9,48.5,69.1z"/><path d="M351.5,330.9c-2.5,3.1-5.1,6.1-7.7,9.1 c-0.1,0.1-0.4,0.2-0.5,0.3c-0.2,0.3-0.6,0.5-0.9,0.8l-0.2,0.3c-1.8,1.7-3.8,3.5-6,5.1c-8,6-16.2,10.6-24.9,13.7 c-28,9.8-59.1,3.8-83.5-19.3c-34.1-31.9-31-83.4-3.8-117.6c34.4-51,93.4-122.1,11.7-185.8c-14.7-11.5-25.6-20.9-71.9-34.3 c30.3-5.6,58.4-3.8,89.6,4.1c22.1,12.5,56.9,39.2,68.7,75.3c17.9,54.7-31.5,136.6-55.3,168.1c-32.7,43.6,20.2,90.8,59.3,38.1 c20.4-27.5,56.1-105.2,43.7-162.9c-7.2-32.7-16.9-56.5-55.2-89.3c7.1,4.2,14,8.9,20.7,14.3C424,133.9,413.7,262.1,351.5,330.9z"/></g></svg>',
     ZEC:  '<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-label="ZEC"><circle cx="16" cy="16" r="16" fill="#F4B728"/><path fill="#fff" d="M14.9 6.6h2.2v2.1h4.4v2.4l-7.3 9h7.3V23h-4.4v2.4h-2.2V23h-4.5v-2.4l7.3-9h-7.3V8.7h4.5z"/></svg>',
     ZRO:  '<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-label="ZRO"><g transform="scale(0.125)"><g clip-path="url(#clip0_503_77-zro)"><circle cx="128" cy="128" r="128" fill="black"/><path d="M127.499 56C122.154 56.0267 116.866 57.1142 111.937 59.2005C107.009 61.2868 102.537 64.3312 98.7759 68.1594C95.0151 71.9876 92.0395 76.5248 90.0191 81.5119C87.9986 86.499 86.973 91.8383 87.0005 97.2249V110.842H119.906V91.1137C119.906 90.1872 120.087 89.2697 120.438 88.4137C120.79 87.5576 121.305 86.7798 121.956 86.1246C122.606 85.4694 123.377 84.9499 124.227 84.5954C125.076 84.2409 125.987 84.0585 126.906 84.0587H128.093C129.012 84.0585 129.923 84.2409 130.772 84.5954C131.622 84.9499 132.394 85.4694 133.044 86.1246C133.694 86.7797 134.21 87.5576 134.562 88.4137C134.913 89.2697 135.094 90.1871 135.094 91.1137V144C139.415 144 143.695 143.142 147.687 141.476C151.679 139.81 155.307 137.367 158.362 134.289C161.418 131.21 163.842 127.554 165.496 123.531C167.149 119.508 168 115.196 168 110.842V97.2249C168.023 86.311 163.758 75.8314 156.137 68.0765C152.398 64.2497 147.94 61.2111 143.023 59.1378C138.106 57.0645 132.829 55.9978 127.499 56Z" fill="#F2F2F2"/><path d="M128.093 171.066H126.906C125.987 171.066 125.077 170.883 124.227 170.528C123.378 170.173 122.606 169.652 121.956 168.995C121.306 168.339 120.791 167.56 120.439 166.702C120.087 165.845 119.906 164.925 119.906 163.997V111C115.585 111 111.306 111.859 107.314 113.528C103.322 115.198 99.6943 117.645 96.6388 120.731C93.5833 123.816 91.1595 127.48 89.506 131.511C87.8526 135.543 87.0018 139.864 87.0021 144.227V157.683C86.9473 163.089 87.9543 168.452 89.965 173.462C91.9756 178.472 94.9499 183.03 98.716 186.873C102.482 190.715 106.965 193.765 111.906 195.846C116.846 197.928 122.147 199 127.5 199C132.854 199 138.154 197.928 143.095 195.846C148.035 193.765 152.518 190.715 156.284 186.873C160.05 183.03 163.025 178.472 165.035 173.462C167.046 168.452 168.053 163.089 167.998 157.683V144.227H135.094V163.997C135.094 164.925 134.913 165.845 134.561 166.702C134.209 167.56 133.693 168.339 133.043 168.996C132.393 169.652 131.621 170.173 130.772 170.528C129.922 170.883 129.012 171.066 128.093 171.066Z" fill="#F2F2F2"/></g><defs><clipPath id="clip0_503_77-zro"><rect width="256" height="256" fill="white"/></clipPath></defs></g></svg>',
-    ENA:  '<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-label="ENA"><g transform="scale(0.5)"><g clip-path="url(#clip0_203_29-ena)"><path d="M32 0.574066C49.3532 0.574066 63.426 14.6468 63.426 32C63.426 49.3532 49.3532 63.4259 32 63.4259C14.6469 63.4259 0.574097 49.3532 0.574097 32C0.574097 14.6468 14.6469 0.574066 32 0.574066Z" fill="#111111" stroke="#111111"/><path d="M32 0C14.3188 0 0 14.3188 0 32C0 49.6648 14.3188 64 32 64C49.6648 64 64 49.6812 64 32C64 14.3188 49.6648 0 32 0Z" fill="url(#paint0_radial_203_29-ena)" fill-opacity="0.7"/><path d="M32 0.590454C49.3531 0.590454 63.4095 14.6468 63.4095 32C63.4095 49.3531 49.3531 63.4095 32 63.4095C14.6468 63.4095 0.590454 49.3531 0.590454 32C0.590454 14.6468 14.6468 0.590454 32 0.590454Z" stroke="url(#paint1_linear_203_29-ena)"/><path fill-rule="evenodd" clip-rule="evenodd" d="M24.9964 17.1235H24.3075L23.8646 17.6484L12.4654 31.0487L11.6453 32L12.4654 32.9513L23.881 46.3516L24.3239 46.8765H25.0128H45.5643H47.0404V45.4003V36.8714H44.0881V43.9241H28.2439L37.7242 32.9677L38.5607 32L37.7242 31.0323L28.2439 20.0759H44.0881V27.1287H47.0404V18.5997V17.1235H45.5643H24.9964ZM25.0128 20.8632L15.5325 32L25.0128 43.1369L34.6407 32L25.0128 20.8632Z" fill="white"/></g><defs><radialGradient id="paint0_radial_203_29-ena" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(32.0718 9.34258) rotate(90) scale(67.4693 47.4915)"><stop offset="0.03125" stop-color="#3A3A3A"/><stop offset="1" stop-color="#1C1C1C"/></radialGradient><linearGradient id="paint1_linear_203_29-ena" x1="31.9997" y1="-0.603781" x2="31.9997" y2="64.6032" gradientUnits="userSpaceOnUse"><stop stop-color="white"/><stop offset="1" stop-color="#111111"/></linearGradient><clipPath id="clip0_203_29-ena"><rect width="64" height="64" fill="white"/></clipPath></defs></g></svg>'
+    ENA:  '<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-label="ENA"><g transform="scale(0.5)"><g clip-path="url(#clip0_203_29-ena)"><path d="M32 0.574066C49.3532 0.574066 63.426 14.6468 63.426 32C63.426 49.3532 49.3532 63.4259 32 63.4259C14.6469 63.4259 0.574097 49.3532 0.574097 32C0.574097 14.6468 14.6469 0.574066 32 0.574066Z" fill="#111111" stroke="#111111"/><path d="M32 0C14.3188 0 0 14.3188 0 32C0 49.6648 14.3188 64 32 64C49.6648 64 64 49.6812 64 32C64 14.3188 49.6648 0 32 0Z" fill="url(#paint0_radial_203_29-ena)" fill-opacity="0.7"/><path d="M32 0.590454C49.3531 0.590454 63.4095 14.6468 63.4095 32C63.4095 49.3531 49.3531 63.4095 32 63.4095C14.6468 63.4095 0.590454 49.3531 0.590454 32C0.590454 14.6468 14.6468 0.590454 32 0.590454Z" stroke="url(#paint1_linear_203_29-ena)"/><path fill-rule="evenodd" clip-rule="evenodd" d="M24.9964 17.1235H24.3075L23.8646 17.6484L12.4654 31.0487L11.6453 32L12.4654 32.9513L23.881 46.3516L24.3239 46.8765H25.0128H45.5643H47.0404V45.4003V36.8714H44.0881V43.9241H28.2439L37.7242 32.9677L38.5607 32L37.7242 31.0323L28.2439 20.0759H44.0881V27.1287H47.0404V18.5997V17.1235H45.5643H24.9964ZM25.0128 20.8632L15.5325 32L25.0128 43.1369L34.6407 32L25.0128 20.8632Z" fill="white"/></g><defs><radialGradient id="paint0_radial_203_29-ena" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(32.0718 9.34258) rotate(90) scale(67.4693 47.4915)"><stop offset="0.03125" stop-color="#3A3A3A"/><stop offset="1" stop-color="#1C1C1C"/></radialGradient><linearGradient id="paint1_linear_203_29-ena" x1="31.9997" y1="-0.603781" x2="31.9997" y2="64.6032" gradientUnits="userSpaceOnUse"><stop stop-color="white"/><stop offset="1" stop-color="#111111"/></linearGradient><clipPath id="clip0_203_29-ena"><rect width="64" height="64" fill="white"/></clipPath></defs></g></svg>',
+    XRP:  '<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-label="XRP"><circle cx="16" cy="16" r="16" class="xc"/><path class="xp" d="M23.07 8h2.89l-6.015 5.957a5.621 5.621 0 0 1-7.89 0L6.035 8H8.93l4.57 4.523a3.556 3.556 0 0 0 4.996 0L23.07 8zM8.895 24.563H6l6.055-5.993a5.621 5.621 0 0 1 7.89 0L26 24.562h-2.895L18.5 20a3.556 3.556 0 0 0-4.996 0l-4.61 4.563z"/></svg>',
+    PYTH: '<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-label="PYTH"> <g transform="scale(0.5)"> <g clip-path="url(#clip0_229_6-pyth)"> <path d="M32 64C49.6731 64 64 49.6731 64 32C64 14.3269 49.6731 0 32 0C14.3269 0 0 14.3269 0 32C0 49.6731 14.3269 64 32 64Z" fill="#E6DAFE"/> <path d="M37.925 28.5625C37.925 31.15 35.8375 33.25 33.25 33.25V37.9375C38.4125 37.9375 42.5875 33.75 42.5875 28.575C42.5875 23.4 38.4 19.2125 33.25 19.2125C31.55 19.2125 29.95 19.6625 28.575 20.4625C25.7875 22.075 23.9 25.1125 23.9 28.575V51.9875L28.1 56.2L28.575 56.675V28.5625C28.575 25.975 30.6625 23.875 33.25 23.875C35.8375 23.875 37.925 25.9875 37.925 28.5625Z" fill="black"/> <path d="M33.25 9.83749C29.85 9.83749 26.6625 10.75 23.9125 12.35C22.15 13.3625 20.575 14.6625 19.2375 16.1875C16.3375 19.4875 14.5625 23.825 14.5625 28.575V42.625L19.2375 47.3125V28.5625C19.2375 24.4 21.0375 20.6625 23.9125 18.0875C25.2625 16.875 26.8375 15.925 28.5875 15.3125C30.05 14.7875 31.625 14.5125 33.2625 14.5125C41 14.5125 47.275 20.8 47.275 28.5625C47.275 36.325 40.9875 42.6125 33.25 42.6125V47.3C43.5625 47.3 51.925 38.9125 51.925 28.575C51.925 18.2375 43.5625 9.83749 33.25 9.83749Z" fill="black"/> </g> <defs> <clipPath id="clip0_229_6-pyth"> <rect width="64" height="64" fill="white"/> </clipPath> </defs> </g> </svg>',
+    AERO: '<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-label="AERO"><circle cx="16" cy="16" r="16" fill="#0052FF"/><path fill="#fff" d="M16 6.4l7.4 19.2h-3.5l-1.4-3.9h-5l-1.4 3.9H8.6zm0 6.6l-1.7 4.7h3.4z"/></svg>',
+    VVV:  '<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-label="VVV"><circle cx="16" cy="16" r="16" fill="#E03405"/><g transform="translate(0.4,0.4) scale(0.1222)" fill="#fff" fill-rule="evenodd" clip-rule="evenodd"><path d="M99.7699 159.542C96.8219 157.356 93.2636 155.525 89.3288 154.412C85.394 153.3 81.0827 152.906 76.867 153.373C72.6513 153.839 68.5314 155.165 64.9367 157.111C61.3422 159.056 58.2729 161.621 55.8767 164.399C53.4739 167.17 51.3806 170.575 49.9786 174.406C48.5766 178.238 47.8658 182.498 48.022 186.725C48.1782 190.952 49.2013 195.148 50.8821 198.866C52.5631 202.585 54.9019 205.827 57.5027 208.414C60.0973 211.008 63.3474 213.341 67.0758 215.017C70.8043 216.694 75.011 217.714 79.2496 217.87C83.4882 218.026 87.7588 217.317 91.6008 215.918C95.4428 214.52 98.8563 212.432 101.635 210.036C104.42 207.646 106.992 204.585 108.942 201C110.893 197.415 112.223 193.306 112.69 189.101C113.158 184.897 112.764 180.597 111.648 176.672C110.533 172.748 108.696 169.199 106.504 166.259L113.744 159.039L119.014 164.294H122.007L125.619 160.691V157.706L120.349 152.451L128 144.82L135.651 152.451L130.381 157.706V160.691L133.993 164.294H136.986L142.256 159.039L149.496 166.259C147.304 169.199 145.467 172.748 144.352 176.672C143.236 180.597 142.842 184.897 143.31 189.101C143.777 193.306 145.107 197.415 147.058 201C149.008 204.585 151.58 207.646 154.365 210.036C157.144 212.432 160.557 214.52 164.399 215.918C168.241 217.317 172.512 218.026 176.75 217.87C180.989 217.714 185.196 216.694 188.924 215.017C192.653 213.341 195.903 211.008 198.497 208.414C201.098 205.827 203.437 202.585 205.118 198.866C206.799 195.148 207.822 190.952 207.978 186.725C208.134 182.498 207.423 178.238 206.021 174.406C204.619 170.575 202.526 167.17 200.123 164.399C197.727 161.621 194.658 159.056 191.063 157.111C187.469 155.165 183.349 153.839 179.133 153.373C174.917 152.906 170.606 153.3 166.671 154.412C162.736 155.525 159.178 157.356 156.23 159.542L149.125 152.445L154.392 147.192V144.207L150.651 140.476H147.658L142.388 145.731L134.734 138.104L174.858 98.0864L191.1 114.285V97.4305H208L191.758 81.2316L208 65.0324V62.0473L204.259 58.3159H201.266L128 131.387L54.7343 58.3159H51.7413L48 62.0473V65.0324L64.2422 81.2316L48 97.4305H64.8997V114.285L81.1417 98.0864L121.266 138.104L113.612 145.731L108.342 140.476H105.349L101.608 144.207V147.192L106.875 152.445L99.7699 159.542ZM164.88 196.613C163.228 199.993 163.571 204.676 165.699 207.781C167.653 210.996 171.787 213.245 175.556 213.142C179.325 213.245 183.458 210.996 185.413 207.781C187.54 204.676 187.883 199.993 186.231 196.613L186.643 196.171C190.031 197.827 194.734 197.492 197.852 195.371C201.082 193.423 203.341 189.296 203.238 185.533C203.341 181.771 201.082 177.644 197.852 175.696C194.734 173.575 190.031 173.24 186.643 174.896L186.231 174.455C187.883 171.075 187.54 166.391 185.413 163.286C183.458 160.071 179.325 157.822 175.556 157.925C171.787 157.822 167.653 160.071 165.699 163.286C163.571 166.391 163.228 171.075 164.88 174.455L164.469 174.896C161.08 173.24 156.377 173.575 153.259 175.696C150.03 177.644 147.77 181.771 147.874 185.533C147.77 189.296 150.03 193.423 153.259 195.371C156.377 197.492 161.08 197.827 164.469 196.171L164.88 196.613ZM90.2997 207.781C92.4269 204.676 92.77 199.993 91.118 196.613L91.5295 196.171C94.9181 197.827 99.6213 197.492 102.739 195.371C105.968 193.423 108.228 189.296 108.125 185.533C108.228 181.771 105.968 177.644 102.739 175.696C99.6213 173.575 94.9181 173.24 91.5295 174.896L91.118 174.455C92.77 171.075 92.4269 166.391 90.2997 163.286C88.3453 160.071 84.2114 157.822 80.4425 157.925C76.6738 157.822 72.5399 160.071 70.5855 163.286C68.4583 166.391 68.1152 171.075 69.7673 174.455L69.356 174.896C65.9672 173.24 61.2641 173.575 58.1463 175.696C54.9169 177.644 52.6572 181.771 52.7604 185.533C52.6572 189.296 54.9169 193.423 58.1463 195.371C61.2641 197.492 65.9672 197.827 69.356 196.171L69.7673 196.613C68.1152 199.993 68.4583 204.676 70.5855 207.781C72.5399 210.996 76.6738 213.245 80.4425 213.142C84.2114 213.245 88.3453 210.996 90.2997 207.781Z"/><path d="M127.756 57.2056L146.989 38L156.513 47.5104V79.5685L130.137 105.907H125.376L99 79.5685V47.5104L108.524 38L127.756 57.2056ZM108.524 44.7249L125.376 61.5529V92.4571L108.524 75.6291V44.7249ZM130.138 61.5529L146.99 44.7249V75.6291L130.138 92.4571V61.5529Z"/></g></svg>'
   };
 
-  /* "Top Upcoming" 5 — scorecard-long #177 pilot. Source of truth (as-of 2026-07-22):
+  /* "The August Window" 5 — scorecard-long cut, CUT-SELECTION_longform_august-window_2026-07-29.md
+     (REVISED 2026-07-30, post-#309 re-audit). Source of truth (as-of 2026-07-30, calibration v2.1):
      catalyst_inventory.csv (per-catalyst net/tok, X = per-token full-board catalyst count) +
      tnt_scoreboard.csv (all = full-board aggregated Token score / "All Catalysts" = token_score).
-     Order top→bottom = rank #1 → #5 (rank 1 on top). [+] reveals BOTTOM→UP (#5 first → #1 last). */
-  /* net = featured-catalyst Network · tok = featured-catalyst Token · all = full-board aggregated
-     Token score (token_score): ADA 5.1 / ZRO 4.5 / ZEC 5.6 / ENA 4.9 / INJ 5.4. */
+     ⚠ Order top→bottom = SEED = REVEAL order, deliberately NOT final rank — un-revealed rows sit in
+     seed order, so a rank-ordered seed would leak the winner before the reveals. The ladder sorts
+     itself live as tiles are revealed.
+     Final catalyst rank (Token): HYPE 8.0 > AERO 6.2 > XRP 5.9 > VVV 5.4 > PYTH 4.5.
+     All-Catalysts coda rank (aggregate): VVV 5.2 > AERO 4.8 > HYPE 4.8 > XRP 4.7 > PYTH 4.6
+     (AERO/HYPE tie at 4.8 broken to AERO on aggregate Network 5.6 vs 5.3). */
+  /* NOTE: `total` = the per-token full-board catalyst_count (tnt_scoreboard.csv catalyst_count).
+     The gold "N/X CATALYSTS" chip column was retired 2026-07-30; the count now renders as the
+     ALL CATALYSTS tile label ("ALL 20 CATALYSTS"), so `total` is still load-bearing. */
   var TOKENS = [
-    { rank:1, ticker:"ADA", name:"Cardano",   total:12, cat:"Spot ADA ETF",                 net:5.0, tok:8.0, all:5.1 },
-    { rank:2, ticker:"ZRO", name:"LayerZero",  total:8,  cat:"Zero L1 + institutional backing", net:8.0, tok:5.7, all:4.5 },
-    { rank:3, ticker:"ZEC", name:"Zcash",      total:11, cat:"Grayscale spot ZEC ETF",       net:5.0, tok:7.5, all:5.6 },
-    { rank:4, ticker:"ENA", name:"Ethena",     total:12, cat:"ENA fee switch / sENA",        net:5.0, tok:5.7, all:4.9 },
-    { rank:5, ticker:"INJ", name:"Injective",  total:9,  cat:"Spot INJ ETF (staked)",        net:5.0, tok:6.2, all:5.4 }
+    { rank:1, ticker:"XRP",  name:"XRP (XRP Ledger)", total:20, cat:"CLARITY Act",                net:5.0, tok:5.9, all:4.7 },
+    { rank:2, ticker:"PYTH", name:"Pyth Network",     total:20, cat:"Pyth Core goes paid",        net:8.0, tok:4.5, all:4.6 },
+    { rank:3, ticker:"AERO", name:"Aerodrome",        total:16, cat:"$400k public audit contest", net:6.8, tok:6.2, all:4.8 },
+    { rank:4, ticker:"VVV",  name:"Venice",           total:10, cat:"DIEM staking cap raise",     net:5.0, tok:5.4, all:5.2 },
+    { rank:5, ticker:"HYPE", name:"Hyperliquid",      total:13, cat:"Coinbase USDC treasury",     net:5.0, tok:8.0, all:4.8 }
   ];
 
   function band(n){ return n>=5.6 ? "bull" : (n>=4.5 ? "neut" : "bear"); }
   function word(n){ return n>=5.6 ? "BULLISH" : (n>=4.5 ? "NEUTRAL" : "BEARISH"); }
   function one(n){ return Number(n).toFixed(1); }
 
-  function scoreTile(kind, val, qmode){
+  /* kind = the stable TYPE KEY ("NETWORK" / "TOKEN" / "ALL CATALYSTS") — it drives every class
+     and must never change. label = what the viewer reads; defaults to kind. The ALL CATALYSTS
+     tile passes a per-token label ("ALL 20 CATALYSTS"), which is where the retired N/X chip
+     count now lives. */
+  function scoreTile(kind, val, qmode, label){
     var b = band(val);
+    var txt = label || kind;
     var labCls = "s-lab" + (kind === "ALL CATALYSTS" ? " s-lab-strong" : "");
     var tileCls = "score" + (qmode?" qmode":"")
       + (kind === "ALL CATALYSTS" ? " score-all" : "")
       + (kind === "TOKEN" ? " score-tok" : "");
-    return '<button class="'+tileCls+'" data-band="'+b+'" type="button" aria-pressed="false" aria-label="'+kind+' score, click to toggle">'
-      + '<span class="'+labCls+'">'+kind+'</span>'
+    return '<button class="'+tileCls+'" data-band="'+b+'" type="button" aria-pressed="false" aria-label="'+txt+' score, click to toggle">'
+      + '<span class="'+labCls+'">'+txt+'</span>'
       + '<span class="s-fog"><span class="s-val">'+one(val)+'</span><span class="s-word">'+word(val)+'</span></span>'
       + '<span class="s-q">?</span>'
       + '</button>';
@@ -243,9 +253,8 @@ body{font-family:var(--sans); color:var(--txt); -webkit-font-smoothing:antialias
     return '<div class="rk"><span class="n">'+t.rank+'</span></div>'
       + '<div class="asset"><span class="tlogo">'+(LOGOS[t.ticker]||"")+'</span>'
       +   '<div class="asset-tx"><b>'+t.ticker+'</b><span class="full">'+t.name+'</span></div></div>'
-      + '<div class="catpill"><span class="n">1<small>/'+t.total+'</small></span><span class="lab">CATALYSTS</span></div>'
       + '<div class="cat"><div class="name">'+t.cat+'</div></div>'
-      + '<div class="scores">'+scoreTile("NETWORK", t.net, true)+scoreTile("TOKEN", t.tok, true)+scoreTile("ALL CATALYSTS", t.all, true)+'</div>';
+      + '<div class="scores">'+scoreTile("NETWORK", t.net, true)+scoreTile("TOKEN", t.tok, true)+scoreTile("ALL CATALYSTS", t.all, true, "ALL "+t.total+" CATALYSTS")+'</div>';
   }
 
   /* Build all 5 rows up front — all blurred by default; each group is click-toggled. */
@@ -364,11 +373,11 @@ body{font-family:var(--sans); color:var(--txt); -webkit-font-smoothing:antialias
   function toggleReset(){ pushHistory(); if(anyShown()) reset(); else unblurAll(); }
 
   /* Click to toggle. Three independent groups per row:
-     score tile (each its own "?" toggle) · identity (logo + name) · chip + catalyst text. */
+     score tile (each its own "?" toggle) · identity (logo + name) · catalyst text. */
   board.addEventListener("click", function(e){
     var s = e.target.closest(".score");
     var asset = s ? null : e.target.closest(".asset");
-    var catEl = (s || asset) ? null : e.target.closest(".catpill, .cat");
+    var catEl = (s || asset) ? null : e.target.closest(".cat");
     if(!s && !asset && !catEl) return;
     pushHistory();
     if(s){
