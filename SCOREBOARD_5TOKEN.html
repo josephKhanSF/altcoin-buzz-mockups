@@ -14,9 +14,8 @@
   Data source of truth (as-of 2026-07-30, calibration v2.1): catalyst_inventory.csv (per-catalyst net/tok, X = per-token
   full-board catalyst count) + tnt_scoreboard.csv (all = full-board aggregated Token score / "All Catalysts" = token_score).
 
-  RECORDING CONTROLS (internal team) — everything is BLURRED by default; click to toggle.
-    click logo / identity     reveal token logo + name (click again to re-blur)
-    click catalyst text       reveal the catalyst (click again to re-blur)
+  RECORDING CONTROLS (internal team) — logos, tickers, names and catalysts are ALWAYS visible.
+    Only the three score VALUES are hidden.
     click a score tile        reveal that score (all three show "?", click again to re-hide)
                               the ALL tile carries the token full-board count: "ALL 20 CATALYSTS"
     R reset · U unblur everything · F fullscreen
@@ -62,15 +61,11 @@ body{font-family:var(--sans); color:var(--txt); -webkit-font-smoothing:antialias
   border:1px solid var(--lift-line); border-radius:var(--radius); box-shadow:var(--shadow-lg);
   padding:clamp(7px,1.2vh,13px) clamp(13px,1.6vw,20px); position:relative; overflow:hidden;
   display:flex; align-items:center; gap:clamp(11px,1.5vw,20px)}
-/* Row box, rank, and score boxes/labels are visible from the start. Everything else is BLURRED
-   by default and toggled by clicking: the identity (logo + name) is one group, the catalyst
-   text is another. Click to reveal, click again to re-blur. */
-.asset,.cat{transition:filter .55s ease, opacity .55s ease, transform .55s ease; cursor:pointer}
-.row:not(.id-shown) .asset{filter:blur(10px); opacity:.9}
-.row.id-shown .asset{filter:none; opacity:1; animation:sharpen .5s ease both}
-.row:not(.cat-shown) .cat{filter:blur(10px); opacity:.9}
-.row.cat-shown .cat{filter:none; opacity:1; animation:sharpen .5s ease both}
-@keyframes sharpen{from{transform:translateY(5px)} to{transform:none}}
+/* ALWAYS VISIBLE (locked 2026-07-30): the row box, rank, logo, ticker, token name, catalyst text
+   and the score boxes/labels all render sharp from load. The ONLY hidden things on this board are
+   the three score VALUES, which stay behind "?" until clicked — that reveal is what drives the
+   live re-ranking. The old click-to-unblur on the identity + catalyst groups is retired, and those
+   elements are no longer click targets. */
 .row.top{border-color:var(--gold-line)}
 .row.top::before{content:""; position:absolute; left:0; top:0; bottom:0; width:3px;
   background:linear-gradient(180deg,#eaba50,#d99a2b)}
@@ -195,7 +190,7 @@ body{font-family:var(--sans); color:var(--txt); -webkit-font-smoothing:antialias
     LINK: '<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-label="LINK"><circle cx="16" cy="16" r="16" fill="#375BD2"/><path fill="#fff" fill-rule="evenodd" d="M16 7L23.79 11.5L23.79 20.5L16 25L8.21 20.5L8.21 11.5Z M16 11.5L19.9 13.75L19.9 18.25L16 20.5L12.1 18.25L12.1 13.75Z"/></svg>',
     AAVE: '<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-label="AAVE"><defs><linearGradient id="lg-aave" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#B6509E"/><stop offset="1" stop-color="#2EBAC6"/></linearGradient></defs><circle cx="16" cy="16" r="16" fill="url(#lg-aave)"/><path fill="#fff" d="M10.2 22.4L10.2 13A5.8 5.8 0 0 1 21.8 13L21.8 22.4q-1.45 1.6 -2.9 0q-1.45 1.6 -2.9 0q-1.45 1.6 -2.9 0q-1.45 1.6 -2.9 0Z"/><circle cx="13.8" cy="13.8" r="1.3" fill="url(#lg-aave)"/><circle cx="18.2" cy="13.8" r="1.3" fill="url(#lg-aave)"/></svg>',
     JUP:  '<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-label="JUP"><defs><linearGradient id="lg-jup" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C9F24E"/><stop offset="1" stop-color="#2E9D8F"/></linearGradient></defs><circle cx="16" cy="16" r="16" fill="url(#lg-jup)"/><circle cx="16" cy="16" r="6" fill="#0e2f2a" fill-opacity=".16"/><ellipse cx="16" cy="16" rx="13" ry="4.4" fill="none" stroke="#0e2f2a" stroke-opacity=".5" stroke-width="2" transform="rotate(-20 16 16)"/></svg>',
-    HYPE: '<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-label="HYPE"><circle cx="16" cy="16" r="16" fill="#50D2C1"/><path fill="#0b3b34" d="M11 9.5h2.8v4.3h4.4V9.5H21v13h-2.8v-4.4h-4.4v4.4H11z"/></svg>',
+    HYPE: '<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-label="HYPE"> <g transform="scale(0.5)"> <g clip-path="url(#clip0_158_68-hype)"> <path d="M32 64C49.6732 64 64 49.6732 64 32C64 14.3269 49.6732 0 32 0C14.3269 0 0 14.3269 0 32C0 49.6732 14.3269 64 32 64Z" fill="#0F3933"/> <path d="M54 32.2924C54 47.0106 45.0979 51.7333 40.4075 47.5281C36.5468 44.0992 35.3981 36.8535 29.591 36.1095C22.2204 35.1714 21.5823 45.1021 16.7324 45.1021C11.0848 45.1021 10 36.7888 10 32.5189C10 28.1519 11.2125 22.2 16.0304 22.2C21.6461 22.2 21.9652 30.7074 28.9848 30.2545C35.9724 29.7693 36.1001 20.906 40.631 17.1214C44.5874 13.8542 54 17.3801 54 32.2924Z" fill="#97FCE4"/> </g> <defs> <clipPath id="clip0_158_68-hype"> <rect width="64" height="64" fill="white"/> </clipPath> </defs> </g> </svg>',
     INJ:  '<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-label="INJ"><defs><linearGradient id="lg-inj" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#0082FA"/><stop offset="1" stop-color="#00F2FE"/></linearGradient></defs><circle cx="16" cy="16" r="16" fill="url(#lg-inj)"/><g transform="translate(4.4,4.4) scale(0.058)" fill="#fff"><path d="M48.5,69.1C51,66,53.6,63,56.2,60c0.1-0.1,0.4-0.2,0.5-0.3c0.2-0.3,0.6-0.5,0.9-0.8l0.2-0.3 c1.8-1.7,3.8-3.5,6-5.2c8-6,16.2-10.6,24.9-13.7c28-9.8,59.1-3.8,83.5,19.3c34.1,31.9,31,83.4,3.8,117.6 c-34.4,51-93.4,122.1-11.7,185.8c14.7,11.5,25.6,20.9,71.9,34.3c-30.3,5.6-58.4,3.8-89.6-4.1c-22.1-12.5-56.9-39.2-68.7-75.3 c-17.9-54.7,31.5-136.6,55.3-168.1c32.7-43.6-20.2-90.8-59.3-38.1C53.7,138.6,18,216.3,30.4,274c7.2,32.7,16.9,56.5,55.2,89.3 c-7.1-4.2-14-8.9-20.7-14.3C-24,266.1-13.7,137.9,48.5,69.1z"/><path d="M351.5,330.9c-2.5,3.1-5.1,6.1-7.7,9.1 c-0.1,0.1-0.4,0.2-0.5,0.3c-0.2,0.3-0.6,0.5-0.9,0.8l-0.2,0.3c-1.8,1.7-3.8,3.5-6,5.1c-8,6-16.2,10.6-24.9,13.7 c-28,9.8-59.1,3.8-83.5-19.3c-34.1-31.9-31-83.4-3.8-117.6c34.4-51,93.4-122.1,11.7-185.8c-14.7-11.5-25.6-20.9-71.9-34.3 c30.3-5.6,58.4-3.8,89.6,4.1c22.1,12.5,56.9,39.2,68.7,75.3c17.9,54.7-31.5,136.6-55.3,168.1c-32.7,43.6,20.2,90.8,59.3,38.1 c20.4-27.5,56.1-105.2,43.7-162.9c-7.2-32.7-16.9-56.5-55.2-89.3c7.1,4.2,14,8.9,20.7,14.3C424,133.9,413.7,262.1,351.5,330.9z"/></g></svg>',
     ZEC:  '<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-label="ZEC"><circle cx="16" cy="16" r="16" fill="#F4B728"/><path fill="#fff" d="M14.9 6.6h2.2v2.1h4.4v2.4l-7.3 9h7.3V23h-4.4v2.4h-2.2V23h-4.5v-2.4l7.3-9h-7.3V8.7h4.5z"/></svg>',
     ZRO:  '<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-label="ZRO"><g transform="scale(0.125)"><g clip-path="url(#clip0_503_77-zro)"><circle cx="128" cy="128" r="128" fill="black"/><path d="M127.499 56C122.154 56.0267 116.866 57.1142 111.937 59.2005C107.009 61.2868 102.537 64.3312 98.7759 68.1594C95.0151 71.9876 92.0395 76.5248 90.0191 81.5119C87.9986 86.499 86.973 91.8383 87.0005 97.2249V110.842H119.906V91.1137C119.906 90.1872 120.087 89.2697 120.438 88.4137C120.79 87.5576 121.305 86.7798 121.956 86.1246C122.606 85.4694 123.377 84.9499 124.227 84.5954C125.076 84.2409 125.987 84.0585 126.906 84.0587H128.093C129.012 84.0585 129.923 84.2409 130.772 84.5954C131.622 84.9499 132.394 85.4694 133.044 86.1246C133.694 86.7797 134.21 87.5576 134.562 88.4137C134.913 89.2697 135.094 90.1871 135.094 91.1137V144C139.415 144 143.695 143.142 147.687 141.476C151.679 139.81 155.307 137.367 158.362 134.289C161.418 131.21 163.842 127.554 165.496 123.531C167.149 119.508 168 115.196 168 110.842V97.2249C168.023 86.311 163.758 75.8314 156.137 68.0765C152.398 64.2497 147.94 61.2111 143.023 59.1378C138.106 57.0645 132.829 55.9978 127.499 56Z" fill="#F2F2F2"/><path d="M128.093 171.066H126.906C125.987 171.066 125.077 170.883 124.227 170.528C123.378 170.173 122.606 169.652 121.956 168.995C121.306 168.339 120.791 167.56 120.439 166.702C120.087 165.845 119.906 164.925 119.906 163.997V111C115.585 111 111.306 111.859 107.314 113.528C103.322 115.198 99.6943 117.645 96.6388 120.731C93.5833 123.816 91.1595 127.48 89.506 131.511C87.8526 135.543 87.0018 139.864 87.0021 144.227V157.683C86.9473 163.089 87.9543 168.452 89.965 173.462C91.9756 178.472 94.9499 183.03 98.716 186.873C102.482 190.715 106.965 193.765 111.906 195.846C116.846 197.928 122.147 199 127.5 199C132.854 199 138.154 197.928 143.095 195.846C148.035 193.765 152.518 190.715 156.284 186.873C160.05 183.03 163.025 178.472 165.035 173.462C167.046 168.452 168.053 163.089 167.998 157.683V144.227H135.094V163.997C135.094 164.925 134.913 165.845 134.561 166.702C134.209 167.56 133.693 168.339 133.043 168.996C132.393 169.652 131.621 170.173 130.772 170.528C129.922 170.883 129.012 171.066 128.093 171.066Z" fill="#F2F2F2"/></g><defs><clipPath id="clip0_503_77-zro"><rect width="256" height="256" fill="white"/></clipPath></defs></g></svg>',
@@ -309,9 +304,8 @@ body{font-family:var(--sans); color:var(--txt); -webkit-font-smoothing:antialias
     });
   }
 
-  function reset(){
+  function reset(){                                  // hide every score (identity + catalyst stay up)
     rowEls.forEach(function(el){
-      el.classList.remove("id-shown","cat-shown");
       el.querySelectorAll(".score").forEach(function(s){
         s.classList.remove("shown","pop"); s.setAttribute("aria-pressed","false");
       });
@@ -319,9 +313,8 @@ body{font-family:var(--sans); color:var(--txt); -webkit-font-smoothing:antialias
     sortBoard();                                      // slide everything back to seed order
   }
 
-  function unblurAll(){                                // power shortcut (U) — reveal everything
+  function unblurAll(){                                // power shortcut (U) — reveal every score
     rowEls.forEach(function(el){
-      el.classList.add("id-shown","cat-shown");
       el.querySelectorAll(".score:not(.shown)").forEach(function(s){
         s.classList.add("shown","pop"); s.setAttribute("aria-pressed","true");
       });
@@ -333,10 +326,9 @@ body{font-family:var(--sans); color:var(--txt); -webkit-font-smoothing:antialias
   var history = [];
   var backBtn = document.getElementById("back");
 
-  function snapshot(){                                 // capture the full reveal state of every row
+  function snapshot(){                                 // capture the score reveal state of every row
     return rowEls.map(function(el){
-      return { id:el.classList.contains("id-shown"), cat:el.classList.contains("cat-shown"),
-        sc:[].map.call(el.querySelectorAll(".score"), function(s){ return s.classList.contains("shown"); }) };
+      return { sc:[].map.call(el.querySelectorAll(".score"), function(s){ return s.classList.contains("shown"); }) };
     });
   }
   function pushHistory(){
@@ -347,8 +339,6 @@ body{font-family:var(--sans); color:var(--txt); -webkit-font-smoothing:antialias
   function applySnapshot(snap){                        // restore a captured state, then re-rank/animate
     rowEls.forEach(function(el,i){
       var st = snap[i];
-      el.classList.toggle("id-shown", st.id);
-      el.classList.toggle("cat-shown", st.cat);
       [].forEach.call(el.querySelectorAll(".score"), function(s,j){
         var on = st.sc[j];
         s.classList.toggle("shown", on); s.classList.remove("pop");
@@ -364,32 +354,22 @@ body{font-family:var(--sans); color:var(--txt); -webkit-font-smoothing:antialias
   }
 
   function anyShown(){
-    return rowEls.some(function(el){
-      return el.classList.contains("id-shown") || el.classList.contains("cat-shown")
-        || el.querySelector(".score.shown");
-    });
+    return rowEls.some(function(el){ return !!el.querySelector(".score.shown"); });
   }
-  /* Reset button: hide everything if anything is showing, otherwise reveal everything. */
+  /* Reset button: hide every score if any is showing, otherwise reveal them all. */
   function toggleReset(){ pushHistory(); if(anyShown()) reset(); else unblurAll(); }
 
-  /* Click to toggle. Three independent groups per row:
-     score tile (each its own "?" toggle) · identity (logo + name) · catalyst text. */
+  /* Click to toggle. The SCORE TILES are the only click targets on the board — the identity
+     (logo + name) and the catalyst text are permanently visible and inert. */
   board.addEventListener("click", function(e){
     var s = e.target.closest(".score");
-    var asset = s ? null : e.target.closest(".asset");
-    var catEl = (s || asset) ? null : e.target.closest(".cat");
-    if(!s && !asset && !catEl) return;
+    if(!s) return;
     pushHistory();
-    if(s){
-      var on = s.classList.toggle("shown");
-      s.setAttribute("aria-pressed", on ? "true" : "false");
-      s.classList.remove("pop");
-      if(on){ void s.offsetWidth; s.classList.add("pop"); }
-      if(s.classList.contains("score-all") || s.classList.contains("score-tok")) sortBoard();   // re-rank on TOKEN (interim) or ALL CATALYSTS (final) reveal/hide
-      return;
-    }
-    if(asset){ asset.closest(".row").classList.toggle("id-shown"); return; }
-    if(catEl){ catEl.closest(".row").classList.toggle("cat-shown"); }
+    var on = s.classList.toggle("shown");
+    s.setAttribute("aria-pressed", on ? "true" : "false");
+    s.classList.remove("pop");
+    if(on){ void s.offsetWidth; s.classList.add("pop"); }
+    if(s.classList.contains("score-all") || s.classList.contains("score-tok")) sortBoard();   // re-rank on TOKEN (interim) or ALL CATALYSTS (final) reveal/hide
   });
 
   function toggleFull(){
