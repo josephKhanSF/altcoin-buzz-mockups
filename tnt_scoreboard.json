@@ -52,7 +52,7 @@
       "verdict_band": "NEUTRAL",
       "catalyst_count": 11,
       "coingecko_id": "ondo-finance",
-      "price_display": "$0.4065",
+      "price_display": "$0.4110",
       "as_of_date": "2026-07-20",
       "technicals_as_of_date": "2026-07-29",
       "ta_status": "live"
@@ -71,7 +71,7 @@
       "verdict_band": "NEUTRAL",
       "catalyst_count": 12,
       "coingecko_id": "aave",
-      "price_display": "$95.64",
+      "price_display": "$99.63",
       "as_of_date": "2026-07-22",
       "technicals_as_of_date": "2026-07-29",
       "ta_status": "live"
@@ -90,7 +90,7 @@
       "verdict_band": "NEUTRAL",
       "catalyst_count": 8,
       "coingecko_id": "pump-fun",
-      "price_display": "$0.001905",
+      "price_display": "$0.002004",
       "as_of_date": "2026-07-22",
       "technicals_as_of_date": "2026-07-29",
       "ta_status": "live"
@@ -147,7 +147,7 @@
       "verdict_band": "NEUTRAL",
       "catalyst_count": 9,
       "coingecko_id": "lido-dao",
-      "price_display": "$0.3591",
+      "price_display": "$0.3649",
       "as_of_date": "2026-07-23",
       "technicals_as_of_date": "2026-07-29",
       "ta_status": "live"
@@ -223,7 +223,7 @@
       "verdict_band": "NEUTRAL",
       "catalyst_count": 8,
       "coingecko_id": "hedera-hashgraph",
-      "price_display": "$0.0678",
+      "price_display": "$0.0681",
       "as_of_date": "2026-07-23",
       "technicals_as_of_date": "2026-07-29",
       "ta_status": "live"
@@ -242,7 +242,7 @@
       "verdict_band": "NEUTRAL",
       "catalyst_count": 11,
       "coingecko_id": "ether-fi",
-      "price_display": "$0.4038",
+      "price_display": "$0.4008",
       "as_of_date": "2026-07-20",
       "technicals_as_of_date": "2026-07-29",
       "ta_status": "live"
@@ -280,7 +280,7 @@
       "verdict_band": "NEUTRAL",
       "catalyst_count": 10,
       "coingecko_id": "jupiter-exchange-solana",
-      "price_display": "$0.1949",
+      "price_display": "$0.1952",
       "as_of_date": "2026-07-24",
       "technicals_as_of_date": "2026-07-29",
       "ta_status": "live"
@@ -318,7 +318,7 @@
       "verdict_band": "NEUTRAL",
       "catalyst_count": 15,
       "coingecko_id": "chainlink",
-      "price_display": "$8.26",
+      "price_display": "$8.39",
       "as_of_date": "2026-07-20",
       "technicals_as_of_date": "2026-07-29",
       "ta_status": "live"
@@ -337,7 +337,7 @@
       "verdict_band": "NEUTRAL",
       "catalyst_count": 12,
       "coingecko_id": "cardano",
-      "price_display": "$0.1624",
+      "price_display": "$0.1695",
       "as_of_date": "2026-07-22",
       "technicals_as_of_date": "2026-07-29",
       "ta_status": "live"
@@ -356,7 +356,7 @@
       "verdict_band": "NEUTRAL",
       "catalyst_count": 10,
       "coingecko_id": "dogecoin",
-      "price_display": "$0.0699",
+      "price_display": "$0.0701",
       "as_of_date": "2026-07-07",
       "technicals_as_of_date": "2026-07-29",
       "ta_status": "live"
@@ -394,7 +394,7 @@
       "verdict_band": "NEUTRAL",
       "catalyst_count": 16,
       "coingecko_id": "aerodrome-finance",
-      "price_display": "$0.4333",
+      "price_display": "$0.4300",
       "as_of_date": "2026-07-29",
       "technicals_as_of_date": "2026-07-29",
       "ta_status": "live"
@@ -413,7 +413,7 @@
       "verdict_band": "NEUTRAL",
       "catalyst_count": 9,
       "coingecko_id": "injective-protocol",
-      "price_display": "$4.73",
+      "price_display": "$4.94",
       "as_of_date": "2026-07-22",
       "technicals_as_of_date": "2026-07-29",
       "ta_status": "live"
@@ -432,7 +432,7 @@
       "verdict_band": "NEUTRAL",
       "catalyst_count": 10,
       "coingecko_id": "solana",
-      "price_display": "$73.49",
+      "price_display": "$74.32",
       "as_of_date": "2026-07-06",
       "technicals_as_of_date": "2026-07-29",
       "ta_status": "live"
@@ -451,7 +451,7 @@
       "verdict_band": "NEUTRAL",
       "catalyst_count": 8,
       "coingecko_id": "crypto-com-chain",
-      "price_display": "$0.0546",
+      "price_display": "$0.0553",
       "as_of_date": "2026-07-24",
       "technicals_as_of_date": "2026-07-29",
       "ta_status": "live"
@@ -470,7 +470,7 @@
       "verdict_band": "NEUTRAL",
       "catalyst_count": 8,
       "coingecko_id": "litecoin",
-      "price_display": "$45.47",
+      "price_display": "$45.45",
       "as_of_date": "2026-07-22",
       "technicals_as_of_date": "2026-07-29",
       "ta_status": "live"
@@ -489,7 +489,7 @@
       "verdict_band": "NEUTRAL",
       "catalyst_count": 8,
       "coingecko_id": "jito-governance-token",
-      "price_display": "$0.5219",
+      "price_display": "$0.5157",
       "as_of_date": "2026-07-24",
       "technicals_as_of_date": "2026-07-29",
       "ta_status": "live"
@@ -508,7 +508,7 @@
       "verdict_band": "NEUTRAL",
       "catalyst_count": 12,
       "coingecko_id": "ethena",
-      "price_display": "$0.0783",
+      "price_display": "$0.0810",
       "as_of_date": "2026-07-13",
       "technicals_as_of_date": "2026-07-29",
       "ta_status": "live"
@@ -527,7 +527,7 @@
       "verdict_band": "NEUTRAL",
       "catalyst_count": 20,
       "coingecko_id": "ripple",
-      "price_display": "$1.07",
+      "price_display": "$1.08",
       "as_of_date": "2026-07-30",
       "technicals_as_of_date": "2026-07-29",
       "ta_status": "live"
@@ -546,7 +546,7 @@
       "verdict_band": "NEUTRAL",
       "catalyst_count": 8,
       "coingecko_id": "layerzero",
-      "price_display": "$0.7612",
+      "price_display": "$0.7486",
       "as_of_date": "2026-07-22",
       "technicals_as_of_date": "2026-07-29",
       "ta_status": "live"
@@ -565,7 +565,7 @@
       "verdict_band": "BEARISH",
       "catalyst_count": 7,
       "coingecko_id": "stable-2",
-      "price_display": "$0.0348",
+      "price_display": "$0.0342",
       "as_of_date": "2026-07-24",
       "technicals_as_of_date": "2026-07-29",
       "ta_status": "live"
@@ -584,7 +584,7 @@
       "verdict_band": "NEUTRAL",
       "catalyst_count": 8,
       "coingecko_id": "virtual-protocol",
-      "price_display": "$0.5616",
+      "price_display": "$0.5682",
       "as_of_date": "2026-07-22",
       "technicals_as_of_date": "2026-07-29",
       "ta_status": "live"
@@ -603,7 +603,7 @@
       "verdict_band": "NEUTRAL",
       "catalyst_count": 13,
       "coingecko_id": "hyperliquid",
-      "price_display": "$53.86",
+      "price_display": "$55.07",
       "as_of_date": "2026-07-29",
       "technicals_as_of_date": "2026-07-29",
       "ta_status": "live"
@@ -622,7 +622,7 @@
       "verdict_band": "NEUTRAL",
       "catalyst_count": 5,
       "coingecko_id": "wormhole",
-      "price_display": "$0.008329",
+      "price_display": "$0.008251",
       "as_of_date": "2026-07-13",
       "technicals_as_of_date": "2026-07-29",
       "ta_status": "live"
@@ -660,7 +660,7 @@
       "verdict_band": "NEUTRAL",
       "catalyst_count": 8,
       "coingecko_id": "arbitrum",
-      "price_display": "$0.0788",
+      "price_display": "$0.0771",
       "as_of_date": "2026-07-24",
       "technicals_as_of_date": "2026-07-29",
       "ta_status": "live"
@@ -698,7 +698,7 @@
       "verdict_band": "NEUTRAL",
       "catalyst_count": 12,
       "coingecko_id": "polygon-ecosystem-token",
-      "price_display": "$0.0716",
+      "price_display": "$0.0717",
       "as_of_date": "2026-07-27",
       "technicals_as_of_date": "2026-07-29",
       "ta_status": "live"
@@ -717,7 +717,7 @@
       "verdict_band": "NEUTRAL",
       "catalyst_count": 20,
       "coingecko_id": "pyth-network",
-      "price_display": "$0.0395",
+      "price_display": "$0.0405",
       "as_of_date": "2026-07-29",
       "technicals_as_of_date": "2026-07-29",
       "ta_status": "live"
@@ -736,7 +736,7 @@
       "verdict_band": "BEARISH",
       "catalyst_count": 8,
       "coingecko_id": "bitcoin",
-      "price_display": "$63,903.57",
+      "price_display": "$64,474.27",
       "as_of_date": "2026-07-06",
       "technicals_as_of_date": "2026-07-29",
       "ta_status": "live"
