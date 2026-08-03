@@ -406,121 +406,185 @@
    layer (model-distilled, operator-approved, cached by row_id / ticker). Bands are DERIVED in-page
    from the numbers (never stored). `short` = 2-4 word on-screen label; `cat` = detail-overlay text. ===== */
 const BOARD = {
-  "ticker": "ADA",
-  "name": "Cardano",
-  "as_of": "2026-07-14",
+  "ticker": "PYTH",
+  "name": "Pyth Network",
+  "as_of": "2026-07-29",
   "totals": {
-    "net": 5.5,
-    "tok": 5.1
+    "net": 5.6,
+    "tok": 4.6
   },
-  "tnt": 4.9,
-  "technicals": 4.7,
+  "tnt": 4.2,
+  "technicals": 3.7,
   "verdict": {
-    "headline": "A busy roadmap the token barely touches.",
-    "paragraph": "Cardano has an ambitious 2026 stack — a spot ETF in the pipeline, commodity status secured, Leios scaling on testnet, a Bitcoin-DeFi pivot, now RealFi — but scored on the two axes, almost none of it reaches the ADA token, which still has no live buyback or burn. That leaves the ~October spot ETF as the one hard-dated, token-capturing catalyst carrying the board, and the call a two-sided, ETF-dependent neutral hold.",
+    "headline": "The revenue is real. The link to the token is not.",
+    "paragraph": "Pyth sells market data to institutions and gets paid for it. Pyth Pro booked $441,625 in June, 97.8% of all network revenue. But scored on the two axes, almost none of that reaches the coin. The revenue settles in kind, and the governance rule that controls it never requires anyone to buy PYTH on the open market. The buyback is default-off, and a passed fee-repatriation framework has moved $0.",
     "reads": {
-      "token": "No live value-capture — ETF-dependent",
-      "network": "Ambitious roadmap, deteriorating present",
-      "technicals": "Neutral — clinging to $0.16 support"
+      "token": "Revenue is real, the buying rule is not",
+      "network": "Monetising, but bullish only by a hair",
+      "technicals": "Charts bearish at the time of scoring"
     }
   },
-  "logo": "<svg class=\"vc-logo\" viewBox=\"0 0 32 32\" xmlns=\"http://www.w3.org/2000/svg\" aria-label=\"ADA\"><circle cx=\"16\" cy=\"16\" r=\"16\" fill=\"#0033AD\"/><circle fill=\"#fff\" cx=\"16\" cy=\"16\" r=\"2\"/><circle fill=\"#fff\" cx=\"16\" cy=\"10\" r=\"1.5\"/><circle fill=\"#fff\" cx=\"21.2\" cy=\"13\" r=\"1.5\"/><circle fill=\"#fff\" cx=\"21.2\" cy=\"19\" r=\"1.5\"/><circle fill=\"#fff\" cx=\"16\" cy=\"22\" r=\"1.5\"/><circle fill=\"#fff\" cx=\"10.8\" cy=\"19\" r=\"1.5\"/><circle fill=\"#fff\" cx=\"10.8\" cy=\"13\" r=\"1.5\"/><circle fill=\"#fff\" cx=\"16\" cy=\"5.5\" r=\"1.1\"/><circle fill=\"#fff\" cx=\"23.4\" cy=\"8.6\" r=\"1.1\"/><circle fill=\"#fff\" cx=\"26.5\" cy=\"16\" r=\"1.1\"/><circle fill=\"#fff\" cx=\"23.4\" cy=\"23.4\" r=\"1.1\"/><circle fill=\"#fff\" cx=\"16\" cy=\"26.5\" r=\"1.1\"/><circle fill=\"#fff\" cx=\"8.6\" cy=\"23.4\" r=\"1.1\"/><circle fill=\"#fff\" cx=\"5.5\" cy=\"16\" r=\"1.1\"/><circle fill=\"#fff\" cx=\"8.6\" cy=\"8.6\" r=\"1.1\"/></svg>",
+  "logo": "<svg class=\"vc-logo\" viewBox=\"0 0 32 32\" xmlns=\"http://www.w3.org/2000/svg\" aria-label=\"PYTH\"> <g transform=\"scale(0.5)\"> <g clip-path=\"url(#clip0_229_6-pyth)\"> <path d=\"M32 64C49.6731 64 64 49.6731 64 32C64 14.3269 49.6731 0 32 0C14.3269 0 0 14.3269 0 32C0 49.6731 14.3269 64 32 64Z\" fill=\"#E6DAFE\"/> <path d=\"M37.925 28.5625C37.925 31.15 35.8375 33.25 33.25 33.25V37.9375C38.4125 37.9375 42.5875 33.75 42.5875 28.575C42.5875 23.4 38.4 19.2125 33.25 19.2125C31.55 19.2125 29.95 19.6625 28.575 20.4625C25.7875 22.075 23.9 25.1125 23.9 28.575V51.9875L28.1 56.2L28.575 56.675V28.5625C28.575 25.975 30.6625 23.875 33.25 23.875C35.8375 23.875 37.925 25.9875 37.925 28.5625Z\" fill=\"black\"/> <path d=\"M33.25 9.83749C29.85 9.83749 26.6625 10.75 23.9125 12.35C22.15 13.3625 20.575 14.6625 19.2375 16.1875C16.3375 19.4875 14.5625 23.825 14.5625 28.575V42.625L19.2375 47.3125V28.5625C19.2375 24.4 21.0375 20.6625 23.9125 18.0875C25.2625 16.875 26.8375 15.925 28.5875 15.3125C30.05 14.7875 31.625 14.5125 33.2625 14.5125C41 14.5125 47.275 20.8 47.275 28.5625C47.275 36.325 40.9875 42.6125 33.25 42.6125V47.3C43.5625 47.3 51.925 38.9125 51.925 28.575C51.925 18.2375 43.5625 9.83749 33.25 9.83749Z\" fill=\"black\"/> </g> <defs> <clipPath id=\"clip0_229_6-pyth\"> <rect width=\"64\" height=\"64\" fill=\"white\"/> </clipPath> </defs> </g> </svg>",
   "rows": [
     {
       "n": 1,
-      "row_id": "ada-etf",
-      "short": "Spot ADA ETF",
-      "cat": "Spot ADA ETF (Grayscale GADA + Bitwise/VanEck/21Shares/Canary)",
-      "net": 5.0,
-      "tok": 8.0
+      "row_id": "pyth-core-upgrade",
+      "short": "Core goes paid",
+      "cat": "Pyth Core paid-model cutover (18 Aug 2026)",
+      "net": 8.0,
+      "tok": 4.5
     },
     {
       "n": 2,
-      "row_id": "ada-commodity-status",
-      "short": "Commodity Status",
-      "cat": "SEC-CFTC digital-commodity status + CME futures",
+      "row_id": "pyth-reserve-buyback",
+      "short": "Reserve buyback",
+      "cat": "PYTH Reserve open-market buyback",
       "net": 5.0,
-      "tok": 5.0
+      "tok": 5.1
     },
     {
       "n": 3,
-      "row_id": "ada-midnight-airdrop",
-      "short": "Midnight / NIGHT Airdrop",
-      "cat": "Midnight / NIGHT \"Glacier Drop\" airdrop + thawing",
+      "row_id": "pyth-pip104-revenue-in-kind",
+      "short": "Revenue paid in PYTH",
+      "cat": "CO-PIP-104 - DAO revenue paid in PYTH, not USDC",
       "net": 5.0,
-      "tok": 5.0
+      "tok": 2.5
     },
     {
       "n": 4,
-      "row_id": "ada-leios",
-      "short": "Ouroboros Leios Scaling",
-      "cat": "Ouroboros Leios scaling",
-      "net": 6.8,
-      "tok": 5.0
+      "row_id": "pyth-pro-revenue",
+      "short": "Pyth Pro revenue",
+      "cat": "Pyth Pro institutional revenue engine",
+      "net": 8.0,
+      "tok": 4.5
     },
     {
       "n": 5,
-      "row_id": "ada-voltaire",
-      "short": "Voltaire Governance",
-      "cat": "Voltaire on-chain governance (Constitution, NCL, Summit-kill)",
-      "net": 5.0,
-      "tok": 5.0
+      "row_id": "pyth-fixed-income",
+      "short": "Fixed-income expansion",
+      "cat": "Fixed-income expansion (Fenics/BGC, OpenYield, Tradeweb)",
+      "net": 6.8,
+      "tok": 4.5
     },
     {
       "n": 6,
-      "row_id": "ada-ecosystem-stress",
-      "short": "Founder Warning + 5-Yr Low",
-      "cat": "Hoskinson \"wave of failures\" / 5-yr low / TapTools shutdown",
-      "net": 3.5,
-      "tok": 3.0
+      "row_id": "pyth-doc-data",
+      "short": "US Commerce data",
+      "cat": "US Dept of Commerce economic data on-chain",
+      "net": 6.8,
+      "tok": 4.5
     },
     {
       "n": 7,
-      "row_id": "ada-btcfi",
-      "short": "Bitcoin DeFi (BTCfi)",
-      "cat": "Bitcoin DeFi / BTCfi \"Pentad\" / Pogun / BitcoinOS",
+      "row_id": "pyth-nasdaq-totalview",
+      "short": "Nasdaq TotalView",
+      "cat": "Nasdaq TotalView on the Pyth Data Marketplace",
       "net": 6.8,
-      "tok": 5.0
+      "tok": 4.5
     },
     {
       "n": 8,
-      "row_id": "ada-van-rossem-fork",
-      "short": "van Rossem Hard Fork",
-      "cat": "van Rossem hard fork (Protocol Version 11)",
-      "net": 5.8,
+      "row_id": "pyth-ois-staking",
+      "short": "Staking after emissions",
+      "cat": "Oracle Integrity Staking after reward emissions ended",
+      "net": 4.2,
       "tok": 5.0
     },
     {
       "n": 9,
-      "row_id": "ada-reli-treasury",
-      "short": "RELI ADA Treasury",
-      "cat": "Reliance Global (RELI) ADA treasury (DAT) + whale accumulation",
-      "net": 5.0,
-      "tok": 5.0
+      "row_id": "pyth-pythnet-sunset",
+      "short": "Pythnet to Lazer",
+      "cat": "Pythnet chain sunset and migration to Lazer",
+      "net": 7.5,
+      "tok": 6.2
     },
     {
       "n": 10,
-      "row_id": "ada-foundation-rebalance",
-      "short": "Foundation Treasury Rotation",
-      "cat": "Cardano Foundation treasury rebalance (ADA → BTC / cash)",
-      "net": 5.0,
-      "tok": 5.0
+      "row_id": "pyth-pythnet-outage",
+      "short": "May outage",
+      "cat": "Pythnet outage (22 May 2026)",
+      "net": 4.2,
+      "tok": 4.8
     },
     {
       "n": 11,
-      "row_id": "ada-stablecoins",
-      "short": "Native Stablecoin Growth",
-      "cat": "Native stablecoin growth (USDM / USDA / USDC)",
-      "net": 5.8,
-      "tok": 5.0
+      "row_id": "pyth-express-relay-winddown",
+      "short": "Express Relay wind-down",
+      "cat": "Express Relay wind-down and non-Pro revenue",
+      "net": 4.4,
+      "tok": 4.9
     },
     {
       "n": 12,
-      "row_id": "ada-realfi",
-      "short": "RealFi + USDr",
-      "cat": "RealFi real-world-credit initiative + USDr yield stablecoin (Phase-1 testnet)",
-      "net": 6.8,
-      "tok": 5.0
+      "row_id": "pyth-governance-quorum",
+      "short": "Quorum fragility",
+      "cat": "DAO governance quorum fragility",
+      "net": 4.4,
+      "tok": 5.1
+    },
+    {
+      "n": 13,
+      "row_id": "pyth-unlocks",
+      "short": "Unlocks and supply",
+      "cat": "Token unlocks and DAO supply schedule",
+      "net": 5.0,
+      "tok": 4.4
+    },
+    {
+      "n": 14,
+      "row_id": "pyth-chainlink-competition",
+      "short": "Oracle competition",
+      "cat": "On-chain oracle competition (Chainlink, RedStone, Chronicle)",
+      "net": 4.2,
+      "tok": 4.0
+    },
+    {
+      "n": 15,
+      "row_id": "pyth-cross-chain-fee-repatriation",
+      "short": "Fee repatriation",
+      "cat": "OP-PIP-125 cross-chain fee repatriation",
+      "net": 5.0,
+      "tok": 5.7
+    },
+    {
+      "n": 16,
+      "row_id": "pyth-supply-immutability",
+      "short": "Mint authority revoked",
+      "cat": "Mint authority revoked / supply floor",
+      "net": 5.0,
+      "tok": 6.2
+    },
+    {
+      "n": 17,
+      "row_id": "pyth-token-holder-rights",
+      "short": "Accrual is policy",
+      "cat": "Value accrual is revocable policy, not code",
+      "net": 5.0,
+      "tok": 4.8
+    },
+    {
+      "n": 18,
+      "row_id": "pyth-market-data-incumbent-competition",
+      "short": "Incumbent data giants",
+      "cat": "Market-data incumbent competition (Bloomberg, LSEG, ICE, Nasdaq)",
+      "net": 5.0,
+      "tok": 3.3
+    },
+    {
+      "n": 19,
+      "row_id": "pyth-onchain-protocol-fees",
+      "short": "On-chain protocol fees",
+      "cat": "On-chain protocol fees (Core update fees, Entropy)",
+      "net": 5.8,
+      "tok": 5.9
+    },
+    {
+      "n": 20,
+      "row_id": "pyth-publisher-tranche-sales",
+      "short": "Publisher tranche sales",
+      "cat": "Publisher tranche unlocks and disposals (MIAX, Cboe, Virtu)",
+      "net": 5.0,
+      "tok": 2.5
     }
   ]
 };
