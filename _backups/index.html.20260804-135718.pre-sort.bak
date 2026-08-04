@@ -376,16 +376,6 @@ h1{font-size:clamp(34px,5vw,54px); line-height:1.03; font-weight:700; color:var(
 .board td.comp-first, .board th.comp-first, .board th.bd-grp{border-left:2px solid var(--gold-line)}
 .board td.comp.sc{font-size:14px; font-weight:600}
 .board tbody tr:hover td.comp{background:color-mix(in srgb, var(--gold) 8%, transparent)}
-/* sortable column headers — click/Enter/Space to re-sort the board (rank stays TNT) */
-.board thead th.srt{cursor:pointer; user-select:none; position:relative; transition:color .15s}
-.board thead th.srt:hover{color:var(--ink)}
-.board thead th.srt:focus-visible{outline:2px solid var(--gold); outline-offset:-2px; border-radius:4px}
-.board thead th.srt .cx{display:inline-block; width:8px; margin-left:4px; opacity:0; font-size:8px;
-  vertical-align:middle; transition:opacity .15s}
-.board thead th.srt:hover .cx{opacity:.4}
-.board thead th.srt[aria-sort] .cx{opacity:1}
-.board thead th.srt[aria-sort]{color:var(--ink)}
-.board thead th.tnt-col.srt[aria-sort], .board thead th.tnt-col.srt:hover{color:var(--gold)}
 .board .real-row td.comp{background:color-mix(in srgb, var(--gold) 11%, transparent)}
 .board .pend-badge{display:inline-flex; align-items:center; justify-content:center; font-family:'JetBrains Mono',monospace;
   font-weight:700; font-size:9.5px; letter-spacing:.6px; padding:4px 9px; border-radius:8px;
@@ -894,15 +884,15 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
         <thead>
           <tr>
             <th class="lft" rowspan="2">#</th>
-            <th class="lft srt" rowspan="2" data-sort="asset" role="button" tabindex="0" title="Sort by asset name">Asset<span class="cx" aria-hidden="true"></span></th>
+            <th class="lft" rowspan="2">Asset</th>
             <th class="pcol" rowspan="2">Price</th>
-            <th class="tnt-col srt" rowspan="2" data-sort="tnt" role="button" tabindex="0" aria-sort="descending" title="Sort by TNT Score">TNT<span class="cx" aria-hidden="true">▼</span></th>
+            <th class="tnt-col" rowspan="2">TNT</th>
             <th class="bd-grp" colspan="3">SCORE BREAKDOWN</th>
           </tr>
           <tr>
-            <th class="comp comp-first srt" data-sort="token" role="button" tabindex="0" title="Sort by Token Score"><span class="lbl-full">Token</span><span class="lbl-abbr">TOK</span><span class="cx" aria-hidden="true"></span></th>
-            <th class="comp srt" data-sort="network" role="button" tabindex="0" title="Sort by Network Score"><span class="lbl-full">Network</span><span class="lbl-abbr">NET</span><span class="cx" aria-hidden="true"></span></th>
-            <th class="comp srt" data-sort="technicals" role="button" tabindex="0" title="Sort by Technicals Score"><span class="lbl-full">Technicals</span><span class="lbl-abbr">TECH</span><span class="cx" aria-hidden="true"></span></th>
+            <th class="comp comp-first"><span class="lbl-full">Token</span><span class="lbl-abbr">TOK</span></th>
+            <th class="comp"><span class="lbl-full">Network</span><span class="lbl-abbr">NET</span></th>
+            <th class="comp"><span class="lbl-full">Technicals</span><span class="lbl-abbr">TECH</span></th>
           </tr>
         </thead>
         <tbody id="board-body"><!-- rows rendered client-side from ./tnt_scoreboard.json (build_scoreboard_json.py) --></tbody>
@@ -1502,52 +1492,15 @@ const isSet=(v)=> typeof v==='string' && v.indexOf('XXXX')===-1 && v.indexOf('PA
   function esc(s){ return String(s==null?"":s).replace(/[&<>"]/g, function(m){
     return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]; }); }
 
-  // ---- Board sorting ---------------------------------------------------------
-  // The DEFAULT (key 'tnt') is the canonical board order and is unchanged from the
-  // pre-sort build: scored rows before PENDING, then TNT desc (PENDING rows fall
-  // back to Token desc). The '#' column is ALWAYS the rank in THIS order — it is
-  // computed once at load and travels with the row, so re-sorting by Asset or a
-  // component score never renumbers it. TNT rank is an identity, not a row index.
-  //
-  // Nulls ALWAYS sink, in both directions. A PENDING Technicals is "no reading",
-  // not "a low reading" — floating a wall of em-dashes to the top on an ascending
-  // sort would read as a broken board.
-  var SORT_FIELD = { tnt:'tnt_score', token:'token_score',
-                     network:'network_score', technicals:'technicals_score' };
-
-  function sortTokens(toks, key, dir){
-    if(!key || key==='tnt') return defaultOrder(toks);
-    var arr = toks.slice();
-    if(key==='asset'){
-      var sgn = (dir==='desc') ? -1 : 1;                 // Asset defaults A→Z
-      arr.sort(function(a,b){
-        return sgn * String(a.ticker||'').localeCompare(String(b.ticker||''), 'en',
-                       {sensitivity:'base'});
-      });
-      return arr;
-    }
-    var f = SORT_FIELD[key];
-    if(!f) return defaultOrder(toks);
-    var s = (dir==='asc') ? -1 : 1;                      // scores default high→low
-    arr.sort(function(a,b){
-      var av = a[f], bv = b[f];
-      var an = (av==null), bn = (bv==null);
-      if(an!==bn) return an ? 1 : -1;                    // nulls sink, both directions
-      if(an) return defaultCmp(a,b);                     // both PENDING -> stable default order
-      if(av===bv) return defaultCmp(a,b);                // ties -> default order, never jitter
-      return s * (bv - av);
+  function sortTokens(toks){
+    return toks.slice().sort(function(a,b){
+      var as = a.tnt_score!=null, bs = b.tnt_score!=null;
+      if(as!==bs) return as ? -1 : 1;                    // scored before PENDING
+      var ap = as ? a.tnt_score : (a.token_score||0);    // then by TNT desc (PENDING: Token desc)
+      var bp = bs ? b.tnt_score : (b.token_score||0);
+      return bp - ap;
     });
-    return arr;
   }
-
-  function defaultCmp(a,b){
-    var as = a.tnt_score!=null, bs = b.tnt_score!=null;
-    if(as!==bs) return as ? -1 : 1;                      // scored before PENDING
-    var ap = as ? a.tnt_score : (a.token_score||0);      // then by TNT desc (PENDING: Token desc)
-    var bp = bs ? b.tnt_score : (b.token_score||0);
-    return bp - ap;
-  }
-  function defaultOrder(toks){ return toks.slice().sort(defaultCmp); }
 
   function rowHTML(t, rank){
     var pending = (t.tnt_score==null);
@@ -1638,65 +1591,11 @@ const isSet=(v)=> typeof v==='string' && v.indexOf('XXXX')===-1 && v.indexOf('PA
     if(story){ setComposite(story,f); setStrip(story,f); }
   }
 
-  // Board state. TOKENS holds the rows with their TNT rank already pinned; SORT_KEY
-  // / SORT_DIR are session-only and reset to the TNT default on every page load, so
-  // every arrival sees the canonical TNT ordering first.
-  var TOKENS = [], SORT_KEY = 'tnt', SORT_DIR = 'desc';
-
-  // Rebuilds ONLY the tbody, then repaints prices. Any path that replaces
-  // #board-body innerHTML MUST end in paintPrices() or the live price column
-  // silently reverts to static em-dashes.
-  function renderRows(){
-    var body = document.getElementById('board-body');
-    if(!body) return;
-    body.innerHTML = sortTokens(TOKENS, SORT_KEY, SORT_DIR)
-      .map(function(t){ return rowHTML(t, t.__rank); }).join('');
-    paintPrices();
-  }
-
-  function setSort(key){
-    if(!key) return;
-    if(SORT_KEY===key){
-      SORT_DIR = (SORT_DIR==='desc') ? 'asc' : 'desc';       // same column -> flip
-    }else{
-      SORT_KEY = key;
-      SORT_DIR = (key==='asset') ? 'asc' : 'desc';           // names A→Z, scores high→low
-    }
-    Array.prototype.forEach.call(document.querySelectorAll('.board thead th.srt'),
-      function(th){
-        var c = th.querySelector('.cx');
-        if(th.getAttribute('data-sort')===SORT_KEY){
-          th.setAttribute('aria-sort', SORT_DIR==='asc' ? 'ascending' : 'descending');
-          if(c) c.textContent = (SORT_DIR==='asc') ? '▲' : '▼';
-        }else{
-          th.removeAttribute('aria-sort');
-          if(c) c.textContent = '';
-        }
-      });
-    renderRows();
-  }
-
-  function bindSort(){
-    Array.prototype.forEach.call(document.querySelectorAll('.board thead th.srt'),
-      function(th){
-        var key = th.getAttribute('data-sort');
-        th.addEventListener('click', function(){ setSort(key); });
-        th.addEventListener('keydown', function(e){
-          if(e.key==='Enter' || e.key===' ' || e.key==='Spacebar'){
-            e.preventDefault(); setSort(key);
-          }
-        });
-      });
-  }
-
   function render(data){
     var body = document.getElementById('board-body');
     if(!body) return;
-    // Pin the TNT rank ONCE, from the canonical order, before any re-sort can run.
-    TOKENS = defaultOrder(data.tokens||[]);
-    TOKENS.forEach(function(t,i){ t.__rank = i+1; });
-    var toks = sortTokens(TOKENS, SORT_KEY, SORT_DIR);
-    body.innerHTML = toks.map(function(t){ return rowHTML(t, t.__rank); }).join('');
+    var toks = sortTokens(data.tokens||[]);
+    body.innerHTML = toks.map(function(t,i){ return rowHTML(t, i+1); }).join('');
     var stamp = document.getElementById('board-asof');
     if(stamp){
       var dates = toks.map(function(t){ return t.as_of_date; }).filter(Boolean).sort();
@@ -1741,49 +1640,12 @@ const isSet=(v)=> typeof v==='string' && v.indexOf('XXXX')===-1 && v.indexOf('PA
     return '$' + n.toLocaleString('en-US', {minimumFractionDigits:dp, maximumFractionDigits:dp});
   }
 
-  // Last good feed payload. A re-sort rebuilds the tbody and wipes every painted
-  // cell, so it repaints from THIS cache — instantly, with no network round-trip
-  // and no flash of em-dashes between the click and the response. Only the initial
-  // load and the 600 s poll actually hit the proxy.
-  var PRICE_CACHE = null;
-
-  function applyPrices(data){
-    if(!data || typeof data !== 'object') return 0;
-    var cells = Array.prototype.slice.call(
-        document.querySelectorAll('#board-body td.price[data-cgid]'))
-      .filter(function(c){ return c.getAttribute('data-cgid'); });
-    var painted = 0;
-    cells.forEach(function(c){
-      var row = data[c.getAttribute('data-cgid')];
-      if(!row) return;                            // id absent -> keep the em-dash
-      var px = fmtPrice(row.usd);
-      if(px == null) return;                      // bad number -> keep the em-dash
-      var pct = Number(row.pct24h);
-      var dir = !isFinite(pct) ? 'flat' : (pct > 0 ? 'up' : (pct < 0 ? 'down' : 'flat'));
-      var glyph = (dir === 'up') ? '▲' : (dir === 'down') ? '▼' : '·';
-      var move = isFinite(pct)
-        ? '<span class="pmove '+dir+'">'+glyph+' '+Math.abs(pct).toFixed(1)+'%</span>'
-        : '';
-      c.innerHTML = '<span class="pv">'+esc(px)+'</span>'+move;
-      painted++;
-    });
-    if(painted > 0){
-      var badge = document.getElementById('prices-live');   // only claim "live" once a price paints
-      if(badge) badge.classList.add('on');
-    }
-    return painted;
-  }
-
-  // force=true -> always refetch (initial load + the 600 s poll).
-  // force falsy with a warm cache -> repaint only (the re-sort path).
-  function paintPrices(force){
+  function paintPrices(){
     try{
       var cells = Array.prototype.slice.call(
           document.querySelectorAll('#board-body td.price[data-cgid]'))
         .filter(function(c){ return c.getAttribute('data-cgid'); });
       if(!cells.length) return;                       // nothing to paint (board not rendered / no ids)
-      if(PRICE_CACHE && !force){ applyPrices(PRICE_CACHE); return; }
-      if(PRICE_CACHE) applyPrices(PRICE_CACHE);       // show last good values while refetching
       var seen = {};
       cells.forEach(function(c){ seen[c.getAttribute('data-cgid')] = 1; });
       var qs = Object.keys(seen).map(encodeURIComponent).join(',');
@@ -1792,20 +1654,37 @@ const isSet=(v)=> typeof v==='string' && v.indexOf('XXXX')===-1 && v.indexOf('PA
         .then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
         .then(function(data){
           if(!data || typeof data !== 'object') return;
-          if(applyPrices(data) > 0) PRICE_CACHE = data;  // only cache a payload that painted
+          var painted = 0;
+          cells.forEach(function(c){
+            var row = data[c.getAttribute('data-cgid')];
+            if(!row) return;                            // id absent -> keep the em-dash
+            var px = fmtPrice(row.usd);
+            if(px == null) return;                      // bad number -> keep the em-dash
+            var pct = Number(row.pct24h);
+            var dir = !isFinite(pct) ? 'flat' : (pct > 0 ? 'up' : (pct < 0 ? 'down' : 'flat'));
+            var glyph = (dir === 'up') ? '▲' : (dir === 'down') ? '▼' : '·';
+            var move = isFinite(pct)
+              ? '<span class="pmove '+dir+'">'+glyph+' '+Math.abs(pct).toFixed(1)+'%</span>'
+              : '';
+            c.innerHTML = '<span class="pv">'+esc(px)+'</span>'+move;
+            painted++;
+          });
+          if(painted > 0){
+            var badge = document.getElementById('prices-live');   // only claim "live" once a price paints
+            if(badge) badge.classList.add('on');
+          }
         })
         .catch(function(err){ if(window.console) console.warn('[prices] feed unavailable, keeping em-dash:', err); });
     }catch(err){ if(window.console) console.warn('[prices] paint skipped, keeping em-dash:', err); }
   }
 
   function init(){
-    bindSort();
     fetch('./tnt_scoreboard.json', {cache:'no-store'})
       .then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); })
       .then(render)
-      .then(function(){ paintPrices(true); })  // live prices, right after board rows render
+      .then(function(){ paintPrices(); })     // live prices, right after board rows render
       .catch(fail);
-    setInterval(function(){ paintPrices(true); }, 600000);   // re-poll every 600 s
+    setInterval(paintPrices, 600000);          // re-poll every 600 s
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', init);
   else init();
