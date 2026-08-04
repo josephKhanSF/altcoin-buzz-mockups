@@ -386,12 +386,22 @@ h1{font-size:clamp(34px,5vw,54px); line-height:1.03; font-weight:700; color:var(
 .board thead th.comp{padding-left:4px; padding-right:4px}
 .board thead th.srt:hover{color:var(--ink)}
 .board thead th.srt:focus-visible{outline:2px solid var(--gold); outline-offset:-2px; border-radius:4px}
-/* The caret is ALWAYS present (a faint ⇅ when inactive) so the column reads as
-   sortable before anyone clicks it — discoverability, not decoration. */
-.board thead th.srt .cx{display:inline-block; width:7px; margin-left:3px; opacity:.32; font-size:8px;
-  line-height:1; vertical-align:middle; transition:opacity .15s, color .15s}
-.board thead th.srt:hover .cx{opacity:.85}
-.board thead th.srt[aria-sort] .cx{opacity:1}
+/* Stacked up/down chevron, ALWAYS visible, so a column reads as sortable before
+   anyone clicks it (the CoinMarketCap affordance). Inline SVG rather than a text
+   glyph on purpose: ⇅ / ▲▼ are absent from JetBrains Mono and fell back to a
+   system font, so their size and baseline drifted per platform. Paths inherit
+   currentColor, and the lit direction is driven purely by the th's aria-sort —
+   one source of truth for the visual state and the screen-reader state. */
+.board thead th.srt .cx{display:inline-block; width:7px; height:10px; margin-left:4px;
+  vertical-align:-1px; line-height:0}
+.board thead th.srt .cx svg{display:block; overflow:visible}
+.board thead th.srt .cx path{fill:currentColor; opacity:.42; transition:opacity .12s, fill .12s}
+.board thead th.srt:hover .cx path{opacity:.7}
+/* active column: ONLY the live direction is lit, in brand gold; its twin recedes */
+.board thead th.srt[aria-sort="ascending"] .cx .up,
+.board thead th.srt[aria-sort="descending"] .cx .dn{fill:var(--gold); opacity:1}
+.board thead th.srt[aria-sort="ascending"] .cx .dn,
+.board thead th.srt[aria-sort="descending"] .cx .up{opacity:.18}
 .board thead th.srt[aria-sort]{color:var(--ink)}
 .board thead th.tnt-col.srt[aria-sort], .board thead th.tnt-col.srt:hover{color:var(--gold)}
 .bn-hint{color:var(--faint); font-size:10px; font-family:'JetBrains Mono',monospace; letter-spacing:.3px}
@@ -905,15 +915,15 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
         <thead>
           <tr>
             <th class="lft" rowspan="2">#</th>
-            <th class="lft srt" rowspan="2" data-sort="asset" role="button" tabindex="0" title="Sort by asset name">Asset<span class="cx" aria-hidden="true">⇅</span></th>
+            <th class="lft srt" rowspan="2" data-sort="asset" role="button" tabindex="0" title="Sort by asset name">Asset<span class="cx" aria-hidden="true"><svg viewBox="0 0 7 10" width="7" height="10"><path class="up" d="M3.5 0 L6.6 3.7 L0.4 3.7 Z"/><path class="dn" d="M3.5 10 L0.4 6.3 L6.6 6.3 Z"/></svg></span></th>
             <th class="pcol" rowspan="2">Price</th>
-            <th class="tnt-col srt" rowspan="2" data-sort="tnt" role="button" tabindex="0" aria-sort="descending" title="Sort by TNT Score">TNT<span class="cx" aria-hidden="true">▼</span></th>
+            <th class="tnt-col srt" rowspan="2" data-sort="tnt" role="button" tabindex="0" aria-sort="descending" title="Sort by TNT Score">TNT<span class="cx" aria-hidden="true"><svg viewBox="0 0 7 10" width="7" height="10"><path class="up" d="M3.5 0 L6.6 3.7 L0.4 3.7 Z"/><path class="dn" d="M3.5 10 L0.4 6.3 L6.6 6.3 Z"/></svg></span></th>
             <th class="bd-grp" colspan="3">SCORE BREAKDOWN</th>
           </tr>
           <tr>
-            <th class="comp comp-first srt" data-sort="token" role="button" tabindex="0" title="Sort by Token Score"><span class="lbl-full">Token</span><span class="lbl-abbr">TOK</span><span class="cx" aria-hidden="true">⇅</span></th>
-            <th class="comp srt" data-sort="network" role="button" tabindex="0" title="Sort by Network Score"><span class="lbl-full">Network</span><span class="lbl-abbr">NET</span><span class="cx" aria-hidden="true">⇅</span></th>
-            <th class="comp srt" data-sort="technicals" role="button" tabindex="0" title="Sort by Technicals Score"><span class="lbl-full">Technicals</span><span class="lbl-abbr">TECH</span><span class="cx" aria-hidden="true">⇅</span></th>
+            <th class="comp comp-first srt" data-sort="token" role="button" tabindex="0" title="Sort by Token Score"><span class="lbl-full">Token</span><span class="lbl-abbr">TOK</span><span class="cx" aria-hidden="true"><svg viewBox="0 0 7 10" width="7" height="10"><path class="up" d="M3.5 0 L6.6 3.7 L0.4 3.7 Z"/><path class="dn" d="M3.5 10 L0.4 6.3 L6.6 6.3 Z"/></svg></span></th>
+            <th class="comp srt" data-sort="network" role="button" tabindex="0" title="Sort by Network Score"><span class="lbl-full">Network</span><span class="lbl-abbr">NET</span><span class="cx" aria-hidden="true"><svg viewBox="0 0 7 10" width="7" height="10"><path class="up" d="M3.5 0 L6.6 3.7 L0.4 3.7 Z"/><path class="dn" d="M3.5 10 L0.4 6.3 L6.6 6.3 Z"/></svg></span></th>
+            <th class="comp srt" data-sort="technicals" role="button" tabindex="0" title="Sort by Technicals Score"><span class="lbl-full">Technicals</span><span class="lbl-abbr">TECH</span><span class="cx" aria-hidden="true"><svg viewBox="0 0 7 10" width="7" height="10"><path class="up" d="M3.5 0 L6.6 3.7 L0.4 3.7 Z"/><path class="dn" d="M3.5 10 L0.4 6.3 L6.6 6.3 Z"/></svg></span></th>
           </tr>
         </thead>
         <tbody id="board-body"><!-- rows rendered client-side from ./tnt_scoreboard.json (build_scoreboard_json.py) --></tbody>
@@ -1681,13 +1691,10 @@ const isSet=(v)=> typeof v==='string' && v.indexOf('XXXX')===-1 && v.indexOf('PA
     }
     Array.prototype.forEach.call(document.querySelectorAll('.board thead th.srt'),
       function(th){
-        var c = th.querySelector('.cx');
         if(th.getAttribute('data-sort')===SORT_KEY){
           th.setAttribute('aria-sort', SORT_DIR==='asc' ? 'ascending' : 'descending');
-          if(c) c.textContent = (SORT_DIR==='asc') ? '▲' : '▼';
         }else{
           th.removeAttribute('aria-sort');
-          if(c) c.textContent = '⇅';
         }
       });
     renderRows();
