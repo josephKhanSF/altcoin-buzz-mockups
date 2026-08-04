@@ -1,6 +1,6 @@
 {
   "schema": "tnt_scoreboard_portal/v1",
-  "generated_at": "2026-08-03",
+  "generated_at": "2026-08-04",
   "source_csv": "Channels/CH-003-altcoin-buzz/Leads/Token Scorecard/tnt_scoreboard.csv",
   "featured": "PUMP",
   "bands": {
@@ -614,24 +614,6 @@
       "ta_status": "live"
     },
     {
-      "ticker": "HYPE",
-      "name": "Hyperliquid",
-      "tnt_score": 4.3,
-      "tnt_band": "BEARISH",
-      "token_score": 4.8,
-      "token_band": "NEUTRAL",
-      "network_score": 5.3,
-      "network_band": "NEUTRAL",
-      "technicals_score": 3.7,
-      "technicals_band": "BEARISH",
-      "verdict_band": "NEUTRAL",
-      "catalyst_count": 13,
-      "coingecko_id": "hyperliquid",
-      "as_of_date": "2026-07-29",
-      "technicals_as_of_date": "2026-08-03",
-      "ta_status": "live"
-    },
-    {
       "ticker": "W",
       "name": "Wormhole",
       "tnt_score": 4.2,
@@ -646,6 +628,24 @@
       "catalyst_count": 5,
       "coingecko_id": "wormhole",
       "as_of_date": "2026-07-13",
+      "technicals_as_of_date": "2026-08-03",
+      "ta_status": "live"
+    },
+    {
+      "ticker": "HYPE",
+      "name": "Hyperliquid",
+      "tnt_score": 4.2,
+      "tnt_band": "BEARISH",
+      "token_score": 4.6,
+      "token_band": "NEUTRAL",
+      "network_score": 5.3,
+      "network_band": "NEUTRAL",
+      "technicals_score": 3.7,
+      "technicals_band": "BEARISH",
+      "verdict_band": "NEUTRAL",
+      "catalyst_count": 13,
+      "coingecko_id": "hyperliquid",
+      "as_of_date": "2026-08-04",
       "technicals_as_of_date": "2026-08-03",
       "ta_status": "live"
     },

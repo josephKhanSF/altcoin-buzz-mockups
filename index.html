@@ -404,9 +404,6 @@ h1{font-size:clamp(34px,5vw,54px); line-height:1.03; font-weight:700; color:var(
 .board thead th.srt[aria-sort="descending"] .cx .up{opacity:.18}
 .board thead th.srt[aria-sort]{color:var(--ink)}
 .board thead th.tnt-col.srt[aria-sort], .board thead th.tnt-col.srt:hover{color:var(--gold)}
-.bn-hint{color:var(--faint); font-size:10px; font-family:'JetBrains Mono',monospace; letter-spacing:.3px}
-.bn-hint .tp{display:none}
-@media (hover:none){.bn-hint .hv{display:none} .bn-hint .tp{display:inline}}
 .board .real-row td.comp{background:color-mix(in srgb, var(--gold) 11%, transparent)}
 .board .pend-badge{display:inline-flex; align-items:center; justify-content:center; font-family:'JetBrains Mono',monospace;
   font-weight:700; font-size:9.5px; letter-spacing:.6px; padding:4px 9px; border-radius:8px;
@@ -932,7 +929,6 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
         <span class="legend"><span class="sw" style="background:var(--green)"></span>Bullish 5.6–10</span>
         <span class="legend"><span class="sw" style="background:var(--zero)"></span>Neutral 4.5–5.5</span>
         <span class="legend"><span class="sw" style="background:var(--red)"></span>Bearish 1.0–4.4</span>
-        <span class="bn-hint"><span class="hv">Click</span><span class="tp">Tap</span> any column header to sort</span>
         <span class="bn-asof" id="board-asof"></span>
         <span class="bn-live" id="prices-live" title="Live USD price + 24h move, refreshed every 10 minutes">Prices live</span>
       </div>
