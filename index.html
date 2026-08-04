@@ -376,16 +376,27 @@ h1{font-size:clamp(34px,5vw,54px); line-height:1.03; font-weight:700; color:var(
 .board td.comp-first, .board th.comp-first, .board th.bd-grp{border-left:2px solid var(--gold-line)}
 .board td.comp.sc{font-size:14px; font-weight:600}
 .board tbody tr:hover td.comp{background:color-mix(in srgb, var(--gold) 8%, transparent)}
-/* sortable column headers — click/Enter/Space to re-sort the board (rank stays TNT) */
-.board thead th.srt{cursor:pointer; user-select:none; position:relative; transition:color .15s}
+/* sortable column headers — click/Enter/Space to re-sort the board (rank stays TNT).
+   white-space:nowrap is LOAD-BEARING: the widest label ("TECHNICALS", 66px) plus the
+   caret exceeded the 75.3px content box, so the caret wrapped to a second line and
+   pushed that header out of vertical alignment with Token/Network. Tighter padding on
+   .comp buys the headroom back; nowrap guarantees it can never wrap again at any width. */
+.board thead th.srt{cursor:pointer; user-select:none; white-space:nowrap; vertical-align:middle;
+  transition:color .15s}
+.board thead th.comp{padding-left:4px; padding-right:4px}
 .board thead th.srt:hover{color:var(--ink)}
 .board thead th.srt:focus-visible{outline:2px solid var(--gold); outline-offset:-2px; border-radius:4px}
-.board thead th.srt .cx{display:inline-block; width:8px; margin-left:4px; opacity:0; font-size:8px;
-  vertical-align:middle; transition:opacity .15s}
-.board thead th.srt:hover .cx{opacity:.4}
+/* The caret is ALWAYS present (a faint ⇅ when inactive) so the column reads as
+   sortable before anyone clicks it — discoverability, not decoration. */
+.board thead th.srt .cx{display:inline-block; width:7px; margin-left:3px; opacity:.32; font-size:8px;
+  line-height:1; vertical-align:middle; transition:opacity .15s, color .15s}
+.board thead th.srt:hover .cx{opacity:.85}
 .board thead th.srt[aria-sort] .cx{opacity:1}
 .board thead th.srt[aria-sort]{color:var(--ink)}
 .board thead th.tnt-col.srt[aria-sort], .board thead th.tnt-col.srt:hover{color:var(--gold)}
+.bn-hint{color:var(--faint); font-size:10px; font-family:'JetBrains Mono',monospace; letter-spacing:.3px}
+.bn-hint .tp{display:none}
+@media (hover:none){.bn-hint .hv{display:none} .bn-hint .tp{display:inline}}
 .board .real-row td.comp{background:color-mix(in srgb, var(--gold) 11%, transparent)}
 .board .pend-badge{display:inline-flex; align-items:center; justify-content:center; font-family:'JetBrains Mono',monospace;
   font-weight:700; font-size:9.5px; letter-spacing:.6px; padding:4px 9px; border-radius:8px;
@@ -894,15 +905,15 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
         <thead>
           <tr>
             <th class="lft" rowspan="2">#</th>
-            <th class="lft srt" rowspan="2" data-sort="asset" role="button" tabindex="0" title="Sort by asset name">Asset<span class="cx" aria-hidden="true"></span></th>
+            <th class="lft srt" rowspan="2" data-sort="asset" role="button" tabindex="0" title="Sort by asset name">Asset<span class="cx" aria-hidden="true">⇅</span></th>
             <th class="pcol" rowspan="2">Price</th>
             <th class="tnt-col srt" rowspan="2" data-sort="tnt" role="button" tabindex="0" aria-sort="descending" title="Sort by TNT Score">TNT<span class="cx" aria-hidden="true">▼</span></th>
             <th class="bd-grp" colspan="3">SCORE BREAKDOWN</th>
           </tr>
           <tr>
-            <th class="comp comp-first srt" data-sort="token" role="button" tabindex="0" title="Sort by Token Score"><span class="lbl-full">Token</span><span class="lbl-abbr">TOK</span><span class="cx" aria-hidden="true"></span></th>
-            <th class="comp srt" data-sort="network" role="button" tabindex="0" title="Sort by Network Score"><span class="lbl-full">Network</span><span class="lbl-abbr">NET</span><span class="cx" aria-hidden="true"></span></th>
-            <th class="comp srt" data-sort="technicals" role="button" tabindex="0" title="Sort by Technicals Score"><span class="lbl-full">Technicals</span><span class="lbl-abbr">TECH</span><span class="cx" aria-hidden="true"></span></th>
+            <th class="comp comp-first srt" data-sort="token" role="button" tabindex="0" title="Sort by Token Score"><span class="lbl-full">Token</span><span class="lbl-abbr">TOK</span><span class="cx" aria-hidden="true">⇅</span></th>
+            <th class="comp srt" data-sort="network" role="button" tabindex="0" title="Sort by Network Score"><span class="lbl-full">Network</span><span class="lbl-abbr">NET</span><span class="cx" aria-hidden="true">⇅</span></th>
+            <th class="comp srt" data-sort="technicals" role="button" tabindex="0" title="Sort by Technicals Score"><span class="lbl-full">Technicals</span><span class="lbl-abbr">TECH</span><span class="cx" aria-hidden="true">⇅</span></th>
           </tr>
         </thead>
         <tbody id="board-body"><!-- rows rendered client-side from ./tnt_scoreboard.json (build_scoreboard_json.py) --></tbody>
@@ -911,6 +922,7 @@ html:not([data-theme="dark"]) .quote .attrib span{color:var(--mut)}
         <span class="legend"><span class="sw" style="background:var(--green)"></span>Bullish 5.6–10</span>
         <span class="legend"><span class="sw" style="background:var(--zero)"></span>Neutral 4.5–5.5</span>
         <span class="legend"><span class="sw" style="background:var(--red)"></span>Bearish 1.0–4.4</span>
+        <span class="bn-hint"><span class="hv">Click</span><span class="tp">Tap</span> any column header to sort</span>
         <span class="bn-asof" id="board-asof"></span>
         <span class="bn-live" id="prices-live" title="Live USD price + 24h move, refreshed every 10 minutes">Prices live</span>
       </div>
@@ -1516,7 +1528,12 @@ const isSet=(v)=> typeof v==='string' && v.indexOf('XXXX')===-1 && v.indexOf('PA
                      network:'network_score', technicals:'technicals_score' };
 
   function sortTokens(toks, key, dir){
-    if(!key || key==='tnt') return defaultOrder(toks);
+    // NOTE: 'tnt' deliberately flows through the generic score path below so it can
+    // sort BOTH ways. With key='tnt' + dir='desc' that path is provably identical to
+    // defaultOrder() — nulls sink, scored rows go TNT desc, and both-null ties fall
+    // back to defaultCmp (Token desc). Short-circuiting to defaultOrder() here is what
+    // made the TNT header descending-only.
+    if(!key) return defaultOrder(toks);
     var arr = toks.slice();
     if(key==='asset'){
       var sgn = (dir==='desc') ? -1 : 1;                 // Asset defaults A→Z
@@ -1670,7 +1687,7 @@ const isSet=(v)=> typeof v==='string' && v.indexOf('XXXX')===-1 && v.indexOf('PA
           if(c) c.textContent = (SORT_DIR==='asc') ? '▲' : '▼';
         }else{
           th.removeAttribute('aria-sort');
-          if(c) c.textContent = '';
+          if(c) c.textContent = '⇅';
         }
       });
     renderRows();
