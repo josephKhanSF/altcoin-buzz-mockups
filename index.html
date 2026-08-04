@@ -1514,7 +1514,7 @@ const isSet=(v)=> typeof v==='string' && v.indexOf('XXXX')===-1 && v.indexOf('PA
       + '<td class="rk">'+rank+'</td>'
       + '<td class="asset"><div class="ac"><span class="tlogo">'+logo(t.ticker)+'</span>'
       +   '<div><b>'+esc(t.ticker)+'</b><div class="full">'+esc(t.name)+'</div></div></div></td>'
-      + '<td class="price pcol" data-cgid="'+esc(t.coingecko_id||'')+'">'+esc(t.price_display||"—")+'</td>'
+      + '<td class="price pcol" data-cgid="'+esc(t.coingecko_id||'')+'">—</td>'
       + '<td>'+tnt+'</td>'
       + '<td class="sc comp comp-first '+cls(t.token_band)+'">'+one(t.token_score)+'</td>'
       + '<td class="sc comp '+cls(t.network_band)+'">'+one(t.network_score)+'</td>'
@@ -1623,13 +1623,16 @@ const isSet=(v)=> typeof v==='string' && v.indexOf('XXXX')===-1 && v.indexOf('PA
 
   // ---- Live price feed (WS1 Netlify function) --------------------------------
   // Paints a live USD price + a 24h ▲/▼ move onto each board row that carries a
-  // coingecko id, fetched from the WS1 price proxy. The static price_display in
-  // each cell is the fallback: if the feed is down, times out, or an id is
-  // missing, the cell keeps its static text. The column must never break/blank.
+  // coingecko id, fetched from the WS1 price proxy. The JSON carries NO price
+  // field at all (item #131 WS5 deleted price_display), so every cell renders a
+  // literal em-dash and this function overwrites it. The fallback is therefore
+  // "—", never a stale number: if the feed is down, times out, or an id is
+  // missing, the cell keeps its dash. The column must never break/blank.
   var PRICE_FN = 'https://altcoin-buzz-price-proxy.netlify.app/.netlify/functions/prices';
 
-  // Mirror build_scoreboard_json.py _price_display so live prices match the
-  // static style exactly: >=$1 -> 2dp; >=$0.01 -> 4dp; else 6dp; thousands + "$".
+  // The ONLY price formatter in the system as of item #131 WS5 — the Python
+  // _price_display it used to mirror is gone, so this is not a copy of anything.
+  // Bands: >=$1 -> 2dp; >=$0.01 -> 4dp; else 6dp; thousands separators + "$".
   function fmtPrice(v){
     var n = Number(v);
     if(!isFinite(n)) return null;
@@ -1654,9 +1657,9 @@ const isSet=(v)=> typeof v==='string' && v.indexOf('XXXX')===-1 && v.indexOf('PA
           var painted = 0;
           cells.forEach(function(c){
             var row = data[c.getAttribute('data-cgid')];
-            if(!row) return;                            // id absent -> keep static text
+            if(!row) return;                            // id absent -> keep the em-dash
             var px = fmtPrice(row.usd);
-            if(px == null) return;                      // bad number -> keep static text
+            if(px == null) return;                      // bad number -> keep the em-dash
             var pct = Number(row.pct24h);
             var dir = !isFinite(pct) ? 'flat' : (pct > 0 ? 'up' : (pct < 0 ? 'down' : 'flat'));
             var glyph = (dir === 'up') ? '▲' : (dir === 'down') ? '▼' : '·';
@@ -1671,8 +1674,8 @@ const isSet=(v)=> typeof v==='string' && v.indexOf('XXXX')===-1 && v.indexOf('PA
             if(badge) badge.classList.add('on');
           }
         })
-        .catch(function(err){ if(window.console) console.warn('[prices] feed unavailable, keeping static:', err); });
-    }catch(err){ if(window.console) console.warn('[prices] paint skipped, keeping static:', err); }
+        .catch(function(err){ if(window.console) console.warn('[prices] feed unavailable, keeping em-dash:', err); });
+    }catch(err){ if(window.console) console.warn('[prices] paint skipped, keeping em-dash:', err); }
   }
 
   function init(){
