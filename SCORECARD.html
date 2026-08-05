@@ -69,6 +69,34 @@
    RESEARCH Verdict section — the refresh's story is that the network↔token decoupling has CLOSED
    (5.8 ≈ 5.8). Asset mark swapped to the AAVE ghost. Interaction/highlight/caption logic unchanged.
    NOTE: XRP-specific numbers cited in REVISION 3–4 above describe the prior XRP build, not this one.
+
+  REVISION 7 (operator request, 2026-08-05) — PER-COLUMN REVEAL. Mechanic change; README_SCORECARD.md
+  updated in the same session per the co-ownership rule (PLAN.md ADDENDUM 12, rule 1).
+   A. STATE MODEL SPLIT. The per-row ordered scalar `dataset.stage` (0 both blurred · 1 Network ·
+      2 both) is replaced by TWO INDEPENDENT FLAGS, `dataset.net` and `dataset.tok` ("0"|"1").
+      The scalar hard-coded Network-before-Token and could not represent "Token shown, Network
+      hidden" — the state a Token-column reveal produces. The CSS was already column-independent
+      (.net-hidden / .tok-hidden are separate classes), so only the state layer moved.
+      `applyStage()` → `applyReveal()`.
+   B. FOUR-CLICK ROW CYCLE IS UNCHANGED, re-expressed on the pair: 1 gold+Network · 2 gold+Token ·
+      3 drop gold, keep both · 4 blur both. Clicking a different row still moves the gold and
+      leaves the previous row revealed. ONE new arm the old scalar could not reach: a Token-only
+      row (produced by the Token column button) reveals Network and takes the gold — the analogue
+      of the 1st click.
+   C. TWO NEW OPERATOR BUTTONS — "Reveal / hide ALL Network scores" and "…ALL Token scores"
+      (toggleColumn('net'|'tok')). STATELESS: each reads the board rather than latching, so it
+      stays correct after any amount of individual row clicking — whole column revealed → the
+      click hides it, otherwise it reveals it. Each CLEARS the gold highlight (same as Reveal all).
+      Both wear the `.on` state while their column is fully revealed (syncColumnButtons()).
+      Cluster is now 5 icons: Blur all · Reveal all · Network col · Token col · Verdict/TNT.
+   D. RIGHT-RAIL TOTALS ARE NOW DECIDED PER COLUMN. Was: both boxes show the board totals only
+      when EVERY row is fully revealed. Now: the Network box shows NET_TOTAL when every row's
+      Network is revealed, the Token box shows TOK_TOTAL when every row's Token is revealed —
+      independently. A highlighted row still wins over totals (unchanged). Reveal-all still lands
+      both totals exactly as before.
+   E. Keyboard: `N` = Network column, `K` = Token column (`T` remains the verdict popup).
+   Data, GEN:BOARD and the detail overlay are UNTOUCHED. The detail overlay keeps its own ordered
+   `#detail[data-stage]` scalar — a different surface, deliberately out of scope.
 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -310,6 +338,12 @@
       <button class="ctrl" id="btnReveal" title="Reveal all scores" aria-label="Reveal all scores" onclick="revealAll()">
         <svg viewBox="0 0 24 24"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>
       </button>
+      <button class="ctrl" id="btnNetCol" title="Reveal / hide ALL Network scores (N)" aria-label="Reveal or hide all Network scores" onclick="toggleColumn('net')">
+        <svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.5" x2="15.4" y2="6.5"/><line x1="8.6" y1="13.5" x2="15.4" y2="17.5"/></svg>
+      </button>
+      <button class="ctrl" id="btnTokCol" title="Reveal / hide ALL Token scores (K)" aria-label="Reveal or hide all Token scores" onclick="toggleColumn('tok')">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v10"/><path d="M14.5 9.5h-3.75a1.75 1.75 0 0 0 0 3.5h2.5a1.75 1.75 0 0 1 0 3.5H9.5"/></svg>
+      </button>
       <button class="ctrl" id="btnVerdict" title="Verdict / TNT" aria-label="Verdict / TNT" onclick="toggleTNT()">
         <svg viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
       </button>
@@ -406,185 +440,129 @@
    layer (model-distilled, operator-approved, cached by row_id / ticker). Bands are DERIVED in-page
    from the numbers (never stored). `short` = 2-4 word on-screen label; `cat` = detail-overlay text. ===== */
 const BOARD = {
-  "ticker": "PYTH",
-  "name": "Pyth Network",
-  "as_of": "2026-07-29",
+  "ticker": "HYPE",
+  "name": "Hyperliquid",
+  "as_of": "2026-08-04",
   "totals": {
-    "net": 5.6,
+    "net": 5.3,
     "tok": 4.6
   },
   "tnt": 4.2,
   "technicals": 3.7,
   "verdict": {
-    "headline": "The revenue is real. The link to the token is not.",
-    "paragraph": "Pyth sells market data to institutions and gets paid for it. Pyth Pro booked $441,625 in June, 97.8% of all network revenue. But scored on the two axes, almost none of that reaches the coin. The revenue settles in kind, and the governance rule that controls it never requires anyone to buy PYTH on the open market. The buyback is default-off, and a passed fee-repatriation framework has moved $0.",
+    "headline": "The network is winning. The token is not being paid for it.",
+    "paragraph": "Hyperliquid's network genuinely shipped — HyperEVM, HIP-4 and the RWA turn score 8.0, the widest gap on this card. But scored across thirteen catalysts the token averages 4.6: neutral by a hair, and more than five times closer to bearish than to bullish. The one catalyst still ahead that puts new money behind the coin is the Coinbase USDC treasury deal under AQAv2, and even that settles in USDC at a conversion rate with no published number. Against it sits an authorised 9.92M HYPE per month release. The gap is structural, not the market failing to notice something.",
     "reads": {
-      "token": "Revenue is real, the buying rule is not",
-      "network": "Monetising, but bullish only by a hair",
-      "technicals": "Charts bearish at the time of scoring"
+      "token": "Neutral by a hair, and leaning bearish",
+      "network": "Genuinely shipping — the one axis winning",
+      "technicals": "Bearish — seven of ten indicators"
     }
   },
-  "logo": "<svg class=\"vc-logo\" viewBox=\"0 0 32 32\" xmlns=\"http://www.w3.org/2000/svg\" aria-label=\"PYTH\"> <g transform=\"scale(0.5)\"> <g clip-path=\"url(#clip0_229_6-pyth)\"> <path d=\"M32 64C49.6731 64 64 49.6731 64 32C64 14.3269 49.6731 0 32 0C14.3269 0 0 14.3269 0 32C0 49.6731 14.3269 64 32 64Z\" fill=\"#E6DAFE\"/> <path d=\"M37.925 28.5625C37.925 31.15 35.8375 33.25 33.25 33.25V37.9375C38.4125 37.9375 42.5875 33.75 42.5875 28.575C42.5875 23.4 38.4 19.2125 33.25 19.2125C31.55 19.2125 29.95 19.6625 28.575 20.4625C25.7875 22.075 23.9 25.1125 23.9 28.575V51.9875L28.1 56.2L28.575 56.675V28.5625C28.575 25.975 30.6625 23.875 33.25 23.875C35.8375 23.875 37.925 25.9875 37.925 28.5625Z\" fill=\"black\"/> <path d=\"M33.25 9.83749C29.85 9.83749 26.6625 10.75 23.9125 12.35C22.15 13.3625 20.575 14.6625 19.2375 16.1875C16.3375 19.4875 14.5625 23.825 14.5625 28.575V42.625L19.2375 47.3125V28.5625C19.2375 24.4 21.0375 20.6625 23.9125 18.0875C25.2625 16.875 26.8375 15.925 28.5875 15.3125C30.05 14.7875 31.625 14.5125 33.2625 14.5125C41 14.5125 47.275 20.8 47.275 28.5625C47.275 36.325 40.9875 42.6125 33.25 42.6125V47.3C43.5625 47.3 51.925 38.9125 51.925 28.575C51.925 18.2375 43.5625 9.83749 33.25 9.83749Z\" fill=\"black\"/> </g> <defs> <clipPath id=\"clip0_229_6-pyth\"> <rect width=\"64\" height=\"64\" fill=\"white\"/> </clipPath> </defs> </g> </svg>",
+  "logo": "<svg class=\"vc-logo\" viewBox=\"0 0 32 32\" xmlns=\"http://www.w3.org/2000/svg\" aria-label=\"HYPE\"> <g transform=\"scale(0.5)\"> <g clip-path=\"url(#clip0_158_68-hype)\"> <path d=\"M32 64C49.6732 64 64 49.6732 64 32C64 14.3269 49.6732 0 32 0C14.3269 0 0 14.3269 0 32C0 49.6732 14.3269 64 32 64Z\" fill=\"#0F3933\"/> <path d=\"M54 32.2924C54 47.0106 45.0979 51.7333 40.4075 47.5281C36.5468 44.0992 35.3981 36.8535 29.591 36.1095C22.2204 35.1714 21.5823 45.1021 16.7324 45.1021C11.0848 45.1021 10 36.7888 10 32.5189C10 28.1519 11.2125 22.2 16.0304 22.2C21.6461 22.2 21.9652 30.7074 28.9848 30.2545C35.9724 29.7693 36.1001 20.906 40.631 17.1214C44.5874 13.8542 54 17.3801 54 32.2924Z\" fill=\"#97FCE4\"/> </g> <defs> <clipPath id=\"clip0_158_68-hype\"> <rect width=\"64\" height=\"64\" fill=\"white\"/> </clipPath> </defs> </g> </svg>",
   "rows": [
     {
       "n": 1,
-      "row_id": "pyth-core-upgrade",
-      "short": "Core goes paid",
-      "cat": "Pyth Core paid-model cutover (18 Aug 2026)",
-      "net": 8.0,
-      "tok": 4.5
-    },
-    {
-      "n": 2,
-      "row_id": "pyth-reserve-buyback",
-      "short": "Reserve buyback",
-      "cat": "PYTH Reserve open-market buyback",
-      "net": 5.0,
-      "tok": 5.1
-    },
-    {
-      "n": 3,
-      "row_id": "pyth-pip104-revenue-in-kind",
-      "short": "Revenue paid in PYTH",
-      "cat": "CO-PIP-104 - DAO revenue paid in PYTH, not USDC",
-      "net": 5.0,
-      "tok": 2.5
-    },
-    {
-      "n": 4,
-      "row_id": "pyth-pro-revenue",
-      "short": "Pyth Pro revenue",
-      "cat": "Pyth Pro institutional revenue engine",
-      "net": 8.0,
-      "tok": 4.5
-    },
-    {
-      "n": 5,
-      "row_id": "pyth-fixed-income",
-      "short": "Fixed-income expansion",
-      "cat": "Fixed-income expansion (Fenics/BGC, OpenYield, Tradeweb)",
-      "net": 6.8,
-      "tok": 4.5
-    },
-    {
-      "n": 6,
-      "row_id": "pyth-doc-data",
-      "short": "US Commerce data",
-      "cat": "US Dept of Commerce economic data on-chain",
-      "net": 6.8,
-      "tok": 4.5
-    },
-    {
-      "n": 7,
-      "row_id": "pyth-nasdaq-totalview",
-      "short": "Nasdaq TotalView",
-      "cat": "Nasdaq TotalView on the Pyth Data Marketplace",
-      "net": 6.8,
-      "tok": 4.5
-    },
-    {
-      "n": 8,
-      "row_id": "pyth-ois-staking",
-      "short": "Staking after emissions",
-      "cat": "Oracle Integrity Staking after reward emissions ended",
-      "net": 4.2,
-      "tok": 5.0
-    },
-    {
-      "n": 9,
-      "row_id": "pyth-pythnet-sunset",
-      "short": "Pythnet to Lazer",
-      "cat": "Pythnet chain sunset and migration to Lazer",
-      "net": 7.5,
-      "tok": 6.2
-    },
-    {
-      "n": 10,
-      "row_id": "pyth-pythnet-outage",
-      "short": "May outage",
-      "cat": "Pythnet outage (22 May 2026)",
-      "net": 4.2,
-      "tok": 4.8
-    },
-    {
-      "n": 11,
-      "row_id": "pyth-express-relay-winddown",
-      "short": "Express Relay wind-down",
-      "cat": "Express Relay wind-down and non-Pro revenue",
-      "net": 4.4,
-      "tok": 4.9
-    },
-    {
-      "n": 12,
-      "row_id": "pyth-governance-quorum",
-      "short": "Quorum fragility",
-      "cat": "DAO governance quorum fragility",
-      "net": 4.4,
-      "tok": 5.1
-    },
-    {
-      "n": 13,
-      "row_id": "pyth-unlocks",
-      "short": "Unlocks and supply",
-      "cat": "Token unlocks and DAO supply schedule",
-      "net": 5.0,
-      "tok": 4.4
-    },
-    {
-      "n": 14,
-      "row_id": "pyth-chainlink-competition",
-      "short": "Oracle competition",
-      "cat": "On-chain oracle competition (Chainlink, RedStone, Chronicle)",
-      "net": 4.2,
-      "tok": 4.0
-    },
-    {
-      "n": 15,
-      "row_id": "pyth-cross-chain-fee-repatriation",
-      "short": "Fee repatriation",
-      "cat": "OP-PIP-125 cross-chain fee repatriation",
+      "row_id": "hype-buyback",
+      "short": "Assistance Fund Buyback",
+      "cat": "Assistance Fund buyback engine (burn)",
       "net": 5.0,
       "tok": 5.7
     },
     {
-      "n": 16,
-      "row_id": "pyth-supply-immutability",
-      "short": "Mint authority revoked",
-      "cat": "Mint authority revoked / supply floor",
+      "n": 2,
+      "row_id": "hype-unlocks",
+      "short": "Core-Contributor Unlocks",
+      "cat": "Core-contributor unlock cadence",
       "net": 5.0,
-      "tok": 6.2
+      "tok": 2.0
     },
     {
-      "n": 17,
-      "row_id": "pyth-token-holder-rights",
-      "short": "Accrual is policy",
-      "cat": "Value accrual is revocable policy, not code",
+      "n": 3,
+      "row_id": "hype-coinbase-treasury",
+      "short": "Coinbase Treasury / AQAv2",
+      "cat": "Coinbase USDC treasury / AQAv2",
       "net": 5.0,
-      "tok": 4.8
+      "tok": 7.2
     },
     {
-      "n": 18,
-      "row_id": "pyth-market-data-incumbent-competition",
-      "short": "Incumbent data giants",
-      "cat": "Market-data incumbent competition (Bloomberg, LSEG, ICE, Nasdaq)",
+      "n": 4,
+      "row_id": "hype-etf",
+      "short": "Spot HYPE ETFs",
+      "cat": "Spot HYPE ETFs (THYP, BHYP, HYPG)",
       "net": 5.0,
       "tok": 3.3
     },
     {
-      "n": 19,
-      "row_id": "pyth-onchain-protocol-fees",
-      "short": "On-chain protocol fees",
-      "cat": "On-chain protocol fees (Core update fees, Entropy)",
-      "net": 5.8,
-      "tok": 5.9
+      "n": 5,
+      "row_id": "hype-cftc-perps",
+      "short": "US Regulatory Thread",
+      "cat": "US regulatory thread (CFTC / SEC / Reg 40.11)",
+      "net": 5.0,
+      "tok": 4.7
     },
     {
-      "n": 20,
-      "row_id": "pyth-publisher-tranche-sales",
-      "short": "Publisher tranche sales",
-      "cat": "Publisher tranche unlocks and disposals (MIAX, Cboe, Virtu)",
+      "n": 6,
+      "row_id": "hype-competition",
+      "short": "Perp-DEX Fee Competition",
+      "cat": "Perp-DEX + CEX fee competition",
+      "net": 3.5,
+      "tok": 3.6
+    },
+    {
+      "n": 7,
+      "row_id": "hype-hyperevm",
+      "short": "HyperEVM + the RWA Turn",
+      "cat": "HyperEVM + HIP-3 / HIP-4 and the RWA turn",
+      "net": 8.0,
+      "tok": 5.7
+    },
+    {
+      "n": 8,
+      "row_id": "hype-corporate-treasuries",
+      "short": "Corporate HYPE Treasuries",
+      "cat": "Corporate HYPE treasuries",
       "net": 5.0,
-      "tok": 2.5
+      "tok": 5.2
+    },
+    {
+      "n": 9,
+      "row_id": "hype-fee-switch",
+      "short": "Fee-Switch Governance",
+      "cat": "Governance re-allocation of the fee stream (fee-switch / HIP-5 / AF2)",
+      "net": 5.0,
+      "tok": 5.0
+    },
+    {
+      "n": 10,
+      "row_id": "hype-staking-lock",
+      "short": "Staking Float-Lock",
+      "cat": "Staking float-lock and whale accumulation",
+      "net": 6.8,
+      "tok": 4.5
+    },
+    {
+      "n": 11,
+      "row_id": "hype-holder-rights",
+      "short": "Holder Rights / Validators",
+      "cat": "Token-holder rights & validator authority",
+      "net": 5.0,
+      "tok": 3.8
+    },
+    {
+      "n": 12,
+      "row_id": "hype-cex-listings",
+      "short": "Major-Venue Spot Listings",
+      "cat": "Major-venue spot listings",
+      "net": 5.0,
+      "tok": 5.6
+    },
+    {
+      "n": 13,
+      "row_id": "hype-jurisdiction",
+      "short": "Non-US Regulator Warnings",
+      "cat": "Non-US jurisdictional characterisation risk",
+      "net": 5.0,
+      "tok": 3.8
     }
   ]
 };
@@ -625,7 +603,7 @@ const EXPAND_SVG = `<svg viewBox="0 0 24 24"><polyline points="15 3 21 3 21 9"/>
 const rowsEl=document.getElementById("rows");
 DATA.forEach((d,i)=>{
   const tr=document.createElement("div");
-  tr.className="tr net-hidden tok-hidden"; tr.dataset.i=i; tr.dataset.stage="0";
+  tr.className="tr net-hidden tok-hidden"; tr.dataset.i=i; tr.dataset.net="0"; tr.dataset.tok="0";
   tr.innerHTML=
     `<div class="c-num">${d.n}</div>
      <div class="c-cat">
@@ -661,13 +639,15 @@ function setHighlight(idx){
   trs.forEach((tr,k)=>tr.classList.toggle("hl", k===idx));   // exclusive: one gold row
 }
 
-/* ===== Per-row reveal state =====
-   stage 0 = both blurred · 1 = Network shown · 2 = Network + Token shown.
+/* ===== Per-row reveal state (REVISION 7) =====
+   TWO INDEPENDENT FLAGS, not an ordered stage: dataset.net and dataset.tok, each "0" | "1".
+   The old scalar `stage` (0/1/2) could not represent "Token shown, Network hidden" — a state the
+   per-column reveal buttons produce — so it was split. The four-click row cycle is unchanged;
+   it is simply expressed on the pair (see toggleRow).
    Reveal state is INDEPENDENT per row — multiple rows can stay revealed at once. */
-function applyStage(tr){
-  const s=+tr.dataset.stage;
-  tr.classList.toggle("net-hidden", s<1);
-  tr.classList.toggle("tok-hidden", s<2);
+function applyReveal(tr){
+  tr.classList.toggle("net-hidden", tr.dataset.net!=="1");
+  tr.classList.toggle("tok-hidden", tr.dataset.tok!=="1");
 }
 function flashCell(tr,sel){ const c=tr.querySelector(sel); if(!c)return; c.classList.remove("just"); void c.offsetWidth; c.classList.add("just"); }
 
@@ -676,51 +656,79 @@ function recompute(){
   const tokCap=document.getElementById("tokCap"), tokN=document.getElementById("tokNum"), tokW=document.getElementById("tokWord");
   const netCard=document.getElementById("netCard"), tokCard=document.getElementById("tokCard");
   if(hlIndex!=null){
-    const d=DATA[+trs[hlIndex].dataset.i], s=+trs[hlIndex].dataset.stage;
-    setBig(netCap,netN,netW, s>=1 ? d.net : null, d.short);   // caption = highlighted catalyst title
-    setBig(tokCap,tokN,tokW, s>=2 ? d.tok : null, d.short);
+    const tr=trs[hlIndex], d=DATA[+tr.dataset.i];
+    setBig(netCap,netN,netW, tr.dataset.net==="1" ? d.net : null, d.short);   // caption = highlighted catalyst title
+    setBig(tokCap,tokN,tokW, tr.dataset.tok==="1" ? d.tok : null, d.short);
     netCard.classList.add("hl"); tokCard.classList.add("hl");     // boxes wear the gold too
   } else {
-    const allRevealed = trs.every(tr=>+tr.dataset.stage===2);
-    setBig(netCap,netN,netW, allRevealed ? NET_TOTAL : null, "TOTAL SCORE");
-    setBig(tokCap,tokN,tokW, allRevealed ? TOK_TOTAL : null, "TOTAL SCORE");
+    /* REVISION 7: totals are now decided PER COLUMN, so a column reveal lands its own total
+       while the other side stays blank. (Was: both totals, only after every row was fully revealed.) */
+    const allNet = trs.every(tr=>tr.dataset.net==="1");
+    const allTok = trs.every(tr=>tr.dataset.tok==="1");
+    setBig(netCap,netN,netW, allNet ? NET_TOTAL : null, "TOTAL SCORE");
+    setBig(tokCap,tokN,tokW, allTok ? TOK_TOTAL : null, "TOTAL SCORE");
     netCard.classList.remove("hl"); tokCard.classList.remove("hl");
   }
+  syncColumnButtons();
 }
 
-/* ===== Row click — four-click cycle =====
-   `stage` is the reveal LEVEL only (0 blurred · 1 Network · 2 both); highlight is a separate
-   exclusive overlay (one gold row at a time). Per row:
+/* Column buttons wear the `.on` state while their whole column is revealed — the operator can read
+   the board's column state off the cluster without scanning 13 rows. */
+function syncColumnButtons(){
+  document.getElementById("btnNetCol").classList.toggle("on", trs.every(tr=>tr.dataset.net==="1"));
+  document.getElementById("btnTokCol").classList.toggle("on", trs.every(tr=>tr.dataset.tok==="1"));
+}
+
+/* ===== Row click — four-click cycle (UNCHANGED behaviour, re-expressed on the two flags) =====
+   Highlight is a separate exclusive overlay (one gold row at a time). Per row:
      1st click → highlight + reveal Network
      2nd click → highlight + reveal Token
      3rd click → remove highlight, KEEP both scores shown
      4th click → blur both scores (back to start)
    Clicking a different row moves the gold to it and leaves the previous row's revealed scores
-   in place (it simply loses its gold — landing in the "3rd-click" revealed-but-unhighlighted state). */
+   in place (it simply loses its gold — landing in the "3rd-click" revealed-but-unhighlighted state).
+   REVISION 7 adds one arm the old scalar could not reach: a row whose Token is shown but whose
+   Network is hidden (produced by the Token column button) reveals Network and takes the gold —
+   the exact analogue of the 1st click. */
 function toggleRow(i){
-  const tr=trs[i];
-  const r=+tr.dataset.stage, hl=(hlIndex===i);
-  if(!hl && r===0){          // 1st click: highlight + reveal Network
-    tr.dataset.stage=1; setHighlight(i); flashCell(tr,".c-net");
-  } else if(hl && r===1){    // 2nd click: reveal Token (still highlighted)
-    tr.dataset.stage=2; flashCell(tr,".c-tok");
-  } else if(hl && r===2){    // 3rd click: drop highlight, keep both scores shown
+  const tr=trs[i], net=tr.dataset.net==="1", tok=tr.dataset.tok==="1", hl=(hlIndex===i);
+  if(!net){                    // Network hidden → reveal Network + take the gold
+    tr.dataset.net="1"; setHighlight(i); flashCell(tr,".c-net");
+  } else if(!tok){             // Network shown, Token hidden → reveal Token + hold/take the gold
+    tr.dataset.tok="1"; setHighlight(i); flashCell(tr,".c-tok");
+  } else if(hl){               // both shown + gold → drop the gold, keep both scores
     setHighlight(null);
-  } else if(!hl && r===2){   // 4th click (or a revealed, un-highlighted row): blur both
-    tr.dataset.stage=0;
-  } else if(!hl && r===1){   // re-click a Network-only row that lost its gold → re-highlight + reveal Token
-    tr.dataset.stage=2; setHighlight(i); flashCell(tr,".c-tok");
+  } else {                     // both shown, no gold → blur both (back to start)
+    tr.dataset.net="0"; tr.dataset.tok="0";
   }
-  applyStage(tr);
+  applyReveal(tr);
   recompute();
 }
-function blurAll(){ trs.forEach(tr=>{ tr.dataset.stage=0; applyStage(tr);
+function blurAll(){ trs.forEach(tr=>{ tr.dataset.net="0"; tr.dataset.tok="0"; applyReveal(tr);
     tr.querySelectorAll(".scorecell").forEach(c=>c.classList.remove("just")); });
   setHighlight(null);
   document.getElementById("tntClose").classList.remove("show");
   document.getElementById("btnVerdict").classList.remove("on"); recompute(); }
 /* Reveal-all → every score shown, highlight cleared → boxes show the board TOTALS. */
-function revealAll(){ trs.forEach(tr=>{ tr.dataset.stage=2; applyStage(tr); }); setHighlight(null); recompute(); }
+function revealAll(){ trs.forEach(tr=>{ tr.dataset.net="1"; tr.dataset.tok="1"; applyReveal(tr); }); setHighlight(null); recompute(); }
+
+/* ===== Per-COLUMN reveal (REVISION 7) =====
+   One click flips a whole column. STATELESS: the button reads the board rather than latching its
+   own state, so it stays correct no matter how many individual rows were clicked first —
+   every row in the column revealed → the click HIDES the column; otherwise it REVEALS it.
+   Clears the gold highlight (same as Reveal all), so the right rail falls through to that
+   column's board total. `col` is "net" | "tok". */
+function toggleColumn(col){
+  const hideIt = trs.every(tr=>tr.dataset[col]==="1");
+  const sel = col==="net" ? ".c-net" : ".c-tok";
+  trs.forEach(tr=>{
+    tr.dataset[col] = hideIt ? "0" : "1";
+    applyReveal(tr);
+    if(hideIt){ const c=tr.querySelector(sel); if(c) c.classList.remove("just"); }
+  });
+  setHighlight(null);
+  recompute();
+}
 
 /* ===== Per-catalyst detail overlay (scores only) ===== */
 function openDetail(i){
@@ -793,6 +801,8 @@ document.addEventListener("keydown",e=>{
   if(e.key==="t"||e.key==="T")toggleTNT();
   if(e.key==="b"||e.key==="B")blurAll();
   if(e.key==="a"||e.key==="A")revealAll();
+  if(e.key==="n"||e.key==="N")toggleColumn("net");   // REVISION 7 — whole Network column
+  if(e.key==="k"||e.key==="K")toggleColumn("tok");   // REVISION 7 — whole Token column ("T" is the verdict)
 });
 
 function fit(){ const s=Math.min(innerWidth/1920,innerHeight/1080);
