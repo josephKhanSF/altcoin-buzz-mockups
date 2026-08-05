@@ -445,17 +445,59 @@
    ===================================================================================== */
   /* ===GENERATED:BEGIN=== */
 const CATALYSTS = [
-  // --- TNT Catalyst Drop — 2026-08-01 (lead tnt-catalyst-drop-2026-08-01 · video 1 · CP-...-video-001) — synced by shorts-card-sync on 2026-08-05.
+  // --- 8 Catalysts (lead 20260630-catalyst_drop · video 1 · CP-...-video-001) — synced by shorts-card-sync on 2026-06-30.
+  //     net/tok lifted VERBATIM from each '## SHORT NN' header; headline + takeaway distilled
+  //     from the cold-open caption + closing beat. Splice key = (lead_id, video_num).
+  { cat_no:2, headline:"Hyperliquid buys back HYPE every month", net:5.0, tok:6.5, takeaway:"A real buyback that reaches the token — but it's been shrinking each quarter.",
+    source:"Catalyst Drop (2026-06-30)", video_num:1, lead_id:"20260630-catalyst_drop", token:"HYPE", pack_title:"8 Catalysts" },
+  { cat_no:4, headline:"Aave routes 100% of revenue to its DAO", net:5.8, tok:6.5, takeaway:"The money reaches the token — indirectly, through the treasury, not your wallet.",
+    source:"Catalyst Drop (2026-06-30)", video_num:1, lead_id:"20260630-catalyst_drop", token:"AAVE", pack_title:"8 Catalysts" },
+  { cat_no:5, headline:"DTCC builds its collateral AppChain on Chainlink", net:8.0, tok:4.5, takeaway:"A Q4 2026 launch — and the win reaches LINK only if fees get pointed back at it.",
+    source:"Catalyst Drop (2026-06-30)", video_num:1, lead_id:"20260630-catalyst_drop", token:"LINK", pack_title:"8 Catalysts" },
+  { cat_no:8, headline:"Ethena's fee switch: ready, still off", net:5.0, tok:5.6, takeaway:"Every box is ticked — but nine months on, the vote to flip it still hasn't come.",
+    source:"Catalyst Drop (2026-06-30)", video_num:1, lead_id:"20260630-catalyst_drop", token:"ENA", pack_title:"8 Catalysts" },
+  // --- LINK DTCC Re-cut (lead 20260707-link_dtcc_recut · video 1 · CP-...-video-001) — synced by shorts-card-sync on 2026-07-07.
+  //     net/tok lifted VERBATIM from each '## SHORT NN' header; headline + takeaway distilled
+  //     from the cold-open caption + closing beat. Splice key = (lead_id, video_num).
+  { cat_no:1, headline:"DTCC builds a 24/7 collateral system on Chainlink", net:8.0, tok:5.2, takeaway:"The network just landed a giant Wall Street client, but LINK only wins if fees route back to the token — a maybe, not a yes, and still months from full launch.",
+    source:"LINK DTCC Re-cut (catalyst-shorts, no parent video)", video_num:1, lead_id:"20260707-link_dtcc_recut", token:"LINK", pack_title:"LINK DTCC Re-cut" },
+  // --- TNT Catalyst Drop (9 Catalysts) (lead 20260709-catalyst_drop · video 1 · CP-...-video-001) — synced by shorts-card-sync on 2026-07-09.
+  //     net/tok lifted VERBATIM from each '## SHORT NN' header; headline + takeaway distilled
+  //     from the cold-open caption + closing beat. Splice key = (lead_id, video_num).
+  { cat_no:1, headline:"Robinhood makes Lighter its default perps venue", net:8.0, tok:6.2, takeaway:"Real adoption piping into Robinhood's base; value reaches LIT through trading fees and the buyback.",
+    source:"TNT Catalyst Drop (9 Catalysts)", video_num:1, lead_id:"20260709-catalyst_drop", token:"LIT", pack_title:"TNT Catalyst Drop (9 Catalysts)" },
+  { cat_no:2, headline:"Grayscale files the first US privacy-coin ETF", net:5.0, tok:8.0, takeaway:"An ETF that buys and holds real ZEC, so demand lands straight on the coin. Our highest token score on record.",
+    source:"TNT Catalyst Drop (9 Catalysts)", video_num:1, lead_id:"20260709-catalyst_drop", token:"ZEC", pack_title:"TNT Catalyst Drop (9 Catalysts)" },
+  { cat_no:3, headline:"Tachyon: planet-scale private payments, quantum-proof by 2027", net:8.0, tok:5.0, takeaway:"Elite network tech, but a roadmap routes no dollars to the coin. The network wins, the token watches.",
+    source:"TNT Catalyst Drop (9 Catalysts)", video_num:1, lead_id:"20260709-catalyst_drop", token:"ZEC", pack_title:"TNT Catalyst Drop (9 Catalysts)" },
+  { cat_no:4, headline:"Lighter climbs to #3 in perps", net:8.0, tok:6.7, takeaway:"A top-three franchise priced at 20-25x revenue while Hyperliquid trades near 70x. That gap is the bull case.",
+    source:"TNT Catalyst Drop (9 Catalysts)", video_num:1, lead_id:"20260709-catalyst_drop", token:"LIT", pack_title:"TNT Catalyst Drop (9 Catalysts)" },
+  { cat_no:5, headline:"Rio + Visa: Polygon carries ~54% of USDC transfers", net:8.0, tok:6.2, takeaway:"A payments rail winning real traffic; every transaction burns a little POL, just not as much as the volume suggests.",
+    source:"TNT Catalyst Drop (9 Catalysts)", video_num:1, lead_id:"20260709-catalyst_drop", token:"POL", pack_title:"TNT Catalyst Drop (9 Catalysts)" },
+  { cat_no:6, headline:"ether.fi buys back ~$2M of ETHFI a month with real revenue", net:5.0, tok:7.0, takeaway:"A revenue-funded buyback worth about 7% of the market cap a year; mostly burn for now with only ~5% staked.",
+    source:"TNT Catalyst Drop (9 Catalysts)", video_num:1, lead_id:"20260709-catalyst_drop", token:"ETHFI", pack_title:"TNT Catalyst Drop (9 Catalysts)" },
+  { cat_no:7, headline:"3.6B+ POL staked to secure the AggLayer", net:8.0, tok:5.7, takeaway:"Cross-chain settlement revenue routes to POL stakers, so this one reaches the coin, though it is still early.",
+    source:"TNT Catalyst Drop (9 Catalysts)", video_num:1, lead_id:"20260709-catalyst_drop", token:"POL", pack_title:"TNT Catalyst Drop (9 Catalysts)" },
+  { cat_no:8, headline:"ether.fi is the #1 LRT with nearly $4B TVL", net:8.0, tok:5.0, takeaway:"A dominant, winning network whose yield goes to depositors, not the token. It mostly skips the coin.",
+    source:"TNT Catalyst Drop (9 Catalysts)", video_num:1, lead_id:"20260709-catalyst_drop", token:"ETHFI", pack_title:"TNT Catalyst Drop (9 Catalysts)" },
+  { cat_no:9, headline:"Cypherpunk treasury buying toward 5% of all ZEC", net:5.0, tok:7.0, takeaway:"Real money buying and holding the actual coin, about 1.9% of supply already, with most of the buying still ahead.",
+    source:"TNT Catalyst Drop (9 Catalysts)", video_num:1, lead_id:"20260709-catalyst_drop", token:"ZEC", pack_title:"TNT Catalyst Drop (9 Catalysts)" },
+  // --- Drop B (cross-lead catalyst-shorts · no parent video) — HAND-ADDED 2026-07-23 (NOT a shorts-card-sync run): only SHORT 05 ZRO, re-added for a re-record. The Drop-B pack predates the CARD_CONTRACT v1 block (#135) so the skill HALTs on it; net/tok verified against catalyst_inventory.csv row_id zro-kelp-exploit (5.0/3.0). Splice key = (lead_id, video_num).
+  { cat_no:5, headline:"$292M drained from a LayerZero bridge", net:5.0, tok:3.0, takeaway:"The chain didn't break — a one-verifier setup did. But ZRO still fell 30%+: the network survived, the token wore the loss.",
+    source:"TNT Catalyst Drop B (catalyst-shorts, no parent video)", video_num:1, lead_id:"20260706-catalyst_drop_b", token:"ZRO", pack_title:"Drop B" },
+  // --- TNT Catalyst Drop — 2026-07-24 (lead tnt-catalyst-drop-2026-07-24 · video 1 · CP-...-video-001) — synced by shorts-card-sync on 2026-07-28.
   //     cat_no/row_id/net/tok/headline/takeaway read from the pack's CARD_CONTRACT v1 block,
   //     reconciled to catalyst_inventory.csv by row_id. Splice key = (lead_id, video_num).
-  { cat_no:1, headline:"Pyth Pro is 97.8% of all Pyth revenue.", net:8.0, tok:4.5, takeaway:"Pyth Pro is a real institutional data business, but the DAO's cut is paid in PYTH, not dollars, so no open-market bid is ever required.",
-    source:"TNT Catalyst Drop — 2026-08-01", video_num:1, lead_id:"tnt-catalyst-drop-2026-08-01", token:"PYTH", pack_title:"TNT Catalyst Drop — 2026-08-01" },
-  { cat_no:2, headline:"Five percent of every Venice credit sale buys and burns VVV.", net:5.0, tok:6.5, takeaway:"The buyback and burn is the only way revenue reaches the coin, but it covers under a quarter of emissions, so supply keeps growing.",
-    source:"TNT Catalyst Drop — 2026-08-01", video_num:1, lead_id:"tnt-catalyst-drop-2026-08-01", token:"VVV", pack_title:"TNT Catalyst Drop — 2026-08-01" },
-  { cat_no:3, headline:"Swift's shared ledger settles in bank deposits, not XRP.", net:5.0, tok:3.6, takeaway:"Swift built the rails, but without XRP. It settles in tokenized bank deposits, with no bridge asset.",
-    source:"TNT Catalyst Drop — 2026-08-01", video_num:1, lead_id:"tnt-catalyst-drop-2026-08-01", token:"XRP", pack_title:"TNT Catalyst Drop — 2026-08-01" },
-  { cat_no:4, headline:"Aerodrome's MetaDEX03 will route four new revenue streams to AERO.", net:8.0, tok:5.7, takeaway:"Aerodrome named four new revenue streams routed to AERO, but none of it is live right now, and at launch the top up that softened new supply is removed.",
-    source:"TNT Catalyst Drop — 2026-08-01", video_num:1, lead_id:"tnt-catalyst-drop-2026-08-01", token:"AERO", pack_title:"TNT Catalyst Drop — 2026-08-01" },
+  { cat_no:1, headline:"DeXe insiders moved $6.2M to Binance and sold; DEXE crashed ~85% a day later", net:5.0, tok:3.0, takeaway:"The network kept running, but insiders cashed out and the bag took an ~85% hit.",
+    source:"TNT Catalyst Drop — 2026-07-24", video_num:1, lead_id:"tnt-catalyst-drop-2026-07-24", token:"DEXE", pack_title:"TNT Catalyst Drop — 2026-07-24" },
+  { cat_no:2, headline:"JPMorgan and Ondo settled tokenized Treasuries on Chainlink; SWIFT and DTCC are building on it", net:8.0, tok:4.5, takeaway:"A huge network win, but the settlement fee barely reaches the LINK token.",
+    source:"TNT Catalyst Drop — 2026-07-24", video_num:1, lead_id:"tnt-catalyst-drop-2026-07-24", token:"LINK", pack_title:"TNT Catalyst Drop — 2026-07-24" },
+  { cat_no:3, headline:"Pump.fun burns 50% of its trading fees, $370M of PUMP destroyed", net:5.0, tok:7.0, takeaway:"Real value reaches the token, but the buybacks have been a floor, not a rocket.",
+    source:"TNT Catalyst Drop — 2026-07-24", video_num:1, lead_id:"tnt-catalyst-drop-2026-07-24", token:"PUMP", pack_title:"TNT Catalyst Drop — 2026-07-24" },
+  { cat_no:4, headline:"Pyth ends free data on July 31, subscription revenue routes to a PYTH buyback", net:8.0, tok:6.2, takeaway:"Paid data reaches the token through the buyback, but the model is brand new.",
+    source:"TNT Catalyst Drop — 2026-07-24", video_num:1, lead_id:"tnt-catalyst-drop-2026-07-24", token:"PYTH", pack_title:"TNT Catalyst Drop — 2026-07-24" },
+  { cat_no:5, headline:"Zcash's Ironwood fork retired the pool behind a 4-year supply bug", net:7.5, tok:6.7, takeaway:"June patched the bug; Ironwood clears the doubt that erased ~half of ZEC's value.",
+    source:"TNT Catalyst Drop — 2026-07-24", video_num:1, lead_id:"tnt-catalyst-drop-2026-07-24", token:"ZEC", pack_title:"TNT Catalyst Drop — 2026-07-24" },
 
 ];
   /* ===GENERATED:END=== */
