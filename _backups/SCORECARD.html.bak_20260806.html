@@ -147,16 +147,7 @@
     box-shadow:var(--shadow);display:flex;flex-direction:column;overflow:hidden}
   .thead{display:flex;align-items:center;height:52px;flex:none;padding:0 26px;
     border-bottom:1px solid var(--line);color:var(--txt);font-size:19px;font-weight:700;letter-spacing:.1px}
-  /* 2026-08-06 — 21-ROW FIT (sizing only; no state/control change).
-     `.tr` is flex:1 and was ALREADY meant to shrink to fit, but three fixed heights set a floor
-     and the surplus rows were clipped SILENTLY by .tablecard{overflow:hidden} — 4 rows vanished
-     off a 21-row board with no warning. Floors were: .cap 46px (the real blocker), .expand 42px,
-     .lab 32px. Lowered below to ~37px so 21 rows fit at ~39px each with headroom.
-     overflow-y:auto is a GUARD, not the layout: at 21 rows nothing scrolls. If a future token
-     brings more rows than fit, they scroll instead of disappearing. Scrollbar hidden so it never
-     shows on a screen-record. */
-  .rows{flex:1;display:flex;flex-direction:column;padding:0 26px;overflow-y:auto;scrollbar-width:none}
-  .rows::-webkit-scrollbar{width:0;height:0}
+  .rows{flex:1;display:flex;flex-direction:column;padding:0 26px}
   .tr{display:flex;align-items:center;flex:1;min-height:0;border-bottom:1px solid var(--line);position:relative;cursor:pointer}
   .tr:last-child{border-bottom:none}
   /* Single exclusive GOLD highlight — marks the row the big score boxes are mirroring.
@@ -167,13 +158,13 @@
 
   .c-num{width:42px;flex:none;font-size:22px;font-weight:700;color:var(--mut)}
   .c-cat{flex:1;min-width:0;padding-right:18px;display:flex;align-items:center;gap:16px}
-  .c-cat .lab{font-size:28px;font-weight:700;line-height:1.05;color:var(--ink);   /* 21-row fit: was 32px */
+  .c-cat .lab{font-size:32px;font-weight:700;line-height:1.05;color:var(--ink);
     white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .expand{flex:none;width:32px;height:32px;border-radius:10px;border:1px solid var(--line2);background:var(--card);   /* 21-row fit: was 42px */
+  .expand{flex:none;width:42px;height:42px;border-radius:10px;border:1px solid var(--line2);background:var(--card);
     color:var(--mut);display:inline-flex;align-items:center;justify-content:center;cursor:pointer;opacity:.6;
     transition:opacity .15s ease,color .15s ease,background .15s ease}
   .expand:hover{opacity:1;color:var(--goldtx);background:color-mix(in srgb,var(--gold) 14%,var(--card))}
-  .expand svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}   /* 21-row fit: was 23px */
+  .expand svg{width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 
   .c-net,.c-tok{width:176px;flex:none;display:flex;align-items:center;justify-content:center}
   /* Blur veil applies to the SCORE capsules ONLY — catalyst names stay sharp.
@@ -184,11 +175,10 @@
   .tr.tok-hidden .c-tok{filter:blur(11px) saturate(.7);opacity:.42}
 
   /* per-catalyst capsule: band word + score, band-coloured outline (NOT a dial) */
-  /* 21-row fit: height was 46px — this capsule, not the expand button, was the real row-height floor. */
-  .cap{display:inline-flex;align-items:center;gap:9px;height:36px;padding:0 14px;border-radius:var(--r-chip);
+  .cap{display:inline-flex;align-items:center;gap:10px;height:46px;padding:0 18px;border-radius:var(--r-chip);
     border:2px solid var(--line2);background:var(--card)}
   .cap .w{font-family:var(--sans);font-weight:700;font-size:13px;letter-spacing:.8px}
-  .cap .v{font-family:var(--mono);font-weight:700;font-size:22px;letter-spacing:-.5px;font-variant-numeric:tabular-nums}   /* 21-row fit: was 26px */
+  .cap .v{font-family:var(--mono);font-weight:700;font-size:26px;letter-spacing:-.5px;font-variant-numeric:tabular-nums}
   .cap.bull{border-color:color-mix(in srgb,var(--green) 55%,var(--card));background:color-mix(in srgb,var(--green) 7%,var(--card))}
   .cap.bull .w,.cap.bull .v{color:var(--green)}
   .cap.bear{border-color:color-mix(in srgb,var(--red) 55%,var(--card));background:color-mix(in srgb,var(--red) 7%,var(--card))}
@@ -641,7 +631,75 @@ const BOARD = {
   ]
 };
 /* /GEN:BOARD */
-const DATA = BOARD.rows;   // rows render from BOARD; the rest of the view is a stable renderer
+/* ===== DISPLAY ORDER (added 2026-08-06 for the FXRP/Morpho video cut) — DISPLAY-ONLY =====
+   WHY: the board clips at ~17 visible rows out of 21, and the four that fell off included
+   `xrp-fxrp-morpho`, the subject of the video. Shrinking to fit was tried and the text went
+   too small to read on camera, so the ROWS ARE RE-ORDERED instead.
+
+   ⚠ DISPLAY ONLY. This moves NO score, changes NO total, and edits nothing inside GEN:BOARD.
+   Every number still comes from BOARD.rows / BOARD.totals verbatim — this array only decides
+   the ORDER they are painted in, and the `#` column is a display position, not a board number.
+
+   ⚠ Lives BELOW the GEN:BOARD end-marker deliberately: scorecard-sync owns and overwrites the
+   block ABOVE this line and will not touch this, so the ordering survives a re-point.
+
+   ⛔ Keyed on `row_id`, and it FAILS LOUDLY: an unknown id, a board row left out, or a
+   duplicate paints a red banner over the board and throws. It never silently drops a row.
+
+   TO RETIRE (restore natural board order): delete this block and the DATA builder below,
+   and put back:  const DATA = BOARD.rows;
+   ⚠ A re-point to a DIFFERENT token will trip the loud fail by design — these ids are XRP's.
+   Retire it, or replace the list with that token's ids, as part of the re-point. ===== */
+const DISPLAY_ORDER = [
+  "xrp-fxrp-morpho",            // 1 — the video's subject; must be on screen
+  "xrp-clarity-act",
+  "xrp-holder-rights-authority",
+  "xrp-swift-ledger",
+  "xrp-rlusd",
+  "xrp-escrow-leak",
+  "xrp-etf-flows",
+  "xrp-kinexys-pilot",
+  "xrp-rwa-tokenization",
+  "xrp-defi-stack",
+  "xrp-goldman-etf-exit",
+  "xrp-evernorth",
+  "xrp-exchange-reserves",
+  "xrp-dtcc-ripple-prime",
+  "xrp-trust-bank",
+  "xrp-odl-volume",
+  "xrp-x402-agentic",
+  "xrp-sbi",
+  "xrp-xrpld-upgrade",
+  "xrp-flutterwave",
+  "xrp-bitso-mxnb"
+];
+
+const DATA = (function buildDisplayOrder(){
+  const byId = new Map(BOARD.rows.map(r => [r.row_id, r]));
+  const seen = new Set(), dupes = [];
+  DISPLAY_ORDER.forEach(id => { if (seen.has(id)) dupes.push(id); seen.add(id); });
+  const unknown = DISPLAY_ORDER.filter(id => !byId.has(id));
+  const dropped = BOARD.rows.map(r => r.row_id).filter(id => !seen.has(id));
+
+  const problems = [];
+  if (unknown.length) problems.push("row_id in DISPLAY_ORDER not on the board: " + unknown.join(", "));
+  if (dropped.length) problems.push("board row missing from DISPLAY_ORDER: " + dropped.join(", "));
+  if (dupes.length)   problems.push("duplicate row_id in DISPLAY_ORDER: " + dupes.join(", "));
+
+  if (problems.length){
+    const msg = "SCORECARD DISPLAY_ORDER ERROR (" + BOARD.ticker + ", " + BOARD.rows.length +
+                " rows) — " + problems.join("  ·  ");
+    const el = document.createElement("div");
+    el.setAttribute("style",
+      "position:fixed;inset:0;z-index:99999;background:#7f1d1d;color:#fff;" +
+      "font:600 20px/1.5 system-ui,sans-serif;padding:48px;white-space:pre-wrap");
+    el.textContent = "⛔ BOARD NOT RENDERED — DO NOT RECORD\n\n" + msg +
+      "\n\nFix DISPLAY_ORDER (below /GEN:BOARD/), or restore: const DATA = BOARD.rows;";
+    (document.body || document.documentElement).appendChild(el);
+    throw new Error(msg);
+  }
+  return DISPLAY_ORDER.map(id => byId.get(id));
+})();
 
 /* ===== Bands — SCORING_SYSTEM_V2 §1: Bearish 1.0–4.4 / Neutral 4.5–5.5 / Bullish 5.6–10.0 ===== */
 const BNB=4.45, BNL=5.55;
@@ -678,8 +736,9 @@ const rowsEl=document.getElementById("rows");
 DATA.forEach((d,i)=>{
   const tr=document.createElement("div");
   tr.className="tr net-hidden tok-hidden"; tr.dataset.i=i; tr.dataset.net="0"; tr.dataset.tok="0";
+  /* c-num is the DISPLAY position (i+1) under DISPLAY_ORDER, not d.n (the board number) */
   tr.innerHTML=
-    `<div class="c-num">${d.n}</div>
+    `<div class="c-num">${i+1}</div>
      <div class="c-cat">
        <span class="lab">${d.short}</span>
        <button class="expand" title="Expand detail" aria-label="Expand detail">${EXPAND_SVG}</button>
