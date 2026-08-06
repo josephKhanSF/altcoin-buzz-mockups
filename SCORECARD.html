@@ -440,129 +440,193 @@
    layer (model-distilled, operator-approved, cached by row_id / ticker). Bands are DERIVED in-page
    from the numbers (never stored). `short` = 2-4 word on-screen label; `cat` = detail-overlay text. ===== */
 const BOARD = {
-  "ticker": "HYPE",
-  "name": "Hyperliquid",
-  "as_of": "2026-08-04",
+  "ticker": "XRP",
+  "name": "XRP",
+  "as_of": "2026-08-06",
   "totals": {
-    "net": 5.3,
-    "tok": 4.6
+    "net": 5.6,
+    "tok": 4.7
   },
-  "tnt": 4.2,
-  "technicals": 3.7,
+  "tnt": 4.5,
+  "technicals": 4.3,
   "verdict": {
-    "headline": "The network is winning. The token is not being paid for it.",
-    "paragraph": "Hyperliquid's network genuinely shipped — HyperEVM, HIP-4 and the RWA turn score 8.0, the widest gap on this card. But scored across thirteen catalysts the token averages 4.6: neutral by a hair, and more than five times closer to bearish than to bullish. The one catalyst still ahead that puts new money behind the coin is the Coinbase USDC treasury deal under AQAv2, and even that settles in USDC at a conversion rate with no published number. Against it sits an authorised 9.92M HYPE per month release. The gap is structural, not the market failing to notice something.",
+    "headline": "The ledger keeps winning. The token keeps waiting.",
+    "paragraph": "Across twenty-one scored catalysts the XRP token averages 4.7 while the catalysts hitting the ledger average 5.6 — the sixth consecutive board on which that gap has held rather than closed. This week supplied the cleanest test the thesis has had, and it came from the bull side: an institutional venue on Ethereum accepted FXRP, Flare's representation of XRP, as collateral, and real XRP is escrowed on the XRP Ledger to mint it. The transmission is real, and it is the smallest one on the board. Its ceiling is a cap of five million RLUSD of borrowing capacity — a number neither issuer would give, provable on-chain — which at full draw reaches roughly 0.010% to 0.015% of XRP's float, as a reversible round trip by people who already hold the coin. Ripple's routine escrow release of about 300 million XRP a month is 32x to 49x larger than that entire ceiling. Meanwhile the board's one hard-dated hope quietly lost its date: no cloture motion was filed on the CLARITY Act before the Senate's deadline, the chamber leaves on August 7 and returns September 14.",
     "reads": {
-      "token": "Neutral by a hair, and leaning bearish",
-      "network": "Genuinely shipping — the one axis winning",
-      "technicals": "Bearish — seven of ten indicators"
+      "token": "Neutral at 4.7 — the gap has not closed in six boards",
+      "network": "Bullish at 5.6 — but only 0.05 above the floor",
+      "technicals": "Bearish at 4.3 — only support and OBV are positive"
     }
   },
-  "logo": "<svg class=\"vc-logo\" viewBox=\"0 0 32 32\" xmlns=\"http://www.w3.org/2000/svg\" aria-label=\"HYPE\"> <g transform=\"scale(0.5)\"> <g clip-path=\"url(#clip0_158_68-hype)\"> <path d=\"M32 64C49.6732 64 64 49.6732 64 32C64 14.3269 49.6732 0 32 0C14.3269 0 0 14.3269 0 32C0 49.6732 14.3269 64 32 64Z\" fill=\"#0F3933\"/> <path d=\"M54 32.2924C54 47.0106 45.0979 51.7333 40.4075 47.5281C36.5468 44.0992 35.3981 36.8535 29.591 36.1095C22.2204 35.1714 21.5823 45.1021 16.7324 45.1021C11.0848 45.1021 10 36.7888 10 32.5189C10 28.1519 11.2125 22.2 16.0304 22.2C21.6461 22.2 21.9652 30.7074 28.9848 30.2545C35.9724 29.7693 36.1001 20.906 40.631 17.1214C44.5874 13.8542 54 17.3801 54 32.2924Z\" fill=\"#97FCE4\"/> </g> <defs> <clipPath id=\"clip0_158_68-hype\"> <rect width=\"64\" height=\"64\" fill=\"white\"/> </clipPath> </defs> </g> </svg>",
+  "logo": "<svg class=\"vc-logo\" viewBox=\"0 0 32 32\" xmlns=\"http://www.w3.org/2000/svg\" aria-label=\"XRP\"><circle cx=\"16\" cy=\"16\" r=\"16\" class=\"xc\"/><path class=\"xp\" d=\"M23.07 8h2.89l-6.015 5.957a5.621 5.621 0 0 1-7.89 0L6.035 8H8.93l4.57 4.523a3.556 3.556 0 0 0 4.996 0L23.07 8zM8.895 24.563H6l6.055-5.993a5.621 5.621 0 0 1 7.89 0L26 24.562h-2.895L18.5 20a3.556 3.556 0 0 0-4.996 0l-4.61 4.563z\"/></svg>",
   "rows": [
     {
       "n": 1,
-      "row_id": "hype-buyback",
-      "short": "Assistance Fund Buyback",
-      "cat": "Assistance Fund buyback engine (burn)",
-      "net": 5.0,
-      "tok": 5.7
-    },
-    {
-      "n": 2,
-      "row_id": "hype-unlocks",
-      "short": "Core-Contributor Unlocks",
-      "cat": "Core-contributor unlock cadence",
-      "net": 5.0,
-      "tok": 2.0
-    },
-    {
-      "n": 3,
-      "row_id": "hype-coinbase-treasury",
-      "short": "Coinbase Treasury / AQAv2",
-      "cat": "Coinbase USDC treasury / AQAv2",
-      "net": 5.0,
-      "tok": 7.2
-    },
-    {
-      "n": 4,
-      "row_id": "hype-etf",
-      "short": "Spot HYPE ETFs",
-      "cat": "Spot HYPE ETFs (THYP, BHYP, HYPG)",
+      "row_id": "xrp-goldman-etf-exit",
+      "short": "Goldman ETF Exit",
+      "cat": "Goldman 13F: full XRP ETF exit ($153.8M)",
       "net": 5.0,
       "tok": 3.3
     },
     {
-      "n": 5,
-      "row_id": "hype-cftc-perps",
-      "short": "US Regulatory Thread",
-      "cat": "US regulatory thread (CFTC / SEC / Reg 40.11)",
+      "n": 2,
+      "row_id": "xrp-etf-flows",
+      "short": "Spot XRP ETF Flows",
+      "cat": "US spot XRP ETF complex (~$1.50B in, 84% retail)",
       "net": 5.0,
-      "tok": 4.7
+      "tok": 5.3
     },
     {
-      "n": 6,
-      "row_id": "hype-competition",
-      "short": "Perp-DEX Fee Competition",
-      "cat": "Perp-DEX + CEX fee competition",
-      "net": 3.5,
-      "tok": 3.6
-    },
-    {
-      "n": 7,
-      "row_id": "hype-hyperevm",
-      "short": "HyperEVM + the RWA Turn",
-      "cat": "HyperEVM + HIP-3 / HIP-4 and the RWA turn",
+      "n": 3,
+      "row_id": "xrp-kinexys-pilot",
+      "short": "Ondo/Kinexys XRPL Pilot",
+      "cat": "May 6 Ondo/Kinexys(JPM)/Mastercard pilot on XRPL",
       "net": 8.0,
-      "tok": 5.7
+      "tok": 4.5
     },
     {
-      "n": 8,
-      "row_id": "hype-corporate-treasuries",
-      "short": "Corporate HYPE Treasuries",
-      "cat": "Corporate HYPE treasuries",
-      "net": 5.0,
-      "tok": 5.2
-    },
-    {
-      "n": 9,
-      "row_id": "hype-fee-switch",
-      "short": "Fee-Switch Governance",
-      "cat": "Governance re-allocation of the fee stream (fee-switch / HIP-5 / AF2)",
-      "net": 5.0,
-      "tok": 5.0
-    },
-    {
-      "n": 10,
-      "row_id": "hype-staking-lock",
-      "short": "Staking Float-Lock",
-      "cat": "Staking float-lock and whale accumulation",
+      "n": 4,
+      "row_id": "xrp-rwa-tokenization",
+      "short": "XRPL Tokenized RWA",
+      "cat": "XRPL tokenized RWA (~$4.06B represented / ~$485M distributed)",
       "net": 6.8,
       "tok": 4.5
     },
     {
-      "n": 11,
-      "row_id": "hype-holder-rights",
-      "short": "Holder Rights / Validators",
-      "cat": "Token-holder rights & validator authority",
+      "n": 5,
+      "row_id": "xrp-clarity-act",
+      "short": "CLARITY Act",
+      "cat": "CLARITY Act (no cloture filed; Senate returns Sept 14)",
       "net": 5.0,
-      "tok": 3.8
+      "tok": 5.4
+    },
+    {
+      "n": 6,
+      "row_id": "xrp-rlusd",
+      "short": "RLUSD Stablecoin",
+      "cat": "RLUSD (~$1.59B issuer-stated; XRPL share 55-57%)",
+      "net": 6.8,
+      "tok": 3.3
+    },
+    {
+      "n": 7,
+      "row_id": "xrp-defi-stack",
+      "short": "XRPL Institutional DeFi",
+      "cat": "XRPL institutional DeFi stack (XLS-65/66, EVM sidechain)",
+      "net": 6.8,
+      "tok": 4.9
+    },
+    {
+      "n": 8,
+      "row_id": "xrp-escrow-leak",
+      "short": "Ripple Escrow Leak",
+      "cat": "Ripple escrow net leak (~300M XRP/mo)",
+      "net": 5.0,
+      "tok": 4.3
+    },
+    {
+      "n": 9,
+      "row_id": "xrp-sbi",
+      "short": "SBI Japan Cluster",
+      "cat": "SBI 2026 cluster (Doppler XRP lending; Shinsei; FIEA)",
+      "net": 5.0,
+      "tok": 5.4
+    },
+    {
+      "n": 10,
+      "row_id": "xrp-evernorth",
+      "short": "Evernorth XRP Treasury",
+      "cat": "Evernorth XRPN treasury (~473M held; de-SPAC not closed)",
+      "net": 5.0,
+      "tok": 5.2
+    },
+    {
+      "n": 11,
+      "row_id": "xrp-trust-bank",
+      "short": "Ripple National Trust Bank",
+      "cat": "Ripple National Trust Bank (OCC conditional, pre-opening)",
+      "net": 5.0,
+      "tok": 4.5
     },
     {
       "n": 12,
-      "row_id": "hype-cex-listings",
-      "short": "Major-Venue Spot Listings",
-      "cat": "Major-venue spot listings",
-      "net": 5.0,
-      "tok": 5.6
+      "row_id": "xrp-odl-volume",
+      "short": "ODL Corridor Volume",
+      "cat": "ODL corridor volume (~$14.2B Q1, est., unaudited)",
+      "net": 5.8,
+      "tok": 4.9
     },
     {
       "n": 13,
-      "row_id": "hype-jurisdiction",
-      "short": "Non-US Regulator Warnings",
-      "cat": "Non-US jurisdictional characterisation risk",
+      "row_id": "xrp-xrpld-upgrade",
+      "short": "XRPL v3.2 Upgrade",
+      "cat": "XRPL v3.2.x + fixCleanup3_2_0 activation",
+      "net": 5.8,
+      "tok": 5.0
+    },
+    {
+      "n": 14,
+      "row_id": "xrp-flutterwave",
+      "short": "Flutterwave Africa Payments",
+      "cat": "Ripple->Flutterwave RLUSD/payments (Africa)",
+      "net": 5.8,
+      "tok": 5.0
+    },
+    {
+      "n": 15,
+      "row_id": "xrp-bitso-mxnb",
+      "short": "Bitso MXNB Corridor",
+      "cat": "Ripple x Bitso MXNB / Permissioned DEX (US-Mexico)",
+      "net": 6.8,
+      "tok": 5.0
+    },
+    {
+      "n": 16,
+      "row_id": "xrp-swift-ledger",
+      "short": "Swift Shared Ledger",
+      "cat": "Swift shared ledger reaches initial use - 17 banks, tokenized deposits, no bridge asset",
       "net": 5.0,
-      "tok": 3.8
+      "tok": 3.6
+    },
+    {
+      "n": 17,
+      "row_id": "xrp-x402-agentic",
+      "short": "x402 Agentic Payments",
+      "cat": "Ripple x x402 Foundation - agentic payments",
+      "net": 5.8,
+      "tok": 5.4
+    },
+    {
+      "n": 18,
+      "row_id": "xrp-dtcc-ripple-prime",
+      "short": "Ripple Prime + DTCC",
+      "cat": "Ripple Prime inside DTCC tokenization; Oct commercialization",
+      "net": 5.0,
+      "tok": 5.0
+    },
+    {
+      "n": 19,
+      "row_id": "xrp-exchange-reserves",
+      "short": "Exchange Reserves",
+      "cat": "Exchange reserves / whale accumulation",
+      "net": 5.0,
+      "tok": 5.1
+    },
+    {
+      "n": 20,
+      "row_id": "xrp-holder-rights-authority",
+      "short": "Holders Have No Vote",
+      "cat": "XRP holders have no vote over XRP's own demand parameters",
+      "net": 5.0,
+      "tok": 3.3
+    },
+    {
+      "n": 21,
+      "row_id": "xrp-fxrp-morpho",
+      "short": "FXRP Collateral on Morpho",
+      "cat": "FXRP approved as collateral in Sentora's RLUSD vault on Morpho (Ethereum)",
+      "net": 5.0,
+      "tok": 4.9
     }
   ]
 };
