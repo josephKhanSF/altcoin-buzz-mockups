@@ -1,6 +1,6 @@
 {
   "schema": "tnt_scoreboard_portal/v1",
-  "generated_at": "2026-08-05",
+  "generated_at": "2026-08-10",
   "source_csv": "Channels/CH-003-altcoin-buzz/Leads/Token Scorecard/tnt_scoreboard.csv",
   "featured": "HYPE",
   "bands": {
@@ -452,24 +452,6 @@
       "ta_status": "live"
     },
     {
-      "ticker": "XRP",
-      "name": "XRP (XRP Ledger)",
-      "tnt_score": 4.6,
-      "tnt_band": "NEUTRAL",
-      "token_score": 4.7,
-      "token_band": "NEUTRAL",
-      "network_score": 5.7,
-      "network_band": "BULLISH",
-      "technicals_score": 4.3,
-      "technicals_band": "BEARISH",
-      "verdict_band": "NEUTRAL",
-      "catalyst_count": 20,
-      "coingecko_id": "ripple",
-      "as_of_date": "2026-07-30",
-      "technicals_as_of_date": "2026-08-05",
-      "ta_status": "live"
-    },
-    {
       "ticker": "LINK",
       "name": "Chainlink",
       "tnt_score": 4.5,
@@ -521,6 +503,24 @@
       "coingecko_id": "aerodrome-finance",
       "as_of_date": "2026-07-29",
       "technicals_as_of_date": "2026-08-03",
+      "ta_status": "live"
+    },
+    {
+      "ticker": "XRP",
+      "name": "XRP (XRP Ledger)",
+      "tnt_score": 4.5,
+      "tnt_band": "NEUTRAL",
+      "token_score": 4.7,
+      "token_band": "NEUTRAL",
+      "network_score": 5.6,
+      "network_band": "BULLISH",
+      "technicals_score": 4.3,
+      "technicals_band": "BEARISH",
+      "verdict_band": "NEUTRAL",
+      "catalyst_count": 21,
+      "coingecko_id": "ripple",
+      "as_of_date": "2026-08-10",
+      "technicals_as_of_date": "2026-08-05",
       "ta_status": "live"
     },
     {
