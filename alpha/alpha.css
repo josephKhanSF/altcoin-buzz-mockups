@@ -1,0 +1,1351 @@
+/* ==========================================================================
+   ALPHA MOCKUP · alpha.css · 2026-08-17
+   ONE stylesheet, ONE component grammar, shared by index.html + coin.html.
+
+   SEEDED FROM  v3/assets/base.css — the component GRAMMAR and the ARCHITECTURE
+                (external stylesheet, lean pages). That is the lift boundary.
+   REPAINTED TO the live lead magnet's palette and LIGHT-THEME DEFAULT.
+                v3 defaults dark (#0c0d0f) and its light variant (#f5f2ec) is
+                warm; the lead magnet's is cool (#ffffff / #f4f6fa). The lead
+                magnet wins on colour because it is what the audience has
+                already seen. v3 wins on structure because it is the
+                architecture of record.
+
+   FOUR FIX-ON-LIFT LAYOUT DEFECTS, FIXED HERE RATHER THAN INHERITED:
+     A1 · table dead-space, home board      → fixed layout + explicit colgroup
+     A2 · table dead-space, scorecard       → same, plus a chevron gutter
+     B1 · .tf-tag renders full-width boxed  → align-self:flex-start, width:auto
+     B4 · hero header asymmetry             → IDENTICAL rule on BOTH peer heads
+   ⛔ v3's `.gated .num{filter:blur(7px)}` is DELIBERATELY NOT CARRIED. Withheld
+      content is ABSENT from the DOM; the gatebar stands in its place. Blurring
+      a value that is present in the payload teaches the build the wrong pattern.
+   ⛔ v3's per-row dropped-destination link class is not carried either. It sat
+      INSIDE the grammar being lifted, so it travels unless removed on purpose.
+   ========================================================================== */
+
+/* ---- 1 · Colour — the lead magnet's tokens, contrast pushed further ------ */
+:root{
+  --bg:#ffffff; --bg-soft:#f4f6fa; --card:#ffffff; --card-soft:#f8fafc;
+  --line:#e7ebf1; --line2:#d8dee7;
+  --ink:#14171c; --txt:#3a4150; --mut:#687184; --faint:#98a1b2;
+  /* C2 — the team reads v3/version-b as too muted. --zero nudged UP a step and
+     --dim added so a neutral score never reads as disabled beside a vivid one. */
+  --green:#15824a; --red:#bf3d3d; --zero:#5c626c; --dim:#6b7383;
+  --gold:#e0a93c; --goldtx:#8d6512; --goldink:#1d1604;
+  --green-soft:rgba(21,130,74,.10); --red-soft:rgba(191,61,61,.10);
+  --zero-soft:rgba(92,98,108,.10);  --gold-soft:rgba(224,169,60,.12);
+  --gold-line:rgba(224,169,60,.34);
+  --breakdown:#f4f6fa;                 /* the tinted SCORE BREAKDOWN sub-band */
+  --shadow:0 1px 2px rgba(20,30,55,.05), 0 8px 24px rgba(20,30,55,.06);
+  --r-chip:4px; --r-btn:6px; --r-card:10px; --r-hero:12px; --r-max:999px;
+  --wrap:1280px; --pad:26px; --nav-h:60px;
+  --ui:'Archivo',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,sans-serif;
+  --mono:'JetBrains Mono','SF Mono',ui-monospace,Menlo,monospace;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--bg); color:var(--txt);
+  font-family:var(--ui); font-size:15px; line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+  padding-bottom:56px;                 /* clearance for the site-wide Ask Buzz bar */
+}
+.wrap{max-width:var(--wrap); margin:0 auto; padding:0 var(--pad)}
+a{color:inherit; text-decoration:none}
+:focus-visible{outline:2px solid var(--gold); outline-offset:2px}
+
+/* ---- 2 · Typography -----------------------------------------------------
+   ⭐ B2d / B4f — TYPE RAISED. The review is right that elegance was losing to
+   legibility, and CoinMarketCap is the benchmark for readability, not for
+   column count. TWO FLOORS ARE HELD ACROSS THIS FILE:
+     · BODY COPY          — 13px minimum (was 11.5–12.5 in several places)
+     · MONO UPPERCASE LABELS — 10.5px minimum (was 8.5–9.5)
+   Anything that wanted to be smaller than the floor gets shorter text instead.
+   -------------------------------------------------------------------------- */
+.mono{font-family:var(--mono); font-variant-numeric:tabular-nums}
+.h1{font-family:var(--ui); font-weight:700; font-size:38px; line-height:1.1; color:var(--ink); margin:0; letter-spacing:-.5px}
+.page-h1{font-family:var(--ui); font-weight:700; font-size:27px; color:var(--ink); margin:0}
+.sec-h{font-family:var(--ui); font-weight:600; font-size:15px; color:var(--ink); margin:0}
+.one{font-family:var(--ui); font-weight:400; font-size:13.5px; color:var(--mut); margin:0}
+.crumb,.sec-meta,.microlabel{
+  font-family:var(--mono); font-weight:600; font-size:10.5px; letter-spacing:1.5px;
+  text-transform:uppercase; color:var(--dim)
+}
+.eyebrow{font-family:var(--mono); font-weight:700; font-size:11px; letter-spacing:2.2px;
+  text-transform:uppercase; color:var(--goldtx)}
+
+/* ==========================================================================
+   TOKEN LOGOS — ⛔ ROUND 3 · THE MARK IS CONTAINED, NOT CROPPED.
+
+   THE BUG: `.tlogo{ border-radius:50%; overflow:hidden }` masked every mark
+   into a CIRCLE. Marks whose art bleeds to the edges of the 32×32 square lost
+   their corners — PUMP's capsule was clipped at both ends, FLR's bars were
+   sliced. Circular marks survived by luck, which is why it read as "a PUMP
+   problem". ⛔ The SVGs are correct and were not touched: all 39 are
+   viewBox="0 0 32 32" and all 39 render whole on the live lead magnet.
+
+   THE FIX: no circular mask, a small radius, and `object-fit:contain` so the
+   whole square is fitted into the box instead of being cropped to fill it.
+   ONE rule, so every place a logo appears inherits it: highlight cards, board
+   rows, watchlist panel and list, and the token-page masthead.
+   ========================================================================== */
+.tlogo{display:inline-flex; align-items:center; justify-content:center; flex:none;
+  border-radius:5px; overflow:visible; background:transparent}
+.tlogo img,.tlogo svg{width:100%; height:100%; display:block; object-fit:contain}
+/* the monogram fallback, for a ticker whose file ever goes missing. It keeps
+   the tile background the artwork no longer needs. */
+.tlogo .monofb{display:flex; align-items:center; justify-content:center; width:100%; height:100%;
+  font-size:10.5px; color:var(--dim); background:var(--bg-soft); border-radius:5px}
+
+/* score → band colour. Gold NEVER touches a score. */
+.s-bull{color:var(--green)} .s-neut{color:var(--zero)} .s-bear{color:var(--red)}
+.bull{color:var(--green)}   .neut{color:var(--zero)}   .bear{color:var(--red)}
+.up{color:var(--green)} .down{color:var(--red)}
+
+/* ==========================================================================
+   NAV · five destinations (brief §2.1). The dropped destination is absent.
+   ========================================================================== */
+.nav{position:sticky; top:0; z-index:50; background:rgba(255,255,255,.9);
+  backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line)}
+.nav-in{height:var(--nav-h); display:flex; align-items:center; gap:22px}
+.brand{display:flex; align-items:baseline; gap:7px; margin-right:4px}
+.brand .word{font-family:var(--ui); font-weight:800; font-size:15.5px; color:var(--ink); letter-spacing:-.2px}
+.brand .word b{color:var(--goldtx); font-weight:800}
+.nav-links{display:flex; gap:2px; align-items:center}
+.nav-links a{font-weight:600; font-size:13.5px; color:var(--mut); padding:7px 11px;
+  border-radius:var(--r-btn); transition:color .15s,background .15s; white-space:nowrap}
+.nav-links a:hover{color:var(--ink); background:var(--bg-soft)}
+.nav-links a.active{color:var(--ink); background:var(--bg-soft)}
+.nav-right{margin-left:auto; display:flex; align-items:center; gap:8px}
+.icon-btn{width:34px; height:34px; display:inline-flex; align-items:center; justify-content:center;
+  border:1px solid var(--line2); border-radius:var(--r-btn); background:transparent;
+  color:var(--mut); cursor:pointer}
+.icon-btn:hover{color:var(--ink); border-color:var(--dim)}
+.icon-btn svg{width:16px; height:16px}
+.notif-dot{position:relative}
+.notif-dot::after{content:''; position:absolute; top:6px; right:7px; width:6px; height:6px;
+  border-radius:50%; background:var(--gold)}
+.acct{display:inline-flex; align-items:center; gap:7px; padding:5px 11px 5px 6px;
+  border:1px solid var(--line2); border-radius:var(--r-max); color:var(--txt); font-size:13px; cursor:pointer}
+.acct .av{width:22px; height:22px; border-radius:50%; background:var(--bg-soft);
+  display:inline-flex; align-items:center; justify-content:center; font-family:var(--mono); font-size:10px; color:var(--goldtx)}
+
+/* ==========================================================================
+   TIER SWITCHER — a DEMO CONTROL, not product chrome. Deliberately styled as
+   an instrument: the operator flips it live in the room, so it must be
+   instant and obvious, and it must not be mistaken for a shipped feature.
+   ========================================================================== */
+.tierbar{background:#161a20; color:#e8ecf2; border-bottom:1px solid #262c35}
+.tierbar-in{display:flex; align-items:center; gap:14px; padding:7px 0; flex-wrap:wrap}
+.tierbar .tb-lbl{font-family:var(--mono); font-size:10.5px; letter-spacing:1.8px;
+  text-transform:uppercase; color:#8b94a3}
+.tierbar .tb-lbl b{color:#e8ecf2; font-weight:700}
+.tswitch{display:inline-flex; border:1px solid #333a45; border-radius:var(--r-btn); overflow:hidden}
+.tswitch button{font-family:var(--mono); font-weight:600; font-size:11px; letter-spacing:1.2px;
+  text-transform:uppercase; background:transparent; color:#9aa3b2; border:none;
+  padding:6px 14px; cursor:pointer}
+.tswitch button+button{border-left:1px solid #333a45}
+.tswitch button[aria-pressed="true"]{background:var(--gold); color:var(--goldink)}
+.tierbar .tb-note{font-size:12.5px; color:#8b94a3; margin-left:auto}
+
+/* ==========================================================================
+   Section rhythm
+   ========================================================================== */
+.crumbs{padding:16px 0 4px; display:flex; gap:8px; align-items:center}
+.section{padding-top:34px; margin-top:34px; border-top:1px solid var(--line)}
+.section:first-of-type{border-top:none}
+.sec-head{display:flex; align-items:baseline; gap:12px; margin-bottom:16px; flex-wrap:wrap}
+.sec-head .one{margin-left:auto; text-align:right}
+
+/* ==========================================================================
+   HERO — FRESH, and now COMPRESSED (B1, shape 3).
+   ⛔ Not v3's hero, not version-b's featured board. Both rejected.
+   The review asked whether we need a hero at all; that was reversed — nobody
+   knows what a TNT Score is, so the one-question statement earns its place.
+   What it does NOT earn is 400px of scroll before the table.
+   ▶ WAS: 44px headline · 2-column grid · a 300px gauge card · ~420px tall.
+     NOW: one band, ~180px tall, and the FULLER statement sits in the footer.
+   ⛔ The gauge left the hero because the PUMP highlight card carries the one
+      gauge immediately below it. Two stacked gauges buy nothing.
+   ========================================================================== */
+/* ⛔⛔ ROUND 4 · THE HERO BLOCK IS DELETED, RULES AND ALL. Third ruling in one
+   day: kill → keep compressed → strip the framing entirely. The eyebrow, the
+   campaign styling and the gloss row are gone; the one plain sentence that
+   survived is merged into the `Every coin, ranked` band (.board-lede). */
+
+/* ==========================================================================
+   THE GAUGE — ⛔ ONLY THE TNT SCORE IS EVER DRAWN AS A GAUGE.
+   Token, Network and Technicals NEVER get one. They are numbers.
+   A gauge on a component score is a DEFECT: it implies the sub-scores carry
+   the same kind of verdict the composite does. They do not, and that is the
+   entire point of a three-axis instrument.
+   Shape: semicircular arc red→amber→green L→R · marker on the arc · score
+   large beneath · band word under that.
+   ========================================================================== */
+.gauge-card{background:var(--card); border:1px solid var(--line2); border-radius:var(--r-hero);
+  padding:20px 18px 16px; box-shadow:var(--shadow); text-align:center}
+.gauge-card .microlabel{display:block; margin-bottom:6px}
+.tnt-gauge{width:200px; height:112px; display:block; margin:0 auto}
+.tnt-gauge .track{fill:none; stroke-width:13; stroke-linecap:round}
+.tnt-gauge .mark{stroke:var(--ink); stroke-width:2.5; fill:var(--bg)}
+.gauge-num{font-family:var(--mono); font-weight:700; font-size:44px; line-height:1;
+  font-variant-numeric:tabular-nums; margin-top:-14px}
+.gauge-word{font-family:var(--mono); font-weight:700; font-size:11px; letter-spacing:2px;
+  text-transform:uppercase; margin-top:7px}
+.gauge-card .asof{margin-top:12px}
+
+/* ==========================================================================
+   THE HIGHLIGHT STRIP — version-b's FORM, rebuilt 2026-08-17 (evening).
+
+   ⛔⛔ THE DEFECT BEING CURED: FOUR VISUALLY IDENTICAL CARDS CARRYING THREE
+      DIFFERENT UNITS. The operator — who designed the scoring system — read
+      STABLE's 3.9 as a TNT score. It is a TOKEN score. If the author of the
+      instrument reads it wrong, a room will.
+   ▶ SO EACH UNIT GETS A DIFFERENT FORM. The form is the first thing seen; the
+     eyebrow and the `unit` line only confirm it.
+       .f-gauge   → TNT score      · the semicircular gauge  ⛔ PUMP ONLY
+       .f-gap     → decoupling gap · paired bars + the span between them
+       .f-scale   → token score    · a position on a 1–10 track. NO ARC.
+       .f-bands   → the MARKET     · a segmented band-distribution bar
+       .f-article → an article card, FORM ONLY (E1 is unruled)
+   ⛔⛔ .f-gap IS MAGNITUDE ONLY. Neutral slate ink, no arrow, no lean, no
+      red-vs-green implying a winner. The network leads the token on 38 of 39
+      rows, so a directional mark points the same way on 97% of them and the
+      eye stops seeing it within three — the exact wallpaper failure this
+      redesign exists to cure.
+   ========================================================================== */
+/* ⛔ ROUND 3 · FIVE CARDS, NOT SIX, AND MUCH LESS IN EACH.
+   version-b's density target: eyebrow · ticker · the form · ONE SHORT LINE.
+   Deleted: the FEATURED RESEARCH card, the gold sub-header (.hl-unit), the
+   TOKEN/NETWORK/TECHNICALS triple (.trip) and the GAP caption (.gv-cap).
+   ⚠ The cards are much shorter now, so the FORM area is given a fixed minimum
+   height and the note is pinned to the bottom. Otherwise the gauge card runs
+   tall and the strip reads as four short cards and one odd one. */
+/* ⛔⛔ ROUND 6 · FOUR CARDS, AND NO DESCRIPTION ON ANY FACE.
+   `THE ONE EXCEPTION` card is deleted (it does not survive 100–150 coins) and
+   every remaining description became a TOOLTIP ON THE WHOLE CARD. Both changes
+   exist for the same reason: VERTICAL SPACE. The round-5 baseline machinery
+   that aligned five descriptions is gone with the descriptions it aligned.
+   ⚠⚠ THE TOOLTIP IS NOT HOVER-ONLY AND MUST NOT BECOME HOVER-ONLY. The
+      description is now the ONLY place that copy lives, so it opens on :hover,
+      on :focus-visible AND on :focus-within, the card carries
+      `aria-describedby`, and the one card that is not a link carries
+      tabindex="0". Deleting any one of those deletes the copy for somebody. */
+/* ⭐ ROUND 7 · the run between the strip and the chips was 14px, made of two
+   values: 4px here and 10px of `.board-ctl` padding-top. It is now 7px — HALVED,
+   ⛔ NOT COLLAPSED. The chips have to read as a separate control row rather than
+   as the bottom edge of the strip, and at zero they stop doing that. */
+.highlights{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; margin:6px 0 0}
+.hl{position:relative; display:flex; flex-direction:column; background:var(--card);
+  border:1px solid var(--line2);
+  border-top:3px solid var(--acc,var(--line2)); border-radius:var(--r-card);
+  padding:14px 15px 15px; box-shadow:var(--shadow); transition:transform .15s; min-width:0}
+.hl-form{margin-top:12px; min-height:142px; display:flex; flex-direction:column; justify-content:center}
+a.hl:hover{transform:translateY(-2px)}
+/* the card IS the trigger — no small `i` to find and no separate hit area */
+.hl:hover,.hl:focus-visible,.hl:focus-within{border-color:var(--dim)}
+.hl:focus-visible{outline:2px solid var(--gold); outline-offset:2px}
+/* ⛔ THE DESCRIPTION, now a tooltip. Same visual language as every other tip on
+   the page, so it reads as the same kind of object. */
+.hl-tip{position:absolute; z-index:90; left:12px; right:12px; top:calc(100% - 6px);
+  background:#161a20; color:#e8ecf2; border-radius:var(--r-btn); padding:10px 12px;
+  font-family:var(--ui); font-weight:400; font-size:12.5px; line-height:1.45;
+  letter-spacing:0; text-transform:none; text-align:left; white-space:normal;
+  box-shadow:0 10px 30px rgba(20,30,55,.24);
+  opacity:0; visibility:hidden; transform:translateY(-3px);
+  transition:opacity .14s, transform .14s, visibility .14s}
+.hl:hover .hl-tip,.hl:focus-visible .hl-tip,.hl:focus-within .hl-tip{
+  opacity:1; visibility:visible; transform:none}
+.hl.hl-green{--acc:var(--green)} .hl.hl-ink{--acc:var(--ink)}
+.hl.hl-red{--acc:var(--red)}     .hl.hl-gold{--acc:var(--gold)}
+.hl.hl-market{--acc:var(--dim)}
+.hl .k{font-family:var(--mono); font-weight:700; font-size:10.5px; letter-spacing:1.2px;
+  text-transform:uppercase; color:var(--dim); line-height:1.35; min-height:2.7em}
+.hl.hl-gold .k{color:var(--goldtx)}
+/* ⭐ the id row is given the same height on every card — the token cards carry a
+   26px logo and the market card carries text alone — so the baseline the notes
+   share below it does not move card to card. */
+.hl-id{display:flex; align-items:center; gap:8px; margin-top:8px; min-width:0; min-height:28px}
+.hl-id .tlogo{width:26px; height:26px}
+.hl-id .tk{font-family:var(--ui); font-weight:800; font-size:18px; color:var(--ink)}
+.hl-id .nm{font-size:12px; color:var(--faint); overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.hl-id .hl-mk{font-family:var(--ui); font-weight:800; font-size:16px; color:var(--ink)}
+/* ⛔ ROUND 3 · THE GOLD SUB-HEADER (.hl-unit) IS DELETED ON EVERY CARD. The
+   eyebrow already covers it, and it was the single biggest source of the
+   redundant text the review named. So is the .trip triple, also deleted.
+   ⛔ ROUND 6 · `.hl .s` (the on-card description) is deleted too — the copy is
+      now `.hl-tip`. The `.nm` sub-label rule above serves BOTH the coin cards
+      (`Pump.fun`) and the market card's `By TNT Score`: same slot, same size. */
+
+/* ⛔ THE GAUGE. On the PUMP card and nowhere else on this strip, or this page. */
+.hl-gauge{text-align:center}
+.hl-gauge .tnt-gauge{width:100%; max-width:150px; height:84px}
+.hl-gauge .gauge-num{font-size:32px; margin-top:-10px}
+.hl-gauge .gauge-word{font-size:10.5px; margin-top:5px}
+
+/* ⛔⛔ THE DECOUPLING GAP — TWO BARS, AND THE DISTANCE BETWEEN THEM IS THE GAP.
+   ⛔ ROUND 3 · the `GAP 1.9` label and the "on a 1–10 scale" caption are gone.
+      The bars carry it; that was always the idea.
+   ⛔⛔ A4 · EACH BAR IS TINTED BY ITS OWN BAND, NEVER BY WHICH BAR IS LONGER.
+      LINK's network score is 7.0, which IS bullish, so it reads green because
+      of its band. Colouring "the bigger one" green would paint 38 of 39 rows
+      identically: the wallpaper failure arriving as a colour instead of an
+      arrow. Band colour genuinely varies (8 bullish · 26 neutral · 5 bearish). */
+.gapviz{width:100%}
+.gv-row + .gv-row{margin-top:10px}
+.gv-head{display:flex; align-items:baseline; justify-content:space-between; gap:6px}
+.gv-l{font-family:var(--mono); font-weight:600; font-size:10.5px; letter-spacing:1px;
+  text-transform:uppercase; color:var(--dim)}
+.gv-v{font-family:var(--mono); font-weight:700; font-size:14px; color:var(--ink);
+  font-variant-numeric:tabular-nums}
+.gv-track{display:block; height:9px; margin-top:5px; border-radius:4px; background:var(--bg-soft);
+  border:1px solid var(--line); overflow:hidden}
+/* the ONLY three colours a bar may take, and each one is its own band */
+.gv-track i{display:block; height:100%; border-radius:4px; background:var(--zero)}
+.gv-track i.bull{background:var(--green)}
+.gv-track i.neut{background:var(--zero)}
+.gv-track i.bear{background:var(--red)}
+/* the span between the two bar ends. Ink, because the DISTANCE has no band. */
+.gv-spanrow{height:11px; margin-top:6px; position:relative}
+.gv-spanbar{display:block; height:11px; border-left:2px solid var(--ink); border-right:2px solid var(--ink);
+  border-bottom:2px solid var(--ink); border-radius:0 0 2px 2px; min-width:3px}
+
+/* THE TOKEN SCORE — A POSITION ON A SCALE. ⛔ No arc: only the composite is
+   ever drawn as a gauge, and a component score that borrowed the arc would
+   claim to be the same kind of verdict. It is not. */
+.scaleviz{width:100%}
+.sv-track{display:block; position:relative; height:10px; border-radius:5px;
+  background:var(--bg-soft); border:1px solid var(--line)}
+.sv-fill{display:block; height:100%; border-radius:5px; background:#c9cfd9}
+.sv-mark{position:absolute; top:50%; width:3px; height:20px; background:var(--ink);
+  transform:translate(-50%,-50%); border-radius:2px}
+.sv-ends{display:flex; justify-content:space-between; gap:6px; margin-top:6px;
+  font-family:var(--mono); font-size:10.5px; letter-spacing:.6px; text-transform:uppercase; color:var(--faint)}
+.sv-val{font-family:var(--mono); font-weight:700; font-size:32px; line-height:1; margin-top:8px;
+  font-variant-numeric:tabular-nums; display:flex; align-items:baseline; gap:8px}
+.sv-band{font-size:10.5px; letter-spacing:1.4px; text-transform:uppercase; font-weight:700}
+
+/* THE MARKET CARD — a band distribution, and it NAMES THE BAND IT COUNTED.
+   Two band columns exist and they disagree on 10 of 39 rows; an unlabelled
+   "8 BULLISH" is a credibility failure on the one surface built to be checked. */
+.bandviz{width:100%}
+.bv-bar{display:flex; height:13px; border-radius:3px; overflow:hidden; border:1px solid var(--line)}
+.bv-bar i{display:block; height:100%}
+.b-bull{background:var(--green)} .b-neut{background:#c3c9d3} .b-bear{background:var(--red)}
+.bv-key{list-style:none; margin:9px 0 0; padding:0; display:flex; flex-direction:column; gap:4px}
+.bv-key li{display:flex; align-items:center; gap:7px; font-family:var(--mono); font-size:10.5px;
+  letter-spacing:.8px; color:var(--dim)}
+.bv-key li b{margin-left:auto; font-size:14px; color:var(--ink); font-variant-numeric:tabular-nums}
+.bv-key .sw{width:9px; height:9px; border-radius:2px; flex:none}
+/* ⛔ ROUND 5 · `.bv-leads` IS DELETED. The card carried two sentences under the
+   key — the "network leads on 38 of 39" line and the old band disclosure — and
+   both are gone: the disclosure is now the card's own description ("Based on
+   the TNT Score: …") and the jump control moved to THE ONE EXCEPTION card
+   (`.hl-jump`). The quantity still exists on the page, in the footer statement,
+   derived there and not typed. */
+.bv-src{margin-top:6px; font-family:var(--mono); font-size:10.5px; letter-spacing:.6px; color:var(--faint)}
+.bv-src b{color:var(--goldtx)}
+
+/* ⛔ ROUND 3 · THE ARTICLE CARD IS DELETED — six cards was too many, and it
+   was the one with nothing in it (no articles exist and E1 is unruled).
+   `.open-tag` survives: /research and the pricing view both still use it. */
+.open-tag{display:inline-block; margin-top:10px; font-family:var(--mono); font-weight:700;
+  font-size:10.5px; letter-spacing:1.2px; text-transform:uppercase; color:var(--goldink);
+  background:var(--gold); border-radius:var(--r-chip); padding:3px 8px}
+
+/* ==========================================================================
+   FILTER CHIPS above the board. ⛔ No FRESH BOARDS chip: in build mode it
+   would return almost nothing — a control that advertises our own staleness
+   on the surface where a sceptic looks first.
+   ========================================================================== */
+.filters{display:flex; gap:7px; flex-wrap:wrap; align-items:center; margin-bottom:10px}
+.filter{font-family:var(--mono); font-weight:600; font-size:11px; letter-spacing:1.1px;
+  text-transform:uppercase; background:var(--card); border:1px solid var(--line2);
+  border-radius:var(--r-max); padding:7px 14px; color:var(--dim); cursor:pointer}
+.filter:hover{color:var(--ink); border-color:var(--dim)}
+.filter[aria-pressed="true"]{background:var(--gold); border-color:var(--gold); color:var(--goldink)}
+/* A5 · THE DECOUPLED CHIP IS NOW LOAD-BEARING — it is the only surface the 2nd
+   and 3rd widest gaps have left since the FLAGGED strip went. So it is drawn
+   to be FOUND, and it STATES ITS THRESHOLD on the control: without the number
+   a room reads DECOUPLED as a verdict rather than a cutoff. */
+.filter.thesis{border-color:var(--gold); color:var(--goldtx); background:var(--gold-soft);
+  box-shadow:0 0 0 3px rgba(224,169,60,.10)}
+.filter.thesis .thr{margin-left:7px; padding-left:7px; border-left:1px solid var(--gold-line);
+  letter-spacing:.6px; opacity:.95}
+.filter.thesis[aria-pressed="true"]{background:var(--gold); color:var(--goldink); box-shadow:none}
+.filter-note{font-size:13px; color:var(--mut); margin:0 0 12px; max-width:92ch;
+  border-left:3px solid var(--gold); padding-left:11px}
+.filter-note b{color:var(--ink)}
+
+/* ==========================================================================
+   ⭐ ROUND 6 · THE PAGE TITLE, ABOVE THE HIGHLIGHTS STRIP.
+   ONE LINE, TWO WEIGHTS, NO EYEBROW. The bold half names the page and the
+   regular half is the question the whole score exists to answer.
+   ⛔⛔ IT IS ONE LINE ON PURPOSE. Vertical space is the constraint this round is
+      about; a stacked eyebrow + two-line title would spend everything item 1
+      just earned. It also sits ~60px under the brand lockup, so an eyebrow
+      would be the third piece of chrome in a row saying who we are.
+   ⛔ It REPLACES the old `Every coin, ranked` section heading — one table gets
+      one heading. Do not re-add a second one below the strip.
+   ========================================================================== */
+.pagetitle{margin:18px 0 14px}
+.pt-h{font-family:var(--ui); font-size:27px; line-height:1.25; color:var(--ink);
+  margin:0; font-weight:400; letter-spacing:-.2px}
+.pt-h b{font-weight:700}
+.pt-q{font-weight:400; font-size:19px; color:var(--mut); margin-left:8px;
+  letter-spacing:0}
+@media (max-width:720px){
+  .pt-h{font-size:23px}
+  .pt-q{display:block; margin-left:0; margin-top:4px; font-size:16px}
+}
+
+/* ⛔ ROUND 4 · ONE BAND, NOT TWO. The separate hero block is gone and what
+   survived it is this single plain line. No eyebrow, no campaign styling.
+   ⭐ ROUND 5 · THE SENTENCE MOVED OUT OF THE HEADING BLOCK AND UNDER THE CHIPS.
+      It used to inherit `.sec-head .one`, which pushes a line to the right at a
+      narrow measure — beside a left-aligned heading that read as a stray
+      caption. It is now LEFT-ALIGNED TO THE HEADING at a normal measure, and it
+      CHANGES WITH THE SELECTED CHIP, so it describes what is actually on screen.
+   ⛔ It is never centred and never right-aligned again. */
+   ⛔ ROUND 6 · `.board-band` and its heading rule are DELETED with the heading
+      they styled. `.board-lede` stays — the per-chip text is not going away. */
+.board-lede{font-family:var(--ui); font-weight:400; max-width:74ch; margin:0 0 12px;
+  font-size:14px; line-height:1.5; color:var(--txt); text-align:left}
+
+/* ==========================================================================
+   THE CONTROL BAR — ⛔ ROUND 4 · ONE BAR, DIRECTLY ABOVE THE TABLE, AND IT IS
+   THE STICKY CONTAINER, so the pinned header row falls out of the same
+   structure rather than needing its own.
+   ⛔ ROUND 5 · IT NOW CARRIES THE FILTER CHIPS ONLY. The dates and PRICES LIVE
+      moved BELOW the table (`.board-prov`) and the calibration stamp was
+      deleted. The chips STAY — the pinned header row measures its height off
+      this bar, so emptying it entirely would unpin the header.
+   ========================================================================== */
+/* ⭐ ROUND 7 · TWO CHANGES HERE, and both are measured against the PINNED state.
+   (A) padding-top 10px → 7px, with the strip's 4px bottom margin taken to 0.
+       The run above the chips goes 14px → 7px. ⚠ `--ctl-h` is MEASURED from
+       this element's offsetHeight at runtime and re-measured on resize and on
+       load, so the pinned header row follows the new height automatically —
+       there is no second number to keep in sync.
+   (B) ⛔ `border-bottom` DELETED. ⚠ It was the only edge between this bar and
+       the table scrolling under it. It is safe to remove because the PINNED
+       HEADER ROW sits flush beneath this bar (its sticky top is
+       `nav + --ctl-h`, so there is no gap for rows to show through) and that
+       row is opaque with its own bottom hairline. Rows never pass under the
+       chips — they pass under the header. ⛔ Do not reinstate a border here;
+       if a seam is wanted, it belongs to the table's header row, not to the
+       control. See the report. */
+.board-ctl{position:sticky; top:var(--nav-h); z-index:40;
+  display:flex; align-items:center; gap:16px; flex-wrap:wrap;
+  padding:7px 0 10px; margin-bottom:10px; background:var(--bg)}
+.board-ctl .filters{margin-bottom:0}
+
+/* ==========================================================================
+   PROVENANCE, BELOW THE TABLE — ⛔ ROUND 5.
+   ⛔⛔ IT RENDERS WITHOUT HOVER AND MUST KEEP DOING SO. Not a tooltip, not an
+      accordion, not a "show details" toggle. Scores shown with no statement of
+      how fresh they are is a live defect; POSITION was the operator's call,
+      hiding it behind an interaction was not.
+   ⛔ TWO DATE RANGES, RENDERED SEPARATELY. Never one blended "updated".
+   ⛔ The calibration stamp is DELETED — do not re-add a third `.fr` here.
+   ========================================================================== */
+.board-prov{display:flex; align-items:center; gap:16px; flex-wrap:wrap;
+  margin-top:12px; padding-top:11px; border-top:1px solid var(--line)}
+.board-fresh{display:flex; gap:16px; flex-wrap:wrap; align-items:center}
+.board-fresh .fr{font-size:12.5px; color:var(--mut); white-space:nowrap;
+  display:inline-flex; align-items:center}
+.board-fresh .fr b{color:var(--ink); font-weight:600; margin-left:5px;
+  font-family:var(--mono); font-variant-numeric:tabular-nums}
+.board-prov .bn-live{margin-left:auto; font-family:var(--mono); font-size:10.5px; letter-spacing:.9px;
+  text-transform:uppercase; color:var(--faint); white-space:nowrap}
+.board-prov .bn-live.on{color:var(--green)}
+.board-prov .bn-live.on::before{content:''; display:inline-block; width:7px; height:7px;
+  border-radius:50%; background:var(--green); margin-right:6px; vertical-align:middle}
+
+/* ==========================================================================
+   TOOLTIPS — ⚠ KEYBOARD- AND TOUCH-REACHABLE, NOT HOVER-ONLY.
+   Each tip is a real <button>, so it is in the tab order and a tap opens it;
+   it opens on :hover, on :focus-visible, and on .open which the click handler
+   in alpha.js toggles (a tap sends a click, not a hover).
+   ⛔ A tooltip may EXPLAIN a value. It may NOT be the only place a value
+      EXISTS — the catalyst count is printed on the row for exactly that reason.
+   ========================================================================== */
+.tip{position:relative; display:inline-flex; align-items:center; justify-content:center;
+  width:15px; height:15px; margin-left:6px; padding:0; vertical-align:middle;
+  border:1px solid var(--line2); border-radius:50%; background:var(--card);
+  color:var(--dim); cursor:help; flex:none}
+.tip::before{content:'i'; font-family:var(--mono); font-weight:700; font-size:9.5px;
+  line-height:1; text-transform:none}
+.tip:hover,.tip.open,.tip:focus-visible{border-color:var(--gold); color:var(--goldtx); background:var(--gold-soft)}
+/* ⛔ ROUND 4 · `.tipbar` is a tooltip attached DIRECTLY to a piece of the row
+   (the catalyst-mix bars). It has NO `i` icon of its own: users hover the
+   thing itself and would not have found the marker. Same open/close wiring. */
+.tipbar{position:relative}
+.tipbar::before{content:none}
+.tipbox{position:absolute; z-index:90; top:calc(100% + 8px); right:-6px; width:268px;
+  background:#161a20; color:#e8ecf2; border-radius:var(--r-btn); padding:10px 12px;
+  font-family:var(--ui); font-weight:400; font-size:12.5px; line-height:1.45; letter-spacing:0;
+  text-transform:none; text-align:left; white-space:normal; box-shadow:0 10px 30px rgba(20,30,55,.24);
+  opacity:0; visibility:hidden; transform:translateY(-3px); transition:opacity .14s, transform .14s, visibility .14s}
+.tipbox b{color:#fff}
+.tip:hover .tipbox,.tip:focus-visible .tipbox,.tip.open .tipbox,
+.tipbar:hover .tipbox,.tipbar:focus-visible .tipbox,.tipbar.open .tipbox{opacity:1; visibility:visible; transform:none}
+/* the per-row catalyst-mix tip hangs off the bars themselves. ⭐ 2026-08-17 it
+   is TWO lines: what was counted (each catalyst's own token score, banded) and
+   why it is beside the Token column (the column is their average). Each line
+   stays on one line, so the box sizes to the longer of the two. */
+.mixbtn .tipbox{right:0; width:auto; min-width:230px; white-space:nowrap; text-align:right}
+.tipbox .tipl2{display:block; margin-top:5px; color:#fff}
+
+/* ==========================================================================
+   THE BOARD TABLE
+   A1 FIX — the dead horizontal band between the asset name and the score
+   columns is killed with `table-layout:fixed` + an explicit colgroup, so the
+   score group sits inboard instead of clinging to the right edge.
+   ========================================================================== */
+/* ⛔⛔ ROUND 4 · NO INNER SCROLL CONTAINER AND NO SECOND SCROLLBAR.
+   `overflow` here was doing two harmful things at once: it produced the
+   right-hand scrollbar inside the table, and — because an ancestor with
+   `overflow` becomes the scroll box — it would have made a sticky header
+   stick to a box that never scrolls, i.e. do nothing. Both are `visible` now.
+   THE PAGE SCROLLS; THE TABLE DOES NOT SCROLL INSIDE ITSELF.
+   ⚠ Losing `overflow:hidden` also loses corner clipping, so the corners are
+     rounded on the corner CELLS instead. */
+.board{border:1px solid var(--line2); border-radius:var(--r-hero); background:var(--card);
+  overflow:visible; box-shadow:var(--shadow)}
+.board-scroll{overflow:visible}
+table.tok thead tr:first-child th:first-child{border-top-left-radius:var(--r-hero)}
+table.tok thead tr:first-child th:last-child{border-top-right-radius:var(--r-hero)}
+table.tok tbody tr:last-child td:first-child{border-bottom-left-radius:var(--r-hero)}
+table.tok tbody tr:last-child td:last-child{border-bottom-right-radius:var(--r-hero)}
+/* ✅ B4a — the ASSET column was 212px and too wide. 168px, with the full name
+   allowed to ellipsis. The width it gives up goes to the score columns. */
+table.tok{width:100%; min-width:1040px; border-collapse:collapse; table-layout:fixed; font-size:14.5px}
+/* ⭐ ROUND 4 · c-star is now the FIRST column, before c-rk. */
+table.tok col.c-star{width:46px} table.tok col.c-rk{width:44px}
+/* ⭐ ROUND 7 · ASSET AND THE SCORE COLUMNS TRADE AGAINST EACH OTHER, AND THE
+   TRADE NETS TO ZERO. `.c-as` 186 → 144 (−42) buys `.c-sc` 86 → 100, and
+   because `.c-sc` is used THREE TIMES that costs +14 × 3 = +42. The column sum
+   is 1088px before and 1088px after — it did not grow, and it still clears
+   `table.tok{min-width:1040px}`.
+   ⚠ THESE ARE SPECIFIED WIDTHS, NOT RENDERED ONES. The sum is 1088 against a
+     1228px content wrap, so with `table-layout:fixed` the surplus is shared out
+     in proportion and every column renders about 1.13× its number here.
+   ⛔ `TECHNICALS` IS THE FLOOR — it is the longest header on the table, and the
+      widening is sized to clear its text plus the sort chevron. See the report
+      for the one thing that still does not fit in that cell. */
+table.tok col.c-as{width:144px}  table.tok col.c-pr{width:132px}
+table.tok col.c-tnt{width:100px}
+/* ⭐ ROUND 8 · THE EQUAL-WIDTH CONSTRAINT IS LIFTED — THREE CLASSES, ONE BUDGET.
+   `.c-sc` is retired. TOKEN is 5 characters, NETWORK is 7 and TECHNICALS is 10,
+   so a single shared width let the SHORTEST header set what the LONGEST had to
+   survive on. That is the trade that was unreachable while they shared a class.
+   ⭐ THE BUDGET IS FIXED: 82 + 96 + 122 = 300px, exactly what `.c-sc` ×3 spent.
+      The table's column sum stays 1088px and still clears `min-width:1040px`.
+   ⚠ SIZED AGAINST RENDERED WIDTH, NOT SPECIFIED. Sum 1088 on a 1228px wrap
+     means `table-layout:fixed` shares out the surplus in proportion, so every
+     column lands at ~1.129× the number below.
+   ⛔ EACH CELL MUST CLEAR TEXT + SORT CHEVRON + THE `i` BUTTON. Fixing
+      TECHNICALS by breaking TOKEN or NETWORK is not a fix. Required rendered,
+      with the sub-row padding at 6px: TOKEN ~88 · NETWORK ~104 · TECHNICALS
+      ~127. Delivered rendered: ~93 · ~108 · ~138. */
+table.tok col.c-tok{width:82px}
+table.tok col.c-net{width:96px}
+table.tok col.c-tec{width:122px}
+table.tok col.c-dec{width:146px} table.tok col.c-mix{width:176px}
+/* ⛔ ROUND 3 · `c-cat` is gone with the CATALYSTS column. Its width went to
+   CATALYST MIX, which now carries the count as well as the bar. */
+/* ✅ B4f — header text was harder to read than CMC's. Size 9.5 → 11.5, colour
+   --dim → --txt, tracking eased so the extra size is not spent on gaps.
+   ✅ B4d — the NUMERIC headers right-align, as PRICE already did and as CMC
+   does. `#` and ASSET stay left. Nothing is centred except TNT and WATCH,
+   whose cells are centred too — a header never disagrees with its column. */
+/* ⛔⛔ ROUND 4 · THE HEADERS STAY VISIBLE WHILE SCROLLING (CMC behaviour).
+   Three sticky layers stack, and each needs the height of the one above it.
+   Only --nav-h is fixed in CSS; --ctl-h and --hdr1-h are MEASURED in alpha.js
+   (measureSticky) and re-measured on resize, because the control bar wraps.
+   ⚠ With border-collapse:collapse a sticky cell's own border does not paint,
+     so the header's bottom rule is an inset box-shadow instead. */
+table.tok thead th{font-family:var(--mono); font-weight:700; font-size:11.5px; letter-spacing:.9px;
+  text-transform:uppercase; color:var(--txt); text-align:right; padding:12px 10px;
+  vertical-align:bottom; white-space:nowrap; background:var(--card);
+  position:sticky; top:calc(var(--nav-h) + var(--ctl-h, 52px)); z-index:30;
+  box-shadow:inset 0 -1px 0 var(--line2)}
+table.tok thead tr.sub th{top:calc(var(--nav-h) + var(--ctl-h, 52px) + var(--hdr1-h, 30px)); z-index:29}
+table.tok thead th.lft{text-align:left}
+table.tok thead th.ctr{text-align:center}
+/* peer proof: the group label and the Technicals label share identical weight */
+table.tok thead th.bd-grp{text-align:center; background:var(--breakdown); color:var(--dim);
+  padding-bottom:6px; font-size:10.5px; letter-spacing:1.4px; box-shadow:none}
+/* ✅ ROUND 8 · THE FREE 8px, AUTHORISED. Horizontal padding on the three score
+   headers drops 10px → 6px, which buys 8px of usable width in EVERY one of them
+   at zero cost to the column budget. It is what makes TECHNICALS + chevron + `i`
+   reachable inside 300px. ⛔ Header row only — the body cells keep their 10px,
+   so the numbers under these labels are not crowded. */
+table.tok thead tr.sub th.comp{background:var(--breakdown); padding-top:6px;
+  padding-left:6px; padding-right:6px}
+/* ==========================================================================
+   ⛔ ROUND 6 · THE SORT CONTROL — LEGIBLE AT REST, OBVIOUS WHEN ACTIVE.
+   MEASURED DEFECT: `.cx` rendered a single 9px glyph at opacity .45, which is
+   why nobody in the review could see it. Nothing was wrong with the sorting —
+   the control simply was not visible.
+   ✅ THE CMC PATTERN, which the operator supplied as the reference: a stacked
+      up/down chevron PAIR on every sortable header. At rest both are drawn in
+      a real ink so the column reads as sortable. When a column IS sorted, the
+      ACTIVE direction goes gold and the other drops back — so the header says
+      both "you can sort me" and "this is the way I am sorted".
+   ⛔ THIS IS A VISIBILITY FIX, NOT A BEHAVIOUR CHANGE. `aria-sort`, the
+      `role="button"` headers and the Enter/Space keyboard handler are all
+      untouched; the CSS keys off `aria-sort`, so the wiring drives the paint.
+   ⛔ The pair is `aria-hidden` — `aria-sort` already announces the state, and
+      two decorative triangles would otherwise be read out on every header.
+   ========================================================================== */
+table.tok thead th.srt{cursor:pointer; user-select:none}
+table.tok thead th.srt:hover{color:var(--ink)}
+table.tok thead th .cx{display:inline-flex; flex-direction:column; gap:2px;
+  margin-left:6px; vertical-align:middle; opacity:1}
+table.tok thead th .cx i{display:block; width:0; height:0;
+  border-left:4px solid transparent; border-right:4px solid transparent}
+table.tok thead th .cx i.up{border-bottom:5px solid var(--faint)}
+table.tok thead th .cx i.dn{border-top:5px solid var(--faint)}
+table.tok thead th.srt:hover .cx i.up{border-bottom-color:var(--dim)}
+table.tok thead th.srt:hover .cx i.dn{border-top-color:var(--dim)}
+/* the sorted column: the live direction in gold, the other one dropped back */
+table.tok thead th[aria-sort] .cx i.up{border-bottom-color:#cfd5df}
+table.tok thead th[aria-sort] .cx i.dn{border-top-color:#cfd5df}
+table.tok thead th[aria-sort="ascending"]  .cx i.up{border-bottom-color:var(--goldtx)}
+table.tok thead th[aria-sort="descending"] .cx i.dn{border-top-color:var(--goldtx)}
+table.tok thead th.tnt-col{color:var(--ink); font-size:12.5px; letter-spacing:1.6px}
+table.tok tbody td{padding:10px; border-bottom:1px solid var(--line); text-align:right;
+  font-variant-numeric:tabular-nums}
+table.tok tbody tr:last-child td{border-bottom:none}
+table.tok tbody tr{transition:background .12s}
+table.tok tbody tr:hover{background:var(--bg-soft); box-shadow:inset 3px 0 0 0 var(--gold)}
+table.tok tbody tr.is-exception{background:var(--gold-soft)}
+table.tok tbody tr.is-exception:hover{background:var(--gold-soft)}
+/* ⛔ ROUND 8 · THE SAME SPECIFICITY LOSS THAT `td.asset` ALREADY CARRIES A FIX
+   FOR, caught on the rank column: `td.rk{text-align:left}` is (0,1,1) and
+   `table.tok tbody td{…text-align:right}` is (0,1,3), so the rule below was
+   being out-ranked and the ranks rendered RIGHT while the `#` header rendered
+   LEFT. The column was torn down the middle: label on one edge, digits on the
+   other. FIX: match the selector's specificity, exactly as `td.asset` does two
+   rules down — not `!important`, and not by moving the header to meet the bug. */
+table.tok tbody td.rk{text-align:left}
+td.rk{font-family:var(--mono); font-size:12px; color:var(--faint)}
+/* ✅ B4b — the CMC arrangement: FULL NAME FIRST in bold dark, TICKER SECOND in
+   smaller grey ("Bitcoin BTC"). It was ticker-first with the name beneath,
+   which is what read as off. */
+/* ⛔ ROUND 3 · THE TICKER WAS DRIFTING RIGHT (`W` sat at the far edge of the
+   column, PYTH and LINK visibly off). CAUSE, not patched over: last round's
+   `table.tok tbody td{text-align:right}` has specificity (0,1,3) and was
+   out-ranking `td.asset{text-align:left}` at (0,1,1), so the WHOLE asset cell
+   was right-aligned. The name only looked left-aligned because it is the
+   widest thing in the cell.
+   FIX: match the selector's specificity rather than reach for !important. */
+table.tok tbody td.asset{text-align:left}
+.ac{display:flex; align-items:center; gap:9px; min-width:0}
+.ac .tlogo{width:26px; height:26px}
+.ac .anm{min-width:0; display:flex; flex-direction:column; gap:1px}
+.ac b{font-family:var(--ui); font-weight:700; font-size:14px; color:var(--ink); line-height:1.2;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.ac .tkr{font-family:var(--mono); font-size:11.5px; letter-spacing:.8px; color:var(--mut)}
+td.price .pv{font-family:var(--mono); font-weight:600; font-size:14px; color:var(--ink); display:block}
+td.price .pmove{font-family:var(--mono); font-size:11.5px; display:block; margin-top:1px}
+td.price .pmove.up{color:var(--green)} td.price .pmove.down{color:var(--red)} td.price .pmove.flat{color:var(--faint)}
+
+/* TNT — THE HERO COLUMN. Boxed, band-tinted, visually dominant. A NUMBER,
+   not a gauge: space does not permit one per row, and a number alone is
+   explicitly acceptable and not a downgrade. */
+/* ⛔ ROUND 8 · RIGHT, NOT CENTRE. The header dropped `ctr` and the cell has to
+   follow it — the pill is the widest object in the column, so a centred pill
+   under a right-aligned label reads as a broken column rather than a styled
+   one. Both edges now line up with TOKEN · NETWORK · TECHNICALS beside them. */
+td.tntc{text-align:right}
+.tnt-pill{display:inline-block; min-width:56px; font-family:var(--mono); font-weight:800;
+  font-size:18px; font-variant-numeric:tabular-nums; padding:6px 10px; border-radius:var(--r-btn);
+  border:1px solid transparent}
+.tnt-pill.bull{color:var(--green); background:var(--green-soft); border-color:rgba(21,130,74,.28)}
+.tnt-pill.neut{color:var(--zero); background:var(--zero-soft); border-color:rgba(92,98,108,.26)}
+.tnt-pill.bear{color:var(--red);  background:var(--red-soft);  border-color:rgba(191,61,61,.28)}
+
+/* SCORE BREAKDOWN — a TINTED, VISUALLY GROUPED sub-band. Numbers only. */
+td.comp{background:var(--breakdown); font-family:var(--mono); font-weight:700; font-size:15px}
+td.comp.comp-first{box-shadow:inset 1px 0 0 var(--line2)}
+td.comp.comp-last{box-shadow:inset -1px 0 0 var(--line2)}
+
+/* ⛔⛔ DECOUPLING — A MAGNITUDE, NEVER A DIRECTION.
+   Measured across all 39 live rows 2026-08-17: the network leads the token on
+   38 OF 39. An arrow, a lean or any directional mark therefore points the same
+   way on 97% of rows and the eye stops seeing it within three rows — which is
+   precisely the wallpaper failure this redesign exists to cure. A mark that
+   never varies is decoration, not information.
+   The MAGNITUDE is real texture: it varies 0.1 → 1.9, so a LENGTH-VARYING BAR
+   reads as a MEASUREMENT and rewards scanning.
+   ⛔ NO ARROWS. NO UP/DOWN. NO LEAN. */
+/* ▶ FORM 2 OF 3 ON THE ROW — A MEASUREMENT RULE. Continuous, and read against
+   a FIXED 0–2.0 scale with ticks at 0.5 / 1.0 / 1.5, so a length means the
+   same thing on every row and the eye can size a gap without reading it.
+   ⚠ It used to be a plain bar, which made it and the catalyst mix read as ONE
+     repeated motif. They are now two different KINDS of object — a continuous
+     rule against a scale, and a set of discrete blocks. */
+td.dec{text-align:right}
+.decwrap{display:flex; align-items:center; gap:9px; justify-content:flex-end}
+.decrule{position:relative; flex:1; height:12px; background:var(--bg-soft);
+  border:1px solid var(--line); border-radius:2px; overflow:hidden; min-width:56px}
+.decrule i{display:block; height:100%; background:#6f7c8f}
+.decrule u{position:absolute; top:0; bottom:0; width:1px; background:var(--line2)}
+.decrule u.t25{left:25%} .decrule u.t50{left:50%} .decrule u.t75{left:75%}
+.decwrap .dv{font-family:var(--mono); font-weight:700; font-size:13.5px; color:var(--ink);
+  font-variant-numeric:tabular-nums; min-width:26px; text-align:right; order:2}
+.decwrap.wide .decrule i{background:#2b3a4e}
+
+/* ▶ FORM 3 OF 3 ON THE ROW — DISCRETE BLOCKS, ONE PER CATALYST, grouped
+   bullish → neutral → bearish. Substituted for the specced sparkline: we hold
+   no price series, so a sparkline would be invented data wearing the costume
+   of a measurement. Counted from catalyst_inventory.csv `direction`, and the
+   block count reconciles to catalyst_count on 39 of 39 rows — so the texture
+   and the number beside it cannot disagree.
+
+   ⛔⛔ ROUND 3 · THE COUNT NOW LIVES HERE, PRINTED, because the standalone
+      CATALYSTS column was removed. It is a Proof-Rule item, free at every
+      tier, and it is the number a sceptic uses to check our arithmetic — so it
+      may NOT live only in the tooltip. A tooltip is hover-only: it does not
+      exist on touch, in a scan, or in a screenshot. */
+td.mix{text-align:right}
+/* ⛔ ROUND 4 · (a) the count sits to the RIGHT of the bars now, and it is
+   still PRINTED on the row: free at every tier, and the number a sceptic uses
+   to check the arithmetic. (b) the small `i` beside the bars is gone; the
+   tooltip hangs off the BARS, which is where the pointer already goes. */
+.mixwrap{display:flex; align-items:center; gap:10px; justify-content:flex-end}
+.mixwrap .cnum{font-family:var(--mono); font-weight:700; font-size:14.5px; color:var(--ink);
+  font-variant-numeric:tabular-nums; flex:none; min-width:20px; text-align:right}
+.mixbtn{position:relative; display:flex; gap:1.5px; height:15px; align-items:stretch; flex:1;
+  min-width:0; background:none; border:none; padding:0; cursor:help}
+.mixbtn i{display:block; flex:1 1 0; min-width:2px; border-radius:1px}
+.mixbtn i.mb{background:var(--green)} .mixbtn i.mn{background:#c3c9d3} .mixbtn i.mr{background:var(--red)}
+
+/* right-side slot — version-b's second cell, repurposed.
+   ⭐ It becomes the WATCHLIST ADD. A dropped-feature slot becomes a funnel
+   surface: My Watchlist is a register prompt at unregistered.
+   ⛔ The `TECH` chip that sat beside it is REMOVED — it re-printed the
+      TECHNICALS score already in the breakdown band. */
+td.star{text-align:center}
+.starbtn{background:none; border:none; cursor:pointer; color:var(--faint); font-size:16px; line-height:1; padding:4px}
+.starbtn:hover{color:var(--goldtx)}
+.starbtn.on{color:var(--gold)}
+/* ⛔⛔ ROUND 4 · THE STRIP BELOW THE TABLE IS DELETED, rules and all. Its five
+   contents were relocated, not dropped: the dates and the calibration to the
+   control bar above the table, the band legend to the TNT tooltip, the jump
+   control to the market card, PRICES LIVE to the control bar, and the `#`
+   footnote into the `#` tooltip. */
+
+/* ==========================================================================
+   CARD / HERO variants (score component grammar, lifted from v3)
+   ========================================================================== */
+.card{background:var(--card); border:1px solid var(--line2); border-radius:var(--r-card);
+  padding:17px; box-shadow:var(--shadow)}
+.hero{background:var(--card); border:1px solid var(--line2); border-radius:var(--r-hero);
+  padding:24px 26px; box-shadow:var(--shadow)}
+/* two peer blocks, EQUAL weight */
+.hero-grid{display:grid; grid-template-columns:1fr 1fr; gap:34px}
+.hero-blk{min-width:0}
+/* ⛔ B4 FIX — IDENTICAL header treatment on BOTH peer blocks. In v3 only
+   Fundamentals carried the underline rule, which breaks the equal-header-weight
+   PEER guarantee (COMPONENT_SYSTEM §1 rule 4 / §5). That is a SPEC RULE, not a
+   style preference, so both are ruled here and the switcher must not change it. */
+.hero-blk > .blk-head{display:flex; align-items:center; gap:10px; margin-bottom:16px;
+  padding-bottom:10px; border-bottom:1px solid var(--line2); min-height:38px}
+.hero-blk > .blk-head .sec-h{margin:0}
+.hero-blk > .blk-head .spacer{margin-left:auto}
+.hero-metrics{display:flex; gap:36px; flex-wrap:wrap}
+.hmetric{display:flex; flex-direction:column; gap:6px}
+.hmetric .num{font-family:var(--mono); font-weight:700; font-size:40px; line-height:1; font-variant-numeric:tabular-nums}
+.hmetric .bandw{font-family:var(--mono); font-weight:700; font-size:10.5px; letter-spacing:1.7px; text-transform:uppercase}
+.hmetric .bar{width:112px; height:6px; border-radius:3px; background:var(--bg-soft); overflow:hidden}
+.hmetric .bar i{display:block; height:100%; border-radius:3px}
+.bar.b-bull i{background:var(--green)} .bar.b-neut i{background:var(--zero)} .bar.b-bear i{background:var(--red)}
+.asof,.fresh{font-family:var(--mono); font-size:10.5px; letter-spacing:1.1px; text-transform:uppercase; color:var(--faint)}
+.asof b{color:var(--dim); font-weight:600}
+
+/* B1 FIX — .tf-tag was stretching inside a flex column and rendering as a
+   full-width bordered box that reads as an empty input field. It is an
+   inline-block chip that sizes to its content, and it never stretches. */
+.tf-tag{display:inline-block; align-self:flex-start; width:auto; flex:0 0 auto;
+  font-family:var(--mono); font-size:10.5px; letter-spacing:.9px; text-transform:uppercase;
+  color:var(--dim); border:1px solid var(--line2); border-radius:var(--r-chip); padding:2px 6px}
+/* inside a ROW header it should sit on the text baseline, not the top edge —
+   the flex-start rule above is what stops it stretching in a COLUMN, which is
+   where B1 actually bit. */
+.blk-head .tf-tag{align-self:center}
+
+/* ==========================================================================
+   MASTHEAD (token page)
+   ========================================================================== */
+.masthead{display:flex; align-items:center; gap:16px; padding:18px 0 6px; flex-wrap:wrap}
+.masthead .tlogo{width:48px; height:48px; border-radius:8px}
+.masthead .nm{font-family:var(--ui); font-weight:700; font-size:27px; color:var(--ink); line-height:1.1}
+.masthead .tk{font-family:var(--mono); font-size:12.5px; color:var(--dim); letter-spacing:1.2px}
+.masthead .price{margin-left:auto; text-align:right}
+.masthead .price .p{font-family:var(--mono); font-weight:700; font-size:24px; color:var(--ink); font-variant-numeric:tabular-nums}
+.masthead .price .ch{font-family:var(--mono); font-size:13px; font-variant-numeric:tabular-nums; display:block}
+
+/* ==========================================================================
+   SCORECARD TABLE (token page)
+   A2 FIX — same dead-space cure as A1: fixed layout, score columns pulled
+   inboard, and the expand chevron gets its OWN gutter column instead of being
+   crammed hard against the Token number.
+   ========================================================================== */
+table.scorecard{width:100%; border-collapse:collapse; table-layout:fixed; font-size:13.5px}
+table.scorecard col.sc-name{width:auto}   table.scorecard col.sc-meta{width:118px}
+table.scorecard col.sc-num{width:92px}    table.scorecard col.sc-chev{width:44px}
+table.scorecard thead th{font-family:var(--mono); font-weight:700; font-size:11.5px; letter-spacing:.9px;
+  text-transform:uppercase; color:var(--dim); text-align:right; padding:10px 12px; border-bottom:1px solid var(--line2)}
+table.scorecard thead th.lft{text-align:left}
+.cat-row{border-bottom:1px solid var(--line); cursor:pointer}
+.cat-row:hover{background:var(--bg-soft)}
+.cat-row > td{padding:13px 12px; vertical-align:middle; text-align:right; font-variant-numeric:tabular-nums}
+.cat-row > td.lft{text-align:left}
+.cat-name{font-family:var(--ui); font-weight:600; color:var(--ink); font-size:13.5px}
+.cat-tags{display:flex; gap:6px; margin-top:6px; flex-wrap:wrap}
+.tag{display:inline-block; font-family:var(--mono); font-size:10.5px; letter-spacing:1.1px;
+  text-transform:uppercase; color:var(--dim); border:1px solid var(--line2);
+  border-radius:var(--r-chip); padding:2px 6px}
+.tag.sig-high{color:var(--ink); border-color:var(--dim)}
+/* ⛔ v3 2026-08-18 · #560 — the direction-tag rules are DELETED with the tag.
+   The live product carries no direction field and bands from scores. */
+/* impact_scope row tag — the v3 conformance that is KEPT as a component.
+   ⚠ It renders at PAID only, because §4.2 lists impact_scope among the paid
+   analytic columns. See BUILD_RAISED.IMPACT_SCOPE_TIER — confirm in the room. */
+.tag.scope{color:var(--goldtx); border-color:var(--gold-line)}
+.cat-row td .sc{font-family:var(--mono); font-weight:700; font-size:16px}
+.exp-ind{font-family:var(--mono); color:var(--dim); font-size:13px; display:inline-block; transition:transform .2s}
+.cat-row[aria-expanded="true"] .exp-ind{transform:rotate(90deg)}
+.detail-row > td{padding:0; border-bottom:1px solid var(--line); background:var(--bg-soft)}
+.detail-in{padding:16px 18px 22px}
+.detail-in h4{font-family:var(--mono); font-size:10.5px; letter-spacing:1.6px; text-transform:uppercase;
+  color:var(--dim); margin:16px 0 6px}
+.detail-in h4:first-child{margin-top:0}
+.detail-in p{font-size:13.5px; color:var(--txt); margin:0; max-width:78ch}
+.rectab{border-collapse:collapse; margin-top:8px; font-family:var(--mono); font-size:12px}
+.rectab td,.rectab th{border:1px solid var(--line2); padding:5px 10px; text-align:right}
+.rectab th{color:var(--dim); font-weight:600; font-size:10.5px; letter-spacing:1.2px; text-transform:uppercase}
+.rectab td:first-child,.rectab th:first-child{text-align:left}
+.srcs{display:flex; flex-direction:column; gap:6px; margin-top:8px}
+.srcs .src{font-size:12.5px; color:var(--mut); display:flex; gap:9px; align-items:baseline}
+.srcs .src b{font-family:var(--mono); font-size:10.5px; color:var(--goldtx); flex:none}
+.srcs .src .d{font-family:var(--mono); font-size:10.5px; color:var(--faint); margin-left:auto; flex:none}
+.avg-row{border-top:2px solid var(--line2); background:var(--card-soft)}
+.avg-row td{padding:14px 12px; text-align:right; font-variant-numeric:tabular-nums}
+.avg-row td.lft{text-align:left}
+.avg-row .lbl{font-family:var(--mono); font-weight:700; font-size:10.5px; letter-spacing:1.5px;
+  text-transform:uppercase; color:var(--mut)}
+.avg-row .sc{font-family:var(--mono); font-weight:700; font-size:17px}
+
+/* ==========================================================================
+   GATEBAR — ⭐ EVERY gatebar links to How We Score. "Here is what you are not
+   seeing, and here is exactly how it was worked out." A paywall that publishes
+   the method behind the output it is withholding is the most honest conversion
+   surface this product can own, and it costs one link.
+   ⛔ There is no `.gated` blur rule. Withheld content is ABSENT.
+   ========================================================================== */
+.gatebar{display:flex; align-items:center; gap:14px; flex-wrap:wrap;
+  border:1px dashed var(--line2); border-left:3px solid var(--gold);
+  border-radius:var(--r-btn); padding:12px 15px; background:var(--card-soft); margin-top:12px}
+.gatebar .gtxt{font-size:13px; color:var(--txt); flex:1; min-width:220px}
+.gatebar .gtxt b{color:var(--ink)}
+.gatebar .gact{display:flex; gap:8px; flex-wrap:wrap}
+.gatebar a{font-family:var(--mono); font-weight:600; font-size:10.5px; letter-spacing:1.2px;
+  text-transform:uppercase; color:var(--goldtx); border:1px solid var(--gold);
+  border-radius:var(--r-chip); padding:6px 11px; white-space:nowrap}
+.gatebar a.solid{background:var(--gold); color:var(--goldink)}
+.gateprinciple{font-size:12.5px; color:var(--faint); margin-top:8px; font-style:italic}
+
+/* ==========================================================================
+   AUDIO — ⛔ never an empty state: the latest episode with its date, or no
+   module at all. Two products, named, ruled 2026-08-17.
+   ========================================================================== */
+.audio{display:grid; grid-template-columns:1fr 1fr; gap:16px}
+.aud{display:flex; gap:14px; align-items:center; background:var(--card); border:1px solid var(--line2);
+  border-radius:var(--r-card); padding:15px 16px; box-shadow:var(--shadow)}
+.aud .play{width:40px; height:40px; border-radius:50%; background:var(--gold); color:var(--goldink);
+  border:none; display:inline-flex; align-items:center; justify-content:center; cursor:pointer; flex:none; font-size:14px}
+.aud .meta{min-width:0}
+.aud .t{font-family:var(--ui); font-weight:700; font-size:12.5px; letter-spacing:1.4px;
+  text-transform:uppercase; color:var(--ink)}
+.aud .e{font-size:12.5px; color:var(--mut); margin-top:3px}
+.aud .l{margin-left:auto; font-family:var(--mono); font-size:11.5px; color:var(--faint); flex:none}
+
+/* ==========================================================================
+   ASK BUZZ · site-wide launcher + drawer.
+   ⭐ REQ-8's "NOT global nav" clause was OVERTURNED 2026-08-17. A PERSISTENT
+      launcher on EVERY page — a slim bottom-anchored bar, always present,
+      opening the same drawer.
+   ✅ UNCHANGED: still a launchable / collapsible DRAWER. Only the SURFACE
+      widened. ⛔ The docked panel and the tab bar remain STRUCK.
+   ========================================================================== */
+/* ⭐ 2026-08-17 · THE BAR IS INVERTED: GOLD GROUND, DARK INK. A third party
+   shown the page did not notice it at all — a dark bar on a light page reads as
+   browser chrome and the eye files it as furniture.
+   ⛔⛔ ONE CHANGE, NOT TWO — THE INVERSION TAKES THE WHOLE SET WITH IT.
+      Background, label, pills, the hint and the `Ask` button all flip together.
+      The pills were `#222831` dark-on-dark, which is exactly why they were hard
+      to see, and `.bz-open` was gold — on a gold ground it would have vanished
+      entirely, so it becomes the DARK object on the bar.
+   ✅ Contrast, measured, all four: ink on gold 8.5:1 · pill ink on pill 12.5:1 ·
+      locked (dimmed) pill ink 4.8:1 · white on the dark button 18:1.
+   ⛔ GOLD NEVER TOUCHES A SCORE — this bar carries no score, and nothing here
+      may be reused on a score cell. */
+.buzzbar{position:fixed; left:0; right:0; bottom:0; z-index:60; background:var(--gold);
+  border-top:1px solid #c28f28; color:var(--goldink)}
+.buzzbar-in{display:flex; align-items:center; gap:14px; height:52px}
+.buzzbar .bz-name{font-family:var(--ui); font-weight:700; font-size:14px; color:var(--goldink);
+  display:flex; align-items:center; gap:9px; flex:none}
+.buzzbar .bz-dot{width:8px; height:8px; border-radius:50%; background:var(--goldink); flex:none}
+.buzzbar .bz-hint{font-size:12.5px; color:rgba(29,22,4,.72); overflow:hidden; text-overflow:ellipsis;
+  white-space:nowrap; flex:none; max-width:270px}
+/* the homepage now passes no hint, and an empty span would still spend a gap */
+.buzzbar .bz-hint:empty{display:none}
+
+/* ⭐ CHIPS ON THE BAR (B3) — the CMC suggested-question pattern, attached to
+   the ONE launcher. ⛔ There is deliberately NO second chip strip under the
+   highlights: CMC has both, we build one. That is a decision, not a gap.
+   ⚠ `.locked` = the unregistered tier: visible, not invokable, a tap prompts
+     registration. It is the conversion surface and it is built on purpose. */
+.bz-chips{display:flex; align-items:center; gap:7px; flex:1; min-width:0; overflow-x:auto;
+  scrollbar-width:none}
+.bz-chips::-webkit-scrollbar{display:none}
+/* ⛔ ROUND 6 · `.bzc-lbl` (`TRY ASKING`) IS NO LONGER EMITTED ON THE BAR — see
+   renderBarChips(). The rule stays only because the DRAWER's chip block uses
+   the same treatment; nothing on the bar matches it any more. */
+.bzc-lbl{font-family:var(--mono); font-weight:700; font-size:10.5px; letter-spacing:1.4px;
+  text-transform:uppercase; color:rgba(29,22,4,.72); flex:none}
+.bzchip{font-family:var(--ui); font-size:13px; color:var(--goldink); background:rgba(255,255,255,.5);
+  border:1px solid rgba(29,22,4,.30); border-radius:var(--r-max); padding:7px 14px; cursor:pointer;
+  white-space:nowrap; flex:none}
+.bzchip:hover{border-color:var(--goldink); background:#fff}
+/* ⛔ THE GATE SURVIVES AS A VISUAL STATE — dashed border, dimmed ink. Asking is
+   still registered-tier and this still has to READ as gated.
+   ⛔ 2026-08-17 · the ` · REGISTER` suffix is DELETED. The dashed, dimmed pill
+      already says gated, so the word was the same fact printed twice. This is a
+      deletion of a repeated label, not a change to the gate. */
+.bzchip.locked{color:rgba(29,22,4,.65); border-style:dashed}
+/* ⛔ ROUND 6 · THE BUTTON CARRIES THE BRAND NAME NOW — `Ask` became `Ask Buzz`,
+   with a chat glyph in front of it, because the `Ask Buzz` label was deleted
+   from the left of the bar. One object instead of two, and the pills get the
+   width that was being spent on repeating the name. */
+.buzzbar .bz-open{margin-left:auto; display:inline-flex; align-items:center; gap:7px;
+  background:var(--ink); color:#fff; border:none;
+  border-radius:var(--r-btn); padding:8px 16px; font-family:var(--ui); font-weight:700; font-size:13px;
+  cursor:pointer; flex:none}
+.buzzbar .bz-open:hover{background:#000}
+.buzzbar .bz-open .bz-ico{width:16px; height:16px; flex:none}
+.buzzbar button.bz-full{position:absolute; inset:0; opacity:0; cursor:pointer; border:none; background:none}
+
+.ai-scrim{position:fixed; inset:0; background:rgba(15,20,28,.34); z-index:69; opacity:0;
+  pointer-events:none; transition:opacity .22s}
+.ai-scrim.open{opacity:1; pointer-events:auto}
+.ai-drawer{position:fixed; right:0; top:0; height:100vh; width:428px; max-width:94vw; z-index:70;
+  background:var(--bg); border-left:1px solid var(--line2); transform:translateX(105%);
+  transition:transform .26s ease; display:flex; flex-direction:column; box-shadow:-8px 0 40px rgba(20,30,55,.14)}
+.ai-drawer.open{transform:none}
+.ai-head{display:flex; align-items:center; gap:10px; padding:15px 16px; border-bottom:1px solid var(--line)}
+.ai-head .sec-h{font-size:14.5px}
+.ai-head .x{margin-left:auto}
+.ai-body{flex:1; overflow-y:auto; padding:16px}
+.ai-foot{padding:12px 16px; border-top:1px solid var(--line); background:var(--card-soft)}
+.ai-input{display:flex; gap:8px}
+.ai-input input{flex:1; background:var(--card); border:1px solid var(--line2); border-radius:var(--r-btn);
+  padding:9px 11px; color:var(--txt); font-family:var(--ui); font-size:13px}
+.ai-input button{background:var(--gold); color:var(--goldink); border:none; border-radius:var(--r-btn);
+  padding:0 15px; font-family:var(--ui); font-weight:700; font-size:13px; cursor:pointer}
+
+/* demo state switcher — a DEMO CONTROL, marked as one */
+.state-tabs{display:flex; gap:5px; flex-wrap:wrap; padding:9px 16px; border-bottom:1px solid var(--line);
+  background:#161a20}
+.state-tabs .stl{font-family:var(--mono); font-size:10px; letter-spacing:1.4px; text-transform:uppercase;
+  color:#8b94a3; align-self:center; margin-right:3px}
+.state-tabs button{font-family:var(--mono); font-weight:600; font-size:10px; letter-spacing:.9px;
+  text-transform:uppercase; background:transparent; border:1px solid #333a45; border-radius:var(--r-chip);
+  padding:4px 8px; color:#9aa3b2; cursor:pointer}
+.state-tabs button[aria-pressed="true"]{background:var(--gold); color:var(--goldink); border-color:var(--gold)}
+
+.msg{margin-bottom:14px}
+.msg .who{font-family:var(--mono); font-weight:700; font-size:10.5px; letter-spacing:1.4px;
+  text-transform:uppercase; color:var(--dim); margin-bottom:6px}
+.msg .bub{font-size:13.5px; line-height:1.6; color:var(--txt); background:var(--card);
+  border:1px solid var(--line2); border-radius:var(--r-card); padding:12px 14px}
+.msg.user .bub{background:var(--bg-soft)}
+.msg .lead{color:var(--ink); font-weight:700}
+.msg .cite{vertical-align:super; font-family:var(--mono); font-size:10px; color:var(--goldtx); padding:0 1px; font-weight:700}
+.src-list{margin-top:10px; padding-top:10px; border-top:1px solid var(--line)}
+.src-list .s{display:flex; gap:8px; font-size:12.5px; color:var(--mut); margin-bottom:4px; align-items:baseline}
+.src-list .s b{font-family:var(--mono); font-size:10.5px; color:var(--goldtx); flex:none}
+.src-list .s .d{font-family:var(--mono); font-size:10.5px; color:var(--faint); margin-left:auto; flex:none}
+.src-count{font-family:var(--mono); font-size:10.5px; letter-spacing:.9px; color:var(--faint); margin-top:8px;
+  text-transform:uppercase}
+.offers{margin:8px 0 0; padding-left:18px; font-size:13px; color:var(--txt)}
+.offers li{margin-bottom:5px}
+.state-card{border:1px dashed var(--line2); border-radius:var(--r-btn); padding:12px 14px;
+  margin-bottom:14px; background:var(--card-soft)}
+.state-card .st-h{font-family:var(--mono); font-weight:700; font-size:10.5px; letter-spacing:1.4px;
+  text-transform:uppercase; color:var(--mut); margin-bottom:5px}
+.state-card.err{border-color:rgba(191,61,61,.4)}
+.state-card.err .st-h{color:var(--red)}
+.state-card .st-b{font-size:13px; color:var(--txt)}
+
+/* the ALWAYS-VISIBLE, NEVER-DISMISSIBLE disclosure block — identical at every
+   tier including unregistered. ⛔ TWO DATES, RENDERED SEPARATELY. */
+.ai-disc{border:1px solid var(--line2); border-left:3px solid var(--dim); border-radius:var(--r-btn);
+  padding:11px 13px; margin-bottom:14px; background:var(--card-soft)}
+.ai-disc .dh{font-family:var(--mono); font-weight:700; font-size:10.5px; letter-spacing:1.5px;
+  text-transform:uppercase; color:var(--dim); margin-bottom:5px}
+.ai-disc .dh + .dh{margin-top:10px}
+.ai-disc p{margin:0; font-size:13px; color:var(--txt); line-height:1.5}
+.ai-disc ul{margin:0; padding-left:16px; font-size:13px; color:var(--txt)}
+.ai-disc .dates{display:flex; gap:16px; flex-wrap:wrap; font-family:var(--mono); font-size:12.5px; color:var(--txt)}
+.ai-disc .dates span b{color:var(--ink)}
+.ai-disc .gapflag{margin-top:10px; font-size:13px; color:var(--ink); font-weight:600}
+
+/* suggested-question chips. ⚠ At UNREGISTERED they are VISIBLE BUT NOT
+   INVOKABLE — a tap prompts registration. DELIBERATE: the chips and the
+   disclosure ARE the conversion surface at that tier. Not a defect. */
+.chips{display:flex; flex-direction:column; gap:7px; margin-top:12px}
+.chips .clbl{font-family:var(--mono); font-weight:700; font-size:10.5px; letter-spacing:1.6px;
+  text-transform:uppercase; color:var(--dim)}
+.chip{text-align:left; font-family:var(--ui); font-size:12.5px; color:var(--txt); background:var(--card);
+  border:1px solid var(--line2); border-radius:var(--r-max); padding:8px 13px; cursor:pointer}
+.chip:hover{border-color:var(--gold); color:var(--goldtx)}
+.chip.locked{color:var(--mut); border-style:dashed; cursor:pointer}
+.chip.locked::after{content:'  ·  REGISTER'; font-family:var(--mono); font-size:10px;
+  letter-spacing:1.2px; color:var(--goldtx)}
+
+/* ==========================================================================
+   VIEWS — every nav destination is a view on index.html, so NOTHING 404s in
+   the meeting room. coin.html has no .view elements and the same nav links
+   simply navigate back to index.html.
+   ========================================================================== */
+.view{padding-top:6px}
+.viewhead{padding:26px 0 18px; display:flex; align-items:baseline; gap:16px; flex-wrap:wrap}
+.viewhead .one{max-width:70ch}
+.backlink{margin-left:auto; font-family:var(--mono); font-size:11px; letter-spacing:1.1px;
+  text-transform:uppercase; color:var(--goldtx); border:1px solid var(--gold-line);
+  border-radius:var(--r-chip); padding:6px 11px}
+.backlink:hover{background:var(--gold-soft)}
+.card.stub{max-width:860px}
+.stub .lede{font-family:var(--ui); font-weight:700; font-size:17px; color:var(--ink); margin:0 0 10px}
+.stub .stub-body{margin-top:12px; max-width:78ch; font-size:13.5px}
+.axes{display:flex; gap:26px; flex-wrap:wrap; margin-top:16px}
+.axes .ax{display:flex; flex-direction:column; gap:3px}
+.axes .ax b{font-family:var(--ui); font-size:14px; color:var(--ink)}
+.axes .ax span{font-size:13px; color:var(--mut)}
+.axes.bands .ax b{font-family:var(--mono); font-size:12.5px; letter-spacing:1.2px; text-transform:uppercase}
+
+/* ==========================================================================
+   WATCHLIST — ⛔ NO LONGER AT THE BOTTOM OF THE PAGE.
+   ✅ The CMC pattern: a HOVER PANEL off the nav item, plus the dedicated view.
+   ⚠⚠ THE REGISTER PROMPT RENDERS IN BOTH. A hover panel is transient, and a
+      conversion prompt that vanishes on mouse-out converts nobody.
+   ========================================================================== */
+.navwrap{position:relative; display:inline-flex}
+.wl-panel{position:absolute; top:calc(100% + 10px); left:-12px; width:340px; z-index:80;
+  background:var(--card); border:1px solid var(--line2); border-radius:var(--r-card);
+  box-shadow:0 10px 34px rgba(20,30,55,.16); padding:14px; opacity:0; visibility:hidden;
+  transform:translateY(-4px); transition:opacity .16s, transform .16s, visibility .16s}
+.navwrap:hover .wl-panel,.navwrap:focus-within .wl-panel{opacity:1; visibility:visible; transform:none}
+.wl-panel::before{content:''; position:absolute; left:0; right:0; top:-12px; height:12px}
+.wlp-head{display:flex; align-items:baseline; gap:12px; margin-bottom:10px}
+.wlp-t{font-family:var(--ui); font-weight:700; font-size:14px; color:var(--ink)}
+/* the panel lives INSIDE .nav-links, so its links must out-specify the nav
+   link rule or they inherit nav padding and nav weight */
+.wl-panel a.wlp-full{margin-left:auto; font-family:var(--ui); font-weight:700; font-size:12.5px;
+  color:var(--goldtx); padding:0; border-radius:0; background:none}
+.wl-panel a.wlp-full:hover{color:var(--goldink); background:none; text-decoration:underline}
+.wl-panel .gatebar a{font-size:10.5px; padding:6px 11px}
+.wlp-sub{margin-top:14px; padding-top:12px; border-top:1px solid var(--line)}
+.wlp-note{margin-top:9px; font-size:12.5px}
+.wl-panel .wl-list{margin-top:9px}
+.wl-panel .wl-item{padding:7px 9px; gap:9px}
+.wl-panel .wl-item .tk{font-size:13px}
+.wl-panel .gatebar{margin-top:9px; padding:10px}
+.wl-empty.compact{padding:12px}
+
+.wl-grid{display:grid; grid-template-columns:1fr 1fr; gap:20px}
+.wl-list{display:flex; flex-direction:column; gap:8px; margin-top:12px}
+.wl-list.tight{gap:6px}
+.wl-item{display:grid; grid-template-columns:auto 1fr auto auto; gap:12px; align-items:center;
+  border:1px solid var(--line); border-radius:var(--r-btn); padding:10px 13px; background:var(--card)}
+.wl-item .tlogo{width:22px; height:22px}
+.wl-item .tk{font-family:var(--ui); font-weight:700; color:var(--ink); font-size:13.5px;
+  min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.wl-item .tkr{font-family:var(--mono); font-weight:500; font-size:11.5px; color:var(--mut)}
+.wl-item .nums{font-family:var(--mono); font-size:12.5px; color:var(--mut); font-variant-numeric:tabular-nums}
+.wl-empty{border:1px dashed var(--line2); border-radius:var(--r-btn); padding:20px; text-align:center;
+  background:var(--card-soft)}
+
+/* ==========================================================================
+   PRICING — ➕ NEW SURFACE. ⛔ ITS JOB IS TO PROVOKE THE RULINGS, NOT TO STATE
+   THEM: the registered column is marked UNRULED — E2, the analytics line AI-3,
+   and NO PRICE POINT IS INVENTED because canon rules none.
+   ⛔ MOCKUP-ONLY is marked in the config AND here in the DOM, and alpha.js
+      paints .hard-fail if this ever renders off a local host.
+   ⛔ No waitlist, cap, scarcity or early-access string exists in this build.
+   ========================================================================== */
+.hard-fail{background:var(--red); color:#fff; border-radius:var(--r-btn); padding:14px 16px;
+  font-family:var(--ui); font-weight:700; font-size:14px; margin-bottom:14px}
+.mockup-mark{font-family:var(--mono); font-weight:700; font-size:11px; letter-spacing:1.4px;
+  text-transform:uppercase; color:var(--goldink); background:var(--gold);
+  border-radius:var(--r-chip); padding:8px 12px; display:inline-block; margin-bottom:16px}
+.plans{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; align-items:start}
+.plan{background:var(--card); border:1px solid var(--line2); border-radius:var(--r-card);
+  padding:18px; box-shadow:var(--shadow); display:flex; flex-direction:column}
+.plan.has-open{border-color:var(--gold-line)}
+.plan.current{outline:2px solid var(--ink); outline-offset:-2px}
+/* the tier switcher is a DEMO CONTROL and pricing is PRODUCT. Adjacent, a room
+   conflates "flip to paid" with "buy" — so the marker that says which tier you
+   are viewing wears the DEMO chrome, not the product chrome. */
+.plan-demo{font-family:var(--mono); font-weight:700; font-size:10.5px; letter-spacing:1.3px;
+  text-transform:uppercase; background:#161a20; color:#e8ecf2; border-radius:var(--r-chip);
+  padding:5px 9px; margin:-6px 0 12px; align-self:flex-start}
+.plan-name{font-family:var(--ui); font-weight:800; font-size:21px; color:var(--ink)}
+.plan-blurb{font-size:13.5px; color:var(--mut); margin-top:5px}
+.plan-price{display:flex; align-items:baseline; gap:10px; margin-top:14px; padding-bottom:14px;
+  border-bottom:1px solid var(--line); flex-wrap:wrap}
+.pp-dash{font-family:var(--mono); font-weight:700; font-size:34px; color:var(--faint); line-height:1}
+.pp-unruled{font-family:var(--mono); font-weight:700; font-size:10.5px; letter-spacing:1.2px;
+  text-transform:uppercase; color:var(--goldtx); border:1px dashed var(--gold); border-radius:var(--r-chip);
+  padding:4px 8px}
+.plan-open{font-size:13px; color:var(--txt); margin:9px 0 0; background:var(--gold-soft);
+  border-left:3px solid var(--gold); padding:9px 11px; border-radius:0 var(--r-chip) var(--r-chip) 0}
+.plan-list{list-style:none; margin:14px 0 0; padding:0; display:flex; flex-direction:column; gap:8px; flex:1}
+.plan-list li{font-size:13.5px; color:var(--txt); padding-left:18px; position:relative}
+.plan-list li::before{content:'·'; position:absolute; left:5px; color:var(--dim); font-weight:700}
+.plan-list li.marked{color:var(--goldink); background:var(--gold-soft); border-radius:var(--r-chip);
+  padding:6px 10px 6px 18px}
+.plan-foot{margin-top:16px; max-width:80ch}
+
+.footer{margin-top:56px; border-top:1px solid var(--line); padding:30px 0 40px}
+.foot-statement{max-width:640px; margin-top:10px; font-size:13.5px; line-height:1.6}
+.foot-statement b{color:var(--ink)}
+.footer-in{display:flex; flex-wrap:wrap; gap:22px; justify-content:space-between; align-items:flex-start}
+.footer-links{display:flex; flex-wrap:wrap; gap:18px}
+.footer-links a{font-size:13px; color:var(--mut)}
+.footer-links a:hover{color:var(--ink)}
+.footer-links a.score-link{color:var(--goldtx); font-weight:600}
+.disc{margin-top:20px; font-size:12.5px; color:var(--faint); max-width:820px}
+
+/* ==========================================================================
+   MOBILE — single breakpoint, as v3
+   ========================================================================== */
+/* five cards fit comfortably wider than six did, so the first break is later;
+   it still drops to three-up before one-up, because narrow cards stop being
+   readable well before they stop fitting and legibility is the point */
+@media (max-width:1140px){
+  /* ⛔ ROUND 6 · FOUR CARDS, so the narrow grid is 2×2. A three-column rule
+     would leave one card orphaned on its own row. */
+  .highlights{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .buzzbar .bz-hint{display:none}
+}
+@media (max-width:960px){
+  .highlights{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .hero-grid{grid-template-columns:1fr; gap:26px}
+  .hero-blk + .hero-blk{padding-top:24px; border-top:1px solid var(--line)}
+  .audio,.wl-grid,.plans{grid-template-columns:1fr}
+}
+@media (max-width:720px){
+  :root{--pad:16px}
+  .nav-links{display:none}
+  .highlights{grid-template-columns:1fr}
+  .ai-drawer{width:100%}
+  .masthead .price{margin-left:0; text-align:left; width:100%}
+  .tierbar .tb-note{display:none}
+}
+
+/* ==========================================================================
+   BUILD ROUND v3 · 2026-08-18 · TOKEN-PAGE RESTRUCTURE.
+   Every class below is NEW and token-page-only, so nothing here re-styles the
+   locked homepage. index.html is reached only by the three comment-string
+   rewords above (no rule change) and the #560 deletion of the dir-tag rules,
+   which nothing on the homepage used.
+   ========================================================================== */
+
+/* A · the demo strip, re-styled as unmistakably INTERNAL on the token page:
+   dashed rule, mono label, no product colour (gold never appears here). The
+   homepage keeps its dark strip — this skin binds only to .tb-internal. */
+.tierbar.tb-internal{background:var(--bg); color:var(--txt); border-bottom:1px dashed var(--line2)}
+.tierbar.tb-internal .tb-lbl{color:var(--mut)}
+.tierbar.tb-internal .tb-lbl b{color:var(--ink)}
+.tierbar.tb-internal .tswitch{border:1px dashed var(--line2)}
+.tierbar.tb-internal .tswitch button{color:var(--mut)}
+.tierbar.tb-internal .tswitch button+button{border-left:1px dashed var(--line2)}
+.tierbar.tb-internal .tswitch button[aria-pressed="true"]{background:var(--ink); color:#fff}
+.tierbar.tb-internal .tb-note{color:var(--mut)}
+
+/* C · breadcrumb + masthead, one unit — identity costs ~100px, not ~180px */
+.mastband{border-bottom:1px solid var(--line); padding-bottom:10px}
+.mastband .crumbs{padding:12px 0 0}
+.mastband .masthead{padding:4px 0 0}
+.mastband .masthead .nm{font-size:24px}
+
+/* D · THE VERDICT BAND — the question, the dial, the two peer blocks, both
+   as-of dates. Fundamentals and Technicals keep IDENTICAL header treatment
+   (.blk-head, both) and equal block weight, in the row and in the stack. */
+.vband{padding:18px 0 26px}
+.vb-q{max-width:70ch; margin:0 0 16px; font-size:14.5px}
+.vb-q b{color:var(--ink)}
+.vb-grid{display:grid; grid-template-columns:236px 1fr 1fr; gap:22px; align-items:stretch}
+.vb-dial{display:flex; flex-direction:column; gap:9px}
+.vb-dial .gauge-card{padding:12px 10px 12px}
+.vb-dial .tnt-gauge{width:150px; height:86px}
+.vb-dial .gauge-num{font-size:34px; margin-top:-12px}
+/* B · the one-dial caption that replaced the old composite paragraph */
+.vb-cap{font-size:12.5px; color:var(--mut); margin:0; line-height:1.45}
+.vb-cap a{color:var(--goldtx); font-weight:600; white-space:nowrap}
+.vband .hero-blk{background:var(--card); border:1px solid var(--line2); border-radius:var(--r-card);
+  padding:15px 17px; box-shadow:var(--shadow); min-width:0; display:flex; flex-direction:column}
+.vb-scores{display:flex; gap:30px; margin-bottom:12px}
+.vb-srow{display:flex; flex-direction:column; gap:4px}
+.vb-srow .num{font-family:var(--mono); font-weight:700; font-size:31px; line-height:1;
+  font-variant-numeric:tabular-nums}
+.vb-srow .bandw{font-family:var(--mono); font-weight:700; font-size:10.5px; letter-spacing:1.7px;
+  text-transform:uppercase}
+.vb-track{margin:0 0 12px}
+.vb-tanote{margin:0 0 12px; font-size:13px}
+.vband .fresh{margin-top:auto}
+
+/* C · THE DECOUPLING TRACK — a 1–10 track carrying two marks, same scale in
+   all three homes (band · worked rows · averages row). Each mark is tinted by
+   its OWN band; no arrow, no lean, no winner-colour. The one-mark variant is
+   an INDICATOR: same track, one reading. */
+.dtrack{position:relative; display:block; height:14px; border-radius:3px;
+  background:var(--bg-soft); border:1px solid var(--line); min-width:110px}
+.dtrack .dmark{position:absolute; top:50%; transform:translate(-50%,-50%);
+  width:9px; height:9px; border-radius:50%; background:var(--zero); border:1.5px solid var(--bg)}
+.dtrack .dmark.bull{background:var(--green)}
+.dtrack .dmark.neut{background:var(--zero)}
+.dtrack .dmark.bear{background:var(--red)}
+.dtrack .dmark u{position:absolute; left:50%; transform:translateX(-50%); top:-13px;
+  text-decoration:none; font-family:var(--mono); font-weight:700; font-size:10.5px;
+  line-height:1; color:var(--dim)}
+.dtrack .dmark.mn u{top:auto; bottom:-13px}      /* N below, T above — no collision */
+.dt-ends{display:flex; justify-content:space-between; align-items:baseline; margin-top:15px;
+  font-family:var(--mono); font-size:10.5px; letter-spacing:.6px; text-transform:uppercase;
+  color:var(--faint)}
+.dt-ends .dt-lbl{color:var(--dim); letter-spacing:1.1px}   /* reads `decoupling 0.7` */
+.vb-track .dtrack{margin-top:15px}                          /* room for the T mark label */
+
+/* E · the rebuilt catalyst table */
+table.scorecard col.sc-track{width:200px}
+table.scorecard thead th.trk{text-align:left}
+.cat-row .exp-ind{margin-right:9px}
+.cat-sub{display:block; margin-top:5px; font-family:var(--mono); font-weight:600; font-size:10.5px;
+  letter-spacing:1.1px; text-transform:uppercase; color:var(--dim)}
+.asofcell{font-size:11px; color:var(--dim)}
+.gapmark{color:var(--goldtx); font-style:normal}
+.trkcell{padding-right:16px}
+.trkcell .dtrack{margin:14px 0 13px}                        /* clears the T / N letters */
+.cat-row.locked{cursor:default}
+.cat-row.locked:hover{background:transparent}
+.cat-row.locked > td{padding:8px 12px}
+.cat-row.locked .cat-name{color:var(--mut); font-weight:500}
+.lockico{display:inline-flex; align-items:center; margin-left:10px; color:var(--faint);
+  vertical-align:middle; flex:none}
+.lockico svg{width:13px; height:13px}
+.avg-cap{display:block; margin-top:5px; font-family:var(--ui); font-weight:400; font-size:12px;
+  letter-spacing:0; text-transform:none; color:var(--mut)}
+.gaplegend{font-size:12.5px; color:var(--mut); margin:10px 0 0}
+.gaplegend b{color:var(--goldtx)}
+/* H · research listings — plain text plus a scope chip, never an anchor */
+.detail-in .rrow{display:flex; align-items:baseline; gap:12px; margin-top:6px; flex-wrap:wrap}
+.detail-in .rrow .rtitle{font-weight:600; font-size:13px; color:var(--ink)}
+.rscope{flex:none; font-family:var(--mono); font-size:10.5px; letter-spacing:1px;
+  text-transform:uppercase; color:var(--dim); border:1px solid var(--line2);
+  border-radius:var(--r-chip); padding:2px 7px}
+.detail-in .rnote{margin-top:5px; font-size:11.5px}
+
+/* M · catalysts that have not fired — entries link to the row anchors */
+.upco{margin-top:22px; border:1px solid var(--line2); border-radius:var(--r-card);
+  padding:14px 16px; background:var(--card-soft)}
+.up-list{display:flex; flex-direction:column; gap:6px; margin-top:10px}
+.up-item{display:flex; align-items:center; gap:12px; padding:8px 11px; border:1px solid var(--line);
+  border-radius:var(--r-btn); background:var(--card); font-size:13px; color:var(--ink)}
+.up-item:hover{border-color:var(--dim)}
+.up-item .up-name{font-weight:600; min-width:0}
+.up-item .up-sig{font-size:10.5px; letter-spacing:1.1px; color:var(--dim); flex:none}
+.up-item .up-sc{margin-left:auto; font-size:12px; color:var(--mut);
+  font-variant-numeric:tabular-nums; flex:none}
+
+/* Q · technicals — five layers, one shared component grammar */
+.ta-head{display:flex; align-items:baseline; gap:12px; flex-wrap:wrap}
+.ta-num{font-family:var(--mono); font-weight:700; font-size:31px; line-height:1;
+  font-variant-numeric:tabular-nums}
+.ta-hword{font-size:10.5px; letter-spacing:1.4px; text-transform:uppercase; color:var(--dim)}
+.ta-count{margin-left:auto; font-size:10.5px; letter-spacing:1px; text-transform:uppercase;
+  color:var(--dim)}
+.ta-sub{display:flex; gap:18px; flex-wrap:wrap; align-items:baseline; margin-top:6px}
+.talab{margin:20px 0 8px}
+.ta-rows{border:1px solid var(--line2); border-radius:var(--r-card); background:var(--card);
+  overflow:hidden; box-shadow:var(--shadow)}
+.ta-row{display:flex; align-items:center; gap:14px; padding:10px 14px;
+  border-bottom:1px solid var(--line)}
+.ta-row:last-child{border-bottom:none}
+.ta-row.can{cursor:pointer}
+.ta-row.can:hover{background:var(--bg-soft)}
+.ta-row .exp-ind{flex:none}
+.exp-spacer{display:inline-block; width:13px; flex:none}
+.ta-row .ta-name{font-weight:600; font-size:13px; color:var(--ink); flex:0 0 230px; min-width:0}
+.ta-row .dtrack{flex:1}
+.ta-row .ta-sc{font-size:15px; min-width:38px; text-align:right; flex:none;
+  font-variant-numeric:tabular-nums}
+.ta-row.locked{padding:7px 14px}
+.ta-row.locked .ta-name{color:var(--mut); font-weight:500; flex:1}
+.ta-row.avg{border-top:2px solid var(--line2); background:var(--card-soft)}
+.ta-row.avg .lbl{font-family:var(--mono); font-weight:700; font-size:10.5px; letter-spacing:1.4px;
+  text-transform:uppercase; color:var(--mut)}
+.ta-exp{padding:12px 16px 14px 41px; background:var(--bg-soft); border-bottom:1px solid var(--line);
+  font-size:13.5px; color:var(--txt)}
+.ta-exp p{margin:0 0 7px; max-width:78ch}
+.ta-exp p:last-child{margin-bottom:0}
+.ta-avgnote{margin-top:8px; font-size:12.5px}
+/* the PRICE axis — deliberately nothing like the score track: no fill, no
+   border box, dollar-labelled marks on a bare line */
+.ta-levels{border:1px solid var(--line2); border-radius:var(--r-card); background:var(--card);
+  padding:14px 16px; box-shadow:var(--shadow)}
+.paxis{position:relative; height:44px; margin:6px 4px 0}
+.pax-line{position:absolute; left:0; right:0; top:21px; height:2px; background:var(--line2);
+  border-radius:1px}
+.pax-dot{position:absolute; width:8px; height:8px; transform:translate(-50%,-50%);
+  background:var(--dim); border-radius:50%; top:30px}
+.pax-dot.res{border-radius:1px; background:var(--ink); top:12px}
+.pax-now{position:absolute; top:21px; transform:translate(-50%,-100%); width:0; height:0;
+  border-left:5px solid transparent; border-right:5px solid transparent;
+  border-bottom:8px solid var(--txt)}
+.pax-key{display:flex; gap:16px; flex-wrap:wrap; margin-top:2px; font-size:10.5px;
+  letter-spacing:.8px; text-transform:uppercase; color:var(--dim)}
+.pax-note{margin-top:8px; font-size:12px}
+.pax-mono{font-size:11px; color:var(--mut); margin-top:4px}
+.pax-inval{margin-top:8px; font-size:13px; color:var(--txt)}
+.pax-inval b{color:var(--ink)}
+.ta-deep{margin-top:12px}
+.ta-deep a{font-size:11px; letter-spacing:1px; text-transform:uppercase; color:var(--goldtx)}
+
+/* G · the per-token audio row at unregistered wears the one lock idiom */
+.aud.locked{border-style:dashed}
+.aud.locked .t{color:var(--mut)}
+.aud.locked .lockico{margin-left:auto}
+
+/* H · research on this coin */
+.rlist{display:flex; flex-direction:column; gap:8px}
+.r-item{display:flex; align-items:baseline; gap:14px; border:1px solid var(--line);
+  border-radius:var(--r-btn); background:var(--card); padding:12px 14px; flex-wrap:wrap}
+.r-item .rtitle{font-weight:600; font-size:13.5px; color:var(--ink); min-width:0}
+.r-item .rscope{margin-left:auto}
+
+/* the band stacks on mobile — question, dial, Fundamentals, Technicals, with
+   IDENTICAL header treatment kept in the stack */
+@media (max-width:960px){
+  .vb-grid{grid-template-columns:1fr}
+  .ta-row .ta-name{flex-basis:150px}
+}
+

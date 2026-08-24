@@ -1,0 +1,864 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<!-- STITCH BUILD · SEAT B · 2026-08-21 · assembled from ruled blocks:
+     hero/catalysts/listen = seat 002 · technicals/articles = seat 004 (structure+content)
+     market rank = 003-rank_v3 (LOCKED, internals verbatim) · shell = index.html
+     Data: My_Work/DATAPACK_coinpage-HYPE_2026-08-21.md ONLY. GREEKED values render greeked. -->
+<title>HYPE — Altcoin Buzz TNT Score</title>
+<meta name="description" content="Hyperliquid, scored on Token, Network and Technicals. Is the news really going to move the token?">
+<link rel="stylesheet" href="alpha.css">
+<style>
+/* ══════════════════════════════════════════════════════════════════════
+   PAGE-SPECIFIC COMPONENTS ONLY. Palette, radii, type all come from the
+   alpha.css house tokens — no :root here, no serif, no non-house radii.
+   ══════════════════════════════════════════════════════════════════════ */
+
+/* ---- shared page primitives (the D-50 normalised set) ------------------ */
+.sec-eyeb{display:flex;align-items:center;gap:10px;margin:34px 0 14px}
+.sec-eyeb .n{width:22px;height:22px;border:1.5px solid var(--gold);border-radius:var(--r-btn);
+  color:var(--goldtx);font-family:var(--mono);font-size:11px;font-weight:700;
+  display:inline-flex;align-items:center;justify-content:center;flex:none}
+.sec-eyeb .spacer{margin-left:auto}
+.read{font-family:var(--ui);font-style:italic;font-size:13.5px;color:var(--txt);line-height:1.45}
+.bchip{display:inline-block;font-family:var(--mono);font-size:10.5px;font-weight:700;
+  letter-spacing:1.2px;text-transform:uppercase;border-radius:var(--r-max);padding:2px 9px;
+  border:1px solid transparent}
+.bchip.bull{color:var(--green);background:var(--green-soft);border-color:rgba(21,130,74,.26)}
+.bchip.neut{color:var(--zero);background:var(--zero-soft);border-color:rgba(92,98,108,.26)}
+.bchip.bear{color:var(--red);background:var(--red-soft);border-color:rgba(191,61,61,.26)}
+.scorepill{width:46px;text-align:center;font-family:var(--mono);font-size:12px;font-weight:700;
+  font-variant-numeric:tabular-nums;border-radius:var(--r-max);padding:3px 0;display:inline-block;
+  border:1px solid transparent}
+.scorepill.bull{color:var(--green);background:var(--green-soft);border-color:rgba(21,130,74,.26)}
+.scorepill.neut{color:var(--zero);background:var(--zero-soft);border-color:rgba(92,98,108,.26)}
+.scorepill.bear{color:var(--red);background:var(--red-soft);border-color:rgba(191,61,61,.26)}
+.metachip{display:inline-block;font-family:var(--mono);font-size:11px;color:var(--mut);
+  background:var(--bg-soft);border:1px solid var(--line);border-radius:var(--r-max);padding:3px 10px}
+.greek{display:inline-block;font-family:var(--mono);font-size:11px;font-weight:700;color:var(--mut);
+  border:1.5px dashed var(--line2);border-radius:var(--r-max);padding:3px 12px;background:transparent}
+.sig{display:inline-block;font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:1px;
+  text-transform:uppercase;border-radius:var(--r-max);padding:2px 9px}
+.sig.big{background:var(--gold);color:var(--goldink)}
+.sig.med{border:1.5px solid var(--gold);color:var(--goldtx)}
+.sig.sml{border:1px solid var(--line2);color:var(--mut)}
+.phase,.scope{display:inline-block;font-family:var(--ui);font-size:11px;color:var(--mut);
+  background:var(--bg-soft);border-radius:var(--r-max);padding:2px 9px}
+
+/* ---- block 1 · hero ---------------------------------------------------- */
+.mastband{margin-top:18px}
+.hero-id{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-top:10px}
+.hero-id .lock{display:flex;align-items:center;gap:14px}
+.hero-id .tlogo{width:46px;height:46px}
+.hero-id .coin{font-family:var(--ui);font-size:30px;font-weight:700;line-height:1;color:var(--ink);letter-spacing:-.5px}
+.hero-id .cname{font-size:13px;color:var(--mut);margin-top:4px}
+.hero-fresh{display:flex;gap:8px;flex-wrap:wrap}
+.hero-grid2{display:grid;grid-template-columns:260px 1fr;gap:14px;margin-top:20px}
+@media(max-width:760px){.hero-grid2{grid-template-columns:1fr}}
+.dialcard{background:var(--card);border:1px solid var(--line2);border-radius:var(--r-card);
+  box-shadow:var(--shadow);padding:18px 14px 14px;text-align:center}
+.dialcard .num{font-family:var(--mono);font-weight:700;font-size:34px;line-height:1;color:var(--ink);margin-top:2px}
+.axcards{display:grid;grid-template-rows:1fr 1fr 1fr;gap:10px}
+.axcard{background:var(--card);border:1px solid var(--line2);border-radius:var(--r-card);
+  box-shadow:var(--shadow);padding:12px 18px;display:flex;align-items:center;justify-content:space-between;gap:14px}
+.axcard .num{font-family:var(--mono);font-weight:700;font-size:26px;font-variant-numeric:tabular-nums;color:var(--ink)}
+.axcard .rt{text-align:right}
+
+/* ---- block 2 · catalysts ---------------------------------------------- */
+.colhead{display:flex;justify-content:flex-end;gap:6px;padding:0 44px 4px 0}
+.colhead span{width:46px;text-align:center;font-family:var(--mono);font-size:10.5px;
+  letter-spacing:1px;color:var(--dim);text-transform:uppercase}
+.catboard{background:var(--card);border:1px solid var(--line2);border-radius:var(--r-card);
+  box-shadow:var(--shadow);overflow:hidden}
+.cat{border-bottom:1px solid var(--line)}
+.cat:last-child{border-bottom:0}
+.cat-c{width:100%;text-align:left;background:none;border:0;font:inherit;color:inherit;cursor:pointer;
+  padding:11px 16px;display:flex;justify-content:space-between;gap:12px;align-items:center}
+.cat-c:hover{background:var(--card-soft)}
+.cat-c .hd{font-size:13.5px;line-height:1.4;color:var(--ink)}
+.cat-c .meta{margin-top:5px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.cat-c .pills{display:flex;gap:6px;flex-shrink:0;align-items:center}
+.cat-c .caret{color:var(--faint);font-size:11px}
+.cat-x{display:none;padding:16px 18px 18px;border-top:1px dashed var(--line)}
+.cat.open .cat-x{display:block}
+.cat.open .cat-c .caret{transform:rotate(180deg)}
+.cat-x .hd{font-size:16px;line-height:1.45;font-weight:700;color:var(--ink);margin-top:8px}
+.callout{background:var(--gold-soft);border-left:4px solid var(--gold);padding:9px 13px;margin:12px 0;
+  font-size:14px;color:var(--ink)}
+.impacts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:600px){.impacts{grid-template-columns:1fr}}
+.ic{border-radius:var(--r-card);padding:11px 13px;border:1px solid var(--line)}
+.ic .lb{font-family:var(--mono);font-size:10.5px;letter-spacing:1.2px;text-transform:uppercase}
+.ic .v{display:flex;align-items:baseline;gap:8px}
+.ic .v b{font-family:var(--mono);font-weight:700;font-variant-numeric:tabular-nums}
+.ic .bw{font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase}
+.ic.bull{background:var(--green-soft);border-color:rgba(21,130,74,.26)}
+.ic.bull .lb,.ic.bull .v b,.ic.bull .bw{color:var(--green)}
+.ic.neut{background:var(--zero-soft);border-color:rgba(92,98,108,.26)}
+.ic.neut .lb,.ic.neut .v b,.ic.neut .bw{color:var(--zero)}
+.ic.bear{background:var(--red-soft);border-color:rgba(191,61,61,.26)}
+.ic.bear .lb,.ic.bear .v b,.ic.bear .bw{color:var(--red)}
+
+/* ---- block 3 · technicals --------------------------------------------- */
+.tacard{background:var(--card);border:1px solid var(--line2);border-radius:var(--r-card);
+  box-shadow:var(--shadow);padding:14px 16px}
+.tahead{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap;
+  padding-bottom:10px;border-bottom:1px solid var(--line)}
+.tahead .num{font-family:var(--mono);font-weight:700;font-size:26px;color:var(--ink)}
+.tameta{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.taover p{font-size:13.5px;color:var(--txt);line-height:1.55;margin:10px 0 0}
+.tind{display:flex;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid var(--line)}
+.tind:last-of-type{border-bottom:0}
+.tind .nm{width:240px;flex:none;min-width:0}
+.tind .nm b{font-size:13px;font-weight:600;color:var(--ink);display:block;line-height:1.3}
+.tind .nm .read{font-size:12px;color:var(--mut)}
+.trkw{position:relative;height:24px;flex:1}
+.trk{position:absolute;top:11px;left:0;right:0;height:2px;background:var(--line)}
+.tdot{position:absolute;top:6px;width:12px;height:12px;border-radius:var(--r-max);
+  border:2px solid var(--card);transform:translateX(-50%)}
+.tdot.bull{background:var(--green)}.tdot.neut{background:var(--zero)}.tdot.bear{background:var(--red)}
+.tind .sc{width:56px;flex:none;text-align:right}
+.tind .sc b{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--ink);display:block}
+.tind .sc .bw{font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.8px;text-transform:uppercase}
+.tind .sc .bw.bull{color:var(--green)}.tind .sc .bw.neut{color:var(--zero)}.tind .sc .bw.bear{color:var(--red)}
+.taxis{display:flex;justify-content:space-between;font-size:11px;color:var(--faint);
+  border-top:1px solid var(--line);padding-top:5px;margin-top:2px}
+.taxis .pad-l{width:240px}.taxis .pad-r{width:56px}
+.ladder{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+@media(max-width:600px){.ladder{grid-template-columns:1fr}}
+.lad{border:1px solid var(--line);border-radius:var(--r-card);padding:10px 14px;background:var(--card-soft)}
+.lad .lb{font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase}
+.lad.sup .lb{color:var(--green)}.lad.res .lb{color:var(--red)}
+.lad ul{list-style:none;margin:6px 0 0;padding:0}
+.lad li{font-family:var(--mono);font-size:13px;font-variant-numeric:tabular-nums;color:var(--ink);
+  padding:3px 0;border-bottom:1px dashed var(--line)}
+.lad li:last-child{border-bottom:0}
+
+/* ---- block 4 · market rank (003-rank_v3 · LOCKED · internals verbatim,
+        chrome + band colours + type mapped to house tokens; geometry untouched) */
+.abr{color:var(--txt);line-height:1.4}
+.abr .chip{display:inline-block;font-family:var(--mono);font-size:10.5px;font-weight:700;
+  letter-spacing:1.2px;text-transform:uppercase;padding:3px 10px;border-radius:var(--r-max)}
+.abr .b-bull{background:var(--green-soft);color:var(--green)}
+.abr .b-neut{background:var(--zero-soft);color:var(--zero)}
+.abr .b-bear{background:var(--red-soft);color:var(--red)}
+.abr .eyeb{font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:1.5px;
+  text-transform:uppercase;color:var(--dim)}
+.abr .aread{font-family:var(--ui);font-style:italic;font-size:13.5px;color:var(--goldtx)}
+.abr .row{display:grid;grid-template-columns:140px 1fr;gap:22px;padding:16px 0;
+  border-top:1px solid var(--line);align-items:center}
+@media(max-width:700px){.abr .row{grid-template-columns:1fr;gap:10px}}
+.abr .strip{position:relative;height:20px;border-radius:var(--r-card)}
+.abr .tk{position:absolute;top:3px;bottom:3px;width:2px;background:rgba(32,36,47,.28);transform:translateX(-50%)}
+.abr .btk{position:absolute;top:3px;bottom:-6px;width:2px;background:var(--ink);transform:translateX(-50%)}
+.abr .hd{position:absolute;top:50%;transform:translate(-50%,-50%);width:17px;height:17px;
+  border-radius:var(--r-max);border:3px solid var(--card);box-shadow:0 0 0 1.5px rgba(32,36,47,.35)}
+.abr .hc{position:absolute;top:-24px;transform:translateX(-50%);background:var(--ink);color:#fff;
+  font-family:var(--mono);font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:var(--r-max);white-space:nowrap}
+.abr .ends{position:relative;display:flex;justify-content:space-between;font-size:10.5px;
+  font-weight:700;color:var(--dim);margin-top:9px}
+.abr .btl{position:absolute;transform:translateX(-50%);font-size:10.5px;font-weight:800;color:var(--ink)}
+.abr .ph{margin-top:8px;font-size:14px}
+.abr .ph .rk{font-size:11.5px;color:var(--dim);font-weight:600;margin-left:8px}
+.abr .thesis{background:var(--gold-soft);border:1px solid var(--gold-line);border-radius:var(--r-card);padding:18px 24px}
+.abr .thesis .h{font-family:var(--ui);font-size:19px;font-weight:700;line-height:1.3;color:var(--ink)}
+.abr .thesis .s{font-size:13.5px;color:var(--mut);margin-top:5px;font-weight:600}
+.abr .rulecard{background:var(--card);border:1px solid var(--line2);border-radius:var(--r-card);
+  box-shadow:var(--shadow);padding:8px 24px 14px;margin-top:12px}
+.abr .disc{font-size:12px;color:var(--mut);margin-top:12px}
+.abr .legend{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;margin-top:9px}
+.abr .tntlbl{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:2px;color:var(--txt);text-transform:uppercase}
+.abr .gnum{font-family:var(--mono);font-size:24px;font-weight:700;letter-spacing:-.02em;margin-top:-3px}
+.abr .gband{font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:1.4px;margin-top:1px}
+
+/* ---- block 5 · articles ------------------------------------------------ */
+.artgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:760px){.artgrid{grid-template-columns:1fr}}
+.art{background:var(--card);border:1px solid var(--line2);border-radius:var(--r-card);
+  box-shadow:var(--shadow);padding:12px 14px;display:flex;align-items:flex-start;gap:12px}
+.art .thumb{width:96px;height:64px;flex:none;border:1.5px dashed var(--line2);border-radius:var(--r-btn);
+  background:var(--bg-soft);display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-size:9.5px;color:var(--faint);text-align:center;line-height:1.3;padding:4px}
+.art .ttl{font-size:15px;font-weight:600;line-height:1.4;color:var(--ink)}
+.art .chips2{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.coinchip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line2);
+  border-radius:var(--r-max);padding:2px 9px 2px 3px;background:var(--card)}
+.coinchip .tlogo{width:18px;height:18px}
+.coinchip .tk2{font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.5px;color:var(--txt)}
+.coinchip.more{padding:2px 10px;background:var(--bg-soft)}
+.coinchip.more .tk2{color:var(--mut)}
+
+/* ---- block 6 · listen -------------------------------------------------- */
+.augrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:760px){.augrid{grid-template-columns:1fr}}
+.au{background:var(--card);border:1px solid var(--line2);border-radius:var(--r-card);
+  box-shadow:var(--shadow);padding:13px 16px;display:flex;align-items:center;gap:13px}
+.au .play{width:38px;height:38px;flex:none;border-radius:var(--r-max);background:var(--gold-soft);
+  display:flex;align-items:center;justify-content:center}
+.au .ttl{font-size:14px;font-weight:600;color:var(--ink)}
+.au .meta2{font-size:12.5px;color:var(--mut);margin-top:3px}
+.au .gk{margin-top:7px;display:flex;gap:6px;flex-wrap:wrap}
+
+/* ---- block 7 · coin description slot ----------------------------------- */
+.descslot{border:1.5px dashed var(--line2);border-radius:var(--r-card);background:var(--bg-soft);
+  padding:26px 20px;text-align:center}
+</style>
+</head>
+<body>
+
+<!-- SHELL · header copied from index.html; #navLinks is script-populated there,
+     HARD-CODED here to the same six destinations (alpha.js NOT loaded — see build report). -->
+<header class="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="index.html"><span class="word">Altcoin Buzz <b>TNT Score</b></span></a>
+    <nav class="nav-links" id="navLinks" aria-label="Primary">
+      <a href="index.html#/coins">Coins</a>
+      <a href="index.html#/watchlist">Watchlist</a>
+      <a href="index.html#/research">Research</a>
+      <a href="index.html#/hws">How We Score</a>
+      <a href="index.html#/market">Market</a>
+      <a href="index.html#/pricing">Pricing</a>
+    </nav>
+    <div class="nav-right">
+      <button class="icon-btn" aria-label="Search" title="Search tokens and catalysts">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      </button>
+      <button class="icon-btn notif-dot" aria-label="Notifications" title="A score moved, and which catalyst drove it">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 16v-5a6 6 0 10-12 0v5l-2 2h16z"/><path d="M10 21h4"/></svg>
+      </button>
+      <span class="acct"><span class="av mono">?</span><span>Sign in</span></span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ═══ BLOCK 1 · HERO / ABOVE THE FOLD — seat 002 structure, house tokens.
+       002's GAP section is DELETED per D-49 / D-27 (§4.1): no rail, no pair
+       cards, no gap drawn anywhere. The thesis stays in words, in the reads. -->
+  <div class="mastband">
+    <div class="crumbs">
+      <span class="crumb"><a href="index.html#/coins">Coins</a></span>
+      <span class="crumb">›</span>
+      <span class="crumb">HYPE</span>
+    </div>
+    <div class="hero-id">
+      <div class="lock">
+        <span class="tlogo"><img src="assets/token_logos/HYPE.svg" alt="HYPE logo"></span>
+        <div>
+          <div class="coin">HYPE</div>
+          <div class="cname">Hyperliquid</div>
+        </div>
+      </div>
+      <div class="hero-fresh">
+        <span class="metachip">13 catalysts</span>
+        <span class="metachip">Scored 4 Aug</span>
+        <span class="metachip">Charts 19 Aug</span>
+      </div>
+    </div>
+
+    <div class="hero-grid2">
+      <div class="dialcard">
+        <svg viewBox="0 0 200 112" style="width:100%;display:block" role="img" aria-label="TNT dial at 5.6, just inside the bullish zone">
+          <path d="M30,92 A70,70 0 0 1 74.9,26.7" stroke="var(--red)" stroke-width="13" fill="none"/>
+          <path d="M74.9,26.7 A70,70 0 0 1 101.2,22.0" stroke="var(--zero)" stroke-width="13" fill="none"/>
+          <path d="M101.2,22 A70,70 0 0 1 170,92" stroke="var(--green)" stroke-width="13" fill="none"/>
+          <line x1="100" y1="92" x2="101.9" y2="38" stroke="var(--ink)" stroke-width="3.5" stroke-linecap="round"/>
+          <circle cx="100" cy="92" r="5.5" fill="var(--ink)"/>
+          <text x="30" y="108" font-size="9" fill="var(--faint)" text-anchor="middle">1</text>
+          <text x="170" y="108" font-size="9" fill="var(--faint)" text-anchor="middle">10</text>
+        </svg>
+        <div class="num">5.6</div>
+        <div style="margin-top:7px"><span class="microlabel">TNT SCORE</span> <span class="bchip bull" style="margin-left:6px">BULLISH</span></div>
+        <div class="read" style="margin-top:8px">Just tipped bullish</div>
+      </div>
+      <div class="axcards">
+        <div class="axcard">
+          <div><span class="microlabel">TOKEN</span>
+            <div class="read" style="margin-top:3px">Catalysts aren&#8217;t reaching the coin</div></div>
+          <div class="rt"><span class="num">4.6</span><br><span class="bchip neut">NEUTRAL</span></div>
+        </div>
+        <div class="axcard">
+          <div><span class="microlabel">NETWORK</span>
+            <div class="read" style="margin-top:3px">The platform keeps shipping</div></div>
+          <div class="rt"><span class="num">5.3</span><br><span class="bchip neut">NEUTRAL</span></div>
+        </div>
+        <div class="axcard">
+          <div><span class="microlabel">TECHNICALS</span>
+            <div class="read" style="margin-top:3px">Buyers back in charge</div></div>
+          <div class="rt"><span class="num">6.6</span><br><span class="bchip bull">BULLISH</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ BLOCK 2 · THE 13 CATALYSTS — seat 002 structure (stacked revision,
+       002-catalysts), house tokens. Rows in DATA-PACK order (Token descending,
+       pack tie-breaks). Expand-in-place · one open at a time · collapsed by
+       default (D-1..D-4). Scope chip per row from the pack — two rows are
+       sector-wide. No takeaway line (D-47), no band-tinted field, no icons. -->
+  <section>
+    <div class="sec-eyeb"><span class="n">1</span><span class="eyebrow">THE 13 CATALYSTS</span></div>
+    <div class="colhead"><span>NETWK</span><span>TOKEN</span></div>
+    <div class="catboard" id="catboard">
+
+      <div class="cat">
+        <button class="cat-c" type="button" aria-expanded="false">
+          <div style="min-width:0"><div class="hd">Coinbase becomes Hyperliquid&#8217;s USDC treasury deployer, and reserve yield starts funding HYPE buybacks on 3 October.</div>
+            <div class="meta"><span class="read" style="font-size:12px;color:var(--goldtx)">Real money, partial capture</span><span class="sig big">BIG</span><span class="phase">Hasn&#8217;t happened yet</span><span class="scope">Affects HYPE only</span></div></div>
+          <span class="pills"><span class="scorepill neut">5.0</span><span class="scorepill bull">7.2</span><span class="caret">&#9662;</span></span>
+        </button>
+        <div class="cat-x">
+          <span class="sig big">BIG</span> <span class="phase">Hasn&#8217;t happened yet</span> <span class="scope">Affects HYPE only</span>
+          <div class="hd">Coinbase becomes Hyperliquid&#8217;s USDC treasury deployer, and reserve yield starts funding HYPE buybacks on 3 October.</div>
+          <div class="callout"><b>Real money, partial capture</b></div>
+          <div class="impacts">
+            <div class="ic neut"><span class="lb">NETWORK IMPACT</span><div class="v"><b style="font-size:38px">5.0</b><span class="bw">NEUTRAL</span></div></div>
+            <div class="ic bull"><span class="lb">TOKEN IMPACT</span><div class="v"><b style="font-size:27px">7.2</b><span class="bw">BULLISH</span></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cat">
+        <button class="cat-c" type="button" aria-expanded="false">
+          <div style="min-width:0"><div class="hd">Hyperliquid spends about $35M a month buying back HYPE &#8212; but the buyback retires only 12% of the new coins being released.</div>
+            <div class="meta"><span class="read" style="font-size:12px;color:var(--goldtx)">Real bid, bigger faucet</span><span class="sig big">BIG</span><span class="phase">Happening now</span><span class="scope">Affects HYPE only</span></div></div>
+          <span class="pills"><span class="scorepill neut">5.0</span><span class="scorepill bull">5.7</span><span class="caret">&#9662;</span></span>
+        </button>
+        <div class="cat-x">
+          <span class="sig big">BIG</span> <span class="phase">Happening now</span> <span class="scope">Affects HYPE only</span>
+          <div class="hd">Hyperliquid spends about $35M a month buying back HYPE &#8212; but the buyback retires only 12% of the new coins being released.</div>
+          <div class="callout"><b>Real bid, bigger faucet</b></div>
+          <div class="impacts">
+            <div class="ic neut"><span class="lb">NETWORK IMPACT</span><div class="v"><b style="font-size:38px">5.0</b><span class="bw">NEUTRAL</span></div></div>
+            <div class="ic bull"><span class="lb">TOKEN IMPACT</span><div class="v"><b style="font-size:27px">5.7</b><span class="bw">BULLISH</span></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cat">
+        <button class="cat-c" type="button" aria-expanded="false">
+          <div style="min-width:0"><div class="hd">Hyperliquid&#8217;s new chain shipped, and real-world assets became its biggest business &#8212; but the upgrades charge nothing that pays HYPE holders yet.</div>
+            <div class="meta"><span class="read" style="font-size:12px;color:var(--goldtx)">Strongest tech, weakest toll</span><span class="sig big">BIG</span><span class="phase">Happening now</span><span class="scope">Affects HYPE only</span></div></div>
+          <span class="pills"><span class="scorepill bull">8.0</span><span class="scorepill bull">5.7</span><span class="caret">&#9662;</span></span>
+        </button>
+        <div class="cat-x">
+          <span class="sig big">BIG</span> <span class="phase">Happening now</span> <span class="scope">Affects HYPE only</span>
+          <div class="hd">Hyperliquid&#8217;s new chain shipped, and real-world assets became its biggest business &#8212; but the upgrades charge nothing that pays HYPE holders yet.</div>
+          <div class="callout"><b>Strongest tech, weakest toll</b></div>
+          <div class="impacts">
+            <div class="ic bull"><span class="lb">NETWORK IMPACT</span><div class="v"><b style="font-size:38px">8.0</b><span class="bw">BULLISH</span></div></div>
+            <div class="ic bull"><span class="lb">TOKEN IMPACT</span><div class="v"><b style="font-size:27px">5.7</b><span class="bw">BULLISH</span></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cat">
+        <button class="cat-c" type="button" aria-expanded="false">
+          <div style="min-width:0"><div class="hd">HYPE now trades on nearly every major exchange &#8212; Coinbase, Kraken, Robinhood among them &#8212; with Binance the one big holdout.</div>
+            <div class="meta"><span class="read" style="font-size:12px;color:var(--goldtx)">Priced in, and proven</span><span class="sig sml">SMALL</span><span class="phase">Already happened</span><span class="scope">Affects HYPE only</span></div></div>
+          <span class="pills"><span class="scorepill neut">5.0</span><span class="scorepill bull">5.6</span><span class="caret">&#9662;</span></span>
+        </button>
+        <div class="cat-x">
+          <span class="sig sml">SMALL</span> <span class="phase">Already happened</span> <span class="scope">Affects HYPE only</span>
+          <div class="hd">HYPE now trades on nearly every major exchange &#8212; Coinbase, Kraken, Robinhood among them &#8212; with Binance the one big holdout.</div>
+          <div class="callout"><b>Priced in, and proven</b></div>
+          <div class="impacts">
+            <div class="ic neut"><span class="lb">NETWORK IMPACT</span><div class="v"><b style="font-size:38px">5.0</b><span class="bw">NEUTRAL</span></div></div>
+            <div class="ic bull"><span class="lb">TOKEN IMPACT</span><div class="v"><b style="font-size:27px">5.6</b><span class="bw">BULLISH</span></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cat">
+        <button class="cat-c" type="button" aria-expanded="false">
+          <div style="min-width:0"><div class="hd">Four companies hold $1.36B of HYPE in their treasuries &#8212; and none of them has bought a coin in a month.</div>
+            <div class="meta"><span class="read" style="font-size:12px;color:var(--goldtx)">Big holders, bid stopped</span><span class="sig med">MEDIUM</span><span class="phase">Happening now</span><span class="scope">Affects HYPE only</span></div></div>
+          <span class="pills"><span class="scorepill neut">5.0</span><span class="scorepill neut">5.2</span><span class="caret">&#9662;</span></span>
+        </button>
+        <div class="cat-x">
+          <span class="sig med">MEDIUM</span> <span class="phase">Happening now</span> <span class="scope">Affects HYPE only</span>
+          <div class="hd">Four companies hold $1.36B of HYPE in their treasuries &#8212; and none of them has bought a coin in a month.</div>
+          <div class="callout"><b>Big holders, bid stopped</b></div>
+          <div class="impacts">
+            <div class="ic neut"><span class="lb">NETWORK IMPACT</span><div class="v"><b style="font-size:38px">5.0</b><span class="bw">NEUTRAL</span></div></div>
+            <div class="ic neut"><span class="lb">TOKEN IMPACT</span><div class="v"><b style="font-size:27px">5.2</b><span class="bw">NEUTRAL</span></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cat">
+        <button class="cat-c" type="button" aria-expanded="false">
+          <div style="min-width:0"><div class="hd">Holders could one day vote trading fees toward HYPE &#8212; about $3&#8211;4M a month is at stake &#8212; but no proposal even exists yet.</div>
+            <div class="meta"><span class="read" style="font-size:12px;color:var(--goldtx)">A lever nobody&#8217;s pulled</span><span class="sig med">MEDIUM</span><span class="phase">Hasn&#8217;t happened yet</span><span class="scope">Affects HYPE only</span></div></div>
+          <span class="pills"><span class="scorepill neut">5.0</span><span class="scorepill neut">5.0</span><span class="caret">&#9662;</span></span>
+        </button>
+        <div class="cat-x">
+          <span class="sig med">MEDIUM</span> <span class="phase">Hasn&#8217;t happened yet</span> <span class="scope">Affects HYPE only</span>
+          <div class="hd">Holders could one day vote trading fees toward HYPE &#8212; about $3&#8211;4M a month is at stake &#8212; but no proposal even exists yet.</div>
+          <div class="callout"><b>A lever nobody&#8217;s pulled</b></div>
+          <div class="impacts">
+            <div class="ic neut"><span class="lb">NETWORK IMPACT</span><div class="v"><b style="font-size:38px">5.0</b><span class="bw">NEUTRAL</span></div></div>
+            <div class="ic neut"><span class="lb">TOKEN IMPACT</span><div class="v"><b style="font-size:27px">5.0</b><span class="bw">NEUTRAL</span></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cat">
+        <button class="cat-c" type="button" aria-expanded="false">
+          <div style="min-width:0"><div class="hd">US regulators are weighing rules that could open the market &#8212; but there&#8217;s no timetable, and Americans still can&#8217;t use Hyperliquid at all.</div>
+            <div class="meta"><span class="read" style="font-size:12px;color:var(--goldtx)">A maybe with no date</span><span class="sig sml">SMALL</span><span class="phase">Hasn&#8217;t happened yet</span><span class="scope">Affects the whole sector</span></div></div>
+          <span class="pills"><span class="scorepill neut">5.0</span><span class="scorepill neut">4.7</span><span class="caret">&#9662;</span></span>
+        </button>
+        <div class="cat-x">
+          <span class="sig sml">SMALL</span> <span class="phase">Hasn&#8217;t happened yet</span> <span class="scope">Affects the whole sector</span>
+          <div class="hd">US regulators are weighing rules that could open the market &#8212; but there&#8217;s no timetable, and Americans still can&#8217;t use Hyperliquid at all.</div>
+          <div class="callout"><b>A maybe with no date</b></div>
+          <div class="impacts">
+            <div class="ic neut"><span class="lb">NETWORK IMPACT</span><div class="v"><b style="font-size:38px">5.0</b><span class="bw">NEUTRAL</span></div></div>
+            <div class="ic neut"><span class="lb">TOKEN IMPACT</span><div class="v"><b style="font-size:27px">4.7</b><span class="bw">NEUTRAL</span></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cat">
+        <button class="cat-c" type="button" aria-expanded="false">
+          <div style="min-width:0"><div class="hd">Nearly half of HYPE is staked &#8212; but the &#8220;lock&#8221; is a seven-day exit queue, and one big fund just walked $120M out of it.</div>
+            <div class="meta"><span class="read" style="font-size:12px;color:var(--goldtx)">The lock has a door</span><span class="sig med">MEDIUM</span><span class="phase">Happening now</span><span class="scope">Affects HYPE only</span></div></div>
+          <span class="pills"><span class="scorepill bull">6.8</span><span class="scorepill neut">4.5</span><span class="caret">&#9662;</span></span>
+        </button>
+        <div class="cat-x">
+          <span class="sig med">MEDIUM</span> <span class="phase">Happening now</span> <span class="scope">Affects HYPE only</span>
+          <div class="hd">Nearly half of HYPE is staked &#8212; but the &#8220;lock&#8221; is a seven-day exit queue, and one big fund just walked $120M out of it.</div>
+          <div class="callout"><b>The lock has a door</b></div>
+          <div class="impacts">
+            <div class="ic bull"><span class="lb">NETWORK IMPACT</span><div class="v"><b style="font-size:38px">6.8</b><span class="bw">BULLISH</span></div></div>
+            <div class="ic neut"><span class="lb">TOKEN IMPACT</span><div class="v"><b style="font-size:27px">4.5</b><span class="bw">NEUTRAL</span></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cat">
+        <button class="cat-c" type="button" aria-expanded="false">
+          <div style="min-width:0"><div class="hd">One foundation controls about half the validator stake &#8212; every buyback and payout runs through a single point of authority.</div>
+            <div class="meta"><span class="read" style="font-size:12px;color:var(--goldtx)">Your coin, their keys</span><span class="sig big">BIG</span><span class="phase">Built in</span><span class="scope">Affects HYPE only</span></div></div>
+          <span class="pills"><span class="scorepill neut">5.0</span><span class="scorepill bear">3.8</span><span class="caret">&#9662;</span></span>
+        </button>
+        <div class="cat-x">
+          <span class="sig big">BIG</span> <span class="phase">Built in</span> <span class="scope">Affects HYPE only</span>
+          <div class="hd">One foundation controls about half the validator stake &#8212; every buyback and payout runs through a single point of authority.</div>
+          <div class="callout"><b>Your coin, their keys</b></div>
+          <div class="impacts">
+            <div class="ic neut"><span class="lb">NETWORK IMPACT</span><div class="v"><b style="font-size:38px">5.0</b><span class="bw">NEUTRAL</span></div></div>
+            <div class="ic bear"><span class="lb">TOKEN IMPACT</span><div class="v"><b style="font-size:27px">3.8</b><span class="bw">BEARISH</span></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cat">
+        <button class="cat-c" type="button" aria-expanded="false">
+          <div style="min-width:0"><div class="hd">Two major regulators &#8212; the UK, then Singapore &#8212; put Hyperliquid on their warning lists within five weeks.</div>
+            <div class="meta"><span class="read" style="font-size:12px;color:var(--goldtx)">Already happened, barely priced</span><span class="sig med">MEDIUM</span><span class="phase">Already happened</span><span class="scope">Affects HYPE only</span></div></div>
+          <span class="pills"><span class="scorepill neut">5.0</span><span class="scorepill bear">3.8</span><span class="caret">&#9662;</span></span>
+        </button>
+        <div class="cat-x">
+          <span class="sig med">MEDIUM</span> <span class="phase">Already happened</span> <span class="scope">Affects HYPE only</span>
+          <div class="hd">Two major regulators &#8212; the UK, then Singapore &#8212; put Hyperliquid on their warning lists within five weeks.</div>
+          <div class="callout"><b>Already happened, barely priced</b></div>
+          <div class="impacts">
+            <div class="ic neut"><span class="lb">NETWORK IMPACT</span><div class="v"><b style="font-size:38px">5.0</b><span class="bw">NEUTRAL</span></div></div>
+            <div class="ic bear"><span class="lb">TOKEN IMPACT</span><div class="v"><b style="font-size:27px">3.8</b><span class="bw">BEARISH</span></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cat">
+        <button class="cat-c" type="button" aria-expanded="false">
+          <div style="min-width:0"><div class="hd">Rivals are undercutting Hyperliquid on fees &#8212; and quarterly trading volume has nearly halved.</div>
+            <div class="meta"><span class="read" style="font-size:12px;color:var(--goldtx)">Cheaper rivals, shrinking volume</span><span class="sig big">BIG</span><span class="phase">Happening now</span><span class="scope">Affects the whole sector</span></div></div>
+          <span class="pills"><span class="scorepill bear">3.5</span><span class="scorepill bear">3.6</span><span class="caret">&#9662;</span></span>
+        </button>
+        <div class="cat-x">
+          <span class="sig big">BIG</span> <span class="phase">Happening now</span> <span class="scope">Affects the whole sector</span>
+          <div class="hd">Rivals are undercutting Hyperliquid on fees &#8212; and quarterly trading volume has nearly halved.</div>
+          <div class="callout"><b>Cheaper rivals, shrinking volume</b></div>
+          <div class="impacts">
+            <div class="ic bear"><span class="lb">NETWORK IMPACT</span><div class="v"><b style="font-size:38px">3.5</b><span class="bw">BEARISH</span></div></div>
+            <div class="ic bear"><span class="lb">TOKEN IMPACT</span><div class="v"><b style="font-size:27px">3.6</b><span class="bw">BEARISH</span></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cat">
+        <button class="cat-c" type="button" aria-expanded="false">
+          <div style="min-width:0"><div class="hd">Three US spot HYPE ETFs are live &#8212; and money has been leaving: a net $29.8M walked out between mid-July and early August.</div>
+            <div class="meta"><span class="read" style="font-size:12px;color:var(--goldtx)">The easy buyers already bought</span><span class="sig med">MEDIUM</span><span class="phase">Happening now</span><span class="scope">Affects HYPE only</span></div></div>
+          <span class="pills"><span class="scorepill neut">5.0</span><span class="scorepill bear">3.3</span><span class="caret">&#9662;</span></span>
+        </button>
+        <div class="cat-x">
+          <span class="sig med">MEDIUM</span> <span class="phase">Happening now</span> <span class="scope">Affects HYPE only</span>
+          <div class="hd">Three US spot HYPE ETFs are live &#8212; and money has been leaving: a net $29.8M walked out between mid-July and early August.</div>
+          <div class="callout"><b>The easy buyers already bought</b></div>
+          <div class="impacts">
+            <div class="ic neut"><span class="lb">NETWORK IMPACT</span><div class="v"><b style="font-size:38px">5.0</b><span class="bw">NEUTRAL</span></div></div>
+            <div class="ic bear"><span class="lb">TOKEN IMPACT</span><div class="v"><b style="font-size:27px">3.3</b><span class="bw">BEARISH</span></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cat">
+        <button class="cat-c" type="button" aria-expanded="false">
+          <div style="min-width:0"><div class="hd">Insiders are cleared to receive about 9.9M new HYPE every month for two years &#8212; and roughly 402M more is already vested and waiting.</div>
+            <div class="meta"><span class="read" style="font-size:12px;color:var(--goldtx)">More coins coming than priced</span><span class="sig big">BIG</span><span class="phase">Hasn&#8217;t happened yet</span><span class="scope">Affects HYPE only</span></div></div>
+          <span class="pills"><span class="scorepill neut">5.0</span><span class="scorepill bear">2.0</span><span class="caret">&#9662;</span></span>
+        </button>
+        <div class="cat-x">
+          <span class="sig big">BIG</span> <span class="phase">Hasn&#8217;t happened yet</span> <span class="scope">Affects HYPE only</span>
+          <div class="hd">Insiders are cleared to receive about 9.9M new HYPE every month for two years &#8212; and roughly 402M more is already vested and waiting.</div>
+          <div class="callout"><b>More coins coming than priced</b></div>
+          <div class="impacts">
+            <div class="ic neut"><span class="lb">NETWORK IMPACT</span><div class="v"><b style="font-size:38px">5.0</b><span class="bw">NEUTRAL</span></div></div>
+            <div class="ic bear"><span class="lb">TOKEN IMPACT</span><div class="v"><b style="font-size:27px">2.0</b><span class="bw">BEARISH</span></div></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══ BLOCK 3 · TECHNICALS — seat 004 STRUCTURE (shared-ruler indicator
+       rows), data-pack CONTENT (TA report, 19 Aug). Band words are the TA
+       report's own literal verdicts, NOT re-derived (pack anomaly 5).
+       Price ladder is the block's legitimate difference (D-17). -->
+  <section>
+    <div class="sec-eyeb"><span class="n">2</span><span class="eyebrow">TECHNICALS</span>
+      <span class="spacer"></span><span class="metachip">Scored 19 Aug</span></div>
+    <div class="tacard">
+      <div class="tahead">
+        <div style="display:flex;align-items:baseline;gap:8px;flex-wrap:wrap">
+          <span class="num">6.6</span>
+          <span class="bchip bull">BULLISH</span>
+          <span class="read">Buyers back in charge</span>
+        </div>
+        <span class="one">10 indicators</span>
+      </div>
+      <div class="tameta">
+        <span class="metachip">Price at analysis $58.55</span>
+        <span class="metachip">Daily candle</span>
+        <span class="metachip">Above the 200-day EMA ($48.47)</span>
+      </div>
+      <div class="taover">
+        <p>HYPE is trading at $58.55, sitting just $0.18 above its EMA 20 and nestled between the 0.5 and 0.618 Fibonacci retracements from the $76.95 swing high to the $38.17 swing low. We&#8217;re $10 away from the previous high, but more importantly, the price is well above the 200-day EMA at $48.47, signalling that the macro trend remains bullish. The overall market structure feels constructive, with price holding near the middle Bollinger Band and maintaining a base that could launch higher.</p>
+        <p>The weight of evidence across our ten indicators leans decisively bullish, with a cumulative score of 6.6 out of 10. Nine of the ten indicators favour upside or show neutral-to-bullish signals: the moving averages are in perfect bullish alignment, on-balance volume is rising, MACD is printing higher lows, and Bollinger Bands give us room to extend. The only real headwind is the stacked resistance overhead at $60.48, $63.05, $65.42, and $67.81, which will require conviction to break. The absence of a clear chart pattern leaves us without a measured target, but the technical setup strongly favours a long entry here.</p>
+      </div>
+
+      <div style="margin-top:14px">
+        <div class="tind"><div class="nm"><b>RSI (14)</b><span class="read">Neutral momentum, neither overbought nor oversold</span></div>
+          <div class="trkw"><div class="trk"></div><span class="tdot bull" style="left:55.6%"></span></div>
+          <div class="sc"><b>6</b><span class="bw bull">Bullish</span></div></div>
+        <div class="tind"><div class="nm"><b>Moving averages (EMA 20/50/100/200)</b><span class="read">Four of four in bullish stacks</span></div>
+          <div class="trkw"><div class="trk"></div><span class="tdot bull" style="left:88.9%"></span></div>
+          <div class="sc"><b>9</b><span class="bw bull">Bullish</span></div></div>
+        <div class="tind"><div class="nm"><b>Bollinger Bands</b><span class="read">Price centered with room to expand</span></div>
+          <div class="trkw"><div class="trk"></div><span class="tdot bull" style="left:72.2%"></span></div>
+          <div class="sc"><b>7.5</b><span class="bw bull">Bullish</span></div></div>
+        <div class="tind"><div class="nm"><b>Fibonacci retracements</b><span class="read">Sitting between key support and resistance</span></div>
+          <div class="trkw"><div class="trk"></div><span class="tdot bull" style="left:66.7%"></span></div>
+          <div class="sc"><b>7</b><span class="bw bull">Bullish</span></div></div>
+        <div class="tind"><div class="nm"><b>Support levels</b><span class="read">Layered foundation protecting the upside</span></div>
+          <div class="trkw"><div class="trk"></div><span class="tdot bull" style="left:72.2%"></span></div>
+          <div class="sc"><b>7.5</b><span class="bw bull">Bullish</span></div></div>
+        <div class="tind"><div class="nm"><b>Resistance</b><span class="read">Dense ceiling overhead that will test conviction</span></div>
+          <div class="trkw"><div class="trk"></div><span class="tdot bear" style="left:22.2%"></span></div>
+          <div class="sc"><b>3</b><span class="bw bear">Bearish</span></div></div>
+        <div class="tind"><div class="nm"><b>Trendline</b><span class="read">Price above the descending line, maintaining structure</span></div>
+          <div class="trkw"><div class="trk"></div><span class="tdot bull" style="left:61.1%"></span></div>
+          <div class="sc"><b>6.5</b><span class="bw bull">Bullish</span></div></div>
+        <div class="tind"><div class="nm"><b>MACD</b><span class="read">Histogram rising with line still below signal</span></div>
+          <div class="trkw"><div class="trk"></div><span class="tdot bull" style="left:66.7%"></span></div>
+          <div class="sc"><b>7</b><span class="bw bull">Bullish</span></div></div>
+        <div class="tind"><div class="nm"><b>On-balance volume</b><span class="read">Accumulation confirms the rally</span></div>
+          <div class="trkw"><div class="trk"></div><span class="tdot bull" style="left:66.7%"></span></div>
+          <div class="sc"><b>7</b><span class="bw bull">Bullish</span></div></div>
+        <div class="tind"><div class="nm"><b>Chart patterns</b><span class="read">No clear pattern yet, but structure is forming</span></div>
+          <div class="trkw"><div class="trk"></div><span class="tdot neut" style="left:44.4%"></span></div>
+          <div class="sc"><b>5</b><span class="bw neut">Neutral</span></div></div>
+        <div class="taxis"><span class="pad-l"></span><span>1</span><span style="flex:1;text-align:center">5</span><span>10</span><span class="pad-r"></span></div>
+      </div>
+
+      <div class="ladder">
+        <div class="lad sup"><span class="lb">SUPPORT</span>
+          <ul><li>$58.22</li><li>$56.43</li><li>$55.51</li><li>$53.77</li></ul></div>
+        <div class="lad res"><span class="lb">RESISTANCE</span>
+          <ul><li>$60.48</li><li>$63.05</li><li>$65.42</li><li>$67.81</li></ul></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ BLOCK 4 · MARKET RANK — 003-rank_v3, LOCKED. Internals verbatim:
+       rulers, tick positions, gauge geometry, BTC flags, band legend, greeked
+       board date, disclosure paragraph. Chrome (eyebrow, card backgrounds,
+       radii, padding) and band colours/type mapped to house tokens — every
+       mapping is listed in the build report, none is a redesign. -->
+  <section class="abr">
+    <div class="sec-eyeb"><span class="n">3</span><span class="eyebrow">THE PACK &#8212; ALL 39 COINS WE SCORE</span></div>
+
+    <div class="thesis">
+      <div class="h">The market likes this coin more than its fundamentals do.</div>
+      <div class="s">Top-5 on the charts. Bottom-8 on both fundamental axes.</div>
+    </div>
+
+    <div class="rulecard">
+
+      <div class="row" style="border-top:0">
+        <div style="text-align:center">
+          <div class="tntlbl">TNT SCORE</div>
+          <svg viewBox="0 0 200 112" width="102" role="img" aria-label="TNT gauge at 5.6, bullish" style="margin-top:3px">
+            <path d="M 20 100 A 80 80 0 0 1 70 25.8" stroke="var(--red)" stroke-width="17" fill="none" stroke-linecap="round"/>
+            <path d="M 70 25.8 A 80 80 0 0 1 102.8 20" stroke="var(--zero)" stroke-width="17" fill="none"/>
+            <path d="M 102.8 20 A 80 80 0 0 1 180 100" stroke="var(--green)" stroke-width="17" fill="none" stroke-linecap="round"/>
+            <circle cx="102.8" cy="20" r="10.5" fill="var(--card)"/>
+            <circle cx="102.8" cy="20" r="6.5" fill="var(--ink)"/>
+          </svg>
+          <div class="gnum" style="color:var(--green)">5.6</div>
+          <div class="gband" style="color:var(--green)">BULLISH</div>
+        </div>
+        <div style="padding-top:20px">
+          <div class="strip" style="background:linear-gradient(90deg,var(--red-soft) 0 22.8%,var(--zero-soft) 22.8% 68.8%,var(--green-soft) 68.8% 100%)">
+            <i class="tk" style="left:96%"></i><i class="tk" style="left:96%"></i><i class="tk" style="left:96%"></i><i class="tk" style="left:91.8%"></i><i class="tk" style="left:87.6%"></i><i class="tk" style="left:83.5%"></i><i class="tk" style="left:79.3%"></i><i class="tk" style="left:79.3%"></i><i class="tk" style="left:75.1%"></i><i class="tk" style="left:70.9%"></i><i class="tk" style="left:62.5%"></i><i class="tk" style="left:58.4%"></i><i class="tk" style="left:54.2%"></i><i class="tk" style="left:50%"></i><i class="tk" style="left:50%"></i><i class="tk" style="left:45.8%"></i><i class="tk" style="left:45.8%"></i><i class="tk" style="left:41.6%"></i><i class="tk" style="left:41.6%"></i><i class="tk" style="left:41.6%"></i><i class="tk" style="left:41.6%"></i><i class="tk" style="left:37.5%"></i><i class="tk" style="left:37.5%"></i><i class="tk" style="left:33.3%"></i><i class="tk" style="left:33.3%"></i><i class="tk" style="left:33.3%"></i><i class="tk" style="left:29.1%"></i><i class="tk" style="left:29.1%"></i><i class="tk" style="left:29.1%"></i><i class="tk" style="left:24.9%"></i><i class="tk" style="left:24.9%"></i><i class="tk" style="left:20.7%"></i><i class="tk" style="left:20.7%"></i><i class="tk" style="left:20.7%"></i><i class="tk" style="left:20.7%"></i><i class="tk" style="left:8.2%"></i><i class="tk" style="left:4%"></i>
+            <i class="btk" style="left:29.1%"></i>
+            <div class="hc" style="left:70.9%">HYPE 5.6</div>
+            <div class="hd" style="left:70.9%;background:var(--green)"></div>
+          </div>
+          <div class="ends"><span>STABLE 4.0</span><span class="btl" style="left:29.1%">BTC</span><span>6.2 &#183; 3 coins</span></div>
+          <div class="ph"><span class="aread">Front of the pack</span><span class="rk">10th of 39 &#183; 2 coins share this score</span></div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div>
+          <div class="eyeb">TOKEN</div>
+          <div style="display:flex;align-items:center;gap:8px;margin-top:3px;flex-wrap:wrap"><span style="font-family:var(--mono);font-size:23px;font-weight:700">4.6</span><span class="chip b-neut">NEUTRAL</span></div>
+        </div>
+        <div style="padding-top:20px">
+          <div class="strip" style="background:linear-gradient(90deg,var(--red-soft) 0 33.8%,var(--zero-soft) 33.8% 93.3%,var(--green-soft) 93.3% 100%)">
+            <i class="tk" style="left:90.6%"></i><i class="tk" style="left:68.9%"></i><i class="tk" style="left:63.5%"></i><i class="tk" style="left:96%"></i><i class="tk" style="left:85.2%"></i><i class="tk" style="left:85.2%"></i><i class="tk" style="left:74.4%"></i><i class="tk" style="left:52.7%"></i><i class="tk" style="left:47.3%"></i><i class="tk" style="left:74.4%"></i><i class="tk" style="left:63.5%"></i><i class="tk" style="left:31.1%"></i><i class="tk" style="left:63.5%"></i><i class="tk" style="left:85.2%"></i><i class="tk" style="left:52.7%"></i><i class="tk" style="left:63.5%"></i><i class="tk" style="left:36.5%"></i><i class="tk" style="left:90.6%"></i><i class="tk" style="left:85.2%"></i><i class="tk" style="left:68.9%"></i><i class="tk" style="left:63.5%"></i><i class="tk" style="left:47.3%"></i><i class="tk" style="left:47.3%"></i><i class="tk" style="left:85.2%"></i><i class="tk" style="left:52.7%"></i><i class="tk" style="left:52.7%"></i><i class="tk" style="left:58.1%"></i><i class="tk" style="left:52.7%"></i><i class="tk" style="left:47.3%"></i><i class="tk" style="left:68.9%"></i><i class="tk" style="left:58.1%"></i><i class="tk" style="left:74.4%"></i><i class="tk" style="left:68.9%"></i><i class="tk" style="left:41.9%"></i><i class="tk" style="left:41.9%"></i><i class="tk" style="left:31.1%"></i><i class="tk" style="left:4%"></i>
+            <i class="btk" style="left:20.2%"></i>
+            <div class="hc" style="left:41.9%">HYPE 4.6</div>
+            <div class="hd" style="left:41.9%;background:var(--zero)"></div>
+          </div>
+          <div class="ends"><span>STABLE 3.9</span><span class="btl" style="left:20.2%">BTC</span><span>ZEC 5.6</span></div>
+          <div class="ph"><span class="aread">Back of the pack</span><span class="rk">32nd of 39 &#183; 3 coins share this score</span></div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div>
+          <div class="eyeb">NETWORK</div>
+          <div style="display:flex;align-items:center;gap:8px;margin-top:3px;flex-wrap:wrap"><span style="font-family:var(--mono);font-size:23px;font-weight:700">5.3</span><span class="chip b-neut">NEUTRAL</span></div>
+        </div>
+        <div style="padding-top:20px">
+          <div class="strip" style="background:linear-gradient(90deg,var(--zero-soft) 0 35.4%,var(--green-soft) 35.4% 100%)">
+            <i class="tk" style="left:58.4%"></i><i class="tk" style="left:96%"></i><i class="tk" style="left:41.6%"></i><i class="tk" style="left:41.6%"></i><i class="tk" style="left:45.8%"></i><i class="tk" style="left:24.9%"></i><i class="tk" style="left:29.1%"></i><i class="tk" style="left:33.3%"></i><i class="tk" style="left:41.6%"></i><i class="tk" style="left:33.3%"></i><i class="tk" style="left:54.2%"></i><i class="tk" style="left:37.5%"></i><i class="tk" style="left:54.2%"></i><i class="tk" style="left:58.4%"></i><i class="tk" style="left:29.1%"></i><i class="tk" style="left:41.6%"></i><i class="tk" style="left:45.8%"></i><i class="tk" style="left:45.8%"></i><i class="tk" style="left:45.8%"></i><i class="tk" style="left:33.3%"></i><i class="tk" style="left:45.8%"></i><i class="tk" style="left:24.9%"></i><i class="tk" style="left:54.2%"></i><i class="tk" style="left:45.8%"></i><i class="tk" style="left:33.3%"></i><i class="tk" style="left:37.5%"></i><i class="tk" style="left:58.4%"></i><i class="tk" style="left:24.9%"></i><i class="tk" style="left:37.5%"></i><i class="tk" style="left:33.3%"></i><i class="tk" style="left:29.1%"></i><i class="tk" style="left:37.5%"></i><i class="tk" style="left:45.8%"></i><i class="tk" style="left:58.4%"></i><i class="tk" style="left:37.5%"></i><i class="tk" style="left:29.1%"></i><i class="tk" style="left:33.3%"></i>
+            <i class="btk" style="left:4%"></i>
+            <div class="hc" style="left:24.9%">HYPE 5.3</div>
+            <div class="hd" style="left:24.9%;background:var(--zero)"></div>
+          </div>
+          <div class="ends"><span>BTC 4.8</span><span>LINK 7.0</span></div>
+          <div class="ph"><span class="aread">Back of the pack</span><span class="rk">35th of 39 &#183; 4 coins share this score</span></div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div>
+          <div class="eyeb">TECHNICALS</div>
+          <div style="display:flex;align-items:center;gap:8px;margin-top:3px;flex-wrap:wrap"><span style="font-family:var(--mono);font-size:23px;font-weight:700">6.6</span><span class="chip b-bull">BULLISH</span></div>
+        </div>
+        <div style="padding-top:20px">
+          <div class="strip" style="background:linear-gradient(90deg,var(--red-soft) 0 24.6%,var(--zero-soft) 24.6% 51.2%,var(--green-soft) 51.2% 100%)">
+            <i class="tk" style="left:83.9%"></i><i class="tk" style="left:91.2%"></i><i class="tk" style="left:96%"></i><i class="tk" style="left:74.2%"></i><i class="tk" style="left:76.6%"></i><i class="tk" style="left:74.2%"></i><i class="tk" style="left:69.4%"></i><i class="tk" style="left:81.5%"></i><i class="tk" style="left:74.2%"></i><i class="tk" style="left:59.7%"></i><i class="tk" style="left:52.4%"></i><i class="tk" style="left:64.5%"></i><i class="tk" style="left:42.7%"></i><i class="tk" style="left:30.6%"></i><i class="tk" style="left:47.6%"></i><i class="tk" style="left:37.9%"></i><i class="tk" style="left:47.6%"></i><i class="tk" style="left:18.5%"></i><i class="tk" style="left:20.9%"></i><i class="tk" style="left:30.6%"></i><i class="tk" style="left:33.1%"></i><i class="tk" style="left:33.1%"></i><i class="tk" style="left:30.6%"></i><i class="tk" style="left:11.3%"></i><i class="tk" style="left:28.2%"></i><i class="tk" style="left:28.2%"></i><i class="tk" style="left:16.1%"></i><i class="tk" style="left:23.4%"></i><i class="tk" style="left:23.4%"></i><i class="tk" style="left:11.3%"></i><i class="tk" style="left:13.7%"></i><i class="tk" style="left:4%"></i><i class="tk" style="left:6.4%"></i><i class="tk" style="left:16.1%"></i><i class="tk" style="left:18.5%"></i><i class="tk" style="left:4%"></i><i class="tk" style="left:11.3%"></i>
+            <i class="btk" style="left:37.9%"></i>
+            <div class="hc" style="left:76.6%">HYPE 6.6</div>
+            <div class="hd" style="left:76.6%;background:var(--green)"></div>
+          </div>
+          <div class="ends"><span>3.6 &#183; 2 coins</span><span class="btl" style="left:37.9%">BTC</span><span>PUMP 7.4</span></div>
+          <div class="ph"><span class="aread">Top five on the board</span><span class="rk">5th of 39 &#183; 2 coins share this score</span></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="disc">Each ruler spans the board&#8217;s actual range, not 1&#8211;10 &#8212; on a 1&#8211;10 ruler, all 39 coins clump in the middle. Every mark is one coin; BTC is flagged for scale.</div>
+    <div class="legend">
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <span class="chip b-bear">BEARISH 1.0&#8211;4.4</span><span class="chip b-neut">NEUTRAL 4.5&#8211;5.5</span><span class="chip b-bull">BULLISH 5.6&#8211;10.0</span>
+      </div>
+      <span class="greek">Board scored &#8249;date&#8250;</span>
+    </div>
+  </section>
+
+  <!-- ═══ BLOCK 5 · READ — seat 004 card structure, TWO COLUMNS (§5.1).
+       Coin-count tile DELETED (D-21); coin logo chips under the title (D-52),
+       capped 3 + "+N" (D-54) — chip rows exactly as computed in the data pack,
+       order as supplied, never re-sorted. Titles verbatim, plain text, no
+       links, no authors/dates/read-times. Thumbnails accommodated, never
+       invented (D-22) — the frame renders visibly greeked. -->
+  <section>
+    <div class="sec-eyeb"><span class="n">4</span><span class="eyebrow">READ</span></div>
+    <div class="artgrid">
+
+      <div class="art">
+        <div class="thumb">&#8249;thumbnail pending&#8250;</div>
+        <div style="min-width:0">
+          <div class="ttl">HIP-3 Made Hyperliquid Bigger. Did It Make HYPE Stronger?</div>
+          <div class="chips2">
+            <span class="coinchip"><span class="tlogo"><img src="assets/token_logos/HYPE.svg" alt=""></span><span class="tk2">HYPE</span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="art">
+        <div class="thumb">&#8249;thumbnail pending&#8250;</div>
+        <div style="min-width:0">
+          <div class="ttl">What HYPE Holders Actually Own: Validator Authority and the Unlock Calendar</div>
+          <div class="chips2">
+            <span class="coinchip"><span class="tlogo"><img src="assets/token_logos/HYPE.svg" alt=""></span><span class="tk2">HYPE</span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="art">
+        <div class="thumb">&#8249;thumbnail pending&#8250;</div>
+        <div style="min-width:0">
+          <div class="ttl">Every Big Buyback Engine, Side by Side. Why the Token Scores Split.</div>
+          <div class="chips2">
+            <span class="coinchip"><span class="tlogo"><img src="assets/token_logos/HYPE.svg" alt=""></span><span class="tk2">HYPE</span></span>
+            <span class="coinchip"><span class="tlogo"><img src="assets/token_logos/PUMP.svg" alt=""></span><span class="tk2">PUMP</span></span>
+            <span class="coinchip"><span class="tlogo"><img src="assets/token_logos/XRP.svg" alt=""></span><span class="tk2">XRP</span></span>
+            <span class="coinchip more"><span class="tk2">+3</span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="art">
+        <div class="thumb">&#8249;thumbnail pending&#8250;</div>
+        <div style="min-width:0">
+          <div class="ttl">Five Coins Carrying a Cliff</div>
+          <div class="chips2">
+            <span class="coinchip"><span class="tlogo"><img src="assets/token_logos/ZEC.svg" alt=""></span><span class="tk2">ZEC</span></span>
+            <span class="coinchip"><span class="tlogo"><img src="assets/token_logos/LIT.svg" alt=""></span><span class="tk2">LIT</span></span>
+            <span class="coinchip"><span class="tlogo"><img src="assets/token_logos/BTC.svg" alt=""></span><span class="tk2">BTC</span></span>
+            <span class="coinchip more"><span class="tk2">+2</span></span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══ BLOCK 6 · LISTEN — seat 002 structure, house tokens. Audio link and
+       publish date exist in no source: rendered GREEKED, visibly. Tier fields
+       are REAL in the pack but not rendered — paid view, no gate (§4.6). -->
+  <section>
+    <div class="sec-eyeb"><span class="n">5</span><span class="eyebrow">LISTEN</span></div>
+    <div class="augrid">
+
+      <div class="au">
+        <span class="play"><svg width="13" height="14" viewBox="0 0 13 14" aria-hidden="true"><path d="M2 1.5 L11.5 7 L2 12.5 Z" fill="var(--goldtx)"/></svg></span>
+        <div style="min-width:0">
+          <div class="ttl">The Weekly Scoreboard</div>
+          <div class="meta2">Market-wide &#183; Week of 10 Aug &#183; 11:40 &#183; two voices</div>
+          <div class="gk"><span class="greek">&#8249;audio link pending&#8250;</span><span class="greek">&#8249;date pending&#8250;</span></div>
+        </div>
+      </div>
+
+      <div class="au">
+        <span class="play"><svg width="13" height="14" viewBox="0 0 13 14" aria-hidden="true"><path d="M2 1.5 L11.5 7 L2 12.5 Z" fill="var(--goldtx)"/></svg></span>
+        <div style="min-width:0">
+          <div class="ttl">Scorecard Minute</div>
+          <div class="meta2">This coin &#183; 2:10</div>
+          <div class="gk"><span class="greek">&#8249;audio link pending&#8250;</span><span class="greek">&#8249;date pending&#8250;</span></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══ BLOCK 7 · COIN DESCRIPTION — the written slot (§2.7). Page foot,
+       below Read and Listen. The field exists in no source: GREEKED. -->
+  <section>
+    <div class="sec-eyeb"><span class="n">6</span><span class="eyebrow">ABOUT THIS COIN</span></div>
+    <div class="descslot">
+      <span class="greek">&#8249;description pending&#8250;</span>
+    </div>
+  </section>
+
+</main>
+
+<!-- SHELL · footer copied from index.html. #footStatement is filled by
+     alpha.js on the homepage; alpha.js is not loaded here, so it stays empty. -->
+<footer class="footer">
+  <div class="wrap footer-in">
+    <div>
+      <div class="brand"><span class="word">Altcoin Buzz <b>TNT Score</b></span></div>
+      <p class="one foot-statement" id="footStatement"></p>
+    </div>
+    <div class="footer-links">
+      <a href="index.html#/coins">Coins</a>
+      <a href="index.html#/watchlist">Watchlist</a>
+      <a href="index.html#/research">Research</a>
+      <a class="score-link" href="index.html#/hws">How We Score</a>
+      <a href="index.html#/market">Market</a>
+      <a href="index.html#/pricing">Pricing</a>
+      <a href="#">Account</a>
+      <a href="#">Privacy</a>
+    </div>
+  </div>
+  <div class="wrap"><p class="disc">Version Alpha mockup, 2026-08-21. Stitch build, seat B — internal showcase.
+    Scores and catalyst rows are literals from the compiled data pack; greeked values render as placeholders.
+    Nothing here is financial advice.</p></div>
+</footer>
+
+<!-- ═══ BLOCK 8 · ASK BUZZ BAR — lifted from index.html; pills swapped to the
+     coin-specific set from alpha-config.js BUZZ.chips (scope: token).
+     Static here — alpha.js is not loaded, so the bar is a visual component. -->
+<div class="buzzbar">
+  <div class="wrap buzzbar-in">
+    <span class="bz-hint"></span>
+    <div class="bz-chips">
+      <button type="button" class="bzchip">Strongest argument against HYPE?</button>
+      <button type="button" class="bzchip">Which catalyst moved the token score?</button>
+    </div>
+    <button class="bz-open" type="button">Ask Buzz</button>
+  </div>
+</div>
+
+<script>
+/* Catalyst accordion — expand in place, ONE open at a time, all collapsed by
+   default (D-1/D-2/D-3/D-4). The only script on the page. */
+(function () {
+  var board = document.getElementById('catboard');
+  if (!board) return;
+  var cats = board.querySelectorAll('.cat');
+  Array.prototype.forEach.call(cats, function (cat) {
+    var btn = cat.querySelector('.cat-c');
+    btn.addEventListener('click', function () {
+      var isOpen = cat.classList.contains('open');
+      Array.prototype.forEach.call(cats, function (c) {
+        c.classList.remove('open');
+        c.querySelector('.cat-c').setAttribute('aria-expanded', 'false');
+      });
+      if (!isOpen) {
+        cat.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+})();
+</script>
+
+</body>
+</html>

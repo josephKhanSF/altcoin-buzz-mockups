@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<!-- ⛔ BRAND: the current string is `Altcoin Buzz TNT Score`. The pre-06-18
+     brand appears SEVEN times in v3, including its <title>, a visible .crumb
+     eyebrow and base.css itself. It is not carried anywhere in this folder —
+     a grep for it here returns zero. -->
+<title>Altcoin Buzz TNT Score · every coin, ranked</title>
+<meta name="description" content="Built to answer one question: is the news really going to move the token? Every major coin, scored on Token, Network and Technicals.">
+<link rel="stylesheet" href="alpha.css">
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     TIER SWITCHER — RUNTIME TOGGLE, NOT THREE FILES.
+     Styled as a DEMO CONTROL, not product chrome. The operator flips it live.
+     ══════════════════════════════════════════════════════════════════════ -->
+<div class="tierbar">
+  <div class="wrap tierbar-in">
+    <span class="tb-lbl">DEMO CONTROL · <b>VIEWING AS</b></span>
+    <div class="tswitch" id="tierSwitch" role="group" aria-label="Tier">
+      <button type="button" data-tier="unregistered" aria-pressed="true">Unregistered</button>
+      <button type="button" data-tier="registered"   aria-pressed="false">Registered</button>
+      <button type="button" data-tier="paid"         aria-pressed="false">Paid</button>
+    </div>
+    <span class="tb-note" id="tierNote"></span>
+  </div>
+</div>
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <a class="brand" href="index.html"><span class="word">Altcoin Buzz <b>TNT Score</b></span></a>
+    <nav class="nav-links" id="navLinks" aria-label="Primary"></nav>
+    <div class="nav-right">
+      <button class="icon-btn" aria-label="Search" title="Search tokens and catalysts">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      </button>
+      <button class="icon-btn notif-dot" aria-label="Notifications" title="A score moved, and which catalyst drove it">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 16v-5a6 6 0 10-12 0v5l-2 2h16z"/><path d="M10 21h4"/></svg>
+      </button>
+      <span class="acct"><span class="av mono" id="acctAv">?</span><span id="acctLbl">Sign in</span></span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     VIEW · TOKENS (the board). Every nav destination is a view on this page,
+     so nothing in the nav 404s in the meeting room.
+     ════════════════════════════════════════════════════════════════════════ -->
+<div class="view" id="view-coins">
+
+  <!-- ⛔⛔ ROUND 4 · THE SEPARATE HERO BLOCK IS GONE. Third ruling in one day:
+       kill → keep compressed → now strip the framing.
+       DELETED: the `BUILT TO ANSWER ONE QUESTION` eyebrow, the campaign styling
+       and the gloss row (the column tooltips now say what each number IS).
+       KEPT, and MERGED into the `Every coin, ranked` band below as ONE band:
+       the question itself, as a plain statement of what the score does. It is
+       not decoration — it is the only sentence on the page that says why three
+       numbers exist, and the tooltips do not explain what the product is FOR. -->
+
+  <!-- ══════════════════════════════════════════════════════════════════
+       ⭐ ROUND 6 · THE PAGE TITLE, AT THE TOP, ABOVE THE STRIP.
+       New order: TITLE → highlights → filter chips → per-chip descriptive text.
+       ⛔⛔ ONE LINE, TWO WEIGHTS, NO EYEBROW — and that is a decision, not a
+          shortcut. VERTICAL SPACE IS THE CONSTRAINT THIS WHOLE ROUND IS ABOUT:
+          deleting a card and moving five descriptions into tooltips buys height,
+          and a stacked eyebrow-plus-two-line title would hand it straight back.
+          An eyebrow would also repeat the brand lockup sitting 60px above it.
+       ⛔ It REPLACES the old `Every coin, ranked` band rather than adding to it —
+          two headings for one table is the clutter the operator was worried
+          about, and the new order names only one. Net height change: ~0.
+       ⛔ Plain English. It explains; it does not sell. -->
+  <div class="pagetitle">
+    <h1 class="pt-h"><b>Top Coins, Scored.</b>
+      <span class="pt-q">Is the news really going to move the coin?</span></h1>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════════════
+       THE HIGHLIGHT STRIP — ⛔ ROUND 6 · FOUR CARDS, NOT FIVE, AND NO
+       DESCRIPTION ON ANY FACE: hovering or focusing a card shows it.
+       ⛔ THE GAUGE IS ON `PUMP` AND NOWHERE ELSE.
+       ⛔ No arrow, lean or side-implying colour in the decoupling form.
+       ══════════════════════════════════════════════════════════════════ -->
+  <section aria-label="Highlights">
+    <div class="highlights" id="highlights"></div>
+  </section>
+
+  <!-- ⛔ THE FLAGGED / DIVERGENCE BLOCK WAS DELETED HERE.
+       It duplicated what the highlight cards carry and pushed the table too far
+       down. Its three MEASURED stats survive in the band above the table, and
+       the `exception` variable in alpha.js survives with them — the JST gold
+       card, the is-exception row tint and the jump button all still resolve. -->
+
+  <!-- ══════════════════════════════════════════════════════════════════
+       THE BOARD — the lead magnet's MODULE 1 skeleton, density added back.
+       ⛔ TEXTURE AND CONTRAST, NOT MORE COLUMNS. A column we cannot fill is
+          padding, and a room reads padding instantly.
+       ══════════════════════════════════════════════════════════════════ -->
+  <section class="section" id="coins">
+    <!-- ⛔ ROUND 4 · ONE BAND, NOT TWO. What survived the hero is merged here:
+         a plain statement of what the score does, in ordinary words. No
+         eyebrow, no slogan, no campaign styling. The homepage explains; it
+         does not sell. -->
+    <!-- ⭐ ROUND 6 · THE `Every coin, ranked` HEADING IS DELETED. The page title
+         moved to the top of the page and says the same thing better, and the
+         new order is TITLE → highlights → CHIPS → descriptive text, with no
+         second heading in it. ⛔ The per-chip descriptive text below the chips
+         SURVIVES — this item moved the title, it did not delete the lede. -->
+
+    <!-- ⛔⛔ ROUND 4 · ONE CONTROL BAR, DIRECTLY ABOVE THE TABLE, AND IT IS THE
+         STICKY CONTAINER. ⛔ ROUND 5 · IT CARRIES THE FILTER CHIPS ONLY: the
+         dates and PRICES LIVE moved BELOW THE TABLE (still always visible, no
+         hover), and the calibration split was deleted outright.
+         ⛔ The chips STAY here — they are the control the pinned header row
+            hangs off, and moving them would unpin the header. -->
+    <div class="board-ctl">
+      <div class="filters" id="filters" role="group" aria-label="Filter the board">
+        <button class="filter" data-f="all"       aria-pressed="true">All</button>
+        <button class="filter" data-f="bullish"   aria-pressed="false">Bullish</button>
+        <button class="filter" data-f="neutral"   aria-pressed="false">Neutral</button>
+        <button class="filter" data-f="bearish"   aria-pressed="false">Bearish</button>
+        <!-- load-bearing since the FLAGGED strip went: it is the only surface
+             the 2nd and 3rd widest gaps have left. It states its THRESHOLD on
+             the control, or a room reads DECOUPLED as a verdict, not a cutoff. -->
+        <button class="filter thesis" data-f="decoupled" aria-pressed="false">Decoupled
+          <span class="thr">gap 1.0+</span></button>
+        <span class="one" id="filterCount"></span>
+      </div>
+    </div>
+    <!-- ⭐ THE DESCRIPTIVE TEXT, ONE STRING PER CHIP, written for a reader whose
+         first language is not English. ⛔ It explains; it does not sell. -->
+    <p class="board-lede" id="bandLede"></p>
+    <p class="one filter-note" id="filterNote" hidden></p>
+
+    <div class="board">
+      <div class="board-scroll">
+      <table class="tok">
+        <!-- ⛔ THE `TECH` COLUMN IS REMOVED — it re-printed the TECHNICALS score
+             already in the breakdown band. ⛔ Nothing replaces it: there is no
+             price series anywhere for the specced price mini-chart, and a
+             score-over-time chart is separately ruled undrawable until the
+             series starts.
+             ✅ ASSET is narrowed here (B4a). -->
+        <!-- ⛔ ROUND 3 · THE STANDALONE `CATALYSTS` COLUMN IS REMOVED. It was
+             redundant beside CATALYST MIX, which is built from the same rows.
+             ⛔⛔ The COUNT itself did NOT leave the page: it is printed beside
+                the mix bar on every row, at every tier. It is a Proof-Rule item
+                and a tooltip is hover-only, so a tooltip could not carry it.
+             ✅ The count sort survives: the CATALYST MIX header sorts on it. -->
+        <!-- ⭐ ROUND 4 · the STAR is the leftmost column, before `#`, with no
+             header text, as CMC does it. -->
+        <colgroup>
+          <col class="c-star"><col class="c-rk"><col class="c-as"><col class="c-pr"><col class="c-tnt">
+          <!-- ⭐ ROUND 8 · THE THREE SCORE COLUMNS NO LONGER SHARE A WIDTH.
+               `TOKEN` is 5 characters, `NETWORK` 7 and `TECHNICALS` 10, so one
+               shared class meant the shortest header set the width the longest
+               had to live with. Each now has its own class; the three still
+               total 300px, so the table's column sum is unchanged at 1088. -->
+          <col class="c-tok"><col class="c-net"><col class="c-tec">
+          <col class="c-dec"><col class="c-mix">
+        </colgroup>
+        <!-- ✅ NUMERIC headers right-aligned, as CMC does it. `#` and `ASSET`
+             stay left. ⭐ PART D · every column carries a tooltip on a real
+             <button>, so it is tab-focusable and tappable, not hover-only. -->
+        <thead>
+          <tr>
+            <th class="ctr" rowspan="2" aria-label="Watchlist"></th>
+            <!-- ⛔ ROUND 8 · THE `i` IS DELETED FROM THIS HEADER AND FROM `PRICE`.
+                 ⚠⚠ THAT DELETES TWO EXPLANATIONS, NOT TWO ICONS. This one is
+                    where the old below-table footnote was relocated, and it
+                    guards a specific misread: that the rank is PINNED ONCE and
+                    does NOT renumber on re-sort, and that it is NOT a
+                    market-cap rank. The rank VALUE still prints on every row,
+                    so no measurable datum is lost — but the guard would have
+                    gone with the icon.
+                 ✅ SO BOTH SENTENCES ARE PRESERVED VERBATIM AS A NATIVE `title=`
+                    ON THE `<th>`: no icon, no layout cost, nothing for the
+                    tooltip CSS to fight (a native title is browser chrome, not
+                    a `.tipbox`), and this header is not sortable so there is no
+                    click handler to interfere with.
+                 ⚠ A native title IS hover-only — it is weaker than the `.tip`
+                   it replaces, which opened on focus and on tap. That is a
+                   deliberate downgrade in reach, taken because the alternative
+                   was losing the sentences entirely. -->
+            <th class="lft" rowspan="2" title="The rank by TNT score, pinned once from the full board. It does not renumber when you re-sort, and it is not a market-cap rank: we hold no market-cap figure.">#</th>
+            <th class="lft srt" rowspan="2" data-sort="asset" tabindex="0" role="button">Asset<span class="cx" aria-hidden="true"><i class="up"></i><i class="dn"></i></span></th>
+            <th rowspan="2" title="Live price and 24-hour move, fetched from the price feed when the page loads and re-checked every ten minutes. It shows a dash until the feed answers.">Price</th>
+            <!-- ⛔ ROUND 8 · `ctr` DROPPED — TNT right-aligns with every other
+                 numeric column. ⚠ AND `td.tntc` GOES WITH IT: a right-aligned
+                 header over a centred pill is a worse misalignment than the
+                 centring it was meant to fix. Header and cell move together or
+                 not at all. -->
+            <th class="tnt-col srt" rowspan="2" data-sort="tnt" tabindex="0" role="button" aria-sort="descending">TNT<span class="cx" aria-hidden="true"><i class="up"></i><i class="dn"></i></span><button type="button" class="tip" aria-expanded="false" aria-label="What the TNT column is"><span class="tipbox" role="tooltip">The overall score, 1 to 10, built from the three scores beside it. It is the only figure on the site ever drawn as a dial. The colour is its band: <b>bullish 5.6 to 10, neutral 4.5 to 5.5, bearish 1.0 to 4.4</b>.</span></button></th>
+            <th class="bd-grp" colspan="3">Score breakdown</th>
+            <th class="srt" rowspan="2" data-sort="dec" tabindex="0" role="button">Decoupling<span class="cx" aria-hidden="true"><i class="up"></i><i class="dn"></i></span><button type="button" class="tip" aria-expanded="false" aria-label="What the Decoupling column is"><span class="tipbox" role="tooltip">The distance between the network and token scores, shown as magnitude only: it never says which one is larger. The rule is read against a fixed 0 to 2.0 scale, with ticks at 0.5, 1.0 and 1.5.</span></button></th>
+            <th class="srt" rowspan="2" data-sort="cat" tabindex="0" role="button">Catalyst mix<span class="cx" aria-hidden="true"><i class="up"></i><i class="dn"></i></span><button type="button" class="tip" aria-expanded="false" aria-label="What the Catalyst mix column is"><span class="tipbox" role="tooltip">One block for each catalyst, coloured by that catalyst's own token score: bullish, neutral or bearish. The Token column is their average. The number beside the blocks is how many catalysts there are, and it is what this column sorts on.</span></button></th>
+          </tr>
+          <tr class="sub">
+            <th class="comp srt" data-sort="tok" tabindex="0" role="button">Token<span class="cx" aria-hidden="true"><i class="up"></i><i class="dn"></i></span><button type="button" class="tip" aria-expanded="false" aria-label="What the Token score is"><span class="tipbox" role="tooltip">Does the catalyst reach the coin you can actually buy? It is the average of the token-impact scores across that board's catalyst rows.</span></button></th>
+            <th class="comp srt" data-sort="net" tabindex="0" role="button">Network<span class="cx" aria-hidden="true"><i class="up"></i><i class="dn"></i></span><button type="button" class="tip" aria-expanded="false" aria-label="What the Network score is"><span class="tipbox" role="tooltip">Does the catalyst help the tech? It is the average of the network-impact scores across that board's catalyst rows.</span></button></th>
+            <th class="comp srt" data-sort="tec" tabindex="0" role="button">Technicals<span class="cx" aria-hidden="true"><i class="up"></i><i class="dn"></i></span><button type="button" class="tip" aria-expanded="false" aria-label="What the Technicals score is"><span class="tipbox" role="tooltip">Ten chart indicators, averaged. Read on the daily candle and valid for one week; its as-of date is stamped under the table, separately from the fundamentals date.</span></button></th>
+          </tr>
+        </thead>
+        <tbody id="boardBody"></tbody>
+      </table>
+      </div>
+    </div>
+    <!-- ══════════════════════════════════════════════════════════════════
+         PROVENANCE — a Proof Rule item, free at every tier.
+         ⛔ ROUND 5 · IT SITS BELOW THE TABLE. Position was the operator's call.
+         ⛔⛔ IT STILL RENDERS WITHOUT HOVER, AND THAT IS NOT NEGOTIABLE. It may
+            not become a tooltip, an accordion or a "show details" toggle:
+            scores shown with no statement of how fresh they are is a live
+            defect, and moving it down the page is not a licence to hide it.
+         ⛔ TWO DATE RANGES, RENDERED SEPARATELY. Never one blended "updated".
+         ⛔ THE CALIBRATION SPLIT IS DELETED, NOT RELOCATED. `v2.1 on 35 · v2.2
+            on 4` and its tooltip are internal, mean nothing to an outsider, and
+            are temporary — by beta every coin is on the current method.
+         ✅ PRICES LIVE moved down with the dates. -->
+    <div class="board-prov">
+      <div class="board-fresh" id="boardAsof"></div>
+      <span class="bn-live" id="pricesLive">Prices live</span>
+    </div>
+    <!-- ⛔⛔ ROUND 4 · THE STRIP BELOW THE TABLE IS DELETED. It constrained the
+         layout, and NOTHING NAMED IN IT WAS LOST:
+           · the `#` footnote  → deleted as a sentence; it is the `#` tooltip.
+           · the as-of dates   → ROUND 5: the `.board-prov` line directly above
+                                 this comment. ALWAYS VISIBLE, plain words,
+                                 never a tooltip.
+           · the calibration   → ROUND 5: DELETED FROM THE PAGE ENTIRELY, and
+                                 from PROVENANCE in the config with it.
+           · the band legend   → the `TNT` column tooltip, and How We Score.
+                                 Legitimately a tooltip: a DEFINITION, not a
+                                 datum. It must exist somewhere, and it does.
+           · Jump to the one exception → ROUND 5: `THE ONE EXCEPTION` highlight
+                                 card, which is the thing it points at.
+                                 `exception` and the is-exception row class both
+                                 survive, and it still resolves to `row-JST`.
+           · PRICES LIVE       → ROUND 5: `.board-prov`, with the dates. -->
+  </section>
+
+  <!-- ⛔ THE WATCHLIST NO LONGER SITS AT THE BOTTOM OF THIS PAGE.
+       It is a hover panel off the top nav plus its own dedicated view below. -->
+
+</div><!-- /view-coins -->
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     VIEW · WATCHLIST — the CMC pattern's second half. The hover panel is
+     transient; this is the view it opens into.
+     ⚠⚠ THE REGISTER PROMPT RENDERS IN BOTH, ON PURPOSE. A conversion prompt
+        that vanishes on mouse-out converts nobody.
+     ════════════════════════════════════════════════════════════════════════ -->
+<div class="view" id="view-watchlist" hidden>
+  <div class="viewhead">
+    <h2 class="page-h1">Watchlist</h2>
+    <p class="one">My Watchlist needs an account. The suggested watchlist shows one board
+      unregistered, three registered, and all of them paid.</p>
+    <a class="backlink" href="index.html#/coins" data-goto="coins">‹ Back to the board</a>
+  </div>
+  <div class="wl-grid">
+    <div class="card">
+      <div class="microlabel">My watchlist</div>
+      <div id="myWatchlist"></div>
+    </div>
+    <div class="card">
+      <div class="microlabel">Suggested watchlist</div>
+      <div class="wl-list" id="suggestedWatchlist"></div>
+      <p class="one" id="suggestedNote" style="margin-top:10px"></p>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     VIEW · RESEARCH — a STUB, and deliberately an empty one.
+     ⛔⛔ WHAT /research CONTAINS IS `E1`, WHICH IS OPEN AND THE OPERATOR'S TO
+        RULE. A stub that lists article categories has ANSWERED E1 by drawing
+        it. This one lists none.
+     ⭐ The label stays `Research`: the articles are housed there and it reads
+        better than the alternatives.
+     ════════════════════════════════════════════════════════════════════════ -->
+<div class="view" id="view-research" hidden>
+  <div class="viewhead">
+    <h2 class="page-h1">Research</h2>
+    <a class="backlink" href="index.html#/coins" data-goto="coins">‹ Back to the board</a>
+  </div>
+  <div class="card stub" id="stubResearch"></div>
+</div>
+
+<!-- VIEW · HOW WE SCORE — every gatebar on the site links here. -->
+<div class="view" id="view-hws" hidden>
+  <div class="viewhead">
+    <h2 class="page-h1">How We Score</h2>
+    <a class="backlink" href="index.html#/coins" data-goto="coins">‹ Back to the board</a>
+  </div>
+  <div class="card stub" id="stubHws"></div>
+</div>
+
+<!-- VIEW · MARKET — the weekly show. Names ruled 2026-08-17. -->
+<div class="view" id="view-market" hidden>
+  <div class="viewhead">
+    <h2 class="page-h1">Market</h2>
+    <a class="backlink" href="index.html#/coins" data-goto="coins">‹ Back to the board</a>
+  </div>
+  <div class="card stub" id="stubMarket"></div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════════════════
+     VIEW · PRICING — ➕ NEW, and a RE-RULING rather than a new idea:
+     monetisation was ruled for Beta and the operator moved it to Alpha so the
+     team can react to it.
+     ⛔⛔ ITS JOB IS TO PROVOKE THE RULINGS, NOT TO STATE THEM. The registered
+        column is marked UNRULED — E2; the analytics line is marked AI-3.
+     ⛔ MOCKUP-ONLY is marked in the config AND here in the DOM, and the
+        renderer fails loudly off a local host.
+     ⛔ No signup queue, no cap, no scarcity, no early-entry string. The 500
+        free-beta offer is withdrawn entirely and this does not revive it.
+     ════════════════════════════════════════════════════════════════════════ -->
+<div class="view" id="view-pricing" hidden>
+  <div class="viewhead">
+    <h2 class="page-h1">Pricing</h2>
+    <p class="one">Three tiers. What the middle one is FOR is the first thing this page
+      is asking the room to rule.</p>
+    <a class="backlink" href="index.html#/coins" data-goto="coins">‹ Back to the board</a>
+  </div>
+  <div id="pricingBody" data-mockup-only="true"></div>
+</div>
+
+</main>
+
+<footer class="footer">
+  <div class="wrap footer-in">
+    <div>
+      <div class="brand"><span class="word">Altcoin Buzz <b>TNT Score</b></span></div>
+      <!-- B1 shape 3 · THE FULLER STATEMENT LIVES HERE, so the hero at the top
+           can stay compact and the table arrives sooner. Filled from the
+           measured data by alpha.js — no figure in it is transcribed. -->
+      <p class="one foot-statement" id="footStatement"></p>
+    </div>
+    <div class="footer-links">
+      <a href="index.html#/coins" data-goto="coins">Coins</a>
+      <a href="index.html#/watchlist" data-goto="watchlist">Watchlist</a>
+      <a href="index.html#/research" data-goto="research">Research</a>
+      <a class="score-link" href="index.html#/hws" data-goto="hws">How We Score</a>
+      <a href="index.html#/market" data-goto="market">Market</a>
+      <a href="index.html#/pricing" data-goto="pricing">Pricing</a>
+      <a href="#">Account</a>
+      <a href="#">Privacy</a>
+    </div>
+  </div>
+  <div class="wrap"><p class="disc">Version Alpha mockup, 2026-08-17. Scores and catalyst rows are read from the live
+    scoreboard and catalyst inventory; board dates are the real ones. Nothing here is financial advice.
+    The pricing view is an INTERNAL MOCKUP and is not an offer.</p></div>
+</footer>
+
+<!-- ══════════════════════════════════════════════════════════════════════
+     ASK BUZZ — persistent, bottom-anchored, on EVERY page. Opens the drawer.
+     ══════════════════════════════════════════════════════════════════════ -->
+<!-- ⭐ CHIPS ON THE BAR ITSELF (B3) — the CMC suggested-question pattern,
+     attached to the persistent launcher.
+     ⛔⛔ ONE AI ENTRY POINT. CMC has BOTH a chip row under the highlights AND a
+        bottom bar; we build ONLY the bar, deliberately. The second strip is not
+        missing — it was not built.
+     ⚠ At unregistered the chips are VISIBLE BUT NOT INVOKABLE: a tap prompts
+       registration. That is the conversion surface, on purpose. -->
+<div class="buzzbar">
+  <!-- ⛔ ROUND 6 · THE `Ask Buzz` LABEL AND THE `TRY ASKING` LABEL ARE BOTH GONE
+       FROM THE BAR. The brand name is not lost — it moved onto the button,
+       which is the thing a reader is looking for anyway. That leaves the pills
+       the full width of the bar, which is what stops them truncating.
+       ⚠ `coin.html` carries its own copy of this markup and is out of scope
+         this round, so `bindBuzz()` in alpha.js removes any surviving
+         `.bz-name` at runtime — the label is gone on both pages. -->
+  <div class="wrap buzzbar-in">
+    <span class="bz-hint" id="bzHint"></span>
+    <div class="bz-chips" id="bzChips"></div>
+    <button class="bz-open" type="button" id="buzzOpen">Ask Buzz</button>
+  </div>
+</div>
+<div class="ai-scrim" id="aiScrim"></div>
+<aside class="ai-drawer" id="aiDrawer" aria-label="Ask Buzz" aria-hidden="true">
+  <div class="ai-head">
+    <h3 class="sec-h">Ask Buzz</h3>
+    <button class="icon-btn x" type="button" id="buzzClose" aria-label="Close">&times;</button>
+  </div>
+  <div class="state-tabs" id="stateTabs">
+    <span class="stl">DEMO STATES</span>
+    <button type="button" data-state="answer"  aria-pressed="true">Answer</button>
+    <button type="button" data-state="refusal" aria-pressed="false">Refusal</button>
+    <button type="button" data-state="gated"   aria-pressed="false">Gate</button>
+    <button type="button" data-state="quota"   aria-pressed="false">Quota</button>
+    <button type="button" data-state="error"   aria-pressed="false">Error</button>
+  </div>
+  <div class="ai-body" id="aiBody"></div>
+  <div class="ai-foot">
+    <form class="ai-input" onsubmit="return false">
+      <input type="text" placeholder="Ask about any board on this page" aria-label="Ask Buzz">
+      <button type="submit">Send</button>
+    </form>
+  </div>
+</aside>
+
+<script src="alpha-config.js"></script>
+<script src="alpha.js"></script>
+<script>ALPHA_PAGE.initBoard();</script>
+</body>
+</html>
