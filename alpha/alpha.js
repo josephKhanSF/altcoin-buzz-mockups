@@ -284,7 +284,9 @@ var ALPHA_PAGE = (function () {
         var t = byTk[h.tk]; if(!t) return '';
         head = '<div class="hl-id">'+logo(t.tk)+'<span class="tk">'+esc(t.tk)+'</span>'
              + '<span class="nm">'+esc(t.nm)+'</span></div>';
-        /* ⛔ THE GAUGE GOES ON THE `PUMP` CARD AND NOWHERE ELSE. */
+        /* ⛔ THE GAUGE GOES ON THE ONE `form: 'gauge'` CARD AND NOWHERE ELSE.
+           ⚠ Which coin that is comes from HIGHLIGHTS[].tk and CHANGES: it was
+             PUMP, it is ZEC as of 2026-08-24. Do not re-hardcode a ticker here. */
         form = (h.form === 'gauge')
              ? '<div class="hl-gauge">'+gaugeSVG(t.tnt)
                + '<div class="gauge-num '+cls(t.tntB)+'">'+one(t.tnt)+'</div>'
