@@ -358,9 +358,15 @@ var ALPHA = (function () {
        showed a dash and looked identical to "the feed is down". The API id is
        "flare-networks"; probed directly, it returns a price and the old value
        returns nothing.
-       ⛔ The same wrong value also sits in tnt_scoreboard.csv. That file is
-          calibration-guarded, it is NOT an html-mode surface, and it was NOT
-          opened. The fix there is tracked separately. */
+       ⛔ THE FAILURE MODE IS WHY THIS NOTE STAYS: a bad `cg` does NOT error. It
+          returns 200 with the row silently missing, so the page degrades to
+          something indistinguishable from an outage. Never assume a dash means
+          the feed is down until the id has been probed on its own.
+       ✅ RECONCILED 2026-08-24. tnt_scoreboard.csv now also carries
+          "flare-networks", so source and page agree and this is no longer a
+          local patch held against the CSV. Verified before the board rebuild
+          that day — had the CSV still held the old slug, regenerating `cg`
+          from it would have reinstated the defect. Nothing outstanding. */
     {"tk":"FLR","nm":"Flare","slug":"flr","tnt":5.7,"tntB":"BULLISH","tok":4.9,"tokB":"NEUTRAL","net":6.1,"netB":"BULLISH","tec":6.3,"tecB":"BULLISH","vb":"NEUTRAL","cat":8,"cg":"flare-networks","asof":"2026-08-06","taof":"2026-08-24","cal":"v2.2","mix":[1,6,1]},
     {"tk":"AERO","nm":"Aerodrome","slug":"aero","tnt":5.8,"tntB":"BULLISH","tok":4.8,"tokB":"NEUTRAL","net":5.6,"netB":"BULLISH","tec":6.7,"tecB":"BULLISH","vb":"NEUTRAL","cat":16,"cg":"aerodrome-finance","asof":"2026-07-29","taof":"2026-08-24","cal":"v2.1","mix":[2,9,5]},
     {"tk":"ARB","nm":"Arbitrum","slug":"arb","tnt":5.8,"tntB":"BULLISH","tok":4.8,"tokB":"NEUTRAL","net":5.5,"netB":"NEUTRAL","tec":6.8,"tecB":"BULLISH","vb":"NEUTRAL","cat":8,"cg":"arbitrum","asof":"2026-07-24","taof":"2026-08-24","cal":"v2.1","mix":[1,5,2]},

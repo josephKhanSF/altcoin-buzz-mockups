@@ -119,7 +119,7 @@
          ⛔ The chips STAY here — they are the control the pinned header row
             hangs off, and moving them would unpin the header. -->
     <div class="board-ctl">
-      <div class="filters" id="filters" role="group" aria-label="Filter the board">
+      <div class="filters" id="filters" role="group" aria-label="Filter the scoreboard">
         <button class="filter" data-f="all"       aria-pressed="true">All</button>
         <button class="filter" data-f="bullish"   aria-pressed="false">Bullish</button>
         <button class="filter" data-f="neutral"   aria-pressed="false">Neutral</button>
@@ -187,7 +187,7 @@
                    it replaces, which opened on focus and on tap. That is a
                    deliberate downgrade in reach, taken because the alternative
                    was losing the sentences entirely. -->
-            <th class="lft" rowspan="2" title="The rank by TNT score, pinned once from the full board. It does not renumber when you re-sort, and it is not a market-cap rank: we hold no market-cap figure.">#</th>
+            <th class="lft" rowspan="2" title="The rank by TNT score, pinned once from the full scoreboard. It does not renumber when you re-sort, and it is not a market-cap rank: we hold no market-cap figure.">#</th>
             <th class="lft srt" rowspan="2" data-sort="asset" tabindex="0" role="button">Asset<span class="cx" aria-hidden="true"><i class="up"></i><i class="dn"></i></span></th>
             <th rowspan="2" title="Live price and 24-hour move, fetched from the price feed when the page loads and re-checked every ten minutes. It shows a dash until the feed answers.">Price</th>
             <!-- ⛔ ROUND 8 · `ctr` DROPPED — TNT right-aligns with every other
@@ -201,9 +201,9 @@
             <th class="srt" rowspan="2" data-sort="cat" tabindex="0" role="button">Catalyst mix<span class="cx" aria-hidden="true"><i class="up"></i><i class="dn"></i></span><button type="button" class="tip" aria-expanded="false" aria-label="What the Catalyst mix column is"><span class="tipbox" role="tooltip">One block for each catalyst, coloured by that catalyst's own token score: bullish, neutral or bearish. The Token column is their average. The number beside the blocks is how many catalysts there are, and it is what this column sorts on.</span></button></th>
           </tr>
           <tr class="sub">
-            <th class="comp srt" data-sort="tok" tabindex="0" role="button">Token<span class="cx" aria-hidden="true"><i class="up"></i><i class="dn"></i></span><button type="button" class="tip" aria-expanded="false" aria-label="What the Token score is"><span class="tipbox" role="tooltip">Does the catalyst reach the coin you can actually buy? It is the average of the token-impact scores across that board's catalyst rows.</span></button></th>
-            <th class="comp srt" data-sort="net" tabindex="0" role="button">Network<span class="cx" aria-hidden="true"><i class="up"></i><i class="dn"></i></span><button type="button" class="tip" aria-expanded="false" aria-label="What the Network score is"><span class="tipbox" role="tooltip">Does the catalyst help the tech? It is the average of the network-impact scores across that board's catalyst rows.</span></button></th>
-            <th class="comp srt" data-sort="tec" tabindex="0" role="button">Technicals<span class="cx" aria-hidden="true"><i class="up"></i><i class="dn"></i></span><button type="button" class="tip" aria-expanded="false" aria-label="What the Technicals score is"><span class="tipbox" role="tooltip">Ten chart indicators, averaged. Read on the daily candle and valid for one week; its as-of date is stamped under the table, separately from the fundamentals date.</span></button></th>
+            <th class="comp srt" data-sort="tok" tabindex="0" role="button">Token<span class="cx" aria-hidden="true"><i class="up"></i><i class="dn"></i></span><button type="button" class="tip" aria-expanded="false" aria-label="What the Token score is"><span class="tipbox" role="tooltip">Does the catalyst reach the coin you can actually buy? It is the average of the token-impact scores across that coin's catalyst rows.</span></button></th>
+            <th class="comp srt" data-sort="net" tabindex="0" role="button">Network<span class="cx" aria-hidden="true"><i class="up"></i><i class="dn"></i></span><button type="button" class="tip" aria-expanded="false" aria-label="What the Network score is"><span class="tipbox" role="tooltip">Does the catalyst help the tech? It is the average of the network-impact scores across that coin's catalyst rows.</span></button></th>
+            <th class="comp srt" data-sort="tec" tabindex="0" role="button">Technicals<span class="cx" aria-hidden="true"><i class="up"></i><i class="dn"></i></span><button type="button" class="tip" aria-expanded="false" aria-label="What the Technicals score is"><span class="tipbox" role="tooltip">Ten chart indicators, averaged. Read on the daily candle; its as-of date is stamped under the table, separately from the fundamentals date.</span></button></th>
           </tr>
         </thead>
         <tbody id="boardBody"></tbody>
@@ -258,9 +258,9 @@
 <div class="view" id="view-watchlist" hidden>
   <div class="viewhead">
     <h2 class="page-h1">Watchlist</h2>
-    <p class="one">My Watchlist needs an account. The suggested watchlist shows one board
+    <p class="one">My Watchlist needs an account. The suggested watchlist shows one coin
       unregistered, three registered, and all of them paid.</p>
-    <a class="backlink" href="index.html#/coins" data-goto="coins">‹ Back to the board</a>
+    <a class="backlink" href="index.html#/coins" data-goto="coins">‹ Back to the scoreboard</a>
   </div>
   <div class="wl-grid">
     <div class="card">
@@ -286,7 +286,7 @@
 <div class="view" id="view-research" hidden>
   <div class="viewhead">
     <h2 class="page-h1">Research</h2>
-    <a class="backlink" href="index.html#/coins" data-goto="coins">‹ Back to the board</a>
+    <a class="backlink" href="index.html#/coins" data-goto="coins">‹ Back to the scoreboard</a>
   </div>
   <div class="card stub" id="stubResearch"></div>
 </div>
@@ -295,7 +295,7 @@
 <div class="view" id="view-hws" hidden>
   <div class="viewhead">
     <h2 class="page-h1">How We Score</h2>
-    <a class="backlink" href="index.html#/coins" data-goto="coins">‹ Back to the board</a>
+    <a class="backlink" href="index.html#/coins" data-goto="coins">‹ Back to the scoreboard</a>
   </div>
   <div class="card stub" id="stubHws"></div>
 </div>
@@ -304,7 +304,7 @@
 <div class="view" id="view-market" hidden>
   <div class="viewhead">
     <h2 class="page-h1">Market</h2>
-    <a class="backlink" href="index.html#/coins" data-goto="coins">‹ Back to the board</a>
+    <a class="backlink" href="index.html#/coins" data-goto="coins">‹ Back to the scoreboard</a>
   </div>
   <div class="card stub" id="stubMarket"></div>
 </div>
@@ -325,7 +325,7 @@
     <h2 class="page-h1">Pricing</h2>
     <p class="one">Three tiers. What the middle one is FOR is the first thing this page
       is asking the room to rule.</p>
-    <a class="backlink" href="index.html#/coins" data-goto="coins">‹ Back to the board</a>
+    <a class="backlink" href="index.html#/coins" data-goto="coins">‹ Back to the scoreboard</a>
   </div>
   <div id="pricingBody" data-mockup-only="true"></div>
 </div>
@@ -353,7 +353,7 @@
     </div>
   </div>
   <div class="wrap"><p class="disc">Version Alpha mockup, 2026-08-17. Scores and catalyst rows are read from the live
-    scoreboard and catalyst inventory; board dates are the real ones. Nothing here is financial advice.
+    scoreboard and catalyst inventory; the dates are the real ones. Nothing here is financial advice.
     The pricing view is an INTERNAL MOCKUP and is not an offer.</p></div>
 </footer>
 
@@ -398,7 +398,7 @@
   <div class="ai-body" id="aiBody"></div>
   <div class="ai-foot">
     <form class="ai-input" onsubmit="return false">
-      <input type="text" placeholder="Ask about any board on this page" aria-label="Ask Buzz">
+      <input type="text" placeholder="Ask about any coin on this page" aria-label="Ask Buzz">
       <button type="submit">Send</button>
     </form>
   </div>
