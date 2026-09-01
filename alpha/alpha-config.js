@@ -238,18 +238,22 @@ var ALPHA = (function () {
         in four places. `How We Score` in primary nav overturns REQ-11;
         `/market` in primary nav from day one is operator-ruled.
      ⛔ The dropped destination marked DROP at STEP 1 is absent, by design. */
+  /* ➕ blurb (stitch 2026-09-01, §R.10 item 7): the one-line plain-English
+     description each destination shows in the phone menu panel. Seat A's STOP
+     flag asked for exactly this home; the panel reads it from here so the
+     strings live once, in config, not per page. */
   var NAV = [
-    { label: 'Coins',         href: '/',             key: 'coins' },
-    { label: 'Watchlist',     href: '/watchlist',    key: 'watchlist' },
-    { label: 'Research',      href: '/research',     key: 'research' },
-    { label: 'How We Score',  href: '/how-we-score', key: 'hws' },
-    { label: 'Market',        href: '/market',       key: 'market' },
+    { label: 'Coins',         href: '/',             key: 'coins',     blurb: 'Every major coin, scored and ranked' },
+    { label: 'Watchlist',     href: '/watchlist',    key: 'watchlist', blurb: 'The coins you are tracking' },
+    { label: 'Research',      href: '/research',     key: 'research',  blurb: 'The write-ups behind each score' },
+    { label: 'How We Score',  href: '/how-we-score', key: 'hws',       blurb: 'What Token, Network and Technicals measure' },
+    { label: 'Market',        href: '/market',       key: 'market',    blurb: 'Where scores are moving right now' },
     /* ➕ PRICING — a NEW destination, added 2026-08-17.
        ⛔ A RE-RULING, NOT A NEW IDEA: monetisation was ruled to come at Beta;
           the operator moved it to Alpha so the team can react to what
           monetisation looks like and close E2 / AI-3.
        ⛔ ALPHA IS INTERNAL ONLY. See PRICING.MOCKUP_ONLY below. */
-    { label: 'Pricing',       href: '/pricing',      key: 'pricing' }
+    { label: 'Pricing',       href: '/pricing',      key: 'pricing',   blurb: 'Plans, and what each one includes' }
   ];
 
   /* ======================================================================

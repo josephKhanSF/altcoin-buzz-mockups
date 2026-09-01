@@ -11,6 +11,86 @@
 <title>Altcoin Buzz TNT Score · every coin, ranked</title>
 <meta name="description" content="Built to answer one question: is the news really going to move the token? Every major coin, scored on Token, Network and Technicals.">
 <link rel="stylesheet" href="alpha.css">
+<style>
+/* ═══ THE STITCHED MASTHEAD · 2026-09-01 · the picked mix: seat B's PINNED bar +
+   seat A's absolute panel + seat C's two-line control (AUDIT_item615 §R.10).
+   ⚠ THE JOIN: A's panel was designed under a bar that SCROLLS; here the bar stays
+   PINNED (alpha.css .nav is position:sticky and is left pinned on purpose). The
+   panel hangs off the pinned bar (absolute, top:100%), and the open-state scroll
+   lock is overflow:hidden rather than seat A's position:fixed body freeze - a
+   fixed body would carry the sticky bar off screen at any scrolled position.
+   That swap is the one reconciliation the join needed.
+   C's backdrop-filter override rides as a standing guard (§R.10 item 6): a
+   backdrop-filter makes the bar the containing block for fixed descendants.
+   This layer also closes §F 21: below 720px alpha.css:1156 hides .nav-links and
+   the base had NO phone navigation at all; the trigger + panel here are the
+   picked replacement. Overrides by cascade order - no alpha.css edit. */
+.brand{align-items:center;gap:8px;min-width:0}
+.brand .brand-mark{display:block;width:24px;height:24px;flex:none}
+.brand .word{white-space:nowrap;line-height:1.1}
+.navtog,.navsheet,.navscrim{display:none}
+a.acct{text-decoration:none}
+.acct .acct-tx{display:flex;flex-direction:column;min-width:0;text-align:left}
+.mh-trial{display:none;font-style:normal}
+@media (max-width:1080px){
+  :root{--nav-h:52px}
+  header.nav{z-index:65;background:var(--card);backdrop-filter:none;-webkit-backdrop-filter:none}
+  .nav-in{height:52px;flex-wrap:nowrap;gap:10px}
+  .nav .icon-btn{display:none}
+  .nav-right{margin-left:auto;gap:8px;flex:none}
+  .nav-in > .nav-links{display:none}
+  .brand .w-ab{display:none}
+  .brand .word{font-size:15px}
+  .acct{flex:none;background:var(--gold);border-color:var(--gold);color:var(--goldink);
+    padding:5px 14px;text-align:left;line-height:1.15}
+  .acct .av{display:none}
+  #acctLbl{font-family:var(--ui);font-size:13.5px;font-weight:800;line-height:1.15;
+    color:var(--goldink);white-space:nowrap}
+  .mh-trial{display:block;font-size:9px;font-weight:700;letter-spacing:.6px;line-height:1.3;
+    text-transform:uppercase;color:var(--goldink);opacity:.74;white-space:nowrap}
+  .navtog{display:inline-flex;align-items:center;justify-content:center;flex:none;
+    width:40px;height:40px;padding:0;cursor:pointer;background:var(--card);
+    border:1px solid var(--line2);border-radius:var(--r-btn);color:var(--ink)}
+  .navtog svg{width:20px;height:20px}
+  .navtog .ic-close{display:none}
+  .navtog[aria-expanded="true"]{background:var(--bg-soft);border-color:var(--dim)}
+  .navtog[aria-expanded="true"] .ic-open{display:none}
+  .navtog[aria-expanded="true"] .ic-close{display:block}
+  .navsheet{display:block;position:absolute;left:0;right:0;top:100%;
+    background:var(--card);border-bottom:1px solid var(--line);
+    box-shadow:var(--shadow);padding:6px 0 10px;overflow-y:auto;
+    -webkit-overflow-scrolling:touch;
+    opacity:0;visibility:hidden;transform:translateY(-6px);
+    transition:opacity .16s ease,transform .16s ease,visibility .16s}
+  .navsheet[data-open="1"]{opacity:1;visibility:visible;transform:none}
+  .ns-item{display:block;padding:10px 12px;border-radius:var(--r-btn)}
+  .ns-item + .ns-item{border-top:1px solid var(--line)}
+  .ns-l{display:block;font-family:var(--ui);font-weight:700;font-size:15.5px;
+    color:var(--ink);letter-spacing:-.1px}
+  .ns-d{display:block;margin-top:2px;font-size:12.5px;line-height:1.4;color:var(--mut)}
+  .ns-item.active{background:var(--bg-soft);box-shadow:inset 3px 0 0 var(--gold)}
+  .ns-item.active .ns-l{color:var(--goldtx)}
+  .navscrim{display:block;position:fixed;inset:0;z-index:64;background:rgba(15,20,28,.44);
+    opacity:0;visibility:hidden;transition:opacity .16s ease,visibility .16s}
+  .navscrim[data-open="1"]{opacity:1;visibility:visible}
+  body.nav-open{overflow:hidden}
+}
+@media (max-width:360px){
+  .nav-in{gap:8px}
+  .brand{gap:7px}
+  .brand .brand-mark{width:22px;height:22px}
+  .brand .word{font-size:14px}
+  .acct{padding:5px 11px}
+  #acctLbl{font-size:12.5px}
+  .mh-trial{font-size:8.5px;letter-spacing:.4px}
+  .navtog{width:36px;height:36px}
+  .navtog svg{width:19px;height:19px}
+  .ns-l{font-size:15px}
+}
+@media (prefers-reduced-motion:reduce){
+  .navsheet,.navscrim{transition:none}
+}
+</style>
 </head>
 <body>
 
@@ -30,9 +110,25 @@
   </div>
 </div>
 
-<header class="nav">
+<!-- ═══ THE STITCHED MASTHEAD · 2026-09-01 · seat B's pinned bar + dial mark at
+     EVERY width (§R.10 item 2, reconciled with the desktop lockup by keeping the
+     full wordmark beside it) + seat A's icon-only trigger and absolute panel
+     (item 3) + seat C's two-line control (item 4). The account control is a real
+     <a href> - §R.10 item 5, the keyboard fix: focus and Enter come free, no JS,
+     no new pattern, no visual change. alpha.js still writes #navLinks and
+     #acctLbl exactly as before. This masthead closes §F 21: the panel is the
+     phone navigation the base never had. -->
+<header class="nav" id="siteNav">
   <div class="wrap nav-in">
-    <a class="brand" href="index.html"><span class="word">Altcoin Buzz <b>TNT Score</b></span></a>
+    <a class="brand" href="index.html">
+      <svg class="brand-mark" viewBox="0 0 26 26" aria-hidden="true">
+        <path d="M4.1 18.2 A10.3 10.3 0 1 1 21.9 18.2" fill="none" stroke="var(--line2)" stroke-width="3" stroke-linecap="round"/>
+        <path d="M4.1 18.2 A10.3 10.3 0 0 1 20.3 5.7" fill="none" stroke="var(--gold)" stroke-width="3" stroke-linecap="round"/>
+        <path d="M13 13 L17.7 8.3" stroke="var(--ink)" stroke-width="2.4" stroke-linecap="round"/>
+        <circle cx="13" cy="13" r="2.1" fill="var(--ink)"/>
+      </svg>
+      <span class="word"><span class="w-ab">Altcoin Buzz </span><b>TNT Score</b></span>
+    </a>
     <nav class="nav-links" id="navLinks" aria-label="Primary"></nav>
     <div class="nav-right">
       <button class="icon-btn" aria-label="Search" title="Search tokens and catalysts">
@@ -41,10 +137,22 @@
       <button class="icon-btn notif-dot" aria-label="Notifications" title="A score moved, and which catalyst drove it">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 16v-5a6 6 0 10-12 0v5l-2 2h16z"/><path d="M10 21h4"/></svg>
       </button>
-      <span class="acct"><span class="av mono" id="acctAv">?</span><span id="acctLbl">Sign in</span></span>
+      <a class="acct" href="index.html#/pricing" data-goto="pricing">
+        <span class="av mono" id="acctAv">?</span>
+        <span class="acct-tx"><span id="acctLbl">Sign in</span><em class="mh-trial" id="mhTrial">7-day free trial</em></span>
+      </a>
+      <button class="navtog" id="navTog" type="button" aria-label="Menu"
+              aria-expanded="false" aria-controls="navSheet">
+        <svg class="ic-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <svg class="ic-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
     </div>
   </div>
+  <div class="navsheet" id="navSheet">
+    <div class="wrap"><nav class="ns-in" id="navSheetList" aria-label="All destinations"></nav></div>
+  </div>
 </header>
+<div class="navscrim" id="navScrim"></div>
 
 <main class="wrap">
 
@@ -407,5 +515,98 @@
 <script src="alpha-config.js"></script>
 <script src="alpha.js"></script>
 <script>ALPHA_PAGE.initBoard();</script>
+<script>
+/* ═══ THE STITCHED MASTHEAD · behaviour · 2026-09-01.
+   Seat A's panel engine on seat B's pinned bar. One reconciliation from A's
+   original: the open-state scroll lock is body.nav-open{overflow:hidden}
+   instead of a position:fixed freeze, because a fixed body un-sticks the
+   pinned bar and carries it off screen at any scrolled position. Panel rows
+   are built from whatever #navLinks holds; the one-line blurbs come from
+   ALPHA.NAV[].blurb (promoted into alpha-config.js, both copies, closing seat
+   A's STOP flag) with A's map as the fallback. */
+(function(){
+  'use strict';
+  var nav=document.getElementById('siteNav'),
+      tog=document.getElementById('navTog'),
+      sheet=document.getElementById('navSheet'),
+      list=document.getElementById('navSheetList'),
+      scrim=document.getElementById('navScrim'),
+      lbl=document.getElementById('acctLbl'),
+      tr=document.getElementById('mhTrial');
+  if(!nav||!tog||!sheet||!list||!scrim) return;
+  var SWAP=1080;
+  var FALLBACK={
+    coins:'Every major coin, scored and ranked',
+    watchlist:'The coins you are tracking',
+    research:'The write-ups behind each score',
+    hws:'What Token, Network and Technicals measure',
+    market:'Where scores are moving right now',
+    pricing:'Plans, and what each one includes'
+  };
+  function blurb(k){
+    var C=window.ALPHA;
+    if(C&&C.NAV){for(var i=0;i<C.NAV.length;i++){if(C.NAV[i].key===k&&C.NAV[i].blurb)return C.NAV[i].blurb;}}
+    return FALLBACK[k]||'';
+  }
+  function esc(t){return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+  function buildRows(){
+    var src=document.getElementById('navLinks'); if(!src)return;
+    var out='';
+    Array.prototype.forEach.call(src.querySelectorAll('a[data-view]'),function(a){
+      var k=a.getAttribute('data-view')||'', d=blurb(k);
+      out+='<a class="ns-item'+(a.classList.contains('active')?' active':'')
+        +'" href="'+esc(a.getAttribute('href')||'')+'" data-view="'+esc(k)+'">'
+        +'<span class="ns-l">'+esc(a.textContent)+'</span>'
+        +(d?'<span class="ns-d">'+esc(d)+'</span>':'')+'</a>';
+    });
+    list.innerHTML=out;
+  }
+  function isOpen(){return sheet.getAttribute('data-open')==='1';}
+  function openSheet(){
+    if(isOpen())return;
+    buildRows();
+    var r=nav.getBoundingClientRect();
+    sheet.style.maxHeight=Math.max(200,window.innerHeight-r.bottom-12)+'px';
+    document.body.classList.add('nav-open');
+    sheet.setAttribute('data-open','1');
+    scrim.setAttribute('data-open','1');
+    tog.setAttribute('aria-expanded','true');
+    var first=list.querySelector('a');
+    if(first&&first.focus)first.focus({preventScroll:true});
+  }
+  function closeSheet(back){
+    if(!isOpen())return;
+    sheet.removeAttribute('data-open');
+    scrim.removeAttribute('data-open');
+    tog.setAttribute('aria-expanded','false');
+    document.body.classList.remove('nav-open');
+    if(back&&tog.focus)tog.focus({preventScroll:true});
+  }
+  tog.addEventListener('click',function(){isOpen()?closeSheet(true):openSheet();});
+  scrim.addEventListener('click',function(){closeSheet(false);});
+  list.addEventListener('click',function(e){if(e.target.closest&&e.target.closest('a'))closeSheet(false);});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&isOpen())closeSheet(true);});
+  sheet.addEventListener('keydown',function(e){
+    if(e.key!=='Tab')return;
+    var f=list.querySelectorAll('a'); if(!f.length)return;
+    var atEnd=(document.activeElement===f[f.length-1]&&!e.shiftKey);
+    var atTop=(document.activeElement===f[0]&&e.shiftKey);
+    if(atEnd||atTop){e.preventDefault();tog.focus();}
+  });
+  tog.addEventListener('keydown',function(e){
+    if(e.key!=='Tab'||!isOpen())return;
+    var f=list.querySelectorAll('a'); if(!f.length)return;
+    e.preventDefault();
+    (e.shiftKey?f[f.length-1]:f[0]).focus();
+  });
+  window.addEventListener('resize',function(){if(window.innerWidth>SWAP&&isOpen())closeSheet(false);});
+  /* C's second line follows the tier label alpha.js owns; it hides once the
+     label stops reading Sign in. Static pages never flip it, which is fine. */
+  function syncTrial(){if(lbl&&tr)tr.hidden=!/sign in/i.test(lbl.textContent||'');}
+  if(lbl&&window.MutationObserver){new MutationObserver(syncTrial).observe(lbl,{childList:true,characterData:true,subtree:true});}
+  syncTrial();
+})();
+</script>
+
 </body>
 </html>

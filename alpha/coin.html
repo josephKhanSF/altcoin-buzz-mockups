@@ -8,6 +8,17 @@
      hero/catalysts/listen = seat 002 · technicals/articles = seat 004 (structure+content)
      market rank = 003-rank_v3 (LOCKED, internals verbatim) · shell = index.html
      Data: My_Work/DATAPACK_coinpage-HYPE_2026-08-21.md ONLY. GREEKED values render greeked. -->
+<!-- STITCHED COIN PAGE · 2026-09-01 · PROMPT_stitch_coin-and-masthead.
+     NINE blocks, ruled #623: 1 TOKEN · 2 NETWORK · 3 TECHNICALS · 4 THE
+     CATALYSTS · 5 MARKET RANK · 6 SECTOR RANK · 7 GO DEEPER · 8 LISTEN ·
+     9 ABOUT THIS COIN. Assembled from: seats/network_axis-A.html (J8 pass 3,
+     the 8-block base) + the picked 26-Aug sector mix (coin surface: seat A
+     top + seat B bottom, reconciled to one grammar) + the J9 roll-up mix
+     (seat B's marks-on-a-banded-scale + seat A's two driver rows, #622)
+     filling both former J9 slots. Bands come from alpha-config.js at render
+     time, never re-derived (#621). SECTOR RANK is NOT folded into MARKET
+     RANK - considered and deferred to #624. Masthead: the stitched pinned
+     bar + panel + two-line control, same layer as index.html. -->
 <title>HYPE: Altcoin Buzz TNT Score</title>
 <meta name="description" content="Hyperliquid, scored on Token, Network and Technicals. Is the news really going to move the token?">
 <link rel="stylesheet" href="alpha.css">
@@ -286,22 +297,295 @@
 .descslot{border:1.5px dashed var(--line2);border-radius:var(--r-card);background:transparent;
   padding:16px 18px;color:var(--faint);font-family:var(--mono);font-size:12px}
 .descslot .gl{display:block;font-size:9.5px;letter-spacing:1.5px;color:var(--dim);margin-bottom:8px}
+
+/* ══ BLOCKS 1 + 2 · TOKEN SHELL + NETWORK · seat network_axis-A pass 3 ═══
+   Scoped .nx-* / .demo-bar; no shared file changes. TOKEN and
+   NETWORK copy the TECHNICALS header pattern (big score, band chip, reading
+   sentence, right-hand count, divider, meta). J4-B forms stay gold and ink.
+   The chart and the quadrant STACK: a sequence, not a pair (ruled
+   2026-09-01). Caveat pills live in the block FOOTER; the horizon stays in
+   prose above them. */
+.nx-a{font-size:13px;line-height:1.55;color:var(--txt);margin:9px 0 0}
+.nx-q{font-family:var(--ui);font-size:16px;font-weight:700;color:var(--ink);margin:0}
+.nx-sub{font-size:12.5px;color:var(--mut);line-height:1.5;margin:6px 0 0}
+.nx-seg{border-top:1px solid var(--line);margin-top:16px;padding-top:14px}
+.nx-seghead{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.nx-pcl{text-align:right;flex:none}
+.nx-pcl .num{font-family:var(--mono);font-weight:700;font-size:26px;color:var(--ink)}
+.nx-pcl .num small{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--dim);vertical-align:super}
+.nx-pcl .u{display:block;font-size:12px;color:var(--mut);margin-top:1px}
+.nx-chip{display:inline-flex;flex-direction:column;gap:1px;align-items:flex-start;margin-top:7px;
+  font-family:var(--mono);border-radius:var(--r-btn);padding:6px 11px;
+  background:var(--gold);color:var(--goldink);border:1.5px solid var(--gold)}
+.nx-chip .w{font-size:10.5px;font-weight:700;letter-spacing:1.1px;text-transform:uppercase;white-space:nowrap}
+.nx-chip .s{font-size:9px;letter-spacing:.5px;opacity:.8}
+.nx-fig{margin-top:12px;max-width:660px}
+.nx-fig svg{width:100%;display:block}
+.nx-leg{display:flex;gap:16px;margin-top:8px;font-family:var(--mono);font-size:10px;font-weight:700;
+  letter-spacing:1px;color:var(--dim);text-transform:uppercase}
+.nx-leg i{display:inline-block;width:16px;height:3px;border-radius:var(--r-max);margin-right:6px;vertical-align:middle}
+.nx-quad{display:grid;grid-template-columns:auto 1fr 1fr;gap:7px;margin-top:10px;max-width:640px}
+.nx-quad .qh{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:1px;
+  text-transform:uppercase;color:var(--dim);text-align:center;align-self:end;padding-bottom:2px}
+.nx-quad .qr{font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:1px;
+  text-transform:uppercase;color:var(--dim);align-self:center;text-align:right;max-width:72px;line-height:1.5}
+.nx-quad .q{border:1px solid var(--line);border-radius:var(--r-btn);background:var(--bg-soft);
+  padding:11px 12px;font-size:12.5px;line-height:1.4;color:var(--mut);min-height:56px;
+  display:flex;flex-direction:column;justify-content:center;gap:7px}
+.nx-quad .q b{font-weight:600;color:inherit}
+.nx-quad .q.on{background:var(--gold-soft);border:1.5px solid var(--gold);color:var(--ink)}
+.nx-quad .q .tag{align-self:flex-start;font-family:var(--mono);font-size:9px;font-weight:700;
+  letter-spacing:1px;background:var(--gold);color:var(--goldink);border-radius:var(--r-max);padding:2px 8px}
+.nx-lane{margin-top:18px}
+.nx-lane .lw{position:relative;height:66px}
+.nx-lane .trak{position:absolute;left:0;right:0;top:38px;height:14px;border-radius:var(--r-max);
+  border:1px solid var(--line);background:linear-gradient(90deg,var(--bg-soft) 0%,var(--card-soft) 46%,var(--gold-soft) 100%)}
+.nx-lane .lt{position:absolute;top:41px;width:2px;height:8px;border-radius:1px;background:rgba(32,36,47,.30)}
+.nx-lane .lc{position:absolute;top:34px;height:22px;width:1.5px;background:var(--line2)}
+.nx-lane .stem{position:absolute;top:22px;width:2.5px;height:32px;margin-left:-1.25px;background:var(--ink);border-radius:1px}
+.nx-lane .mchip{position:absolute;top:0;margin-left:-38px;display:inline-flex;align-items:center;gap:6px;
+  background:var(--ink);color:#fff;border-radius:var(--r-max);padding:4px 12px 4px 5px;box-shadow:var(--shadow)}
+.nx-lane .mchip img{width:16px;height:16px;display:block}
+.nx-lane .mchip b{font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:1px}
+.nx-lane .ends{display:flex;justify-content:space-between;font-family:var(--mono);font-size:9.5px;
+  font-weight:700;letter-spacing:1.1px;text-transform:uppercase;color:var(--dim);margin-top:8px;position:relative}
+.nx-lane .ends .c{position:absolute;left:49.6%;transform:translateX(-49.6%)}
+.nx-cap{font-size:12px;color:var(--mut);line-height:1.5;margin:10px 0 0}
+.nx-ink{margin-top:16px;background:var(--ink);border-radius:var(--r-card);padding:13px 16px}
+.nx-ink .k{display:block;font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:1.5px;
+  text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+.nx-ink p{margin:0;font-size:13px;line-height:1.55;color:#e8ebf1}
+.nx-guard{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+@media(max-width:900px){.nx-guard{grid-template-columns:1fr}}
+.nx-guard .g{border:1px solid var(--line);border-radius:var(--r-card);background:var(--card-soft);padding:12px 14px}
+.nx-guard .g.no{border-color:var(--line2);background:var(--bg-soft)}
+.nx-guard .hd{display:block;font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:1.4px;
+  text-transform:uppercase;color:var(--dim);margin-bottom:7px}
+.nx-guard .g.no .hd{color:var(--ink)}
+.nx-guard p{margin:0 0 8px;font-size:12.5px;line-height:1.55;color:var(--txt)}
+.nx-guard p:last-child{margin-bottom:0}
+/* block footer: MARKET RANK pattern - plain sentence, then the pill row. */
+.nx-foot{border-top:1px solid var(--line);margin-top:16px;padding-top:12px}
+.nx-foot p{margin:0 0 10px;font-size:12px;line-height:1.55;color:var(--mut)}
+/* N/A state: segment 1 only - the score and the catalyst slot survive an
+   unmeasurable coin. Renders ONLY while the TEAM DEMO bar toggles it. */
+.nx-plate{flex:none;font-family:var(--mono);font-size:9.5px;font-weight:700;letter-spacing:1px;
+  color:var(--dim);border:1.5px solid var(--line2);border-radius:var(--r-chip);padding:4px 10px;
+  background:repeating-linear-gradient(135deg,var(--bg-soft) 0 6px,var(--card) 6px 12px)}
+.nxs1-na{display:none}
+#nxCard.is-na .nxs1-live{display:none}
+#nxCard.is-na .nxs1-na{display:block}
+.demo-bar{margin:26px 0 96px;padding:12px 16px;border:1.5px dashed var(--line2);
+  border-radius:var(--r-card);background:var(--bg-soft);display:flex;align-items:center;gap:14px;
+  flex-wrap:wrap;font-family:var(--mono);font-size:11px;color:var(--dim)}
+.demo-bar .k{font-weight:700;letter-spacing:1.2px;color:var(--goldtx);flex:none}
+.demo-bar .t{flex:1;min-width:260px;line-height:1.5}
+.demo-bar button{font:inherit;font-weight:700;color:var(--goldtx);background:var(--card);
+  border:1.5px dashed var(--gold-line);border-radius:var(--r-btn);padding:7px 12px;cursor:pointer}
+.demo-bar button:hover{background:var(--gold-soft)}
+
+/* ═══ BLOCK 6 · SECTOR RANK · stitched (A top + B bottom, one grammar) ═══ */
+.sxr-head{display:flex;align-items:center;gap:9px;flex-wrap:wrap;padding-bottom:12px;
+  border-bottom:1px solid var(--line)}
+.sxr-head .lede{font-size:15px;color:var(--ink)}
+.sxr-lede{font-size:13.5px;color:var(--mut);margin:12px 0 0;max-width:74ch}
+.sxr-rankline{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:14px 0 4px}
+.sxr-rankline .greek.big{font-size:16px;padding:7px 18px}
+.sxr-peers{margin-top:12px;border:1px solid var(--line);border-radius:var(--r-card);
+  background:var(--card-soft);overflow:hidden}
+.sxr-peer{display:flex;align-items:center;gap:12px;padding:9px 14px;border-bottom:1px solid var(--line)}
+.sxr-peer:last-child{border-bottom:0}
+.sxr-peer.is-self{background:var(--gold-soft);box-shadow:inset 3px 0 0 var(--gold)}
+.sxr-peer .pos{flex:none}
+.sxr-peer .tlogo2{width:20px;height:20px;flex:none}
+.sxr-peer .tlogo2 img{width:20px;height:20px;display:block}
+.sxr-peer .who{min-width:0}
+.sxr-peer .who b{font-size:14px;color:var(--ink);display:block;line-height:1.3}
+.sxr-peer .who .tk3{font-family:var(--mono);font-size:10.5px;letter-spacing:1px;color:var(--dim)}
+.sxr-peer .sp{margin-left:auto;display:flex;align-items:center;gap:8px}
+.sxr-foot{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin-top:12px;
+  padding-top:12px;border-top:1px solid var(--line)}
+.sxr-foot .greek.b{color:var(--green)}
+.sxr-foot .greek.n{color:var(--zero)}
+.sxr-foot .greek.r{color:var(--red)}
+.sxr-variant{margin-top:14px;border:1.5px dashed var(--line2);border-radius:var(--r-card);
+  padding:12px 15px;background:transparent}
+.sxr-variant .vl{display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:1.5px;
+  color:var(--dim);margin-bottom:7px;text-transform:uppercase}
+.sxr-variant .vt{font-size:13.5px;color:var(--mut);line-height:1.5}
+
+/* ═══ THE CATALYST ROLL-UP · stitched · J9 mix: seat B's marks-on-a-banded-
+   scale + seat A's two driver rows. ONE renderer, ONE markup path, axis by
+   parameter (#622) - no per-axis CSS anywhere below. Channel separation is
+   load-bearing: POSITION carries the band, SIZE carries magnitude, FILL
+   carries timing. Colour touches the ZONE only; marks stay INK. The component
+   never restates the header score: seat B's tick label AND averaging clause
+   are both cut. Bands are read from ALPHA.BANDS at render time (#621). */
+.ru-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:14px 0 10px}
+.ru-read{font-family:var(--ui);font-size:15px;line-height:1.5;color:var(--ink);margin:0 0 12px;max-width:64ch}
+.ru-read b{font-weight:700}
+.ru-read b.bull{color:var(--green)}
+.ru-read b.neut{color:var(--zero)}
+.ru-read b.bear{color:var(--red)}
+.ru-plot{position:relative;border-bottom:2px solid var(--line2);border-radius:3px 3px 0 0;overflow:hidden}
+.ru-zonebg{position:absolute;top:0;bottom:0}
+.ru-zonebg.bear{background:var(--red-soft)}
+.ru-zonebg.neut{background:var(--zero-soft)}
+.ru-zonebg.bull{background:var(--green-soft)}
+.ru-zone-line{position:absolute;top:0;bottom:0;width:1px;background:var(--line)}
+.ru-zone{position:absolute;top:6px;transform:translateX(-50%);font-family:var(--mono);
+  font-weight:700;font-size:10.5px;letter-spacing:1.3px;text-transform:uppercase;
+  opacity:.85;white-space:nowrap}
+.ru-zone.bear{color:var(--red)}
+.ru-zone.neut{color:var(--zero)}
+.ru-zone.bull{color:var(--green)}
+/* marks: INK only, three glyphs and never a fourth. solid = happening now AND
+   built in · hollow = hasn't happened yet · hollow with an X = already happened */
+.ru-mark{position:absolute;transform:translateX(-50%);border-radius:50%;background:var(--ink);
+  box-sizing:border-box;border:0;padding:0;cursor:pointer}
+.ru-mark.pend{background:var(--card);border:2px solid var(--ink)}
+.ru-mark.done{border:2px solid var(--ink);background:
+  linear-gradient(45deg,transparent 44%,var(--ink) 44%,var(--ink) 56%,transparent 56%),
+  linear-gradient(-45deg,transparent 44%,var(--ink) 44%,var(--ink) 56%,transparent 56%),
+  var(--card)}
+.ru-mark:focus-visible{outline:2px solid var(--gold);outline-offset:1px}
+.ru-base{position:relative;height:20px}
+.ru-end{position:absolute;top:5px;font-family:var(--mono);font-size:10.5px;color:var(--faint)}
+.ru-end.r{right:0}
+.ru-chips{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin-top:2px}
+.ru-chip{display:inline-block;font-family:var(--mono);font-weight:700;font-size:10.5px;
+  letter-spacing:1px;text-transform:uppercase;border-radius:var(--r-chip);
+  padding:4px 9px;border:1px solid transparent}
+.ru-chip.cb{color:var(--red);background:var(--red-soft);border-color:rgba(191,61,61,.28)}
+.ru-chip.cz{color:var(--zero);background:var(--zero-soft);border-color:rgba(92,98,108,.26)}
+.ru-chip.cu{color:var(--green);background:var(--green-soft);border-color:rgba(21,130,74,.28)}
+.ru-chip.ct{color:var(--txt);background:var(--bg-soft);border-color:var(--line2)}
+/* the tap surface: a mark tap prints the same line the hover title carries.
+   Nothing lives only in hover. */
+.ru-out{margin:8px 0 0;font-size:12.5px;line-height:1.5;color:var(--mut);min-height:0}
+.ru-out b{color:var(--ink);font-weight:600}
+/* seat A's driver rows: the heaviest catalyst on each side, two full-width
+   lines - the tightest line on the block (§1 join 1). */
+.ru-drv{margin-top:14px;border-top:1px solid var(--line);padding-top:12px}
+.ru-drv .microlabel{display:block;margin-bottom:8px}
+.ru-hv{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:7px 0}
+.ru-hv+.ru-hv{border-top:1px solid var(--line)}
+.ru-hv .bchip{flex:none;width:76px;text-align:center}
+.ru-hv .nm{font-weight:600;font-size:13.5px;color:var(--ink);min-width:0}
+.ru-hv .mt{margin-left:auto;display:flex;gap:7px;align-items:center;flex:none}
+.ru-hv .none{font-size:13px;color:var(--faint);font-style:italic}
+@media (max-width:560px){
+  .ru-hv .bchip{width:auto}
+  .ru-hv .mt{margin-left:0;width:100%}
+  .ru-zone{letter-spacing:.8px;font-size:9.5px}
+}
+
+/* ═══ THE STITCHED MASTHEAD · 2026-09-01 · the picked mix: seat B's PINNED bar +
+   seat A's absolute panel + seat C's two-line control (AUDIT_item615 §R.10).
+   ⚠ THE JOIN: A's panel was designed under a bar that SCROLLS; here the bar stays
+   PINNED (alpha.css .nav is position:sticky and is left pinned on purpose). The
+   panel hangs off the pinned bar (absolute, top:100%), and the open-state scroll
+   lock is overflow:hidden rather than seat A's position:fixed body freeze - a
+   fixed body would carry the sticky bar off screen at any scrolled position.
+   That swap is the one reconciliation the join needed.
+   C's backdrop-filter override rides as a standing guard (§R.10 item 6): a
+   backdrop-filter makes the bar the containing block for fixed descendants.
+   This layer also closes §F 21: below 720px alpha.css:1156 hides .nav-links and
+   the base had NO phone navigation at all; the trigger + panel here are the
+   picked replacement. Overrides by cascade order - no alpha.css edit. */
+.brand{align-items:center;gap:8px;min-width:0}
+.brand .brand-mark{display:block;width:24px;height:24px;flex:none}
+.brand .word{white-space:nowrap;line-height:1.1}
+.navtog,.navsheet,.navscrim{display:none}
+a.acct{text-decoration:none}
+.acct .acct-tx{display:flex;flex-direction:column;min-width:0;text-align:left}
+.mh-trial{display:none;font-style:normal}
+@media (max-width:1080px){
+  :root{--nav-h:52px}
+  header.nav{z-index:65;background:var(--card);backdrop-filter:none;-webkit-backdrop-filter:none}
+  .nav-in{height:52px;flex-wrap:nowrap;gap:10px}
+  .nav .icon-btn{display:none}
+  .nav-right{margin-left:auto;gap:8px;flex:none}
+  .nav-in > .nav-links{display:none}
+  .brand .w-ab{display:none}
+  .brand .word{font-size:15px}
+  .acct{flex:none;background:var(--gold);border-color:var(--gold);color:var(--goldink);
+    padding:5px 14px;text-align:left;line-height:1.15}
+  .acct .av{display:none}
+  #acctLbl{font-family:var(--ui);font-size:13.5px;font-weight:800;line-height:1.15;
+    color:var(--goldink);white-space:nowrap}
+  .mh-trial{display:block;font-size:9px;font-weight:700;letter-spacing:.6px;line-height:1.3;
+    text-transform:uppercase;color:var(--goldink);opacity:.74;white-space:nowrap}
+  .navtog{display:inline-flex;align-items:center;justify-content:center;flex:none;
+    width:40px;height:40px;padding:0;cursor:pointer;background:var(--card);
+    border:1px solid var(--line2);border-radius:var(--r-btn);color:var(--ink)}
+  .navtog svg{width:20px;height:20px}
+  .navtog .ic-close{display:none}
+  .navtog[aria-expanded="true"]{background:var(--bg-soft);border-color:var(--dim)}
+  .navtog[aria-expanded="true"] .ic-open{display:none}
+  .navtog[aria-expanded="true"] .ic-close{display:block}
+  .navsheet{display:block;position:absolute;left:0;right:0;top:100%;
+    background:var(--card);border-bottom:1px solid var(--line);
+    box-shadow:var(--shadow);padding:6px 0 10px;overflow-y:auto;
+    -webkit-overflow-scrolling:touch;
+    opacity:0;visibility:hidden;transform:translateY(-6px);
+    transition:opacity .16s ease,transform .16s ease,visibility .16s}
+  .navsheet[data-open="1"]{opacity:1;visibility:visible;transform:none}
+  .ns-item{display:block;padding:10px 12px;border-radius:var(--r-btn)}
+  .ns-item + .ns-item{border-top:1px solid var(--line)}
+  .ns-l{display:block;font-family:var(--ui);font-weight:700;font-size:15.5px;
+    color:var(--ink);letter-spacing:-.1px}
+  .ns-d{display:block;margin-top:2px;font-size:12.5px;line-height:1.4;color:var(--mut)}
+  .ns-item.active{background:var(--bg-soft);box-shadow:inset 3px 0 0 var(--gold)}
+  .ns-item.active .ns-l{color:var(--goldtx)}
+  .navscrim{display:block;position:fixed;inset:0;z-index:64;background:rgba(15,20,28,.44);
+    opacity:0;visibility:hidden;transition:opacity .16s ease,visibility .16s}
+  .navscrim[data-open="1"]{opacity:1;visibility:visible}
+  body.nav-open{overflow:hidden}
+}
+@media (max-width:360px){
+  .nav-in{gap:8px}
+  .brand{gap:7px}
+  .brand .brand-mark{width:22px;height:22px}
+  .brand .word{font-size:14px}
+  .acct{padding:5px 11px}
+  #acctLbl{font-size:12.5px}
+  .mh-trial{font-size:8.5px;letter-spacing:.4px}
+  .navtog{width:36px;height:36px}
+  .navtog svg{width:19px;height:19px}
+  .ns-l{font-size:15px}
+}
+@media (prefers-reduced-motion:reduce){
+  .navsheet,.navscrim{transition:none}
+}
 </style>
 </head>
 <body>
 
-<!-- SHELL · header copied from index.html; #navLinks is script-populated there,
-     HARD-CODED here to the same six destinations (alpha.js NOT loaded - see build report). -->
-<header class="nav">
+<!-- ═══ THE STITCHED MASTHEAD · 2026-09-01 · seat B's pinned bar + dial mark at
+     EVERY width (§R.10 item 2) + seat A's icon-only trigger and absolute panel
+     (item 3) + seat C's two-line control (item 4). The account control is a real
+     <a href> - §R.10 item 5, the keyboard fix: focus and Enter come free.
+     alpha.js is NOT loaded on this page, so the six destinations stay hard-coded
+     (as before); data-view keys let the panel builder read them. -->
+<header class="nav" id="siteNav">
   <div class="wrap nav-in">
-    <a class="brand" href="index.html"><span class="word">Altcoin Buzz <b>TNT Score</b></span></a>
+    <a class="brand" href="index.html">
+      <svg class="brand-mark" viewBox="0 0 26 26" aria-hidden="true">
+        <path d="M4.1 18.2 A10.3 10.3 0 1 1 21.9 18.2" fill="none" stroke="var(--line2)" stroke-width="3" stroke-linecap="round"/>
+        <path d="M4.1 18.2 A10.3 10.3 0 0 1 20.3 5.7" fill="none" stroke="var(--gold)" stroke-width="3" stroke-linecap="round"/>
+        <path d="M13 13 L17.7 8.3" stroke="var(--ink)" stroke-width="2.4" stroke-linecap="round"/>
+        <circle cx="13" cy="13" r="2.1" fill="var(--ink)"/>
+      </svg>
+      <span class="word"><span class="w-ab">Altcoin Buzz </span><b>TNT Score</b></span>
+    </a>
     <nav class="nav-links" id="navLinks" aria-label="Primary">
-      <a href="index.html#/coins">Coins</a>
-      <a href="index.html#/watchlist">Watchlist</a>
-      <a href="index.html#/research">Research</a>
-      <a href="index.html#/hws">How We Score</a>
-      <a href="index.html#/market">Market</a>
-      <a href="index.html#/pricing">Pricing</a>
+      <a href="index.html#/coins" data-view="coins">Coins</a>
+      <a href="index.html#/watchlist" data-view="watchlist">Watchlist</a>
+      <a href="index.html#/research" data-view="research">Research</a>
+      <a href="index.html#/hws" data-view="hws">How We Score</a>
+      <a href="index.html#/market" data-view="market">Market</a>
+      <a href="index.html#/pricing" data-view="pricing">Pricing</a>
     </nav>
     <div class="nav-right">
       <button class="icon-btn" aria-label="Search" title="Search tokens and catalysts">
@@ -310,10 +594,22 @@
       <button class="icon-btn notif-dot" aria-label="Notifications" title="A score moved, and which catalyst drove it">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 16v-5a6 6 0 10-12 0v5l-2 2h16z"/><path d="M10 21h4"/></svg>
       </button>
-      <span class="acct"><span class="av mono">?</span><span>Sign in</span></span>
+      <a class="acct" href="index.html#/pricing">
+        <span class="av mono" id="acctAv">?</span>
+        <span class="acct-tx"><span id="acctLbl">Sign in</span><em class="mh-trial" id="mhTrial">7-day free trial</em></span>
+      </a>
+      <button class="navtog" id="navTog" type="button" aria-label="Menu"
+              aria-expanded="false" aria-controls="navSheet">
+        <svg class="ic-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <svg class="ic-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
     </div>
   </div>
+  <div class="navsheet" id="navSheet">
+    <div class="wrap"><nav class="ns-in" id="navSheetList" aria-label="All destinations"></nav></div>
+  </div>
 </header>
+<div class="navscrim" id="navScrim"></div>
 
 <main class="wrap">
 
@@ -380,7 +676,7 @@
         </div>
         <div class="axcard">
           <div><span class="microlabel">NETWORK</span>
-            <div class="read" style="margin-top:4px">The platform keeps shipping</div></div>
+            <div class="read" style="margin-top:4px">Use is holding up better than the price</div></div>
           <div class="rt"><span class="num">5.3</span><span class="bchip neut">NEUTRAL</span></div>
         </div>
         <div class="axcard">
@@ -397,13 +693,269 @@
          technicals and market blocks are the freshness surface. -->
   </div>
 
+  <!-- ═══ BLOCK 1 · TOKEN - pass-3 SHELL. Header copies the TECHNICALS
+       pattern; the body is J9's surface and ships as a labelled empty slot.
+       The axis itself is unchanged: scored from the catalysts' token side. -->
+  <section id="token">
+    <div class="sec-eyeb"><span class="n">1</span><span class="eyebrow">TOKEN</span>
+      <span class="spacer"></span><span class="datepill">Scored 4 Aug</span></div>
+    <div class="tacard">
+      <div class="tahead">
+        <div style="display:flex;align-items:baseline;gap:8px;flex-wrap:wrap">
+          <span class="num">4.6</span>
+          <span class="bchip neut">NEUTRAL</span>
+          <span class="read">Catalysts aren&#8217;t reaching the coin</span>
+        </div>
+        <span class="one">13 catalysts</span>
+      </div>
+      <!-- CATALYST ROLL-UP · stitched 2026-09-01 · the J9 mix (seat B pile +
+           seat A driver rows), one renderer for both axes. Fills the former
+           J9 slot: #595 - a demo surface renders finished. -->
+      <div id="ruToken" style="margin-top:14px"></div>
+    </div>
+  </section>
+
+  <!-- ═══ BLOCK 2 · NETWORK - pass 2 material re-architected per pass 3:
+       TECHNICALS header pattern on top; TWO SEGMENTS (growth in use, then the
+       J9 catalyst slot); chart and quadrant stacked as a sequence; caveat
+       pills in the footer with the horizon kept in prose above them.
+       One input into the Network axis; not a fourth axis, not a fourth score.
+       J4-B forms in gold and ink only. -->
+  <section id="network">
+    <div class="sec-eyeb"><span class="n">2</span><span class="eyebrow">NETWORK</span>
+      <span class="spacer"></span><span class="datepill">Measured 28 Aug</span></div>
+    <div class="tacard" id="nxCard">
+
+      <div class="tahead">
+        <div style="display:flex;align-items:baseline;gap:8px;flex-wrap:wrap">
+          <span class="num">5.3</span>
+          <span class="bchip neut">NEUTRAL</span>
+          <span class="read">Use is holding up better than the price</span>
+        </div>
+        <span class="one">13 catalysts &#183; 3 use measures</span>
+      </div>
+
+      <!-- SEGMENT 1 · GROWTH IN USE -->
+      <div class="nx-seg">
+        <div class="nxs1-live">
+          <div class="nx-seghead">
+            <div style="max-width:620px">
+              <span class="microlabel">GROWTH IN USE, COIN AGAINST COIN</span>
+              <div class="read" style="margin-top:5px;font-size:15px">The network is running a little ahead of the token</div>
+            </div>
+            <div class="nx-pcl">
+              <span class="num">58<small>th</small></span>
+              <span class="u">percentile of coins we can measure</span>
+              <span class="nx-chip"><span class="w">Middle of the pack</span><span class="s">for growth in use</span></span>
+            </div>
+          </div>
+
+          <h3 class="nx-q" style="margin-top:16px">Is real use confirming the price?</h3>
+          <p class="nx-sub">Both lines are drawn as change against their own recent pace, so a flat line
+            means carrying on as before rather than zero.</p>
+          <div class="nx-fig">
+            <svg viewBox="0 0 560 168" role="img" aria-label="Two lines over 90 days around a shared baseline. Use climbs above its own pace while the price sinks below its own pace.">
+              <line x1="12" y1="84" x2="470" y2="84" stroke="var(--line2)" stroke-width="1.5"/>
+              <text x="12" y="24" font-size="9" fill="var(--faint)" font-family="monospace">FASTER THAN ITS OWN PACE</text>
+              <text x="12" y="150" font-size="9" fill="var(--faint)" font-family="monospace">SLOWER THAN ITS OWN PACE</text>
+              <polyline points="12,90 76,88 140,84 204,78 268,70 332,63 398,54 460,46" fill="none" stroke="var(--gold)" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+              <polyline points="12,80 76,85 140,82 204,91 268,98 332,104 398,112 460,118" fill="none" stroke="var(--ink)" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="460" cy="46" r="3.6" fill="var(--gold)"/>
+              <circle cx="460" cy="118" r="3.6" fill="var(--ink)"/>
+              <text x="472" y="49" font-size="10" font-weight="700" fill="var(--goldtx)" font-family="monospace">USE +6%</text>
+              <text x="472" y="122" font-size="10" font-weight="700" fill="var(--ink)" font-family="monospace">PRICE -14%</text>
+              <text x="12" y="166" font-size="8.5" fill="var(--faint)" font-family="monospace">90 DAYS AGO</text>
+              <text x="470" y="166" font-size="8.5" fill="var(--faint)" font-family="monospace" text-anchor="end">TODAY</text>
+            </svg>
+            <div class="nx-leg"><span><i style="background:var(--gold)"></i>Use</span><span><i style="background:var(--ink)"></i>Price</span></div>
+          </div>
+          <p class="nx-a" style="max-width:660px">Not quite, and that is the read. Over the last 90 days the
+            price fell about 14 percent while everyday use picked up about 6 percent against its own pace.
+            The use reading can be right about the order of finish and a holder still lose money: the price
+            line fell the whole way.</p>
+
+          <span class="microlabel" style="display:block;margin-top:18px">WHERE THAT PUTS THIS COIN</span>
+          <div class="nx-quad" role="img" aria-label="A two by two grid, price direction against pace of use. HYPE sits where use speeds up while price falls: use is running ahead of price.">
+            <i></i><span class="qh">PRICE RISING</span><span class="qh">PRICE FALLING</span>
+            <span class="qr">USE SPEEDING UP</span>
+            <div class="q"><b>Both moving together</b></div>
+            <div class="q on"><b>Use is running ahead of price</b><span class="tag">HYPE IS HERE</span></div>
+            <span class="qr">USE SLOWING</span>
+            <div class="q"><b>Price is running ahead of use</b></div>
+            <div class="q"><b>Both cooling</b></div>
+          </div>
+          <p class="nx-cap" style="max-width:640px">The grid describes the last 90 days and nothing else. It
+            does not say the price will catch up with the use, and we will not write that sentence. It
+            leaves a question worth asking: more people are using this network while the market prices it
+            lower, so which of the two is slow to notice?</p>
+
+          <div class="nx-lane">
+            <span class="microlabel">THE LANE &#183; GROWTH IN USE, NOT SCORE</span>
+            <div class="lw" role="img" aria-label="A lane of the coins we can measure, one mark each. The HYPE chip rides a little past the middle, in the faster half.">
+              <div class="trak"></div>
+              <i class="lt" style="left:4%"></i><i class="lt" style="left:7.5%"></i><i class="lt" style="left:11%"></i><i class="lt" style="left:14.5%"></i><i class="lt" style="left:18%"></i><i class="lt" style="left:21.5%"></i><i class="lt" style="left:25%"></i><i class="lt" style="left:28.5%"></i><i class="lt" style="left:32%"></i><i class="lt" style="left:35.5%"></i><i class="lt" style="left:38%"></i><i class="lt" style="left:42%"></i><i class="lt" style="left:45.5%"></i><i class="lt" style="left:48.5%"></i><i class="lt" style="left:53%"></i><i class="lt" style="left:55.5%"></i><i class="lt" style="left:61%"></i><i class="lt" style="left:65%"></i><i class="lt" style="left:68.5%"></i><i class="lt" style="left:72%"></i><i class="lt" style="left:76%"></i><i class="lt" style="left:80.5%"></i><i class="lt" style="left:84%"></i><i class="lt" style="left:88%"></i><i class="lt" style="left:92.5%"></i><i class="lt" style="left:96%"></i>
+              <i class="lc" style="left:49.6%"></i>
+              <span class="stem" style="left:58%"></span>
+              <span class="mchip" style="left:58%"><img src="assets/token_logos/HYPE.svg" alt=""><b>HYPE</b></span>
+            </div>
+            <div class="ends"><span>Behind the pack</span><span class="c">In line</span><span>Ahead of the pack</span></div>
+            <p class="nx-cap">Every mark is one coin we can measure. The lane has no up and no down: moving
+              right means growing faster than other coins, not that the price is rising. Market Rank, three
+              blocks down, lines these coins up by their scores; this lane lines them up by growth in use,
+              and the same coin can sit differently on the two.</p>
+          </div>
+
+          <div class="nx-ink"><span class="k">A PLACE, NOT A DIRECTION</span>
+            <p>A high place can mean falling less in a falling market. This lane orders coins against each
+              other. It never points up or down, and we never turn it into a price call.</p></div>
+
+          <div class="nx-guard">
+            <div class="g"><span class="hd">What this says</span>
+              <p>Coins whose use has been growing faster than the pack have tended to do better than coins
+                whose use is slowing, over weeks to months, and only relative to each other.</p>
+              <p>If you are choosing between two coins, the one further right on the lane has the better
+                recent evidence. That is the whole claim. It is at its most useful when narrowing a long
+                list to a short one.</p></div>
+            <div class="g no"><span class="hd">What this does not say</span>
+              <p>It does not say HYPE will rise, and it does not time an entry. The whole market can fall
+                together and take every coin on the lane with it.</p>
+              <p>The evidence behind it is real but modest, most of it is from before 2023, and we are
+                still testing it against our own board. When this block and the chart disagree, that is a
+                question to ask, not a signal to trade.</p></div>
+          </div>
+        </div>
+
+        <!-- N/A STATE for segment 1 - renders ONLY via the TEAM DEMO bar. The
+             block header and the catalyst slot survive an unmeasurable coin;
+             only this use reading goes away, which is the point. -->
+        <div class="nxs1-na">
+          <div class="nx-seghead">
+            <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+              <span class="nx-plate">NO USE READING</span>
+              <span class="read">This coin cannot be measured this way</span>
+            </div>
+            <span class="one">growth in use, coin against coin</span>
+          </div>
+          <p class="nx-a" style="max-width:760px">There is no use reading for this coin, and that is an
+            answer, not a gap. Its ledger hides who is using it by design, so there is nothing public to
+            count. When that happens we do not estimate a number and we do not leave an empty cell: this
+            plate and this reason are the whole render.</p>
+          <div class="nx-lane">
+            <div class="lw" role="img" aria-label="The lane drawn with no chip, because this coin is not placed on the line.">
+              <div class="trak"></div>
+              <i class="lt" style="left:4%"></i><i class="lt" style="left:7.5%"></i><i class="lt" style="left:11%"></i><i class="lt" style="left:14.5%"></i><i class="lt" style="left:18%"></i><i class="lt" style="left:21.5%"></i><i class="lt" style="left:25%"></i><i class="lt" style="left:28.5%"></i><i class="lt" style="left:32%"></i><i class="lt" style="left:35.5%"></i><i class="lt" style="left:38%"></i><i class="lt" style="left:42%"></i><i class="lt" style="left:45.5%"></i><i class="lt" style="left:48.5%"></i><i class="lt" style="left:53%"></i><i class="lt" style="left:55.5%"></i><i class="lt" style="left:61%"></i><i class="lt" style="left:65%"></i><i class="lt" style="left:68.5%"></i><i class="lt" style="left:72%"></i><i class="lt" style="left:76%"></i><i class="lt" style="left:80.5%"></i><i class="lt" style="left:84%"></i><i class="lt" style="left:88%"></i><i class="lt" style="left:92.5%"></i><i class="lt" style="left:96%"></i>
+              <i class="lc" style="left:49.6%"></i>
+            </div>
+            <div class="ends"><span>Behind the pack</span><span class="c">In line</span><span>Ahead of the pack</span></div>
+            <p class="nx-cap">The measurable coins still line up. This coin is not placed on the line, and
+              nothing here pretends otherwise. The score above still stands: the catalysts carry it.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SEGMENT 2 · the stitched catalyst roll-up, network axis. Same
+           renderer as the TOKEN block; the axis is the parameter (#622). The
+           component prints its own microlabel, so none is duplicated here. -->
+      <div class="nx-seg">
+        <div id="ruNetwork"></div>
+      </div>
+
+      <div class="nx-foot">
+        <p>Read this block over weeks to months, not days. What feeds it: everyday users, actions taken
+          and fees paid, each read as change against the coin&#8217;s own recent pace, then placed beside
+          the other coins we can measure, plus the catalysts&#8217; network-side scores. One input into the
+          Network score above; never a trade signal. Sources and method notes live on the How We Score page.</p>
+        <div class="tameta" style="margin-top:0">
+          <span class="metachip">A weeks-to-months read</span>
+          <span class="metachip">Refreshed weekly</span>
+          <span class="metachip">Never a price call</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══ BLOCK 3 · TECHNICALS - seat 004 STRUCTURE (shared-ruler indicator
+       rows), data-pack CONTENT (TA report, 19 Aug). Band words are the TA
+       report's own literal verdicts, NOT re-derived (pack anomaly 5).
+       Price ladder is the block's legitimate difference (D-17). -->
+  <section>
+    <div class="sec-eyeb"><span class="n">3</span><span class="eyebrow">TECHNICALS</span>
+      <span class="spacer"></span><span class="datepill">Scored 19 Aug</span></div>
+    <div class="tacard">
+      <div class="tahead">
+        <div style="display:flex;align-items:baseline;gap:8px;flex-wrap:wrap">
+          <span class="num">6.6</span>
+          <span class="bchip bull">BULLISH</span>
+          <span class="read">Buyers back in charge</span>
+        </div>
+        <span class="one">10 indicators</span>
+      </div>
+      <div class="tameta">
+        <span class="metachip">Price at analysis $58.55</span>
+        <span class="metachip">Daily candle</span>
+        <span class="metachip">Above the 200-day EMA ($48.47)</span>
+      </div>
+      <!-- item 9 · the two full paragraphs are now the EXPANDED state behind a
+           one-line summary. Text is the TA report's, unchanged in substance. -->
+      <div class="taover" id="taover">
+        <p class="ta-collapsed">HYPE is trading at $58.55, sitting just $0.18 above its EMA 20 and well above the 200-day EMA at $48.47&#8230; <button class="ta-link" type="button" id="taMore" aria-expanded="false">more</button></p>
+        <div class="taover-full">
+          <p>HYPE is trading at $58.55, sitting just $0.18 above its EMA 20 and nestled between the 0.5 and 0.618 Fibonacci retracements from the $76.95 swing high to the $38.17 swing low. We&#8217;re $10 away from the previous high, but more importantly, the price is well above the 200-day EMA at $48.47, signalling that the macro trend remains bullish. The overall market structure feels constructive, with price holding near the middle Bollinger Band and maintaining a base that could launch higher.</p>
+          <p>The weight of evidence across our ten indicators leans decisively bullish, with a cumulative score of 6.6 out of 10. Nine of the ten indicators favour upside or show neutral-to-bullish signals: the moving averages are in perfect bullish alignment, on-balance volume is rising, MACD is printing higher lows, and Bollinger Bands give us room to extend. The only real headwind is the stacked resistance overhead at $60.48, $63.05, $65.42, and $67.81, which will require conviction to break. The absence of a clear chart pattern leaves us without a measured target, but the technical setup strongly favours a long entry here. <button class="ta-link" type="button" id="taLess">less</button></p>
+        </div>
+      </div>
+
+      <div style="margin-top:14px">
+        <div class="tind"><div class="nm"><b>RSI (14)</b><span class="read">Neutral momentum, neither overbought nor oversold</span></div>
+          <div class="trkw"><div class="trk"></div><div class="trkmid"></div><span class="tdot bull" style="left:55.6%"></span></div>
+          <div class="sc"><b>6</b><span class="bw bull">Bullish</span></div></div>
+        <div class="tind"><div class="nm"><b>Moving averages (EMA 20/50/100/200)</b><span class="read">Four of four in bullish stacks</span></div>
+          <div class="trkw"><div class="trk"></div><div class="trkmid"></div><span class="tdot bull" style="left:88.9%"></span></div>
+          <div class="sc"><b>9</b><span class="bw bull">Bullish</span></div></div>
+        <div class="tind"><div class="nm"><b>Bollinger Bands</b><span class="read">Price centered with room to expand</span></div>
+          <div class="trkw"><div class="trk"></div><div class="trkmid"></div><span class="tdot bull" style="left:72.2%"></span></div>
+          <div class="sc"><b>7.5</b><span class="bw bull">Bullish</span></div></div>
+        <div class="tind"><div class="nm"><b>Fibonacci retracements</b><span class="read">Sitting between key support and resistance</span></div>
+          <div class="trkw"><div class="trk"></div><div class="trkmid"></div><span class="tdot bull" style="left:66.7%"></span></div>
+          <div class="sc"><b>7</b><span class="bw bull">Bullish</span></div></div>
+        <div class="tind"><div class="nm"><b>Support levels</b><span class="read">Layered foundation protecting the upside</span></div>
+          <div class="trkw"><div class="trk"></div><div class="trkmid"></div><span class="tdot bull" style="left:72.2%"></span></div>
+          <div class="sc"><b>7.5</b><span class="bw bull">Bullish</span></div></div>
+        <div class="tind"><div class="nm"><b>Resistance</b><span class="read">Dense ceiling overhead that will test conviction</span></div>
+          <div class="trkw"><div class="trk"></div><div class="trkmid"></div><span class="tdot bear" style="left:22.2%"></span></div>
+          <div class="sc"><b>3</b><span class="bw bear">Bearish</span></div></div>
+        <div class="tind"><div class="nm"><b>Trendline</b><span class="read">Price above the descending line, maintaining structure</span></div>
+          <div class="trkw"><div class="trk"></div><div class="trkmid"></div><span class="tdot bull" style="left:61.1%"></span></div>
+          <div class="sc"><b>6.5</b><span class="bw bull">Bullish</span></div></div>
+        <div class="tind"><div class="nm"><b>MACD</b><span class="read">Histogram rising with line still below signal</span></div>
+          <div class="trkw"><div class="trk"></div><div class="trkmid"></div><span class="tdot bull" style="left:66.7%"></span></div>
+          <div class="sc"><b>7</b><span class="bw bull">Bullish</span></div></div>
+        <div class="tind"><div class="nm"><b>On-balance volume</b><span class="read">Accumulation confirms the rally</span></div>
+          <div class="trkw"><div class="trk"></div><div class="trkmid"></div><span class="tdot bull" style="left:66.7%"></span></div>
+          <div class="sc"><b>7</b><span class="bw bull">Bullish</span></div></div>
+        <div class="tind"><div class="nm"><b>Chart patterns</b><span class="read">No clear pattern yet, but structure is forming</span></div>
+          <div class="trkw"><div class="trk"></div><div class="trkmid"></div><span class="tdot neut" style="left:44.4%"></span></div>
+          <div class="sc"><b>5</b><span class="bw neut">Neutral</span></div></div>
+        <div class="taxis"><span class="pad-l"></span><span>1</span><span style="flex:1;text-align:center">5</span><span>10</span><span class="pad-r"></span></div>
+      </div>
+
+      <div class="ladder">
+        <div class="lad sup"><span class="lb">SUPPORT</span>
+          <ul><li>$58.22</li><li>$56.43</li><li>$55.51</li><li>$53.77</li></ul></div>
+        <div class="lad res"><span class="lb">RESISTANCE</span>
+          <ul><li>$60.48</li><li>$63.05</li><li>$65.42</li><li>$67.81</li></ul></div>
+      </div>
+    </div>
+  </section>
+
   <!-- ═══ BLOCK 2 · THE CATALYSTS (13 rows) - seat 002 structure (stacked revision,
        002-catalysts), house tokens. Rows in DATA-PACK order (Token descending,
        pack tie-breaks). Expand-in-place · one open at a time · collapsed by
        default (D-1..D-4). Scope chip per row from the pack - two rows are
        sector-wide. No takeaway line (D-47), no band-tinted field, no icons. -->
   <section>
-    <div class="sec-eyeb"><span class="n">1</span><span class="eyebrow">THE CATALYSTS</span>
+    <div class="sec-eyeb"><span class="n">4</span><span class="eyebrow">THE CATALYSTS</span>
       <span class="spacer"></span><span class="datepill">Scored 4 Aug</span></div>
     <div class="colhead"><span>NETWK</span><span>TOKEN</span></div>
     <div class="catboard" id="catboard">
@@ -632,87 +1184,13 @@
     </div>
   </section>
 
-  <!-- ═══ BLOCK 3 · TECHNICALS - seat 004 STRUCTURE (shared-ruler indicator
-       rows), data-pack CONTENT (TA report, 19 Aug). Band words are the TA
-       report's own literal verdicts, NOT re-derived (pack anomaly 5).
-       Price ladder is the block's legitimate difference (D-17). -->
-  <section>
-    <div class="sec-eyeb"><span class="n">2</span><span class="eyebrow">TECHNICALS</span>
-      <span class="spacer"></span><span class="datepill">Scored 19 Aug</span></div>
-    <div class="tacard">
-      <div class="tahead">
-        <div style="display:flex;align-items:baseline;gap:8px;flex-wrap:wrap">
-          <span class="num">6.6</span>
-          <span class="bchip bull">BULLISH</span>
-          <span class="read">Buyers back in charge</span>
-        </div>
-        <span class="one">10 indicators</span>
-      </div>
-      <div class="tameta">
-        <span class="metachip">Price at analysis $58.55</span>
-        <span class="metachip">Daily candle</span>
-        <span class="metachip">Above the 200-day EMA ($48.47)</span>
-      </div>
-      <!-- item 9 · the two full paragraphs are now the EXPANDED state behind a
-           one-line summary. Text is the TA report's, unchanged in substance. -->
-      <div class="taover" id="taover">
-        <p class="ta-collapsed">HYPE is trading at $58.55, sitting just $0.18 above its EMA 20 and well above the 200-day EMA at $48.47&#8230; <button class="ta-link" type="button" id="taMore" aria-expanded="false">more</button></p>
-        <div class="taover-full">
-          <p>HYPE is trading at $58.55, sitting just $0.18 above its EMA 20 and nestled between the 0.5 and 0.618 Fibonacci retracements from the $76.95 swing high to the $38.17 swing low. We&#8217;re $10 away from the previous high, but more importantly, the price is well above the 200-day EMA at $48.47, signalling that the macro trend remains bullish. The overall market structure feels constructive, with price holding near the middle Bollinger Band and maintaining a base that could launch higher.</p>
-          <p>The weight of evidence across our ten indicators leans decisively bullish, with a cumulative score of 6.6 out of 10. Nine of the ten indicators favour upside or show neutral-to-bullish signals: the moving averages are in perfect bullish alignment, on-balance volume is rising, MACD is printing higher lows, and Bollinger Bands give us room to extend. The only real headwind is the stacked resistance overhead at $60.48, $63.05, $65.42, and $67.81, which will require conviction to break. The absence of a clear chart pattern leaves us without a measured target, but the technical setup strongly favours a long entry here. <button class="ta-link" type="button" id="taLess">less</button></p>
-        </div>
-      </div>
-
-      <div style="margin-top:14px">
-        <div class="tind"><div class="nm"><b>RSI (14)</b><span class="read">Neutral momentum, neither overbought nor oversold</span></div>
-          <div class="trkw"><div class="trk"></div><div class="trkmid"></div><span class="tdot bull" style="left:55.6%"></span></div>
-          <div class="sc"><b>6</b><span class="bw bull">Bullish</span></div></div>
-        <div class="tind"><div class="nm"><b>Moving averages (EMA 20/50/100/200)</b><span class="read">Four of four in bullish stacks</span></div>
-          <div class="trkw"><div class="trk"></div><div class="trkmid"></div><span class="tdot bull" style="left:88.9%"></span></div>
-          <div class="sc"><b>9</b><span class="bw bull">Bullish</span></div></div>
-        <div class="tind"><div class="nm"><b>Bollinger Bands</b><span class="read">Price centered with room to expand</span></div>
-          <div class="trkw"><div class="trk"></div><div class="trkmid"></div><span class="tdot bull" style="left:72.2%"></span></div>
-          <div class="sc"><b>7.5</b><span class="bw bull">Bullish</span></div></div>
-        <div class="tind"><div class="nm"><b>Fibonacci retracements</b><span class="read">Sitting between key support and resistance</span></div>
-          <div class="trkw"><div class="trk"></div><div class="trkmid"></div><span class="tdot bull" style="left:66.7%"></span></div>
-          <div class="sc"><b>7</b><span class="bw bull">Bullish</span></div></div>
-        <div class="tind"><div class="nm"><b>Support levels</b><span class="read">Layered foundation protecting the upside</span></div>
-          <div class="trkw"><div class="trk"></div><div class="trkmid"></div><span class="tdot bull" style="left:72.2%"></span></div>
-          <div class="sc"><b>7.5</b><span class="bw bull">Bullish</span></div></div>
-        <div class="tind"><div class="nm"><b>Resistance</b><span class="read">Dense ceiling overhead that will test conviction</span></div>
-          <div class="trkw"><div class="trk"></div><div class="trkmid"></div><span class="tdot bear" style="left:22.2%"></span></div>
-          <div class="sc"><b>3</b><span class="bw bear">Bearish</span></div></div>
-        <div class="tind"><div class="nm"><b>Trendline</b><span class="read">Price above the descending line, maintaining structure</span></div>
-          <div class="trkw"><div class="trk"></div><div class="trkmid"></div><span class="tdot bull" style="left:61.1%"></span></div>
-          <div class="sc"><b>6.5</b><span class="bw bull">Bullish</span></div></div>
-        <div class="tind"><div class="nm"><b>MACD</b><span class="read">Histogram rising with line still below signal</span></div>
-          <div class="trkw"><div class="trk"></div><div class="trkmid"></div><span class="tdot bull" style="left:66.7%"></span></div>
-          <div class="sc"><b>7</b><span class="bw bull">Bullish</span></div></div>
-        <div class="tind"><div class="nm"><b>On-balance volume</b><span class="read">Accumulation confirms the rally</span></div>
-          <div class="trkw"><div class="trk"></div><div class="trkmid"></div><span class="tdot bull" style="left:66.7%"></span></div>
-          <div class="sc"><b>7</b><span class="bw bull">Bullish</span></div></div>
-        <div class="tind"><div class="nm"><b>Chart patterns</b><span class="read">No clear pattern yet, but structure is forming</span></div>
-          <div class="trkw"><div class="trk"></div><div class="trkmid"></div><span class="tdot neut" style="left:44.4%"></span></div>
-          <div class="sc"><b>5</b><span class="bw neut">Neutral</span></div></div>
-        <div class="taxis"><span class="pad-l"></span><span>1</span><span style="flex:1;text-align:center">5</span><span>10</span><span class="pad-r"></span></div>
-      </div>
-
-      <div class="ladder">
-        <div class="lad sup"><span class="lb">SUPPORT</span>
-          <ul><li>$58.22</li><li>$56.43</li><li>$55.51</li><li>$53.77</li></ul></div>
-        <div class="lad res"><span class="lb">RESISTANCE</span>
-          <ul><li>$60.48</li><li>$63.05</li><li>$65.42</li><li>$67.81</li></ul></div>
-      </div>
-    </div>
-  </section>
-
   <!-- ═══ BLOCK 4 · MARKET RANK - 003-rank_v3, LOCKED. Internals verbatim:
        rulers, tick positions, gauge geometry, BTC flags, band legend, greeked
        board date, disclosure paragraph. Chrome (eyebrow, card backgrounds,
        radii, padding) and band colours/type mapped to house tokens - every
        mapping is listed in the build report, none is a redesign. -->
   <section id="rank">
-    <div class="sec-eyeb"><span class="n">3</span><span class="eyebrow">MARKET RANK</span>
+    <div class="sec-eyeb"><span class="n">5</span><span class="eyebrow">MARKET RANK</span>
       <span class="spacer"></span><span class="datepill greek">Scored &#8249;date&#8250;</span></div>
     <h2 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Ranking block: disclosure line on top, band legend left and board date on the block header.</h2>
     <div class="abr">
@@ -745,7 +1223,7 @@
             <div class="hd" style="left:70.9%;background:var(--green)"></div>
           </div>
           <div class="ends"><span>STABLE 4.0</span><span class="btl" style="left:29.1%">BTC</span><span>6.2 &#183; 3 coins</span></div>
-          <div class="ph"><span class="aread">Front of the pack</span><span class="rk">10th of 39 &#183; 2 coins share this score</span></div>
+          <div class="ph"><span class="aread">Front of the pack</span><span class="rk">10th on the board &#183; 2 coins share this score</span></div>
         </div>
       </div>
 
@@ -762,7 +1240,7 @@
             <div class="hd" style="left:41.9%;background:var(--zero)"></div>
           </div>
           <div class="ends"><span>STABLE 3.9</span><span class="btl" style="left:20.2%">BTC</span><span>ZEC 5.6</span></div>
-          <div class="ph"><span class="aread">Back of the pack</span><span class="rk">32nd of 39 &#183; 3 coins share this score</span></div>
+          <div class="ph"><span class="aread">Back of the pack</span><span class="rk">32nd on the board &#183; 3 coins share this score</span></div>
         </div>
       </div>
 
@@ -779,7 +1257,7 @@
             <div class="hd" style="left:24.9%;background:var(--zero)"></div>
           </div>
           <div class="ends"><span>BTC 4.8</span><span>LINK 7.0</span></div>
-          <div class="ph"><span class="aread">Back of the pack</span><span class="rk">35th of 39 &#183; 4 coins share this score</span></div>
+          <div class="ph"><span class="aread">Back of the pack</span><span class="rk">35th on the board &#183; 4 coins share this score</span></div>
         </div>
       </div>
 
@@ -796,19 +1274,96 @@
             <div class="hd" style="left:76.6%;background:var(--green)"></div>
           </div>
           <div class="ends"><span>3.6 &#183; 2 coins</span><span class="btl" style="left:37.9%">BTC</span><span>PUMP 7.4</span></div>
-          <div class="ph"><span class="aread">Top five on the board</span><span class="rk">5th of 39 &#183; 2 coins share this score</span></div>
+          <div class="ph"><span class="aread">Top five on the board</span><span class="rk">5th on the board &#183; 2 coins share this score</span></div>
         </div>
       </div>
 
     </div>
 
-    <div class="disc">Each ruler spans the board&#8217;s actual range, not 1&#8211;10. On a 1&#8211;10 ruler, all 39 coins clump in the middle. Every mark is one coin; BTC is flagged for scale.</div>
+    <div class="disc">Each ruler spans the board&#8217;s actual range, not 1&#8211;10. On a 1&#8211;10 ruler, the whole board clumps in the middle. Every mark is one coin; BTC is flagged for scale.</div>
     <div class="legend">
       <div style="display:flex;gap:8px;flex-wrap:wrap">
         <span class="chip b-bear">BEARISH 1.0&#8211;4.4</span><span class="chip b-neut">NEUTRAL 4.5&#8211;5.5</span><span class="chip b-bull">BULLISH 5.6&#8211;10.0</span>
       </div>
     </div>
 
+    </div>
+  </section>
+
+  <!-- ═══ BLOCK 6 · SECTOR RANK - stitched 2026-09-01 from the picked 26-Aug
+       sector mix (coin surface: seat A top + seat B bottom), reconciled to ONE
+       grammar: seat A's .sxr-* flex rows and 20px logos carry B's bottom
+       content too (the §F 9 clash, closed here). Sits immediately after
+       MARKET RANK and is NOT folded into it (#623; fold deferred to #624).
+       De-greeked per #595: figures render finished; the PROVISIONAL badge and
+       the dashed ordinal skin ship deliberately because the GROUPING is
+       provisional. Seat B's ordinal-explainer note is KILLED per the 26-Aug
+       team return and is not carried. Peer pills are each coin's real TNT
+       score; the sector never gets a dial (the block lede says why). -->
+  <section id="sector">
+    <div class="sec-eyeb"><span class="n">6</span><span class="eyebrow">SECTOR RANK</span>
+      <span class="spacer"></span><span class="datepill greek">Scored &#8249;date&#8250;</span></div>
+    <div class="tacard">
+      <div class="sxr-head">
+        <span class="lede">HYPE sits in <b>DEX</b>.</span>
+        <span class="scope">Sector &#183; DEX</span>
+        <span class="metachip">No ecosystem tag</span>
+        <span class="greek">PROVISIONAL</span>
+      </div>
+      <p class="sxr-lede">Where this coin sits among the coins that do the same job, and how that
+        group looks right now. The tag is a shelf label we are still drafting, not a score:
+        the dial above stays the only dial on the page.</p>
+      <div class="sxr-rankline">
+        <span class="greek big">3rd of 5</span>
+        <span class="read">Middle of its sector, if this grouping holds.</span>
+      </div>
+      <div class="sxr-peers">
+        <div class="sxr-peer">
+          <span class="pos greek">1</span>
+          <span class="tlogo2"><img src="assets/token_logos/JUP.svg" alt=""></span>
+          <span class="who"><b>Jupiter</b><span class="tk3">JUP</span></span>
+          <span class="sp"><span class="scorepill bull">6.2</span><span class="bchip bull">BULLISH</span></span>
+        </div>
+        <div class="sxr-peer">
+          <span class="pos greek">2</span>
+          <span class="tlogo2"><img src="assets/token_logos/AERO.svg" alt=""></span>
+          <span class="who"><b>Aerodrome</b><span class="tk3">AERO</span></span>
+          <span class="sp"><span class="scorepill bull">5.8</span><span class="bchip bull">BULLISH</span></span>
+        </div>
+        <div class="sxr-peer is-self">
+          <span class="pos greek">3</span>
+          <span class="tlogo2"><img src="assets/token_logos/HYPE.svg" alt=""></span>
+          <span class="who"><b>Hyperliquid</b><span class="tk3">HYPE &#183; this coin</span></span>
+          <span class="sp"><span class="scorepill bull">5.6</span><span class="bchip bull">BULLISH</span></span>
+        </div>
+        <div class="sxr-peer">
+          <span class="pos greek">4</span>
+          <span class="tlogo2"><img src="assets/token_logos/DEXE.svg" alt=""></span>
+          <span class="who"><b>DeXe</b><span class="tk3">DEXE</span></span>
+          <span class="sp"><span class="scorepill neut">4.9</span><span class="bchip neut">NEUTRAL</span></span>
+        </div>
+        <div class="sxr-peer">
+          <span class="pos greek">5</span>
+          <span class="tlogo2"><img src="assets/token_logos/SUN.svg" alt=""></span>
+          <span class="who"><b>Sun</b><span class="tk3">SUN</span></span>
+          <span class="sp"><span class="scorepill neut">4.5</span><span class="bchip neut">NEUTRAL</span></span>
+        </div>
+      </div>
+      <div class="sxr-foot">
+        <span class="greek">5 coins carry this tag</span>
+        <span class="greek">group avg TNT 5.4</span>
+        <span class="greek b">3 bullish</span>
+        <span class="greek n">2 neutral</span>
+        <span class="greek r">0 bearish</span>
+      </div>
+      <!-- rule 8 · the empty state on THIS surface, kept from seat A: what the
+           block shows when a coin is Unassigned or alone in its sector. -->
+      <div class="sxr-variant">
+        <span class="vl">STATE VARIANT &#183; UNASSIGNED OR SOLO COIN</span>
+        <div class="vt"><b>No sector rank yet.</b> This coin has no ruled sector, or it is the only
+          coin in its sector today, so there is nothing to rank it against. The block stays, says
+          so plainly, and fills in when the grouping is ruled.</div>
+      </div>
     </div>
   </section>
 
@@ -819,7 +1374,7 @@
        links, no authors/dates/read-times. Thumbnails accommodated, never
        invented (D-22) - the frame renders visibly greeked. -->
   <section>
-    <div class="sec-eyeb"><span class="n">4</span><span class="eyebrow">GO DEEPER</span></div>
+    <div class="sec-eyeb"><span class="n">7</span><span class="eyebrow">GO DEEPER</span></div>
     <div class="artgrid">
 
       <div class="art">
@@ -875,7 +1430,7 @@
        publish date exist in no source: rendered GREEKED, visibly. Tier fields
        are REAL in the pack but not rendered - paid view, no gate (§4.6). -->
   <section>
-    <div class="sec-eyeb"><span class="n">5</span><span class="eyebrow">LISTEN</span></div>
+    <div class="sec-eyeb"><span class="n">8</span><span class="eyebrow">LISTEN</span></div>
     <div class="augrid">
 
       <div class="au">
@@ -902,7 +1457,7 @@
   <!-- ═══ BLOCK 7 · COIN DESCRIPTION - the written slot (§2.7). Page foot,
        below Read and Listen. The field exists in no source: GREEKED. -->
   <section>
-    <div class="sec-eyeb"><span class="n">6</span><span class="eyebrow">ABOUT THIS COIN</span></div>
+    <div class="sec-eyeb"><span class="n">9</span><span class="eyebrow">ABOUT THIS COIN</span></div>
     <div class="descslot">
       <span class="gl">coin.one_line_description</span>
       &#8249;description pending&#8250;
@@ -930,10 +1485,23 @@
       <a href="#">Privacy</a>
     </div>
   </div>
-  <div class="wrap"><p class="disc">Version Alpha mockup, 2026-08-21. Stitch build, seat B: internal showcase.
+  <div class="wrap"><p class="disc">Version Alpha mockup, 2026-09-01. Stitched coin page (nine blocks, #623): internal showcase.
     Scores and catalyst rows are literals from the compiled data pack; greeked values render as placeholders.
     Nothing here is financial advice.</p></div>
 </footer>
+
+<!-- TEAM DEMO BAR - scaffolding, not product. Toggles the use segment of
+     block 2 into its N/A state; the block header and the catalyst slot
+     survive, which is the architectural point. -->
+<div class="wrap">
+  <div class="demo-bar">
+    <span class="k">TEAM DEMO</span>
+    <span class="t">The use segment of block 2 has a designed N/A state for a coin with no use reading.
+      It does not render on HYPE, which has one. Toggle it here to inspect it; the reason text is
+      invented for the demo.</span>
+    <button type="button" id="demoBtn" aria-pressed="false">Show the N/A state</button>
+  </div>
+</div>
 
 <!-- ═══ BLOCK 8 · ASK BUZZ BAR - lifted from index.html; pills swapped to the
      coin-specific set from alpha-config.js BUZZ.chips (scope: token).
@@ -988,6 +1556,273 @@
     wrap.classList.remove('is-open');
     more.setAttribute('aria-expanded', 'false');
   });
+})();
+
+/* Team demo toggle for block 2 segment 1's N/A state (pass 3). Demo
+   scaffolding only: without the click, the N/A markup never displays. */
+(function () {
+  var card = document.getElementById('nxCard');
+  var btn = document.getElementById('demoBtn');
+  if (!card || !btn) return;
+  btn.addEventListener('click', function () {
+    var on = card.classList.toggle('is-na');
+    btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    btn.textContent = on ? 'Back to the live reading' : 'Show the N/A state';
+    if (on) card.scrollIntoView({behavior: 'smooth', block: 'center'});
+  });
+})();
+</script>
+
+<script src="alpha-config.js"></script>
+<script>
+/* ═══ THE CATALYST ROLL-UP · stitched renderer · 2026-09-01.
+   One function draws both instances; the axis is the parameter (#622). Bands
+   come from ALPHA.BANDS in the SHARED config - never re-derived, never copied
+   from a seat (#621: all three seats guessed and all three were wrong). Zone
+   edges are the midpoints between adjacent band bounds, computed from the
+   same constants. The component never prints or restates the block header's
+   score. If the config fails to load it fails LOUDLY - an empty TOKEN block
+   may not reach a validation round (§2.5). */
+(function(){
+  'use strict';
+  var tokenMount=document.getElementById('ruToken');
+  var netMount=document.getElementById('ruNetwork');
+  if(!tokenMount&&!netMount)return;
+  var A=window.ALPHA;
+  if(!A||!A.BANDS){
+    var fail='<div style="background:#bf3d3d;color:#fff;padding:12px 14px;font:700 13px system-ui">ROLL-UP GUARD FAILED. alpha-config.js did not load, so the shared band constants are unavailable and this surface will not draw without them.</div>';
+    if(tokenMount)tokenMount.innerHTML=fail;
+    if(netMount)netMount.innerHTML=fail;
+    return;
+  }
+  var BULL_MIN=A.BANDS.BULLISH[0], NEUT_MIN=A.BANDS.NEUTRAL[0];
+  var EDGE1=(A.BANDS.BEARISH[1]+A.BANDS.NEUTRAL[0])/2;
+  var EDGE2=(A.BANDS.NEUTRAL[1]+A.BANDS.BULLISH[0])/2;
+  function band(v){return v>=BULL_MIN?'bull':(v>=NEUT_MIN?'neut':'bear');}
+  function pct(v){return ((v-1)/9)*100;}
+  function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+  /* the thirteen rows, verbatim from THE CATALYSTS block on this page: the two
+     scores each row already has, its size word and its timing word. Nothing
+     derived, nothing invented. Every displayed name is under the 60-character
+     budget (#620) - and every one can become a displayed driver row. */
+  var CATS=[
+   {c:'Real money, partial capture',      size:'BIG',    when:"Hasn't happened yet", t:7.2, n:5.0},
+   {c:'Real bid, bigger faucet',          size:'BIG',    when:'Happening now',       t:5.7, n:5.0},
+   {c:'Strongest tech, weakest toll',     size:'BIG',    when:'Happening now',       t:5.7, n:8.0},
+   {c:'Priced in, and proven',            size:'SMALL',  when:'Already happened',    t:5.6, n:5.0},
+   {c:'Big holders, bid stopped',         size:'MEDIUM', when:'Happening now',       t:5.2, n:5.0},
+   {c:"A lever nobody's pulled",          size:'MEDIUM', when:"Hasn't happened yet", t:5.0, n:5.0},
+   {c:'A maybe with no date',             size:'SMALL',  when:"Hasn't happened yet", t:4.7, n:5.0},
+   {c:'The lock has a door',              size:'MEDIUM', when:'Happening now',       t:4.5, n:6.8},
+   {c:'Your coin, their keys',            size:'BIG',    when:'Built in',            t:3.8, n:5.0},
+   {c:'Already happened, barely priced',  size:'MEDIUM', when:'Already happened',    t:3.8, n:5.0},
+   {c:'Cheaper rivals, shrinking volume', size:'BIG',    when:'Happening now',       t:3.6, n:3.5},
+   {c:'The easy buyers already bought',   size:'MEDIUM', when:'Happening now',       t:3.3, n:5.0},
+   {c:'More coins coming than priced',    size:'BIG',    when:"Hasn't happened yet", t:2.0, n:5.0}
+  ];
+  var SIZECLASS={BIG:'big',MEDIUM:'med',SMALL:'sml'};
+  var SIZEW={BIG:3,MEDIUM:2,SMALL:1};
+  var SIZEPX={SMALL:8,MEDIUM:11,BIG:15};
+  var BANDWORD={bull:'Bullish',neut:'Neutral',bear:'Bearish'};
+  function pend(c){return c.when==="Hasn't happened yet";}
+  function done(c){return c.when==='Already happened';}
+  function B(k){return '<b class="'+k+'">'+BANDWORD[k].toLowerCase()+'</b>';}
+
+  /* the five-second reading: counts of rows already on the page, never a price
+     call, never the header score. Seat B's generator on the canonical bands. */
+  function reading(axis,noun,cnt,n){
+    var b=cnt.bear,z=cnt.neut,u=cnt.bull,s='';
+    if(n<5)s+='Only '+n+' catalysts are scored so far, so this reading is thin. ';
+    if(z===n){s+='All '+n+' catalysts land '+B('neut')+' for '+noun+': nothing is pulling hard in either direction.';}
+    else if(z/n>=0.65){
+      s+=z+' of '+n+' catalysts barely move '+noun+' either way.';
+      if(u>b){s+=b===0?' What leans, leans '+B('bull')+': '+u+(u===1?' pulls':' pull')+' that way and none pull the other.':' What leans, leans '+B('bull')+': '+u+' bullish to '+b+' bearish.';}
+      else if(b>u){s+=u===0?' What leans, leans '+B('bear')+': '+b+(b===1?' pulls':' pull')+' that way and none pull the other.':' What leans, leans '+B('bear')+': '+b+' bearish to '+u+' bullish.';}
+      else if(u>0){s+=' The rest split evenly, '+u+' each way.';}
+    }
+    else if(b>u){s+='More of these catalysts pull against '+noun+' than for it: '+b+' '+B('bear')+' to '+u+' bullish, with '+z+' in neutral.';}
+    else if(u>b){s+='More of these catalysts pull for '+noun+' than against it: '+u+' '+B('bull')+' to '+b+' bearish, with '+z+' in neutral.';}
+    else{s+='These catalysts pull both ways in equal measure: '+u+' '+B('bull')+', '+b+' '+B('bear')+', '+z+' neutral.';}
+    var bigs=CATS.filter(function(c){return c.size==='BIG';});
+    if(bigs.length){
+      var pendB=bigs.filter(pend),liveB=bigs.filter(function(c){return !pend(c);});
+      var uniq=function(arr){return arr.map(function(c){return band(c[axis]);}).filter(function(v,i,a){return a.indexOf(v)===i;});};
+      if(pendB.length===bigs.length){var pb=uniq(pendB);s+=pb.length===1&&pb[0]!=='neut'?' The biggest '+B(pb[0])+' ones have not happened yet.':' The biggest ones have not happened yet.';}
+      else if(liveB.length===bigs.length){var lb=uniq(liveB);s+=lb.length===1&&lb[0]==='neut'?' The biggest are already live and still land neutral.':' The biggest ones are already live.';}
+      else{var mb=uniq(pendB);if(pendB.length&&mb.length===1&&mb[0]!=='neut'){s+=' The biggest '+B(mb[0])+' ones have not happened yet.';}}
+    }
+    return s;
+  }
+
+  /* seat A's heaviest-per-side: the bigger size word first, then distance from
+     the middle of the scale. No new number is printed for this. */
+  function heaviest(axis,want){
+    var best=null;
+    CATS.forEach(function(r){
+      if(band(r[axis])!==want)return;
+      var w=SIZEW[r.size]*100+Math.round(Math.abs(r[axis]-5)*10);
+      if(!best||w>best.w)best={w:w,r:r};
+    });
+    return best?best.r:null;
+  }
+  function heavyRow(r,want){
+    if(!r){return '<div class="ru-hv"><span class="bchip '+want+'">'+BANDWORD[want]+'</span><span class="none">No catalyst lands in this band.</span></div>';}
+    return '<div class="ru-hv"><span class="bchip '+want+'">'+BANDWORD[want]+'</span>'
+      +'<span class="nm">'+esc(r.c)+'</span>'
+      +'<span class="mt"><span class="sig '+SIZECLASS[r.size]+'">'+esc(r.size)+'</span>'
+      +'<span class="phase">'+esc(r.when)+'</span></span></div>';
+  }
+
+  function render(mount,cfg){
+    if(!mount)return;
+    var axis=cfg.axis,n=CATS.length,cnt={bear:0,neut:0,bull:0},npend=0,i;
+    for(i=0;i<n;i++){cnt[band(CATS[i][axis])]++;if(pend(CATS[i]))npend++;}
+    var buckets={};
+    var marks=CATS.slice().sort(function(a,b){return SIZEW[b.size]-SIZEW[a.size];})
+      .map(function(c){var k=Math.round(c[axis]*4)/4,l=buckets[k]||0;buckets[k]=l+1;return{c:c,lvl:l};});
+    var maxStack=0;Object.keys(buckets).forEach(function(k){if(buckets[k]>maxStack)maxStack=buckets[k];});
+    var LANE=17,plotH=Math.max(64,34+maxStack*LANE);
+    var e1=pct(EDGE1),e2=pct(EDGE2);
+    var h='<section class="ru" aria-label="Catalyst roll-up">';
+    h+='<div class="ru-head"><span class="microlabel">'+esc(cfg.label)+'</span></div>';
+    h+='<p class="ru-read">'+reading(axis,cfg.noun,cnt,n)+'</p>';
+    h+='<div class="ru-plot" style="height:'+plotH+'px">';
+    h+='<i class="ru-zonebg bear" style="left:0;width:'+e1+'%"></i>';
+    h+='<i class="ru-zonebg neut" style="left:'+e1+'%;width:'+(e2-e1)+'%"></i>';
+    h+='<i class="ru-zonebg bull" style="left:'+e2+'%;width:'+(100-e2)+'%"></i>';
+    h+='<span class="ru-zone-line" style="left:'+e1+'%"></span>';
+    h+='<span class="ru-zone-line" style="left:'+e2+'%"></span>';
+    h+='<span class="ru-zone bear" style="left:'+(e1/2)+'%">Bearish</span>';
+    h+='<span class="ru-zone neut" style="left:'+((e1+e2)/2)+'%">Neutral</span>';
+    h+='<span class="ru-zone bull" style="left:'+((e2+100)/2)+'%">Bullish</span>';
+    marks.forEach(function(m,idx){
+      var c=m.c,d=SIZEPX[c.size];
+      var left=Math.min(98.5,Math.max(1.5,pct(c[axis])));
+      var bottom=6+m.lvl*LANE+(LANE-d)/2;
+      var glyph=pend(c)?' pend':(done(c)?' done':'');
+      var info=c.c+' \u00b7 '+c.size+' \u00b7 '+c.when+' \u00b7 '+BANDWORD[band(c[axis])];
+      h+='<button type="button" class="ru-mark'+glyph+'" data-i="'+idx+'" style="left:'+left+'%;bottom:'+bottom+'px;width:'+d+'px;height:'+d+'px" title="'+esc(info)+'" aria-label="'+esc(info)+'"></button>';
+    });
+    h+='</div>';
+    h+='<div class="ru-base"><span class="ru-end">1</span><span class="ru-end r">10</span></div>';
+    h+='<div class="ru-chips">';
+    if(cnt.bear)h+='<span class="ru-chip cb">'+cnt.bear+' bearish</span>';
+    if(cnt.neut)h+='<span class="ru-chip cz">'+cnt.neut+' neutral</span>';
+    if(cnt.bull)h+='<span class="ru-chip cu">'+cnt.bull+' bullish</span>';
+    if(npend)h+='<span class="ru-chip ct">'+npend+(npend===1?' hasn&#8217;t':' haven&#8217;t')+' happened yet</span>';
+    h+='</div>';
+    h+='<p class="ru-out" aria-live="polite"></p>';
+    h+='<div class="ru-drv"><span class="microlabel">The heaviest on each side</span>'
+      +heavyRow(heaviest(axis,'bear'),'bear')
+      +heavyRow(heaviest(axis,'bull'),'bull')
+      +'</div>';
+    h+='</section>';
+    mount.innerHTML=h;
+    /* the tap equivalent of the hover title: identical line, visible surface */
+    var out=mount.querySelector('.ru-out');
+    Array.prototype.forEach.call(mount.querySelectorAll('.ru-mark'),function(btn){
+      btn.addEventListener('click',function(){
+        var c=marks[+btn.getAttribute('data-i')].c;
+        out.innerHTML='<b>'+esc(c.c)+'</b> \u00b7 '+esc(c.size)+' \u00b7 '+esc(c.when)+' \u00b7 '+BANDWORD[band(c[axis])];
+      });
+    });
+  }
+
+  render(tokenMount,{axis:'t',label:'THE TOKEN SIDE OF EVERY CATALYST',noun:'the coin'});
+  render(netMount,{axis:'n',label:'CATALYST IMPACT ON THE NETWORK',noun:'the network'});
+})();
+</script>
+<script>
+/* ═══ THE STITCHED MASTHEAD · behaviour · 2026-09-01.
+   Seat A's panel engine on seat B's pinned bar. One reconciliation from A's
+   original: the open-state scroll lock is body.nav-open{overflow:hidden}
+   instead of a position:fixed freeze, because a fixed body un-sticks the
+   pinned bar and carries it off screen at any scrolled position. Panel rows
+   are built from whatever #navLinks holds; the one-line blurbs come from
+   ALPHA.NAV[].blurb (promoted into alpha-config.js, both copies, closing seat
+   A's STOP flag) with A's map as the fallback. */
+(function(){
+  'use strict';
+  var nav=document.getElementById('siteNav'),
+      tog=document.getElementById('navTog'),
+      sheet=document.getElementById('navSheet'),
+      list=document.getElementById('navSheetList'),
+      scrim=document.getElementById('navScrim'),
+      lbl=document.getElementById('acctLbl'),
+      tr=document.getElementById('mhTrial');
+  if(!nav||!tog||!sheet||!list||!scrim) return;
+  var SWAP=1080;
+  var FALLBACK={
+    coins:'Every major coin, scored and ranked',
+    watchlist:'The coins you are tracking',
+    research:'The write-ups behind each score',
+    hws:'What Token, Network and Technicals measure',
+    market:'Where scores are moving right now',
+    pricing:'Plans, and what each one includes'
+  };
+  function blurb(k){
+    var C=window.ALPHA;
+    if(C&&C.NAV){for(var i=0;i<C.NAV.length;i++){if(C.NAV[i].key===k&&C.NAV[i].blurb)return C.NAV[i].blurb;}}
+    return FALLBACK[k]||'';
+  }
+  function esc(t){return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+  function buildRows(){
+    var src=document.getElementById('navLinks'); if(!src)return;
+    var out='';
+    Array.prototype.forEach.call(src.querySelectorAll('a[data-view]'),function(a){
+      var k=a.getAttribute('data-view')||'', d=blurb(k);
+      out+='<a class="ns-item'+(a.classList.contains('active')?' active':'')
+        +'" href="'+esc(a.getAttribute('href')||'')+'" data-view="'+esc(k)+'">'
+        +'<span class="ns-l">'+esc(a.textContent)+'</span>'
+        +(d?'<span class="ns-d">'+esc(d)+'</span>':'')+'</a>';
+    });
+    list.innerHTML=out;
+  }
+  function isOpen(){return sheet.getAttribute('data-open')==='1';}
+  function openSheet(){
+    if(isOpen())return;
+    buildRows();
+    var r=nav.getBoundingClientRect();
+    sheet.style.maxHeight=Math.max(200,window.innerHeight-r.bottom-12)+'px';
+    document.body.classList.add('nav-open');
+    sheet.setAttribute('data-open','1');
+    scrim.setAttribute('data-open','1');
+    tog.setAttribute('aria-expanded','true');
+    var first=list.querySelector('a');
+    if(first&&first.focus)first.focus({preventScroll:true});
+  }
+  function closeSheet(back){
+    if(!isOpen())return;
+    sheet.removeAttribute('data-open');
+    scrim.removeAttribute('data-open');
+    tog.setAttribute('aria-expanded','false');
+    document.body.classList.remove('nav-open');
+    if(back&&tog.focus)tog.focus({preventScroll:true});
+  }
+  tog.addEventListener('click',function(){isOpen()?closeSheet(true):openSheet();});
+  scrim.addEventListener('click',function(){closeSheet(false);});
+  list.addEventListener('click',function(e){if(e.target.closest&&e.target.closest('a'))closeSheet(false);});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&isOpen())closeSheet(true);});
+  sheet.addEventListener('keydown',function(e){
+    if(e.key!=='Tab')return;
+    var f=list.querySelectorAll('a'); if(!f.length)return;
+    var atEnd=(document.activeElement===f[f.length-1]&&!e.shiftKey);
+    var atTop=(document.activeElement===f[0]&&e.shiftKey);
+    if(atEnd||atTop){e.preventDefault();tog.focus();}
+  });
+  tog.addEventListener('keydown',function(e){
+    if(e.key!=='Tab'||!isOpen())return;
+    var f=list.querySelectorAll('a'); if(!f.length)return;
+    e.preventDefault();
+    (e.shiftKey?f[f.length-1]:f[0]).focus();
+  });
+  window.addEventListener('resize',function(){if(window.innerWidth>SWAP&&isOpen())closeSheet(false);});
+  /* C's second line follows the tier label alpha.js owns; it hides once the
+     label stops reading Sign in. Static pages never flip it, which is fine. */
+  function syncTrial(){if(lbl&&tr)tr.hidden=!/sign in/i.test(lbl.textContent||'');}
+  if(lbl&&window.MutationObserver){new MutationObserver(syncTrial).observe(lbl,{childList:true,characterData:true,subtree:true});}
+  syncTrial();
 })();
 </script>
 

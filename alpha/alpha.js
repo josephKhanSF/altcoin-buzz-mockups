@@ -28,9 +28,17 @@ var ALPHA_PAGE = (function () {
   /* ---- tiny helpers ---------------------------------------------------- */
   function esc(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(m){
     return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]; }); }
-  function one(n){ return (n==null) ? '—' : Number(n).toFixed(1); }
-  function cls(b){ return C.BAND_CLASS[b] || 'neut'; }
-  function gap(t){ return Math.abs(t.net - t.tok); }
+  /* §F 20 (stitch 2026-09-01) · A NULL SCORE IS ABSENCE, NOT A VERDICT.
+     Before this: one(null) printed an em dash (banned in rendered copy, and
+     identical to a not-yet-loaded price), cls(missing) fell through to 'neut'
+     (an unscoreable coin painted with the neutral band colour - absence
+     rendered as a verdict), and gap() went NaN into a CSS width. Now: 'n/a'
+     text, an 'na' band class that alpha.css draws as its own dashed object
+     ("a different object per state, never colour alone" - J3-C), and a
+     0-magnitude bar. */
+  function one(n){ return (n==null) ? 'n/a' : Number(n).toFixed(1); }
+  function cls(b){ return b ? (C.BAND_CLASS[b] || 'na') : 'na'; }
+  function gap(t){ var g = Math.abs(t.net - t.tok); return isFinite(g) ? g : 0; }
   function $(id){ return document.getElementById(id); }
   function pressAll(nodes, attr, val){
     Array.prototype.forEach.call(nodes, function(b){
@@ -66,6 +74,20 @@ var ALPHA_PAGE = (function () {
         '<div style="background:#bf3d3d;color:#fff;padding:14px 18px;font:700 14px system-ui">'
         + 'DATA GUARD FAILED. Board has ' + C.BOARD.length + ' rows, expected '
         + C.BOARD_ASSERT.rows + '. You may be on the pre-calibration archive copy.</div>');
+    }
+    /* §F 20, ruled 2026-08-27: inventoryRows is ASSERTED, not deleted. The
+       archive decoy differs on BOTH axes (12 board rows AND 104 inventory
+       rows vs 39/405), so this second check catches a wrong-file build even
+       when a future roster happens to share a row count. The per-row mix
+       arrays are the page's own copy of the inventory, so their sum IS the
+       inventory count this page was built from. */
+    var inv = 0;
+    C.BOARD.forEach(function(t){ (t.mix || []).forEach(function(n){ inv += n; }); });
+    if (inv !== C.BOARD_ASSERT.inventoryRows) {
+      document.body.insertAdjacentHTML('afterbegin',
+        '<div style="background:#bf3d3d;color:#fff;padding:14px 18px;font:700 14px system-ui">'
+        + 'DATA GUARD FAILED. Catalyst mix totals ' + inv + ' rows, expected '
+        + C.BOARD_ASSERT.inventoryRows + '. You may be on the pre-calibration archive copy.</div>');
     }
   }
 
@@ -346,6 +368,19 @@ var ALPHA_PAGE = (function () {
   window.addEventListener('resize', measureSticky);
   /* webfonts land after first paint and change both heights, so re-measure */
   window.addEventListener('load', measureSticky);
+  /* §F 17 (stitch 2026-09-01) · THE PROMOTED OBSERVER. Load and resize are not
+     the only times the control bar changes height: any design that adds a row,
+     a dashboard or a menu to that bar changes it BETWEEN those events, and the
+     pinned header then misaligns silently. Three seats invented this fix
+     independently (J1-A, J1-C privately; J1-D as the shared proposal) - it
+     lives here ONCE so the cost is paid centrally, never per design. */
+  if (window.ResizeObserver) {
+    var _stickyRO = new ResizeObserver(measureSticky);
+    var _roBar = document.querySelector('.board-ctl');
+    var _roGrp = document.querySelector('table.tok thead .bd-grp');
+    if (_roBar) _stickyRO.observe(_roBar);
+    if (_roGrp) _stickyRO.observe(_roGrp);
+  }
 
   /* ======================================================================
      TOOLTIPS — ⚠ KEYBOARD- AND TOUCH-REACHABLE, NOT HOVER-ONLY.
@@ -1508,5 +1543,11 @@ var ALPHA_PAGE = (function () {
     setInterval(function(){ paintPrices(true); }, 600000);
   }
 
-  return { initBoard: initBoard, initToken: initToken };
+  /* §F 18 (stitch 2026-09-01) · THE REPAINT HOOK IS EXPORTED. Every wave
+     surface that rebuilds the board body from its own inline script - outside
+     this closure - must end in ALPHA_PAGE.paintPrices(), or live prices
+     silently revert to static text. The ⛔ comments at the internal call
+     sites protect only calls made from inside this file; this export is what
+     makes the rule obeyable from outside it. */
+  return { initBoard: initBoard, initToken: initToken, paintPrices: paintPrices };
 })();

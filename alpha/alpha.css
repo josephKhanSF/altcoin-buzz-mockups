@@ -1349,3 +1349,9 @@ table.scorecard thead th.trk{text-align:left}
   .ta-row .ta-name{flex-basis:150px}
 }
 
+
+/* §F 20 (stitch 2026-09-01) · ABSENCE IS ITS OWN OBJECT. Anything handed the
+   'na' band class (a coin with no score on that axis) renders as a dashed
+   unscored plate - never a neutral verdict, never colour alone. Appended last
+   so it wins the cascade against the solid band pills at equal specificity. */
+.na{color:var(--dim);background:transparent;border:1.5px dashed var(--line2)}
