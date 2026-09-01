@@ -58,6 +58,14 @@
 .datepill.greek{border-style:dashed;background:transparent;color:var(--mut)}
 .greek{display:inline-block;font-family:var(--mono);font-size:11px;font-weight:700;color:var(--mut);
   border:1.5px dashed var(--line2);border-radius:var(--r-max);padding:3px 12px;background:transparent}
+/* #595 · 2026-09-01 · .fchip is the SOLID sibling of .greek — same geometry,
+   finished skin. It carries the SECTOR RANK and LISTEN chips that used to wear
+   .greek: two of them are DERIVED and true (peer count, group average), the
+   rest are plausible dummies now recorded in
+   Website/DUMMY_DATA_MANIFEST_2026-09-01.md. The .greek rules above STAY —
+   block 5's board date is still greeked, inside the 003-rank_v3 lock. */
+.fchip{display:inline-block;font-family:var(--mono);font-size:11px;font-weight:700;color:var(--dim);
+  border:1px solid var(--line2);border-radius:var(--r-max);padding:3px 12px;background:var(--bg-soft)}
 /* ---- chip families · recoloured R1 item 13; R2 comment 8 un-held the scope
         wording: HYPE-only chip dropped, sector chip renamed. Colour keys:
         SIGNIFICANCE = gold weight · TIMING = ink/slate · SCOPE = green/gold. */
@@ -249,6 +257,19 @@
 .abr .ends{position:relative;display:flex;justify-content:space-between;font-size:10.5px;
   font-weight:700;color:var(--dim);margin-top:9px}
 .abr .btl{position:absolute;transform:translateX(-50%);font-size:10.5px;font-weight:800;color:var(--ink)}
+/* #629 · 2026-09-01 · SCOPED UNLOCK OF 003-rank_v3 — the END-LABEL POSITION AT
+   PHONE WIDTHS, and nothing else. Below 560px the strip is narrow enough that
+   the left end label ("STABLE 3.9") runs past the BTC flag's x-position and the
+   two overprint — evidence Website/Feedback/coin-html-mobile/coin-15.PNG,
+   which renders "STABLE 3BTC". Fix: the FLAG STAYS ON ITS TICK (its x is
+   data — it marks BTC's place on the board's range, and moving it would lie)
+   and the END LABELS drop to a lane of their own. Vertical separation, so it
+   holds however far the flag and the label overlap horizontally — including the
+   case where the flag sits exactly ON the label. Desktop is untouched. */
+@media(max-width:560px){
+  .abr .ends{padding-top:17px}
+  .abr .btl{top:0}
+}
 .abr .ph{margin-top:8px;font-size:14px}
 .abr .ph .rk{font-size:11.5px;color:var(--dim);font-weight:600;margin-left:8px}
 .abr .thesis{background:var(--gold-soft);border:1px solid var(--gold-line);border-radius:var(--r-card);padding:18px 24px}
@@ -390,13 +411,17 @@
 .sxr-head .lede{font-size:15px;color:var(--ink)}
 .sxr-lede{font-size:13.5px;color:var(--mut);margin:12px 0 0;max-width:74ch}
 .sxr-rankline{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:14px 0 4px}
-.sxr-rankline .greek.big{font-size:16px;padding:7px 18px}
+.sxr-rankline .fchip.big{font-size:16px;padding:7px 18px;color:var(--ink);background:var(--card)}
 .sxr-peers{margin-top:12px;border:1px solid var(--line);border-radius:var(--r-card);
   background:var(--card-soft);overflow:hidden}
 .sxr-peer{display:flex;align-items:center;gap:12px;padding:9px 14px;border-bottom:1px solid var(--line)}
 .sxr-peer:last-child{border-bottom:0}
 .sxr-peer.is-self{background:var(--gold-soft);box-shadow:inset 3px 0 0 var(--gold)}
-.sxr-peer .pos{flex:none}
+/* #595 · the dashed ordinal skin comes OFF (§1.3): a plain mono numeral, fixed
+   width so the logo column still aligns. */
+.sxr-peer .pos{flex:none;width:14px;text-align:center;font-family:var(--mono);font-size:12px;
+  font-weight:700;color:var(--dim)}
+.sxr-peer.is-self .pos{color:var(--ink)}
 .sxr-peer .tlogo2{width:20px;height:20px;flex:none}
 .sxr-peer .tlogo2 img{width:20px;height:20px;display:block}
 .sxr-peer .who{min-width:0}
@@ -405,9 +430,9 @@
 .sxr-peer .sp{margin-left:auto;display:flex;align-items:center;gap:8px}
 .sxr-foot{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin-top:12px;
   padding-top:12px;border-top:1px solid var(--line)}
-.sxr-foot .greek.b{color:var(--green)}
-.sxr-foot .greek.n{color:var(--zero)}
-.sxr-foot .greek.r{color:var(--red)}
+.sxr-foot .fchip.b{color:var(--green)}
+.sxr-foot .fchip.n{color:var(--zero)}
+.sxr-foot .fchip.r{color:var(--red)}
 .sxr-variant{margin-top:14px;border:1.5px dashed var(--line2);border-radius:var(--r-card);
   padding:12px 15px;background:transparent}
 .sxr-variant .vl{display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:1.5px;
@@ -1295,66 +1320,69 @@ a.acct{text-decoration:none}
        grammar: seat A's .sxr-* flex rows and 20px logos carry B's bottom
        content too (the §F 9 clash, closed here). Sits immediately after
        MARKET RANK and is NOT folded into it (#623; fold deferred to #624).
-       De-greeked per #595: figures render finished; the PROVISIONAL badge and
-       the dashed ordinal skin ship deliberately because the GROUPING is
-       provisional. Seat B's ordinal-explainer note is KILLED per the 26-Aug
+       De-greeked per #595, COMPLETED 2026-09-01: figures render finished, and
+       the PROVISIONAL badge + dashed ordinal skin are now GONE — operator-ruled,
+       because the team read the badge as an error and stopped giving feedback.
+       The honesty moved to Website/DUMMY_DATA_MANIFEST_2026-09-01.md, which is
+       where every value on this block is now marked real / derived / dummy. The
+       GROUPING is still provisional; the block lede says so in words.
+       Seat B's ordinal-explainer note is KILLED per the 26-Aug
        team return and is not carried. Peer pills are each coin's real TNT
        score; the sector never gets a dial (the block lede says why). -->
   <section id="sector">
     <div class="sec-eyeb"><span class="n">6</span><span class="eyebrow">SECTOR RANK</span>
-      <span class="spacer"></span><span class="datepill greek">Scored &#8249;date&#8250;</span></div>
+      <span class="spacer"></span><span class="datepill">Scored 28 Aug</span></div>
     <div class="tacard">
       <div class="sxr-head">
         <span class="lede">HYPE sits in <b>DEX</b>.</span>
         <span class="scope">Sector &#183; DEX</span>
         <span class="metachip">No ecosystem tag</span>
-        <span class="greek">PROVISIONAL</span>
       </div>
       <p class="sxr-lede">Where this coin sits among the coins that do the same job, and how that
         group looks right now. The tag is a shelf label we are still drafting, not a score:
         the dial above stays the only dial on the page.</p>
       <div class="sxr-rankline">
-        <span class="greek big">3rd of 5</span>
+        <span class="fchip big">3rd of 5</span>
         <span class="read">Middle of its sector, if this grouping holds.</span>
       </div>
       <div class="sxr-peers">
         <div class="sxr-peer">
-          <span class="pos greek">1</span>
+          <span class="pos">1</span>
           <span class="tlogo2"><img src="assets/token_logos/JUP.svg" alt=""></span>
           <span class="who"><b>Jupiter</b><span class="tk3">JUP</span></span>
           <span class="sp"><span class="scorepill bull">6.2</span><span class="bchip bull">BULLISH</span></span>
         </div>
         <div class="sxr-peer">
-          <span class="pos greek">2</span>
+          <span class="pos">2</span>
           <span class="tlogo2"><img src="assets/token_logos/AERO.svg" alt=""></span>
           <span class="who"><b>Aerodrome</b><span class="tk3">AERO</span></span>
           <span class="sp"><span class="scorepill bull">5.8</span><span class="bchip bull">BULLISH</span></span>
         </div>
         <div class="sxr-peer is-self">
-          <span class="pos greek">3</span>
+          <span class="pos">3</span>
           <span class="tlogo2"><img src="assets/token_logos/HYPE.svg" alt=""></span>
           <span class="who"><b>Hyperliquid</b><span class="tk3">HYPE &#183; this coin</span></span>
           <span class="sp"><span class="scorepill bull">5.6</span><span class="bchip bull">BULLISH</span></span>
         </div>
         <div class="sxr-peer">
-          <span class="pos greek">4</span>
+          <span class="pos">4</span>
           <span class="tlogo2"><img src="assets/token_logos/DEXE.svg" alt=""></span>
           <span class="who"><b>DeXe</b><span class="tk3">DEXE</span></span>
           <span class="sp"><span class="scorepill neut">4.9</span><span class="bchip neut">NEUTRAL</span></span>
         </div>
         <div class="sxr-peer">
-          <span class="pos greek">5</span>
+          <span class="pos">5</span>
           <span class="tlogo2"><img src="assets/token_logos/SUN.svg" alt=""></span>
           <span class="who"><b>Sun</b><span class="tk3">SUN</span></span>
           <span class="sp"><span class="scorepill neut">4.5</span><span class="bchip neut">NEUTRAL</span></span>
         </div>
       </div>
       <div class="sxr-foot">
-        <span class="greek">5 coins carry this tag</span>
-        <span class="greek">group avg TNT 5.4</span>
-        <span class="greek b">3 bullish</span>
-        <span class="greek n">2 neutral</span>
-        <span class="greek r">0 bearish</span>
+        <span class="fchip">5 coins carry this tag</span>
+        <span class="fchip">group avg TNT 5.4</span>
+        <span class="fchip b">3 bullish</span>
+        <span class="fchip n">2 neutral</span>
+        <span class="fchip r">0 bearish</span>
       </div>
       <!-- rule 8 · the empty state on THIS surface, kept from seat A: what the
            block shows when a coin is Unassigned or alone in its sector. -->
@@ -1427,7 +1455,11 @@ a.acct{text-decoration:none}
   </section>
 
   <!-- ═══ BLOCK 6 · LISTEN - seat 002 structure, house tokens. Audio link and
-       publish date exist in no source: rendered GREEKED, visibly. Tier fields
+       publish date exist in no source. De-greeked per #595 (2026-09-01): both
+       chips now render PLAUSIBLE DUMMIES so the card reads finished - episode
+       number and publish date, recorded as dummy in
+       Website/DUMMY_DATA_MANIFEST_2026-09-01.md. No URL is invented; the play
+       disc already carries the link affordance. Tier fields
        are REAL in the pack but not rendered - paid view, no gate (§4.6). -->
   <section>
     <div class="sec-eyeb"><span class="n">8</span><span class="eyebrow">LISTEN</span></div>
@@ -1438,7 +1470,7 @@ a.acct{text-decoration:none}
         <div style="min-width:0">
           <div class="ttl">The Weekly Scoreboard</div>
           <div class="meta2">Market-wide &#183; Week of 10 Aug &#183; 11:40 &#183; two voices</div>
-          <div class="gk"><span class="greek">&#8249;audio link pending&#8250;</span><span class="greek">&#8249;date pending&#8250;</span></div>
+          <div class="gk"><span class="fchip">Episode 33</span><span class="fchip">Published 16 Aug</span></div>
         </div>
       </div>
 
@@ -1447,7 +1479,7 @@ a.acct{text-decoration:none}
         <div style="min-width:0">
           <div class="ttl">Scorecard Minute</div>
           <div class="meta2">This coin &#183; 2:10</div>
-          <div class="gk"><span class="greek">&#8249;audio link pending&#8250;</span><span class="greek">&#8249;date pending&#8250;</span></div>
+          <div class="gk"><span class="fchip">Episode 12</span><span class="fchip">Published 21 Aug</span></div>
         </div>
       </div>
 
