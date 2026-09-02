@@ -807,9 +807,34 @@ table.tok td.asset .lrow .tkr{font-family:var(--mono);font-size:11.5px;letter-sp
 /* ── B's PANES · one row per label, one cell per coin ────────────────────── */
 #sector-market .sxm-card{background:var(--card);border:1px solid var(--line2);
   border-radius:var(--r-card);box-shadow:var(--shadow);padding:6px 16px 12px}
-#sector-market .sxm-row{display:grid;grid-template-columns:150px 1fr 300px;gap:16px;
+/* `#647` · FOUR columns now: label · `n` · strip · tally. The `n` column is
+   FIXED-WIDTH so the count sits in the same place on every row, deep or thin. */
+#sector-market .sxm-row{display:grid;grid-template-columns:150px 44px 1fr 300px;gap:16px;
   align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
 #sector-market .sxm-row:last-of-type{border-bottom:0}
+/* `#647` · THE DEPTH TIERS. A grouping, never a filter: every shelf still
+   renders, each tier keeps the shared greener-first sort, and the label says
+   the rule out loud so a reader knows why the order is what it is. The two
+   figures in the label are the RULE (deep ≥ 6, thin ≤ 5), not a count. */
+#sector-market .sxm-tier+.sxm-tier{margin-top:6px;border-top:1px solid var(--line2)}
+#sector-market .sxm-tier-h{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;
+  margin:12px 0 2px;font-family:var(--mono);font-size:11px;font-weight:700;
+  letter-spacing:1.4px;text-transform:uppercase;color:var(--mut)}
+#sector-market .sxm-tier-h .why{font-family:var(--ui);font-size:12px;font-weight:500;
+  letter-spacing:0;text-transform:none;color:var(--faint)}
+/* `#647` · the `n` column. `n` is half the story on a shelf ranking, so it
+   lives in its own aligned column, not as a footnote in the tally. */
+#sector-market .sxm-n{font-family:var(--mono);font-size:13px;font-weight:700;
+  font-variant-numeric:tabular-nums;color:var(--ink);white-space:nowrap}
+#sector-market .sxm-n .k{font-size:10px;font-weight:600;letter-spacing:.8px;color:var(--faint);
+  margin-right:4px}
+#sector-market .sxm-n.zero{color:var(--faint)}
+/* `#647` · the row label takes focus ONLY on Esc from its strip (roving model
+   below); it is not a tab stop. Same house ring as every other focus. */
+#sector-market .sxm-name:focus{outline:2px solid var(--gold);outline-offset:2px}
+#sector-market .sxm-name:focus:not(:focus-visible){outline:2px solid var(--gold)}
+#sector-market .sxm-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);
+  white-space:nowrap}
 #sector-market .sxm-name{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:1.4px;
   text-transform:uppercase;color:var(--ink)}
 #sector-market .sxm-name .sub{display:block;font-size:10.5px;font-weight:600;letter-spacing:.8px;
@@ -828,10 +853,21 @@ table.tok td.asset .lrow .tkr{font-family:var(--mono);font-size:11.5px;letter-sp
 #sector-market .sxm-cell.n .t,#sector-market .sxm-cell.n .v{color:var(--zero)}
 #sector-market .sxm-cell.r{background:var(--red-soft);border-color:rgba(191,61,61,.26)}
 #sector-market .sxm-cell.r .t,#sector-market .sxm-cell.r .v{color:var(--red)}
-/* the empty-shelf state: a real state, never hidden — and SOLID, see above */
+/* `#647` · THE CELLS ARE DOORS. Each cell is a real <a> to `coin.html`, bare —
+   the board rows' own convention (alpha.js L881). At rest it looks EXACTLY as
+   it did: same tint, same size; the only at-rest change is the pointer.
+   ⛔ RULING 2: the band tint is KEPT. No tint rule above is touched.
+   Hover and focus are ONE visible state — the house gold ring, drawn OUTSIDE
+   the tint by `outline` so it reads against all three bands and moves NOTHING:
+   no size change, no lift, no shadow, so the strip cannot reflow. */
+#sector-market a.sxm-cell{cursor:pointer;text-decoration:none}
+#sector-market a.sxm-cell:hover,#sector-market a.sxm-cell:focus{outline:2px solid var(--gold);
+  outline-offset:2px}
+/* the empty-shelf state: a real state, never hidden — and SOLID, see above.
+   `#647`: and INERT — no link, no pointer, no hover, no focus stop. */
 #sector-market .sxm-empty{border:1px solid var(--line2);background:var(--bg-soft);
   border-radius:var(--r-btn);padding:7px 12px;font-family:var(--mono);font-size:11px;
-  color:var(--faint)}
+  color:var(--faint);cursor:default}
 /* the tally: counted, not greeked. Band-coloured text, so green still means
    the bullish band and red still means the bearish band. */
 #sector-market .tally{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
@@ -843,15 +879,28 @@ table.tok td.asset .lrow .tkr{font-family:var(--mono);font-size:11.5px;letter-sp
 #sector-market .tally .ct.r{color:var(--red)}
 #sector-market .sxm-note{font-size:12.5px;color:var(--mut);margin-top:14px;line-height:1.5;
   max-width:92ch}
+/* `#647` · the ecosystem COVERAGE line, Ecosystem Heat only. Both figures are
+   COUNTED by the renderer from `window.SECTOR_MAPS`; none is typed. */
+#sector-market .sxm-cover{font-family:var(--ui);font-size:12.5px;color:var(--mut);
+  margin:0 0 10px;line-height:1.5;max-width:92ch}
+#sector-market .sxm-cover b{font-family:var(--mono);font-weight:700;color:var(--ink)}
 
 /* ── WIDTHS · the team reviews desktop; below 1160 this does the minimum:
-      the row stops being three columns, the strip wraps, nothing overflows. */
+      the row stops being four columns, the strip wraps, nothing overflows.
+      `#647`: `n` and the tier labels survive every width. */
 @media (max-width:1160px){
-  #sector-market .sxm-row{grid-template-columns:130px 1fr;gap:12px}
+  #sector-market .sxm-row{grid-template-columns:130px 44px 1fr;gap:12px}
   #sector-market .tally{grid-column:1 / -1;justify-content:flex-start}
+  /* `#647` · TAP TARGETS. A cell is 52 wide but 43.25 tall at rest; below the
+     desktop breakpoint (phone AND tablet are touch) it grows to the 44px floor
+     on that axis only. Desktop is untouched. */
+  #sector-market a.sxm-cell{min-height:44px;justify-content:center}
 }
 @media (max-width:700px){
-  #sector-market .sxm-row{grid-template-columns:1fr;gap:9px}
+  /* label and `n` share the first line; strip and tally take a full line each */
+  #sector-market .sxm-row{grid-template-columns:1fr auto;gap:9px}
+  #sector-market .sxm-n{justify-self:end}
+  #sector-market .sxm-strip{grid-column:1 / -1}
   #sector-market .sxm-card{padding:6px 12px 12px}
 }
 </style>
@@ -1363,6 +1412,14 @@ table.tok td.asset .lrow .tkr{font-family:var(--mono);font-size:11.5px;letter-sp
      ⭐ A COIN CAN HOLD MORE THAN ONE LABEL, so it appears on every shelf it
         holds — `PUMP` is in Memecoins AND DEX. A row's count is "how many
         coins carry this label", never a share of the board.
+     ⭐ `#647`, 2026-09-02 — THE CELLS BECAME DOORS. Every member cell is a
+        real <a href="coin.html"> — BARE, the board rows' own convention
+        (alpha.js L881), ⛔ no query string, no slug, no ticker→slug map:
+        `coin.html` is one hand-authored HYPE page and a parameter would be a
+        promise it cannot keep (operator-ruled acceptable for Phases 1–4).
+        Also: an `n` column beside every row · depth tiers (deep ≥ 6 · thin
+        ≤ 5, a GROUPING never a filter) · inert empty shelves · one counted
+        coverage line on the Ecosystem pane. ⛔ REMOVES NOTHING from `#641`.
      ════════════════════════════════════════════════════════════════════════ -->
 <div class="view" id="view-market" hidden>
   <div class="viewhead">
@@ -1398,6 +1455,11 @@ table.tok td.asset .lrow .tkr{font-family:var(--mono);font-size:11.5px;letter-sp
       <div class="sxm-card" id="sxmSectors"></div>
     </div>
     <div id="sxmPaneEco" role="tabpanel" aria-labelledby="sxmTabEco" tabindex="0" hidden>
+      <!-- `#647` · THE COVERAGE LINE, this pane only: the two tabs are not
+           symmetrical and a reader who does not know that reads this one as
+           broken. ⛔ BOTH FIGURES ARE COUNTED by the engine from
+           `window.SECTOR_MAPS`; nothing is typed here. -->
+      <p class="sxm-cover" id="sxmCover"></p>
       <div class="sxm-card" id="sxmEcos"></div>
     </div>
 
@@ -2676,6 +2738,16 @@ table.tok td.asset .lrow .tkr{font-family:var(--mono);font-size:11.5px;letter-sp
       be wiped by it, and the coins view is not read, re-rendered or narrowed —
       the market panes are ALWAYS the whole board, never the sector lens's
       current selection. They are a map of everything, not a view of a filter.
+
+   `#647`, 2026-09-02 — THE CELLS BECAME DOORS. Five additions, no removals:
+     1 · every member cell is <a href="coin.html">, BARE (alpha.js L881's own
+         convention). ⛔ No query string, no slug map, no data attribute.
+     2 · an `n` column, counted from the member list the strip draws.
+     3 · depth tiers — deep ≥ 6 · thin ≤ 5 — a GROUPING, never a filter.
+     4 · empty shelves are inert: no <a>, no stop, `aria-disabled` group.
+     5 · one coverage line on the Ecosystem pane, every figure COUNTED.
+     Keyboard: one tab stop per strip, roving tabindex, ← → Home End, Esc to
+     the row label. Nothing group-level is scored: no average, no dial.
    ═══════════════════════════════════════════════════════════════════════════ */
 (function () {
   'use strict';
@@ -2698,8 +2770,25 @@ table.tok td.asset .lrow .tkr{font-family:var(--mono);font-size:11.5px;letter-sp
            ? P.fundamentalsTo : P.technicalsTo;
   if ($('sxmAsof')) $('sxmAsof').textContent = asof ? 'As of ' + asof : 'As of —';
 
+  /* ── `#647` · THE DEPTH TIERS ───────────────────────────────────────────
+     A shelf is DEEP at 6 members or more; everything else is THIN. The brief
+     named deep as `n ≥ 6` and thin as `n ≤ 3` and left 4–5 unruled; they land
+     in THIN here, because the tier's job is to say when a shelf's order can be
+     trusted, and four or five coins is still an order set by one or two of
+     them. These two numbers are the RULE; no count is typed anywhere below. */
+  var DEEP_AT = 6;
+  var TIERS = [
+    { key:'deep', label:'Deep shelves',
+      why: DEEP_AT + ' coins or more — enough members for the order to mean something',
+      is: function (n) { return n >= DEEP_AT; } },
+    { key:'thin', label:'Thin shelves',
+      why: (DEEP_AT - 1) + ' coins or fewer — a shelf this small is ranked by one or two '
+         + 'coins; read the cells, not the order',
+      is: function (n) { return n < DEEP_AT; } }
+  ];
+
   /* ── the row renderer ───────────────────────────────────────────────────── */
-  function groupRows(names, of, emptyWord) {
+  function groupRows(names, of, emptyWord, idp) {
     var groups = names.map(function (name) {
       var m = A.BOARD.filter(function (t) { return has(of(t.tk), name); })
                      .sort(function (a, b) { return b.tnt - a.tnt; });
@@ -2711,28 +2800,66 @@ table.tok td.asset .lrow .tkr{font-family:var(--mono);font-size:11.5px;letter-sp
     });
     groups.sort(function (a, b) { return b.share - a.share; });
 
-    return groups.map(function (g) {
-      var cells;
+    function row(g) {
+      var cells, strip;
       if (!g.m.length) {
+        /* `#647` · INERT. No link, no pointer, no focus stop; the group is
+           marked disabled to assistive tech. An empty shelf is never a door. */
         cells = '<span class="sxm-empty">no coins carry this ' + emptyWord + ' yet</span>';
+        strip = '<div class="sxm-strip" role="group" aria-disabled="true" aria-label="'
+              + esc(g.name) + ': no coins yet">' + cells + '</div>';
       } else {
-        cells = g.m.map(function (t) {
-          return '<span class="sxm-cell ' + (BC[t.tntB] || 'n') + '" title="' + esc(t.nm) + '">'
+        cells = g.m.map(function (t, i) {
+          /* `#647` · A DOOR. href is the BARE `coin.html` — the board rows'
+             own convention (alpha.js L881). ⛔ No query string, no slug, no
+             data attribute a future script could read.
+             ROVING FOCUS: one tab stop per strip — the first cell carries
+             tabindex 0, the rest -1; the keydown handler below moves it.
+             The accessible name carries the coin, its score and its band,
+             because 39 links sharing one href need a name that identifies
+             the coin, the same way the board row's link name is the coin. */
+          var band = String(t.tntB || '').toLowerCase();
+          return '<a class="sxm-cell ' + (BC[t.tntB] || 'n') + '" href="coin.html"'
+            + ' tabindex="' + (i === 0 ? '0' : '-1') + '"'
+            + ' title="' + esc(t.nm) + '"'
+            + ' aria-label="' + esc(t.tk) + ', ' + esc(t.nm) + ', TNT ' + t.tnt.toFixed(1)
+            + (band ? ', ' + esc(band) : '') + '">'
             + '<span class="t">' + esc(t.tk) + '</span>'
-            + '<span class="v">' + t.tnt.toFixed(1) + '</span></span>';
+            + '<span class="v">' + t.tnt.toFixed(1) + '</span></a>';
         }).join('');
+        strip = '<div class="sxm-strip" role="group" aria-label="' + esc(g.name) + ': '
+              + g.m.length + ' coins">' + cells + '</div>';
       }
       var tally = g.m.length
         ? '<span class="ct b">' + g.n.b + ' bullish</span>'
           + '<span class="ct n">' + g.n.n + ' neutral</span>'
           + '<span class="ct r">' + g.n.r + ' bearish</span>'
         : '<span class="ct">0 coins</span>';
+      /* `#647` · the `n` column, COUNTED from the same member list the strip
+         draws. The label is focusable only programmatically (Esc lands here). */
+      var nCol = '<div class="sxm-n' + (g.m.length ? '' : ' zero') + '">'
+               + '<span class="k" aria-hidden="true">n</span>' + g.m.length
+               + '<span class="sxm-sr"> coins</span></div>';
       return '<div class="sxm-row">'
-        + '<div class="sxm-name">' + esc(g.name)
+        + '<div class="sxm-name" tabindex="-1">' + esc(g.name)
         + (g.m.length ? '' : '<span class="sub">a real state, not an error</span>')
         + '</div>'
-        + '<div class="sxm-strip">' + cells + '</div>'
+        + nCol
+        + strip
         + '<div class="tally">' + tally + '</div>'
+        + '</div>';
+    }
+
+    /* `#647` · GROUPED BY TIER, deep first, each tier keeping the sort above.
+       A tier with no shelf on this pane prints nothing — no empty heading. */
+    return TIERS.map(function (T) {
+      var gs = groups.filter(function (g) { return T.is(g.m.length); });
+      if (!gs.length) return '';
+      var hid = 'sxmTier-' + idp + '-' + T.key;
+      return '<div class="sxm-tier" role="group" aria-labelledby="' + hid + '">'
+        + '<h3 class="sxm-tier-h" id="' + hid + '">' + esc(T.label)
+        + '<span class="why">' + esc(T.why) + '</span></h3>'
+        + gs.map(row).join('')
         + '</div>';
     }).join('');
   }
@@ -2741,9 +2868,67 @@ table.tok td.asset .lrow .tkr{font-family:var(--mono);font-size:11.5px;letter-sp
     groupRows(M.sectors(), function (tk) {
       var s = M.sectorsOf(tk);
       return s.length ? s : ['Unassigned'];       /* no sector IS the tenth row */
-    }, 'sector');
+    }, 'sector', 'sec');
   $('sxmEcos').innerHTML =
-    groupRows(M.ecos(), M.ecosOf, 'ecosystem');
+    groupRows(M.ecos(), M.ecosOf, 'ecosystem', 'eco');
+
+  /* ── `#647` · THE COVERAGE LINE, Ecosystem Heat only ─────────────────────
+     ⛔ EVERY FIGURE IS COUNTED HERE from `window.SECTOR_MAPS` over the board;
+        none is typed. It exists because the two tabs are not symmetrical:
+        every coin has a sector row, most have no ecosystem row, and a reader
+        who does not know that reads this pane as broken. */
+  (function coverage() {
+    var el = $('sxmCover'); if (!el) return;
+    var total = A.BOARD.length, carry = 0, memberships = 0, multi = 0;
+    A.BOARD.forEach(function (t) {
+      var k = M.ecosOf(t.tk).length;
+      if (k) { carry++; memberships += k; }
+      if (k > 1) multi++;
+    });
+    var none = total - carry;
+    el.innerHTML = '<b>' + carry + '</b> of the <b>' + total + '</b> coins carry an ecosystem, '
+      + 'holding <b>' + memberships + '</b> memberships between them'
+      + (multi ? ' (' + multi + (multi === 1 ? ' coin holds' : ' coins hold') + ' two)' : '')
+      + ' — the other ' + none + ' have no ecosystem yet, which is why this pane is '
+      + 'thinner than Sector Heat.';
+  })();
+
+  /* ── `#647` · KEYBOARD · ONE TAB STOP PER STRIP, ROVING FOCUS ────────────
+     Tab enters a strip once (its tabindex-0 cell); ← → move between cells,
+     wrapping like the tab control above; Home / End jump; Enter is the
+     link's own; Esc returns focus to the row label. Empty shelves hold no
+     <a>, so they cost no stop. Delegated once per card, not per cell. */
+  ['sxmSectors', 'sxmEcos'].forEach(function (id) {
+    var card = $(id); if (!card) return;
+    function cellsOf(a) {
+      return [].slice.call(a.parentNode.querySelectorAll('a.sxm-cell'));
+    }
+    function rove(a) {
+      cellsOf(a).forEach(function (c) { c.tabIndex = (c === a) ? 0 : -1; });
+    }
+    card.addEventListener('focusin', function (e) {
+      var a = e.target && e.target.closest ? e.target.closest('a.sxm-cell') : null;
+      if (a) rove(a);
+    });
+    card.addEventListener('keydown', function (e) {
+      var a = e.target && e.target.closest ? e.target.closest('a.sxm-cell') : null;
+      if (!a) return;
+      var k = e.key, cells = cellsOf(a), i = cells.indexOf(a), last = cells.length - 1, to = null;
+      if (k === 'ArrowRight')     to = i === last ? 0 : i + 1;
+      else if (k === 'ArrowLeft') to = i === 0 ? last : i - 1;
+      else if (k === 'Home')      to = 0;
+      else if (k === 'End')       to = last;
+      else if (k === 'Escape') {
+        var row = a.closest('.sxm-row'), lbl = row && row.querySelector('.sxm-name');
+        if (lbl) { e.preventDefault(); lbl.focus(); }
+        return;
+      }
+      if (to === null) return;
+      e.preventDefault();
+      rove(cells[to]);
+      cells[to].focus();
+    });
+  });
 
   /* ── the tab control ─────────────────────────────────────────────────────
      ⭐ THE EYEBROW AND THE LEDE FOLLOW THE PRESSED TAB. Seat C's top was
