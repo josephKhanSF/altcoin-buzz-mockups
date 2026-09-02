@@ -97,16 +97,34 @@ var ALPHA_PAGE = (function () {
      sub-scores carry the same kind of verdict the composite does. They do not,
      and that is the entire point of a three-axis instrument.
      ====================================================================== */
+  /* ⭐⭐ THE NEEDLE — `#644`, house-wide, RE-AFFIRMED BY THE TEAM 2026-09-02:
+     "all renditions of the TNT score gauge must have a needle."
+     ⛔ THE DOT IS GONE, NOT JOINED. A rim dot beside a needle reads as two
+        instruments disagreeing about the same number.
+     ▶ Geometry is the mini-dashboard's, which is this function's own arc read
+       at a shorter radius: pivot at the centre `(cx, cy)`, line out to `0.77r`
+       at the same angle the dot used. viewBox, gradient arc and `aria-label`
+       are UNCHANGED — nothing about what this gauge reports has moved.
+     ⛔ STYLED WITH SVG ATTRIBUTES, NOT A CLASS, AND THAT IS DELIBERATE. This
+        function renders on BOTH index.html and coin.html, and the only class
+        rules it can rely on are the three `.tnt-gauge` rules in `alpha.css`,
+        which is not a surface of this change. Inline attributes are also what
+        `coin.html`'s hand-authored hero dial already uses for its needle, so
+        the two are drawn the same way as well as looking the same.
+     ⚠ The dead `.tnt-gauge .mark` rule is left in `alpha.css` for the same
+       reason — that file is untouched here. It now matches nothing. */
   function gaugeSVG(score){
-    var r = 78, cx = 100, cy = 96;
+    var r = 78, cx = 100, cy = 96, nr = 60;
     var ang = (180 - 180 * ((score - 1) / 9)) * Math.PI / 180;
-    var x = (cx + r * Math.cos(ang)).toFixed(2), y = (cy - r * Math.sin(ang)).toFixed(2);
+    var nx = (cx + nr * Math.cos(ang)).toFixed(2), ny = (cy - nr * Math.sin(ang)).toFixed(2);
     return '<svg class="tnt-gauge" viewBox="0 0 200 112" role="img" aria-label="TNT score '+one(score)+' of 10">'
       + '<defs><linearGradient id="ggrad" x1="0" y1="0" x2="1" y2="0">'
       + '<stop offset="0" stop-color="#bf3d3d"/><stop offset="0.5" stop-color="#e0a93c"/>'
       + '<stop offset="1" stop-color="#15824a"/></linearGradient></defs>'
       + '<path class="track" stroke="url(#ggrad)" d="M 22 96 A 78 78 0 0 1 178 96"/>'
-      + '<circle class="mark" cx="'+x+'" cy="'+y+'" r="7"/></svg>';
+      + '<line x1="'+cx+'" y1="'+cy+'" x2="'+nx+'" y2="'+ny+'" stroke="var(--ink)" '
+      +   'stroke-width="4.5" stroke-linecap="round"/>'
+      + '<circle cx="'+cx+'" cy="'+cy+'" r="6" fill="var(--ink)"/></svg>';
   }
   function gaugeCard(o){
     return '<span class="microlabel">'+esc(o.label)+'</span>'
@@ -932,17 +950,11 @@ var ALPHA_PAGE = (function () {
          string reads `coins`. It still counts down under a filter — `8 of 39
          coins` — and that behaviour is unchanged. */
       $('filterCount').textContent = v.length + ' of ' + rows.length + ' coins';
-      /* ⭐ ROUND 5 · THE DESCRIPTIVE TEXT SITS UNDER THE CHIPS AND CHANGES WITH
-         THE SELECTED ONE. A single sentence describing the whole table is wrong
-         the moment a filter is applied, and the `all` string is the only place
-         left on the page that says what the product is FOR.
-         ⚠ The decoupled cutoff is SUBSTITUTED, never typed: it is build-invented
-           and unruled, so the sentence must follow whatever the chip applies. */
-      if ($('bandLede')) {
-        var lede = C.BAND_LEDE[FILTER] || C.BAND_LEDE.all;
-        $('bandLede').textContent =
-          lede.replace('{d}', C.BUILD_RAISED.DECOUPLED_THRESHOLD.toFixed(1));
-      }
+      /* ⛔ THE CHIP-LEDE WRITE IS DELETED 2026-09-02 (`#643`) along with the
+         paragraph it wrote into and the config block it read from. The
+         operator ruled both ledes off the homepage; see `alpha-config.js` §7b,
+         which carries the reasoning and what happened to the four siblings.
+         ⛔ `#filterNote` BELOW IS A DIFFERENT STRING AND IT STAYS. */
       /* A5 · THE `DECOUPLED` CHIP IS NOW LOAD-BEARING. Removing the flagged
          strip took away the only surface the 2nd and 3rd widest gaps had, and
          this chip is what recovers them — so it states its THRESHOLD on the

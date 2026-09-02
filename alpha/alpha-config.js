@@ -427,31 +427,28 @@ var ALPHA = (function () {
   };
 
   /* ======================================================================
-     7b · THE DESCRIPTIVE TEXT UNDER THE FILTER CHIPS — ⭐ ROUND 5, NEW.
-     ONE STRING PER CHIP, and the text changes with the selection, because a
-     sentence that describes the whole table is wrong the moment a filter is on.
-     ⛔ WRITTEN FOR A READER WHOSE FIRST LANGUAGE IS NOT ENGLISH: short
-        sentences, ordinary words, no internal vocabulary, under 35 words each.
-     ⛔ THE PAGE EXPLAINS; IT DOES NOT SELL. No slogans, no marketing register.
-     ⭐ `all` is the one place left that says WHAT THE PRODUCT IS FOR — it
-        carries the question the whole score exists to answer, and this is the
-        lead magnet the audience arrived through, so it is live and public.
-     ⚠ `{d}` in the decoupled string is filled from DECOUPLED_THRESHOLD, which
-       is BUILD-INVENTED and still OPEN. The number is never typed here, so it
-       cannot drift from the cutoff the chip actually applies.
+     7b · ⛔⛔ DELETED 2026-09-02 (`#643`) — THE BAND-LEDE BLOCK, ALL FIVE
+     STRINGS, AND ITS EXPORT. The operator ruled "both ledes" off the homepage:
+     "we can use tooltips if people want an explanation. i dont want to add the
+     text. it needs to look very clean." The chip-lede paragraph came out of
+     index.html in the same pass and `render()`'s reader lines went with it, so
+     nothing on either page reads this object any more.
+     ⛔ THE IDENTIFIER IS NOT SPELLED ANYWHERE IN THIS COMMENT, ON PURPOSE —
+        the dispatch's own completion check is `grep -rn` for it across both
+        copies returning ZERO, and a tombstone that names the corpse fails it.
+     ⚠⚠ THE FOUR SIBLINGS WENT WITH `all`, AND THAT WAS THE ACTUAL DECISION —
+        `SPEC #643 §5` item 2 flagged their fate as UNDETERMINED. They were
+        ONE surface: the same paragraph, re-written per chip by the same three
+        lines. With the element gone there is no surface left for
+        `bullish` / `neutral` / `bearish` / `decoupled` to render into, so
+        keeping them would have left dead config, not a live feature.
+     ⛔ NOTHING THEY SAID IS LOST FROM THE PRODUCT: the band cutoffs they
+        recited now live in the mini-dashboard's gauge tooltip (`#643`) and in
+        the TNT column header tooltip, both SUBSTITUTED from `BANDS`; the
+        decoupled cutoff and the on-the-line count are still printed cold by
+        `#filterNote`, which this deletion does not touch.
+     ▶ Deleted rather than commented out — `CONVENTIONS §0` rule 3.
      ====================================================================== */
-  var BAND_LEDE = {
-    all:       'Every coin gets three scores. The question behind them is simple: is the news '
-             + 'really going to move the token, or does it only help the tech?',            // 27 words
-    bullish:   'These coins score 5.6 or higher overall. The news, the tech and the charts '
-             + 'point the same way right now. This is a score, not advice.',                // 26 words
-    neutral:   'These coins score between 4.5 and 5.5 overall. The news, the tech and the '
-             + 'charts do not agree, or none of them is strong either way.',                // 26 words
-    bearish:   'These coins score 4.4 or lower overall. The news, the tech and the charts '
-             + 'are weak right now. This is a score, not advice.',                          // 24 words
-    decoupled: 'Here the news helps the tech, but it does not reach the coin you buy. '
-             + 'The Network and Token scores are at least {d} apart.'                       // 25 words
-  };
 
   /* ======================================================================
      8 · THE HIGHLIGHT STRIP — version-b's FORM, contents RE-DERIVED 2026-08-17,
@@ -1025,7 +1022,6 @@ var ALPHA = (function () {
     OPEN: OPEN, BUILD_RAISED: BUILD_RAISED, BRAND: BRAND, NAV: NAV,
     TIERS: TIERS, BANDS: BANDS, BAND_CLASS: BAND_CLASS,
     BOARD: BOARD, BOARD_ASSERT: BOARD_ASSERT, PROVENANCE: PROVENANCE,
-    BAND_LEDE: BAND_LEDE,
     HIGHLIGHTS: HIGHLIGHTS, TOKEN: TOKEN, DISCLOSURE: DISCLOSURE, BUZZ: BUZZ,
     PRICING: PRICING, STUBS: STUBS,
     allows: allows

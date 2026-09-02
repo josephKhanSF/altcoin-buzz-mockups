@@ -377,12 +377,46 @@ a.acct{text-decoration:none}
 .sxmenu button:hover{color:var(--ink);border-color:var(--dim)}
 .sxmenu button[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:var(--goldink)}
 .sxmenu .none{font-size:9.5px;letter-spacing:.6px;color:var(--faint);margin-left:auto;text-transform:none}
-/* ⭐ THE LEGEND (multi-B). It is the whole defence against a primary pick being
-   read as the complete answer, so it renders ALWAYS, in plain words, and is
-   never allowed to become a tooltip. */
-.sxnote{flex-basis:100%;font-family:var(--ui);font-size:12px;line-height:1.45;
-  color:var(--mut);margin:0}
-.sxnote b{color:var(--ink);font-weight:700}
+/* ⛔ `.sxnote`'s two rules are DELETED with the legend — `#643 §6` ii. */
+
+/* ⛔ THE HORIZONTAL RULE UNDER THE HIGHLIGHT BOXES IS REMOVED — `#643 §6` v.
+   ⭐ NAMED, because the brief asked which selector it was and it is NOT a
+      `<hr>` and NOT a border on the highlights: it is
+      `alpha.css:157 .section{border-top:1px solid var(--line)}`, inherited by
+      `<section class="section" id="coins">`, whose top edge happens to sit
+      directly under `#highlights`.
+   ⛔ SO IT IS OVERRIDDEN HERE, NOT EDITED THERE. `.section` is a SHARED
+      component — the Ask Buzz block and every nav-stub view use it — and
+      `alpha.css` is not a surface of this brief (`§3` check 6 pins its mtime).
+      Deleting the rule in `alpha.css` would have taken the divider off five
+      other sections nobody reviewed. Scoped to `#coins`, one line.
+   ⚠ THE SPACING IS TIGHTENED TOO — operator, 2026-09-02, on the rendered page.
+     `.section`'s `34px` margin + `34px` padding were sized to sit either side
+     of the RULE. With the line gone they are one `68px` void doing a job that
+     no longer exists, and the highlights read as detached from the board.
+     `18 + 14` measured to a `39px` visible gap (from `75px`), which still
+     separates the two blocks without a divider.
+   ⛔ INSIDE `min-width:1161px` ON PURPOSE. Below `1160` the base file already
+      overrides this pair to `18 / 17`, and the team reviewed DESKTOP ONLY —
+      an unscoped `#coins` rule out-specifies that media query and would have
+      silently re-spaced the phone, which nobody looked at. */
+@media (min-width:1161px){
+  #coins{border-top:none;margin-top:18px;padding-top:14px}
+}
+#coins{border-top:none}
+
+/* ⭐ THE `--breakdown` TINT ON THE THREE SCORE HEADERS, RE-SUPPLIED — `#643 §6` vi.
+   ⛔ THIS IS NOT NEW STYLING. `alpha.css:587 thead tr.sub th.comp` painted it,
+      and that selector died with the second header row. The tinted band behind
+      TOKEN / NETWORK / TECHNICALS is IN the team's proposed render, `td.comp`
+      still paints it on every body row, and losing it only in the header would
+      have been a silent side effect of deleting a label.
+   ▶ Same three declarations, re-homed to a selector that still matches. The
+     `6px` side padding is `ROUND 8`'s authorised trim and is what keeps
+     TECHNICALS + chevron + `i` reachable inside 300px — it is load-bearing,
+     not cosmetic. */
+table.tok thead th.comp{background:var(--breakdown);padding-top:6px;
+  padding-left:6px;padding-right:6px}
 
 /* ── THE ROW LABEL · never a bare label (multi-B) ────────────────────────
    Every row prints its PRIMARY label with a mark saying how many more the coin
@@ -431,42 +465,9 @@ table.tok td.asset .lrow .tkr{font-family:var(--mono);font-size:11.5px;letter-sp
   letter-spacing:1.1px;text-transform:uppercase;text-align:center;background:var(--ink);
   color:#fff;border-radius:var(--r-btn);padding:10px;text-decoration:none}
 
-/* ── THE FACET BAND (multi-B `#facetBand`) ───────────────────────────────
-   Hidden until a label is picked. It reads the WHOLE board for that label, so
-   its numbers do not shrink when a band chip cuts the table below it, and it
-   says so in words. ⛔ It carries NO group score: a sector is classification,
-   so the only score-coloured thing in it is one block per member coin carrying
-   that coin's own real band. */
-.facet{border:1px solid var(--line2);border-radius:var(--r-card);background:var(--card);
-  padding:12px 15px;margin:0 0 13px}
-.facet[hidden]{display:none}
-.facet .ft{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap}
-.facet .nm{font-family:var(--ui);font-weight:700;font-size:17px;color:var(--ink)}
-.facet .hold{font-family:var(--ui);font-size:13.5px;color:var(--txt)}
-.facet .hold b{color:var(--ink);font-variant-numeric:tabular-nums}
-.facet .memb{display:flex;gap:2px;align-items:center;margin-left:auto;flex-wrap:wrap}
-.facet .memb i{width:8px;height:17px;border-radius:2px;display:inline-block}
-.facet .memb i.b{background:var(--green)}
-.facet .memb i.n{background:var(--zero)}
-.facet .memb i.r{background:var(--red)}
-.facet .bands{display:flex;gap:13px;flex-wrap:wrap;margin-top:9px;
-  font-family:var(--mono);font-weight:700;font-size:11px;letter-spacing:1px;text-transform:uppercase}
-.facet .bands .b{color:var(--green)}.facet .bands .n{color:var(--zero)}.facet .bands .r{color:var(--red)}
-.facet .over{margin-top:9px;padding-top:9px;border-top:1px solid var(--line);
-  display:flex;gap:7px;align-items:center;flex-wrap:wrap}
-.facet .over .k{font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:1.2px;
-  text-transform:uppercase;color:var(--faint)}
-.facet .over .lb{display:inline-block;font-family:var(--mono);font-size:11px;font-weight:700;
-  letter-spacing:.9px;text-transform:uppercase;color:var(--dim);background:var(--bg-soft);
-  border:1px solid var(--line2);border-radius:var(--r-max);padding:3px 9px}
-.facet .say{margin:9px 0 0;font-family:var(--ui);font-size:13px;line-height:1.5;
-  color:var(--mut);max-width:98ch}
-.facet .say b{color:var(--ink)}
-.facet.is-empty{border-color:var(--gold-line);background:var(--gold-soft)}
-.facet.is-empty .nm{color:var(--goldtx)}
-.facet .floor{margin-top:9px;border-left:3px solid var(--gold);background:var(--gold-soft);
-  border-radius:0 var(--r-btn) var(--r-btn) 0;padding:9px 12px;
-  font-family:var(--ui);font-size:12.5px;line-height:1.45;color:var(--goldtx)}
+/* ⛔ THE FACET BAND's CSS BLOCK IS DELETED — TEAM ROUND 1, `#643 §6` i.
+   Thirty-two `.facet*` rules went with the element; nothing else on the page
+   used any of them. Deleted, not commented out (`CONVENTIONS §0` rule 3). */
 
 /* ── THE SHEET'S SECTOR + ECOSYSTEM GROUPS (seat B, index_mobile-B) ──────
    Below 1160 the sector row hides and the choice moves in here, above the sort
@@ -498,6 +499,140 @@ table.tok td.asset .lrow .tkr{font-family:var(--mono);font-size:11.5px;letter-sp
   border:none;cursor:pointer;text-decoration:underline;padding:6px}
 
 /* ═══════════════════════════════════════════════════════════════════════════
+   THE MINI-DASHBOARD · `#643`, built 2026-09-02 against
+   My_Work/Friction/SPEC_item643_mini-dashboard-target_2026-09-01.md.
+
+   ⛔ NOT a port. The picked `seats/index_dash-C_final.html` is a KNOWN
+      COMPROMISE (`§2A`: the trim that produced it DELETED two panels). This
+      assembles the three axis bars from `seats/index_dash-D.html`, the
+      band-split bar from `seats/index_dash-C.html` (the ORIGINAL), and the
+      house gauge geometry from `alpha.js gaugeSVG()` with the `#644` needle.
+   ⛔ NO TITLE, NO EYEBROW (`§2` items 7 + 7a). The bars label themselves.
+   ⛔ NO decoupling histogram (`§2` item 6, ruled out).
+   ⭐ THE PILLS ARE THE EXISTING `#filters` — same ids, same `data-f`, same
+      `aria-pressed`. alpha.js's handler and `#filterCount` are untouched;
+      only the element's PARENT changed. There is exactly ONE copy of them
+      on this page and there must stay exactly one.
+   ⭐ `.tntdash{flex-basis:100%}` is the same device `.sxrow` and `.mctl` use:
+      the card is its own row INSIDE the one sticky `.board-ctl`, so `--ctl-h`
+      keeps measuring the whole bar and `§F 17`'s ResizeObserver re-measures.
+   ═══════════════════════════════════════════════════════════════════════════ */
+.tntdash{flex-basis:100%;border:1px solid var(--line2);border-radius:var(--r-card);
+  background:var(--card);box-shadow:var(--shadow);padding:11px 16px 10px;margin:0}
+.dashreads{display:flex;align-items:center;gap:0}
+/* ⚠⚠ THE MIN-WIDTH FLOOR IS LOAD-BEARING (seat D's note, kept verbatim in
+   effect). These are flex items on a 0 basis: without a floor a narrow row
+   lets one collapse to a few pixels while its nowrap content runs out of the
+   card and drags the page into horizontal scroll. Every height stays correct
+   while it happens, so a heights-only check cannot see it. */
+.dcell{flex:1 1 0;min-width:172px;padding:0 20px;border-left:1px solid var(--line)}
+.dcell:first-child{padding-left:0;border-left:0}
+.dcell:last-child{padding-right:0}
+.dc-axes{flex:1.15 1 0}
+.dc-gauge{flex:.8 1 0;min-width:158px}
+.dlbl{font-family:var(--mono);font-weight:700;font-size:10.5px;letter-spacing:1.4px;
+  text-transform:uppercase;color:var(--faint);margin-bottom:8px;white-space:nowrap}
+/* `§6` iv · the `Average TNT` eyebrow. ⭐ It is the SAME `.dlbl` component as
+   `BOARD SPLIT` — one eyebrow style in the card, not two — with only the
+   bottom margin overridden, because here it sits tight above a 27px figure
+   rather than above a 10px bar.
+   ⚠ AUTHORED IN TITLE CASE, DRAWN IN CAPS — `text-transform:uppercase` on
+     `.dlbl` does it, exactly as `Board split` is authored and drawn
+     `BOARD SPLIT`. No eyebrow on this page is typed in capitals, so a source
+     grep for the CAPS form of this label returns zero by design; the element
+     itself is one node, `#dashGauge .dg-eb`. */
+.dgauge .dg-eb{display:block;margin-bottom:5px}
+
+/* band-tinted fills and text. ⛔ The BAND is never guessed here: the split
+   reads each row's own `tntB` WORD, and the only place a number becomes a
+   band is `kOf()` in the engine, which reads its two cutoffs out of
+   `ALPHA.BANDS` and types neither (`#621`). */
+.f-b{background:var(--green)} .f-n{background:var(--zero)} .f-r{background:var(--red)}
+.t-b{color:var(--green)} .t-n{color:var(--zero)} .t-r{color:var(--red)}
+
+/* read 1 · THE THREE AXES, as seat D draws them (`§2` item 1): label left,
+   bar centre, value right, all three on ONE shared 1–10 scale.
+   ⛔ NO tick marks — C_final's side-by-side ticked variant is the one the
+      spec rejected, because three ticked meters read as three objects. */
+.axis{display:flex;align-items:center;gap:10px;margin-bottom:7px}
+.axis:last-child{margin-bottom:0}
+.axis .an{font-family:var(--mono);font-weight:600;font-size:10.5px;letter-spacing:.9px;
+  text-transform:uppercase;color:var(--dim);width:78px;flex:none}
+.axis .tr{flex:1 1 auto;height:7px;border-radius:var(--r-max);background:var(--bg-soft);
+  overflow:hidden;min-width:20px}
+.axis .tr i{display:block;height:100%;border-radius:var(--r-max)}
+.axis .av{font-family:var(--mono);font-weight:700;font-size:13px;width:28px;flex:none;
+  text-align:right;font-variant-numeric:tabular-nums}
+
+/* read 2 · THE BOARD AVERAGE AS THE HOUSE DIAL, WITH A NEEDLE (`#644`).
+   ⛔⛔ THE TWO SUB-LINES ARE NOT DELETED, THEY ARE RE-HOMED (`§2` item 3a):
+      they live in the `.tipbox` below, which opens on HOVER, on KEYBOARD
+      FOCUS and on TAP. A build that drops the text without the tooltip has
+      broken the rule, not followed it. */
+.dgauge{display:flex;align-items:center;gap:13px;position:relative;
+  background:none;border:0;padding:0;margin:0;cursor:help;text-align:left}
+.dgauge .dg-svg{width:104px;height:58px;display:block;flex:none}
+.dgauge .dg-svg .track{fill:none;stroke-width:13;stroke-linecap:round}
+.dgauge .dg-svg .mark{fill:var(--card);stroke:var(--ink);stroke-width:3}
+/* THE NEEDLE — the `#644` house rule, and the reason this dial is not the
+   `alpha.js` one: that function is SHARED with coin.html and the highlight
+   card, and `#644` is a separate item with a separate owner. */
+.dgauge .dg-svg .ndl{stroke:var(--ink);stroke-width:4.5;stroke-linecap:round}
+.dgauge .dg-svg .hub{fill:var(--ink)}
+.dgauge .dg-txt{display:block;min-width:0}
+.dgauge .dg-num{font-family:var(--mono);font-weight:700;font-size:27px;line-height:1;
+  letter-spacing:-.5px;font-variant-numeric:tabular-nums;display:block}
+.dgauge .dg-word{font-family:var(--mono);font-weight:700;font-size:10.5px;letter-spacing:1.5px;
+  text-transform:uppercase;display:block;margin-top:5px}
+.dgauge .tipbox{right:auto;left:-6px;width:250px}
+
+/* read 3 · THE BAND-SPLIT BAR, from `seats/index_dash-C.html` (the ORIGINAL —
+   `_final` kept the bar and threw away its label and its affordance).
+   ✅ THE LABEL IS `BOARD SPLIT`, RULED 2026-09-01, verbatim.
+   ⛔ `· CLICK TO FILTER` IS REMOVED and the bar is NOT a control: these are
+      `<i>` elements, not buttons. The pills below are the control. */
+.dsplit{display:flex;width:100%;height:10px;border-radius:var(--r-max);
+  overflow:hidden;background:var(--line)}
+.dsplit i{display:block;height:100%;min-width:0}
+.dsplit-lg{display:flex;gap:12px;margin-top:9px;font-family:var(--mono);font-size:11px;
+  font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
+
+/* ══ `§6` scroll · THE COLLAPSE. PINNED = SECTOR ROW + BAND PILLS ══════════
+   Team round 1, operator-ruled: at rest the card is whole; once the page has
+   scrolled past it, the pinned bar carries `#sxRow` and `#filters` only, on
+   two lines, and the dashboard's reads are gone.
+
+   ⭐ SAME DEVICE AS THE ≤1160 HIDE, AND THAT IS THE ARGUMENT FOR IT:
+      `display:contents` dissolves the card's BOX while leaving `#filters` in
+      place as a direct flex child of `.board-ctl`, so it keeps its id, its
+      `data-f` attributes, alpha.js's handler and its own `flex-basis:100%`
+      line. ⛔ Nothing is moved in the DOM and nothing is duplicated — a
+      collapse that re-parented the pills would break the handler bound at load.
+   ⭐ The percentages STAY on the pills when stuck: they are in the team's own
+      scroll render, and they are the only reading of the board left up there.
+   ⛔ ABOVE 1160 ONLY. Below it `#dashReads` is already hidden and the card box
+      is already dissolved, so this must not fire — the media query is the
+      guard, and it is why the JS is free to set the class at any width. */
+@media (min-width:1161px){
+  .board-ctl.is-stuck .tntdash{display:contents}
+  .board-ctl.is-stuck #dashReads{display:none}
+  /* the card's own divider and top margin belong to the card, not to a bare
+     pill row — they come off with the box, exactly as they do below 1160 */
+  .board-ctl.is-stuck .tntdash .filters{margin-top:0;padding-top:0;border-top:0}
+}
+/* zero-height probe for the collapse. ⛔ `-1px` bottom margin: it must not add
+   a pixel to the flow it is measuring. */
+.ctl-sentinel{height:1px;margin-bottom:-1px;pointer-events:none}
+
+/* the pills, as the card's own bottom row (`§2` item 4).
+   ⛔ NO `FILTER THE TABLE` LABEL — removed 2026-09-01; the pills are
+      self-evident and the label was chrome. */
+.tntdash .filters{flex-basis:100%;margin:10px 0 0;padding-top:9px;
+  border-top:1px solid var(--line)}
+.tntdash .filter .pct{margin-left:8px;font-size:10px;letter-spacing:.4px;opacity:.72;
+  font-variant-numeric:tabular-nums}
+
+/* ═══════════════════════════════════════════════════════════════════════════
    ⬇ EVERYTHING BELOW 1160px. Above it nothing here applies and the deployed
      desktop board renders exactly as it does today.
    ═══════════════════════════════════════════════════════════════════════════ */
@@ -520,6 +655,39 @@ table.tok td.asset .lrow .tkr{font-family:var(--mono);font-size:11.5px;letter-sp
      matters. #filterCount moves out of the scroller into .mcount, which prints
      the SAME string it was printing. */
   .board-ctl{gap:9px}
+
+  /* ⭐⭐ §1.4 · THE MINI-DASHBOARD IS HIDDEN AT THE CARD SWAP, ≤1160px —
+     RULED 2026-09-02 (`SPEC #643 §3` addendum). ONE breakpoint, the same one
+     the table→cards swap uses, consistent with the no-tablet-version ruling.
+     Below it the CARD SURFACE'S OWN four-up strip is the dashboard: every
+     card carries all four numbers on its face, always on, so a bar above a
+     card list would be a summary of summaries.
+
+     ⛔⛔ AND HIDING THE CARD MUST NOT HIDE THE PILLS. `#filters` lives INSIDE
+        the card now, so `display:none` on the card would take the band chips
+        off the phone with it — where J2 put them and where they are the only
+        band control there is.
+     ✅ THE ANSWER IS `display:contents`, NOT A SECOND COPY. The card's BOX is
+        removed (border, background, shadow, padding all gone) and its
+        children become direct flex items of `.board-ctl` again — so the one
+        `#filters` element falls straight back into the J2 chip-strip rule
+        below, with its ids, its `data-f` attributes and alpha.js's handler
+        untouched. TWO copies of `#filters` would duplicate an id and split
+        the handler; that is the option this rejects.
+     ▶ CONSEQUENCE, STATED SO NOBODY LATER READS IT AS A MISS:
+       `getComputedStyle('#tntDash').display` reads `contents` here, not
+       `none`. `#dashReads` — every read the dashboard draws — IS `none`. */
+  .tntdash{display:contents}
+  #dashReads{display:none}
+  /* ⛔ AND THE CARD'S OWN TRIM ON THE PILL ROW COMES OFF WITH THE CARD. The
+     divider and the top margin belong to the card, not to the chip strip, and
+     `.tntdash .filters` still matches through `display:contents`.
+     ⛔ THE PERCENTAGES COME OFF TOO: J2's shipped chip strip carries none, and
+        `#613 §2B` is a RATIFIED surface — 406px must be byte-for-byte the
+        state J2 shipped. */
+  .tntdash .filters{margin-top:0;padding-top:0;border-top:0}
+  .tntdash .filter .pct{display:none}
+
   .filters{flex-basis:100%;flex-wrap:nowrap;overflow-x:auto;margin-bottom:0;
     padding-bottom:2px;-webkit-overflow-scrolling:touch;scrollbar-width:none;
     -webkit-mask-image:linear-gradient(to right,#000 calc(100% - 26px),transparent);
@@ -535,8 +703,10 @@ table.tok td.asset .lrow .tkr{font-family:var(--mono);font-size:11.5px;letter-sp
         18% of a 844px viewport, and a second scrolling chip row adds ~44px to
         what follows the reader down the page. In the sheet it costs nothing
         pinned and it is reachable in one tap from the same button as sort.
-     ✅ #facetBand STAYS. It is not pinned, it sits above the list, and it is
-        the surface that says a member count is never a share of the board. */
+     ⛔ THE `#facetBand STAYS` CLAUSE THAT SAT HERE IS GONE WITH THE ELEMENT
+        (`#643 §6` i, 2026-09-02). It was true of the phone surface, which is
+        why it is corrected rather than left to mislead the next reader: the
+        card no longer exists at any width. */
   .sxrow{display:none}
 
   /* full-bleed on a phone; the rounded top and the pinned title bar come from
@@ -772,24 +942,78 @@ table.tok td.asset .lrow .tkr{font-family:var(--mono);font-size:11.5px;letter-sp
             <button type="button" data-eco="Robinhood Ecosystem" aria-pressed="false">Robinhood Ecosystem<span class="none"></span></button>
           </div>
         </details>
-        <!-- ⭐ THE LEGEND (multi-B). It is the whole defence against a primary
-             pick being read as the complete answer, so it renders always, in
-             plain words, and is never allowed to become a tooltip. -->
-        <p class="sxnote">Each row shows one label: the coin&#8217;s primary, then
-          <b>+N</b> for how many more it holds, or <b>only</b> when that is the whole
-          list. Chip counts overlap and do not add up, because a coin can hold several.</p>
+        <!-- ⛔ THE LEGEND IS DELETED — TEAM ROUND 1, `#643 §6` ii, 2026-09-02.
+             ⚠⚠ AND IT IS THE ONE REMOVAL THIS ROUND THAT COSTS SOMETHING, SO IT
+                IS RECORDED RATHER THAN WAVED THROUGH: this sentence was the
+                page's ONLY plain-words statement that the chip counts OVERLAP
+                and do not add up to the board. The `+N` / `only` chip on every
+                ASSET cell survives and still carries the fact per row, and each
+                chip's own `aria-label`/popover names the other labels — but the
+                aggregate caveat is now nowhere on the page in prose. Named in
+                the close-out; the team ruled it, so it goes. -->
       </div>
-      <div class="filters" id="filters" role="group" aria-label="Filter the scoreboard">
-        <button class="filter" data-f="all"       aria-pressed="true">All</button>
-        <button class="filter" data-f="bullish"   aria-pressed="false">Bullish</button>
-        <button class="filter" data-f="neutral"   aria-pressed="false">Neutral</button>
-        <button class="filter" data-f="bearish"   aria-pressed="false">Bearish</button>
-        <!-- load-bearing since the FLAGGED strip went: it is the only surface
-             the 2nd and 3rd widest gaps have left. It states its THRESHOLD on
-             the control, or a room reads DECOUPLED as a verdict, not a cutoff. -->
-        <button class="filter thesis" data-f="decoupled" aria-pressed="false">Decoupled
-          <span class="thr">gap 1.0+</span></button>
-        <span class="one" id="filterCount"></span>
+      <!-- ══════════════════════════════════════════════════════════════════
+           THE MINI-DASHBOARD · `#643`, built 2026-09-02 against
+           My_Work/Friction/SPEC_item643_mini-dashboard-target_2026-09-01.md.
+           ⭐ BETWEEN the sector row above and nothing else: the band pills are
+              now this card's own bottom row, so `.board-ctl` reads
+              sector row → dashboard card (pills inside).
+           ⛔ NO TITLE AND NO EYEBROW. `THE BOARD AT A GLANCE` and
+              `THE THREE AXES` are BOTH out (`§2` items 7 + 7a).
+           ⛔ EVERY FIGURE IS COMPUTED at runtime, over the rows the table is
+              actually showing. Nothing in here is typed — not a score, not a
+              percentage, not a band cutoff.
+           ══════════════════════════════════════════════════════════════════ -->
+      <div class="tntdash" id="tntDash">
+        <!-- ⭐ COLUMN ORDER, TEAM ROUND 1 (`#643 §6` iii): GAUGE LEFT, the three
+             AXIS BARS second, BOARD SPLIT third — the proposed render's order.
+             It reads better than the build's and the reason is worth keeping:
+             the dial is the ANSWER and the bars are the WORKING, so the answer
+             now leads and the eye moves left-to-right into the detail. -->
+        <div class="dashreads" id="dashReads">
+          <!-- 1 · the board average, on the house dial, with the `#644` needle.
+                  ⛔ `.tipbar` NOT `.tip`: the tooltip hangs off the dial
+                     itself, with no `i` marker beside it — a reader hovers the
+                     thing, and the house `.tipbar` CSS already opens on
+                     `:hover`, on `:focus-visible` and on `.open` (tap).
+                  ⭐ `§6` iv · the `Average TNT` eyebrow is rendered by the
+                     engine INSIDE this button, directly above the figure and to
+                     the right of the dial. It is inside the button on purpose:
+                     the tooltip's hover/focus target is then the whole read —
+                     label, dial and number — not just the dial. -->
+          <div class="dcell dc-gauge">
+            <button type="button" class="tipbar dgauge" id="dashGauge"
+                    aria-expanded="false" aria-label="Average TNT across the board"></button>
+          </div>
+          <!-- 2 · the three axis bars (seat D) -->
+          <div class="dcell dc-axes" id="dashAxes"></div>
+          <!-- 3 · BOARD SPLIT — the label is RULED and verbatim -->
+          <div class="dcell dc-split">
+            <div class="dlbl">Board split</div>
+            <div id="dashSplit"></div>
+          </div>
+        </div>
+        <!-- 4 · THE BAND FILTERS, ALONG THE BOTTOM.
+             ⛔⛔ THESE ARE THE SAME `#filters` BUTTONS THAT WERE HERE BEFORE —
+                moved, not rebuilt. Every `data-f`, every `aria-pressed`, the
+                `.thesis` class, the `.thr` span and `#filterCount` are
+                unchanged, so alpha.js's click handler, `pressAll()` and the
+                count string all keep working with no edit to alpha.js.
+             ⛔ NO `FILTER THE TABLE` LABEL (removed 2026-09-01).
+             ⭐ The `.pct` spans are FILLED BY THE SAME FUNCTION that fills the
+                split bar, so a pill and the bar can never disagree. -->
+        <div class="filters" id="filters" role="group" aria-label="Filter the scoreboard">
+          <button class="filter" data-f="all"       aria-pressed="true">All</button>
+          <button class="filter" data-f="bullish"   aria-pressed="false">Bullish<span class="pct" data-p="b"></span></button>
+          <button class="filter" data-f="neutral"   aria-pressed="false">Neutral<span class="pct" data-p="n"></span></button>
+          <button class="filter" data-f="bearish"   aria-pressed="false">Bearish<span class="pct" data-p="r"></span></button>
+          <!-- load-bearing since the FLAGGED strip went: it is the only surface
+               the 2nd and 3rd widest gaps have left. It states its THRESHOLD on
+               the control, or a room reads DECOUPLED as a verdict, not a cutoff. -->
+          <button class="filter thesis" data-f="decoupled" aria-pressed="false">Decoupled
+            <span class="thr">gap 1.0+</span></button>
+          <span class="one" id="filterCount"></span>
+        </div>
       </div>
 
       <!-- ⭐ THE CARD SURFACE'S OWN CONTROLS (J2, `#613 §2B`). Inert above
@@ -811,19 +1035,28 @@ table.tok td.asset .lrow .tkr{font-family:var(--mono);font-size:11.5px;letter-sp
         </button>
       </div>
     </div>
-    <!-- ⭐ SEAT B's FACET BAND (`#facetBand`, multi-B L322). Hidden until a
-         sector or ecosystem is picked. It reads the WHOLE board for that label,
-         so its numbers do NOT shrink when a band chip cuts the table below it,
-         and it says so in words. ⛔ It carries NO group score: a sector is
-         classification, so the only score-coloured thing in it is one block per
-         member coin carrying that coin's own real band.
-         ⛔ OUTSIDE .board-ctl on purpose — it is an explainer, not a control,
-            and nothing that changes height with a tap belongs in the pinned
-            stack. -->
-    <div class="facet" id="facetBand" hidden></div>
-    <!-- ⭐ THE DESCRIPTIVE TEXT, ONE STRING PER CHIP, written for a reader whose
-         first language is not English. ⛔ It explains; it does not sell. -->
-    <p class="board-lede" id="bandLede"></p>
+    <!-- ⛔⛔ THE FACET BAND IS DELETED — TEAM ROUND 1, `#643 §6` i, 2026-09-02:
+         "remove the per-sector label card — the dashboard is already dynamic on
+         the sector/ecosystem row." The card said in prose what the mini-dashboard
+         now says in numbers, and it said it directly above the thing that says
+         it better.
+         ⭐ WHAT SURVIVES, AND IT IS THE HALF THAT MATTERS: the `primary +N` /
+            `only` chip in the ASSET column. It is the standing defence against a
+            primary pick being read as the complete answer, it is IN the team's
+            own proposed render, and its data map (`SEC` / `ECO`) is untouched.
+            ⛔ Only the label CARD went. The membership model did not. -->
+
+    <!-- ⛔⛔ THE CHIP-LEDE PARAGRAPH IS DELETED — `#643`, operator 2026-09-01:
+         "both ledes" come off, and "it needs to look very clean".
+         ⚠⚠ AND THE DELETION IS NOT PAGE-ONLY. The string it printed lived in
+            SHARED CONFIG (`alpha-config.js` §7b), it rendered on the
+            live homepage today, and `all` had three siblings. So the element,
+            the config block and the `render()` lines that read it all come out
+            together, in BOTH copies (`#592`) — see `SPEC #643 §1` string 2,
+            which exists precisely to stop this being treated as one line item.
+         ⛔ `#filterNote` STAYS. It is a different string with a different job:
+            it carries the DECOUPLED chip's build-invented cutoff and the count
+            sitting exactly on the line, and nothing in `#643` touches it. -->
     <p class="one filter-note" id="filterNote" hidden></p>
 
     <!-- ══════════════════════════════════════════════════════════════════
@@ -866,9 +1099,35 @@ table.tok td.asset .lrow .tkr{font-family:var(--mono);font-size:11.5px;letter-sp
         <!-- ✅ NUMERIC headers right-aligned, as CMC does it. `#` and `ASSET`
              stay left. ⭐ PART D · every column carries a tooltip on a real
              <button>, so it is tab-focusable and tappable, not hover-only. -->
+        <!-- ⛔⛔ `SCORE BREAKDOWN` IS DELETED — TEAM ROUND 1, `#643 §6` vi.
+             ⭐ AND WITH IT THE TWO-ROW HEADER: the group label was the ONLY
+                reason a second header row existed, so removing the text without
+                collapsing the rows would have left an empty spanning cell and a
+                second sticky layer holding nothing up.
+             ✅ ONE HEADER ROW, TEN `<th>` — the SEVEN cells that spanned both
+                rows lose their span (counted, not guessed), and the three
+                `.comp` headers move up into the same row between TNT and
+                Decoupling. The three axis headers, their sort
+                handlers, their `aria-sort` and their tooltips are unchanged, and
+                the `<colgroup>` is untouched at ten `<col>`.
+             ⚠ TWO CONSEQUENCES IN SHARED FILES, NEITHER OF WHICH IS EDITED HERE
+                because `alpha.css` and `alpha.js`'s sticky block are not this
+                brief's surfaces — both are inert, and both are named in the
+                close-out:
+                · `alpha.js measureSticky()` reads `--hdr1-h` off the group
+                  header cell.
+                  Both reads are null-guarded (`if (grp && …)`), so the variable
+                  is simply never written — and its ONLY consumer was
+                  `thead tr.sub th`, which no longer matches anything.
+                · `alpha.css`'s group-header rule, `tr.sub th` and `tr.sub th.comp`
+                  rules now match nothing. The last of those is the one that
+                  painted the `--breakdown` tint on the three score headers, so
+                  that tint is re-supplied page-locally below — the team's render
+                  keeps the tinted band and it would otherwise have vanished as a
+                  side effect. -->
         <thead>
           <tr>
-            <th class="ctr" rowspan="2" aria-label="Watchlist"></th>
+            <th class="ctr" aria-label="Watchlist"></th>
             <!-- ⛔ ROUND 8 · THE `i` IS DELETED FROM THIS HEADER AND FROM `PRICE`.
                  ⚠⚠ THAT DELETES TWO EXPLANATIONS, NOT TWO ICONS. This one is
                     where the old below-table footnote was relocated, and it
@@ -886,23 +1145,20 @@ table.tok td.asset .lrow .tkr{font-family:var(--mono);font-size:11.5px;letter-sp
                    it replaces, which opened on focus and on tap. That is a
                    deliberate downgrade in reach, taken because the alternative
                    was losing the sentences entirely. -->
-            <th class="lft" rowspan="2" title="The rank by TNT score, pinned once from the full scoreboard. It does not renumber when you re-sort, and it is not a market-cap rank: we hold no market-cap figure.">#</th>
-            <th class="lft srt" rowspan="2" data-sort="asset" tabindex="0" role="button">Asset<span class="cx" aria-hidden="true"><i class="up"></i><i class="dn"></i></span></th>
-            <th rowspan="2" title="Live price and 24-hour move, fetched from the price feed when the page loads and re-checked every ten minutes. It shows a dash until the feed answers.">Price</th>
+            <th class="lft" title="The rank by TNT score, pinned once from the full scoreboard. It does not renumber when you re-sort, and it is not a market-cap rank: we hold no market-cap figure.">#</th>
+            <th class="lft srt" data-sort="asset" tabindex="0" role="button">Asset<span class="cx" aria-hidden="true"><i class="up"></i><i class="dn"></i></span></th>
+            <th title="Live price and 24-hour move, fetched from the price feed when the page loads and re-checked every ten minutes. It shows a dash until the feed answers.">Price</th>
             <!-- ⛔ ROUND 8 · `ctr` DROPPED — TNT right-aligns with every other
                  numeric column. ⚠ AND `td.tntc` GOES WITH IT: a right-aligned
                  header over a centred pill is a worse misalignment than the
                  centring it was meant to fix. Header and cell move together or
                  not at all. -->
-            <th class="tnt-col srt" rowspan="2" data-sort="tnt" tabindex="0" role="button" aria-sort="descending">TNT<span class="cx" aria-hidden="true"><i class="up"></i><i class="dn"></i></span><button type="button" class="tip" aria-expanded="false" aria-label="What the TNT column is"><span class="tipbox" role="tooltip">The overall score, 1 to 10, built from the three scores beside it. It is the only figure on the site ever drawn as a dial. The colour is its band: <b>bullish 5.6 to 10, neutral 4.5 to 5.5, bearish 1.0 to 4.4</b>.</span></button></th>
-            <th class="bd-grp" colspan="3">Score breakdown</th>
-            <th class="srt" rowspan="2" data-sort="dec" tabindex="0" role="button">Decoupling<span class="cx" aria-hidden="true"><i class="up"></i><i class="dn"></i></span><button type="button" class="tip" aria-expanded="false" aria-label="What the Decoupling column is"><span class="tipbox" role="tooltip">The distance between the network and token scores, shown as magnitude only: it never says which one is larger. The rule is read against a fixed 0 to 2.0 scale, with ticks at 0.5, 1.0 and 1.5.</span></button></th>
-            <th class="srt" rowspan="2" data-sort="cat" tabindex="0" role="button">Catalyst mix<span class="cx" aria-hidden="true"><i class="up"></i><i class="dn"></i></span><button type="button" class="tip" aria-expanded="false" aria-label="What the Catalyst mix column is"><span class="tipbox" role="tooltip">One block for each catalyst, coloured by that catalyst's own token score: bullish, neutral or bearish. The Token column is their average. The number beside the blocks is how many catalysts there are, and it is what this column sorts on.</span></button></th>
-          </tr>
-          <tr class="sub">
+            <th class="tnt-col srt" data-sort="tnt" tabindex="0" role="button" aria-sort="descending">TNT<span class="cx" aria-hidden="true"><i class="up"></i><i class="dn"></i></span><button type="button" class="tip" aria-expanded="false" aria-label="What the TNT column is"><span class="tipbox" role="tooltip">The overall score, 1 to 10, built from the three scores beside it. It is the only figure on the site ever drawn as a dial. The colour is its band: <b>bullish 5.6 to 10, neutral 4.5 to 5.5, bearish 1.0 to 4.4</b>.</span></button></th>
             <th class="comp srt" data-sort="tok" tabindex="0" role="button">Token<span class="cx" aria-hidden="true"><i class="up"></i><i class="dn"></i></span><button type="button" class="tip" aria-expanded="false" aria-label="What the Token score is"><span class="tipbox" role="tooltip">Does the catalyst reach the coin you can actually buy? It is the average of the token-impact scores across that coin's catalyst rows.</span></button></th>
             <th class="comp srt" data-sort="net" tabindex="0" role="button">Network<span class="cx" aria-hidden="true"><i class="up"></i><i class="dn"></i></span><button type="button" class="tip" aria-expanded="false" aria-label="What the Network score is"><span class="tipbox" role="tooltip">Does the catalyst help the tech? It is the average of the network-impact scores across that coin's catalyst rows.</span></button></th>
             <th class="comp srt" data-sort="tec" tabindex="0" role="button">Technicals<span class="cx" aria-hidden="true"><i class="up"></i><i class="dn"></i></span><button type="button" class="tip" aria-expanded="false" aria-label="What the Technicals score is"><span class="tipbox" role="tooltip">Ten chart indicators, averaged. Read on the daily candle; its as-of date is stamped under the table, separately from the fundamentals date.</span></button></th>
+            <th class="srt" data-sort="dec" tabindex="0" role="button">Decoupling<span class="cx" aria-hidden="true"><i class="up"></i><i class="dn"></i></span><button type="button" class="tip" aria-expanded="false" aria-label="What the Decoupling column is"><span class="tipbox" role="tooltip">The distance between the network and token scores, shown as magnitude only: it never says which one is larger. The rule is read against a fixed 0 to 2.0 scale, with ticks at 0.5, 1.0 and 1.5.</span></button></th>
+            <th class="srt" data-sort="cat" tabindex="0" role="button">Catalyst mix<span class="cx" aria-hidden="true"><i class="up"></i><i class="dn"></i></span><button type="button" class="tip" aria-expanded="false" aria-label="What the Catalyst mix column is"><span class="tipbox" role="tooltip">One block for each catalyst, coloured by that catalyst's own token score: bullish, neutral or bearish. The Token column is their average. The number beside the blocks is how many catalysts there are, and it is what this column sorts on.</span></button></th>
           </tr>
         </thead>
         <tbody id="boardBody"></tbody>
@@ -1205,9 +1461,8 @@ table.tok td.asset .lrow .tkr{font-family:var(--mono);font-size:11.5px;letter-sp
      answers a different question. */
   var ORDER = ['DePIN','CEX','Memecoins','Privacy','RWA','AI','DEX','DeFi','L1/L2'];
   var ECOS  = ['ETH Ecosystem','SOL Ecosystem','BNB Ecosystem','SUI Ecosystem','Robinhood Ecosystem'];
-  var FLOOR = 3;                        /* the ruled member floor */
-  var BANDK = { BULLISH:'b', NEUTRAL:'n', BEARISH:'r' };
-  var BANDW = { b:'bullish', n:'neutral', r:'bearish' };
+  /* ⛔ `FLOOR`, `BANDK` and `BANDW` went with the facet band (`§6` i) — they had
+     no other reader in this engine, checked by grep before the delete. */
 
   var BY = {}, i;
   for (i = 0; i < A.BOARD.length; i++) BY[A.BOARD[i].tk] = A.BOARD[i];
@@ -1248,88 +1503,12 @@ table.tok td.asset .lrow .tkr{font-family:var(--mono);font-size:11.5px;letter-sp
   function pred(t){ return ok(t.tk); }
   var subs = [];
 
-  /* ── THE FACET BAND · reads the WHOLE board for the picked label ────────── */
-  var band = $('facetBand');
-  function members(){ return A.BOARD.filter(function (t) { return ok(t.tk); }); }
-  function bandHTML(list){
-    var sxOn = curSx !== 'all', ecOn = curEco !== 'all';
-    var label = sxOn ? curSx : '';
-    if (ecOn) label = sxOn ? (curSx + ' on ' + shortEco(curEco)) : (shortEco(curEco) + ' ecosystem');
-
-    if (!list.length) {
-      band.className = 'facet is-empty';
-      return '<div class="ft"><span class="nm">' + esc(label) + '</span>'
-        + '<span class="hold">No coin holds this label yet</span></div>'
-        + '<p class="say"><b>The shelf exists before the stock.</b> A coin picks this tag up '
-        + 'when its research lands, so an empty shelf is a designed state here and not an '
-        + 'error or an outage. The board below is showing you exactly that: nothing.</p>';
-    }
-    band.className = 'facet';
-
-    var blocks = '', n = { b:0, n:0, r:0 }, also = {}, alsoN = 0;
-    var active = {}; if (sxOn) active[curSx] = 1; if (ecOn) active[curEco] = 1;
-    list.slice().sort(function (a, b) { return b.tnt - a.tnt; }).forEach(function (t) {
-      var k = BANDK[t.tntB] || 'n'; n[k]++;
-      blocks += '<i class="' + k + '" title="' + esc(t.tk) + ' ' + t.tnt.toFixed(1)
-             + ' ' + BANDW[k] + '"></i>';
-      var lab = allOf(t.tk), extra = 0;
-      lab.forEach(function (L) { if (!active[L]) { also[L] = (also[L] || 0) + 1; extra++; } });
-      if (extra) alsoN++;
-    });
-
-    var bandsTxt = '';
-    ['b','n','r'].forEach(function (k) {
-      if (n[k]) bandsTxt += '<span class="' + k + '">' + n[k] + ' ' + BANDW[k] + '</span>';
-    });
-    var keys = Object.keys(also).sort(function (a, b) {
-      return also[b] - also[a] || a.localeCompare(b); });
-    var overTxt = '';
-    keys.forEach(function (L) {
-      overTxt += '<span class="lb">' + esc(shortEco(L)) + ' ' + also[L] + '</span>'; });
-
-    var un = (curSx === 'Unassigned'), one = (list.length === 1);
-    var holdTxt = un
-      ? '<b>' + list.length + '</b> ' + (one ? 'coin matches' : 'coins match') + ' no category yet'
-      : '<b>' + list.length + '</b> ' + (one ? 'coin holds' : 'coins hold') + ' this label';
-    var h = '<div class="ft"><span class="nm">' + esc(label) + '</span>'
-      + '<span class="hold">' + holdTxt + '</span>'
-      + '<span class="memb" title="One block per coin, carrying that coin&#8217;s own band">'
-      + blocks + '</span></div>'
-      + '<div class="bands">' + bandsTxt + '</div>';
-
-    if (list.length < FLOOR) {
-      h += '<div class="floor">' + (un
-        ? 'A short list today, and it is meant to shrink: these coins pick up a category as '
-          + 'their research lands. They are fully scored in the meantime.'
-        : 'Fewer than three coins hold this label, so we do not read it as a group yet. The '
-          + 'coins themselves are fully scored: it is the shelf that is thin, not the research.')
-        + '</div>';
-    }
-    if (keys.length) {
-      h += '<div class="over"><span class="k">These coins also hold</span>' + overTxt + '</div>';
-    }
-    var sayOverlap;
-    if (un) {
-      sayOverlap = 'Nothing here is counted twice, because none of these coins is counted '
-        + 'anywhere. Everywhere else on this bar a coin can sit on several shelves at once, so '
-        + 'those chip numbers overlap and do not add up to anything.';
-    } else if (!alsoN) {
-      sayOverlap = 'None of these coins holds another label, so this shelf happens not to '
-        + 'overlap. Most do, which is why a member count is never a share of the board.';
-    } else if (alsoN === list.length) {
-      sayOverlap = '<b>Every coin here</b> sits on another shelf as well, and each is counted '
-        + 'there too. A member count says how many coins hold a label, never what share of the '
-        + 'board they are, and the chip numbers do not add up to anything.';
-    } else {
-      sayOverlap = '<b>' + alsoN + ' of these ' + list.length + '</b> sit on another shelf as '
-        + 'well, and they are counted there too. A member count says how many coins hold a '
-        + 'label, never what share of the board they are, and the chip numbers do not add up '
-        + 'to anything.';
-    }
-    h += '<p class="say">' + sayOverlap
-      + ' This read is of the whole board; the band chips above still cut what is listed below.</p>';
-    return h;
-  }
+  /* ⛔ THE FACET BAND's ENGINE IS DELETED — TEAM ROUND 1, `#643 §6` i.
+     `var band`, `members()` and the 80-line `bandHTML()` all went with the
+     element. ⭐ `members()` is NOT missed by the mini-dashboard: `§1.5` has it
+     read the sector set through the PUBLISHED predicate (`SECTOR_LENS.ok`
+     applied to `ALPHA.BOARD`), which is the same set by construction and
+     keeps ONE predicate on the page rather than a second copy of it. */
 
   /* ── THE ROW LABEL · never a bare label ─────────────────────────────────── */
   function chipHTML(tk){
@@ -1505,11 +1684,9 @@ table.tok td.asset .lrow .tkr{font-family:var(--mono);font-size:11.5px;letter-sp
   }
   function apply(){
     paintChips(); paintSheet();
-    if (band) {
-      var on = (curSx !== 'all' || curEco !== 'all');
-      band.hidden = !on;
-      if (on) band.innerHTML = bandHTML(members());
-    }
+    /* ⛔ THE FACET-BAND PAINT IS DELETED (`§6` i). The mini-dashboard below is
+       what now answers "what is on this shelf", in numbers, and it is fed by
+       the `subs` fan-out at the end of this function. */
     /* ⛔ ONE FILTERED SET. The table re-renders through the shared board (which
        ends in paintPrices()); the card list re-renders through its own
        renderList() (which ends in paintPrices()). No third renderer. */
@@ -1576,6 +1753,292 @@ table.tok td.asset .lrow .tkr{font-family:var(--mono);font-size:11.5px;letter-sp
   };
 
   apply();
+})();
+</script>
+<script>
+/* ═══════════════════════════════════════════════════════════════════════════
+   THE MINI-DASHBOARD · ENGINE · `#643`, 2026-09-02.
+
+   Draws the three axis bars (seat D), the board average on the house dial with
+   the `#644` needle, and the BOARD SPLIT bar (seat C, the ORIGINAL) — and it
+   fills the band pills' percentages from THE SAME FUNCTION that fills the bar,
+   so a pill and the bar cannot disagree.
+
+   ⛔⛔ ONE POPULATION, AND IT IS THE SECTOR ∩ ECOSYSTEM SET — *not* the listed
+      rows. RE-BASED 2026-09-02 by team round 1 (`#643 §6.2`), and this is the
+      single most important line in the file, so it is stated with its reason:
+        · The dashboard reads `SECTOR_LENS.ok()` applied to `ALPHA.BOARD`.
+        · The BAND PILLS cut only what is LISTED below. They do not cut the
+          dashboard, and `#filterCount` (`n of 39 coins`) still counts the rows
+          the table is showing — those two answer different questions on purpose.
+      ▶ WHY IT CHANGED, from the build's own measured defect: with `BULLISH`
+        pressed the split read `100% bull · 0% neutral · 0% bear` and the pills
+        read `NEUTRAL 0%` — while 5 neutral and 2 bearish coins sat one tap away.
+        Every figure was true of the rows in view and useless as a control,
+        because a facet had started describing its own output. The team's own
+        words settle it: the dashboard is *"dynamic based on which is selected in
+        the sector/ecosystem row."*
+      ⭐ `SECTOR_LENS.ok` is the PUBLISHED predicate, the same one the table and
+        the card list narrow through — so this is one predicate read from three
+        places, never a second copy of it, and the dashboard cannot drift from
+        the chips above it.
+      ⛔ Below 1160 the dashboard does not render at all (the card surface
+        carries all four numbers on every card), so no card path is needed and
+        none is built.
+      ⚠ It is also why the J1 search-intersection gap is NOT touched here:
+        search narrows the LISTING, and the dashboard is no longer a listing read.
+
+   ⛔ NO BAND IS EVER GUESSED (`#621`). The split counts each row's own `tntB`
+      WORD. The only place a NUMBER becomes a band is `kOf()`, and its two
+      cutoffs are READ OUT OF `ALPHA.BANDS` at load — neither is typed anywhere
+      in this file, so they cannot drift from the resolver the scores were
+      banded with.
+
+   ⛔ NO SECOND RENDERER AND NO PRICE PATH. Everything written here goes into
+      `#dashAxes`, `#dashGauge`, `#dashSplit` and the pills' `.pct` spans.
+      Nothing here touches `td.price`, so it can never wipe what
+      `paintPrices()` painted, and it adds no re-paint of its own.
+   ═══════════════════════════════════════════════════════════════════════════ */
+(function () {
+  'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+  var A = window.ALPHA;
+  if (!A || !A.BOARD || !$('tntDash') || !$('dashAxes')) return;
+
+  /* ⛔ READ, NEVER TYPED — `#621`, and `§1.2` item 3 says so explicitly. */
+  var BULL = A.BANDS.BULLISH[0];
+  var NEUT = A.BANDS.NEUTRAL[0];
+  var BK   = { BULLISH:'b', NEUTRAL:'n', BEARISH:'r' };
+  var WORD = { b:'Bullish', n:'Neutral', r:'Bearish' };
+  var AXES = [['Token','tok'], ['Network','net'], ['Technicals','tec']];
+
+  /* ⛔ The ticker→row index went with the old `visible()` (`§6.2` re-base) —
+     the population is now a filter over `ALPHA.BOARD`, so nothing looks a row
+     up by ticker any more. */
+
+  function one(v){ return (Math.round(v * 10) / 10).toFixed(1); }
+  function kOf(v){ return v >= BULL ? 'b' : v >= NEUT ? 'n' : 'r'; }
+  function pos(v){ return Math.max(0, Math.min(100, (v - 1) / 9 * 100)); }
+  function mean(list, f){
+    var s = 0; for (var j = 0; j < list.length; j++) s += list[j][f];
+    return s / list.length;
+  }
+
+  /* ── THE POPULATION · the SECTOR ∩ ECOSYSTEM set (`§6.2`) ────────────────
+     ⛔ `SECTOR_LENS.ok` and nothing else. No band filter, no search, no read of
+        the rendered rows. If the lens engine has not published yet (it runs in
+        the script above this one, so it always has by now) the whole board is
+        the honest default — never an empty card. */
+  function lensRows(){
+    var ok = window.SECTOR_LENS && window.SECTOR_LENS.ok;
+    if (!ok) return A.BOARD.slice();
+    return A.BOARD.filter(function (t) { return ok(t.tk); });
+  }
+
+  /* ── THE ONE SPLIT FUNCTION · the bar AND the pill percentages ────────────
+     ⛔ LARGEST REMAINDER, not three independent roundings. Three `Math.round`
+        calls do NOT sum to 100 in general — at 39 rows they happen to, at 17
+        they need not, and a split bar whose own legend adds to 99 is the kind
+        of arithmetic a sceptic checks first. This distributes the remainder to
+        the largest fractional parts, so the three ALWAYS total exactly 100
+        while every figure stays within one point of its true share. */
+  function split(list){
+    var c = { b:0, n:0, r:0 }, total = list.length, keys = ['b','n','r'], j;
+    for (j = 0; j < total; j++) { var k = BK[list[j].tntB]; if (k) c[k]++; }
+    var pct = { b:0, n:0, r:0 };
+    if (total) {
+      var floors = 0, rem = [];
+      for (j = 0; j < 3; j++) {
+        var kk = keys[j], x = c[kk] / total * 100;
+        pct[kk] = Math.floor(x); floors += pct[kk];
+        rem.push([kk, x - Math.floor(x)]);
+      }
+      rem.sort(function (a, b) { return b[1] - a[1]; });
+      var left = 100 - floors;
+      for (j = 0; j < left; j++) pct[rem[j % 3][0]]++;
+    }
+    return { counts:c, pct:pct, total:total };
+  }
+
+  /* ── THE HOUSE DIAL, WITH THE `#644` NEEDLE ──────────────────────────────
+     Geometry lifted verbatim from `alpha.js gaugeSVG()` — r 78, centre
+     (100, 96), 180° swept across the 1–10 scale — so this dial and every
+     other dial on the site are the same instrument.
+     ⛔ IT IS A LOCAL COPY ON PURPOSE, NOT AN EDIT TO `gaugeSVG()`. That
+        function is SHARED with coin.html's TNT section and the highlight
+        card; `#644` is a HOUSE-WIDE rule with its own number and its own
+        surface list (the portal half is a GENERATOR change), and rolling it
+        into this build would have changed two surfaces nobody briefed.
+     ⛔ The gradient id is `dggrad`, NOT `ggrad`: `gaugeSVG()` already puts
+        `ggrad` on this page, and two `<defs>` sharing one id is a silent
+        first-wins collision. */
+  function gauge(v){
+    var r = 78, cx = 100, cy = 96, nr = 60;
+    var s = Math.max(1, Math.min(10, v));
+    var ang = (180 - 180 * ((s - 1) / 9)) * Math.PI / 180;
+    var x  = (cx + r  * Math.cos(ang)).toFixed(2), y  = (cy - r  * Math.sin(ang)).toFixed(2);
+    var nx = (cx + nr * Math.cos(ang)).toFixed(2), ny = (cy - nr * Math.sin(ang)).toFixed(2);
+    return '<svg class="dg-svg" viewBox="0 0 200 112" aria-hidden="true" focusable="false">'
+      + '<defs><linearGradient id="dggrad" x1="0" y1="0" x2="1" y2="0">'
+      + '<stop offset="0" stop-color="#bf3d3d"/><stop offset="0.5" stop-color="#e0a93c"/>'
+      + '<stop offset="1" stop-color="#15824a"/></linearGradient></defs>'
+      + '<path class="track" stroke="url(#dggrad)" d="M 22 96 A 78 78 0 0 1 178 96"/>'
+      + '<line class="ndl" x1="' + cx + '" y1="' + cy + '" x2="' + nx + '" y2="' + ny + '"/>'
+      + '<circle class="hub" cx="' + cx + '" cy="' + cy + '" r="6"/>'
+      + '<circle class="mark" cx="' + x + '" cy="' + y + '" r="7"/></svg>';
+  }
+
+  /* ── THE RE-HOMED SUB-LINES ──────────────────────────────────────────────
+     ⛔⛔ THESE TWO SENTENCES ARE NOT DELETED — they are the `§2` item 3a
+        ruling: the operator wanted them off the render ("it needs to look very
+        clean") but this page is the ONLY place that states the band cutoffs,
+        so they move to a tooltip rather than out of the product.
+     ⭐ The two numbers are SUBSTITUTED from `ALPHA.BANDS`, never typed, so the
+        explanation cannot drift from the resolver that produced the colours
+        beside it — which is the whole of `#621`. */
+  var TIP = '<span class="tipbox" role="tooltip">Average TNT across the board. '
+          + 'Bullish starts at <b>' + one(BULL) + '</b>, bearish below <b>' + one(NEUT) + '</b>.'
+          + '<span class="tipl2">Each on the 1 to 10 scale.</span></span>';
+
+  /* ── THE PAINT ─────────────────────────────────────────────────────────── */
+  function paint(){
+    var list = lensRows(), s = split(list), g = $('dashGauge'), j;
+
+    /* 1 · the three axis bars, one shared 1–10 scale */
+    $('dashAxes').innerHTML = AXES.map(function (a) {
+      if (!list.length) {
+        return '<div class="axis"><span class="an">' + a[0] + '</span>'
+          + '<span class="tr"></span><span class="av t-n">n/a</span></div>';
+      }
+      var v = mean(list, a[1]), k = kOf(v);
+      return '<div class="axis"><span class="an">' + a[0] + '</span>'
+        + '<span class="tr"><i class="f-' + k + '" style="width:' + pos(v).toFixed(2) + '%"></i></span>'
+        + '<span class="av t-' + k + '">' + one(v) + '</span></div>';
+    }).join('');
+
+    /* 2 · the board average on the dial */
+    if (list.length) {
+      var tnt = mean(list, 'tnt'), tk = kOf(tnt);
+      g.innerHTML = gauge(tnt)
+        + '<span class="dg-txt"><span class="dlbl dg-eb">Average TNT</span>'
+        + '<span class="dg-num t-' + tk + '">' + one(tnt) + '</span>'
+        + '<span class="dg-word t-' + tk + '">' + WORD[tk] + '</span></span>' + TIP;
+      g.setAttribute('aria-label', 'Average TNT across the board, ' + one(tnt)
+        + ', ' + WORD[tk].toLowerCase());
+    } else {
+      g.innerHTML = '<span class="dg-txt"><span class="dlbl dg-eb">Average TNT</span>'
+        + '<span class="dg-num t-n">n/a</span>'
+        + '<span class="dg-word t-n">No coins</span></span>' + TIP;
+      g.setAttribute('aria-label', 'Average TNT across the board: no coins in view');
+    }
+
+    /* 3 · BOARD SPLIT — a picture, NOT a control (`§2` item 5) */
+    $('dashSplit').innerHTML =
+        '<div class="dsplit" role="img" aria-label="Board split: ' + s.pct.b
+      + ' percent bullish, ' + s.pct.n + ' percent neutral, ' + s.pct.r + ' percent bearish">'
+      +   '<i class="f-b" style="width:' + s.pct.b + '%"></i>'
+      +   '<i class="f-n" style="width:' + s.pct.n + '%"></i>'
+      +   '<i class="f-r" style="width:' + s.pct.r + '%"></i>'
+      + '</div>'
+      + '<div class="dsplit-lg"><span class="t-b">' + s.pct.b + '% bull</span>'
+      +   '<span class="t-n">' + s.pct.n + '% neutral</span>'
+      +   '<span class="t-r">' + s.pct.r + '% bear</span></div>';
+
+    /* 4 · the pills, from THE SAME `split()` return */
+    var pcts = $('filters').querySelectorAll('.pct');
+    for (j = 0; j < pcts.length; j++) {
+      pcts[j].textContent = s.total ? (s.pct[pcts[j].getAttribute('data-p')] + '%') : '';
+    }
+  }
+
+  /* ── WIRING · ONE trigger now ────────────────────────────────────────────
+     ⛔⛔ THE MutationObserver ON `#boardBody` IS DELETED with the `§6.2`
+        re-base, and its removal is the point rather than a tidy-up: the
+        dashboard no longer reads the listing, so waking it on every tbody
+        rebuild would repaint identical numbers on a band tap, a re-sort and a
+        watchlist star — and would quietly re-introduce the coupling the team
+        just ruled out. `SECTOR_LENS.subscribe` is the only thing that can
+        change what this card describes. */
+  if (window.SECTOR_LENS) window.SECTOR_LENS.subscribe(paint);
+  paint();
+
+  /* ══ `§6` scroll · PINNED = SECTOR ROW + BAND PILLS. THE CARD SCROLLS AWAY ══
+     Team round 1, operator-ruled. At rest the card is whole; once the page has
+     scrolled past it the sticky bar keeps `#sxRow` and `#filters` only.
+
+     ⭐ MECHANISM · a zero-height SENTINEL directly above `.board-ctl` plus an
+        IntersectionObserver, NOT a scroll listener. A scroll handler runs on
+        every frame and has to read layout to decide, which is a forced reflow
+        per frame on the one interaction where the page is already doing the
+        most work. The observer fires twice per crossing and costs nothing in
+        between.
+     ⭐ HYSTERESIS, and it is not optional here: the card's own height is what
+        the toggle removes, so collapsing moves the sentinel and could satisfy
+        the un-collapse condition immediately — a classic sticky-collapse
+        oscillation. The sentinel is therefore given a `-1px 0px Npx 0px`
+        root margin so the un-stick line sits a full card-height ABOVE the
+        stick line: the two thresholds can never coincide, whatever the card's
+        height, because the gap IS the card's height (re-read at each toggle).
+     ⛔ `.board-ctl` STAYS THE ONE STICKY CONTAINER. Nothing here changes what
+        pins; it changes what the pinned container CONTAINS. `--ctl-h` is
+        re-measured by alpha.js's own `§F 17` ResizeObserver, which is already
+        watching `.board-ctl` — so the pinned table header follows the bar in
+        both states with no edit to alpha.js.
+     ⛔ It must not fire below 1160: `#dashReads` is already `display:none`
+        there and there is nothing to collapse. The GUARD IS THE MEDIA QUERY on
+        the CSS side, deliberately — the class is allowed to be present at any
+        width and simply mean nothing, which is cheaper and less brittle than a
+        JS width test that has to agree with a breakpoint written elsewhere.
+     ⭐ The sentinel is `1px` tall with `-1px` of bottom margin, so it occupies
+        no layout: inserting it cannot move the bar it is measuring. */
+  var bar = document.querySelector('.board-ctl');
+  if (bar && window.IntersectionObserver) {
+    var sentinel = document.createElement('div');
+    sentinel.className = 'ctl-sentinel';
+    sentinel.setAttribute('aria-hidden', 'true');
+    bar.parentNode.insertBefore(sentinel, bar);
+
+    var NAV  = parseInt(getComputedStyle(document.documentElement)
+                 .getPropertyValue('--nav-h'), 10) || 60;
+    var DEAD = 18;               /* the deadband, in px of scroll-back */
+    var stuck = false, io = null;
+
+    function arm(){
+      if (io) io.disconnect();
+      /* TWO LINES, NEVER ONE — this is the hysteresis, and it is the whole of
+         it. Not stuck, the stick line is the nav's underside. Stuck, the
+         UN-stick line sits DEAD px lower down the viewport, so coming back
+         costs 18px of scroll that going did not refund. Jitter at the
+         threshold therefore cannot cross both lines. */
+      var line = stuck ? (NAV + DEAD) : NAV;
+      io = new IntersectionObserver(function (es) {
+        var e = es[0];
+        /* ⛔ `!isIntersecting` ALONE IS NOT THE TEST. It is also false when the
+           sentinel is far BELOW the fold — on a tall window at first paint —
+           and that would stick the bar before the reader had scrolled at all.
+           So "above" has to be tested explicitly.
+           ⛔⛔ AND IT MUST BE TESTED AGAINST `line`, NOT AGAINST `0`. The root
+              rect starts at `line` (that is what the negative rootMargin does),
+              so the sentinel goes non-intersecting the moment it passes `line`
+              — while its viewport `top` is still a positive number. A `top < 0`
+              test therefore REJECTS the only callback the observer will send,
+              and because an IntersectionObserver reports CHANGES rather than
+              state, no second callback ever arrives: the bar then never
+              collapses at all on a slow scroll. MEASURED, not reasoned about —
+              it read `stuck:false` at scrollY 450, 600, 1200 and 2982, while a
+              single jump from 300 to 900 sampled a rect far enough past the
+              line to slip through and looked correct. */
+        var next = !e.isIntersecting && e.boundingClientRect.top < line;
+        if (next === stuck) return;
+        stuck = next;
+        bar.classList.toggle('is-stuck', stuck);
+        /* re-arm on the OTHER line, after the class has painted */
+        window.requestAnimationFrame(arm);
+      }, { threshold:0, rootMargin: (-line) + 'px 0px 0px 0px' });
+      io.observe(sentinel);
+    }
+    arm();
+  }
 })();
 </script>
 <script>
