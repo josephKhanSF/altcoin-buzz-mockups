@@ -764,6 +764,97 @@ table.tok td.asset .lrow .tkr{font-family:var(--mono);font-size:11.5px;letter-sp
   .mp-ax .l{width:64px}
 }
 </style>
+<style>
+/* ═══════════════════════════════════════════════════════════════════════════
+   THE MARKET VIEW · SECTOR / ECOSYSTEM HEAT · `#641`, 2026-09-02.
+
+   The build of the ruling in `#633`: seat B's two panes as the base, seat C's
+   TOP (the head row + the opening lede sentence) above them, and a TWO-TAB
+   control between the two. Sources:
+     · seats/market_sector-B.html — the `.sxm-*` family and the row renderer.
+     · seats/market_sector-C.html — the `.sm-head` / `.sm-lede` top.
+   ⛔ NO `:root` of its own and no new token. House tokens only, so a palette
+      change reaches this surface with every other one.
+
+   ⛔⛔ RENDER FINISHED (`#593` rule 2, `#595`). Both seats greeked every
+      group-level figure — a dashed skin, a not-yet-ruled chip and a
+      placeholder as-of pill. NONE of it is carried: the taxonomy is ruled, the
+      counts are counted, the date is real. There is therefore NO `.greek`
+      rule here, and the empty-shelf chip is SOLID, not dashed — on this page
+      a dashed edge means provisional, and an empty shelf is a finished fact.
+
+   ⛔ The pressed tab is styled off `aria-selected`, not `aria-pressed`:
+      `aria-pressed` is a toggle-button state and is not permitted on
+      `role="tab"`. The RULE below is a copy of alpha.css:368's pressed look,
+      so the tabs are visually the same house pill as every `.filter` chip.
+   ═══════════════════════════════════════════════════════════════════════════ */
+#sector-market{margin-top:4px}
+
+/* ── C's TOP · the head row and the lede ─────────────────────────────────── */
+#sector-market .sm-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px}
+#sector-market .sm-head .spacer{margin-left:auto}
+#sector-market .datepill{display:inline-block;font-family:var(--mono);font-size:11px;font-weight:600;
+  color:var(--dim);background:var(--bg-soft);border:1px solid var(--line2);
+  border-radius:var(--r-max);padding:4px 13px;white-space:nowrap}
+#sector-market .sm-lede{font-family:var(--ui);font-size:13.5px;color:var(--mut);
+  margin:0 0 14px;max-width:92ch}
+
+/* ── THE TAB CONTROL · the house `.filter` pill family ───────────────────── */
+#sector-market .sxm-tabs{margin-bottom:14px}
+#sector-market .filter[aria-selected="true"]{background:var(--gold);border-color:var(--gold);
+  color:var(--goldink)}
+
+/* ── B's PANES · one row per label, one cell per coin ────────────────────── */
+#sector-market .sxm-card{background:var(--card);border:1px solid var(--line2);
+  border-radius:var(--r-card);box-shadow:var(--shadow);padding:6px 16px 12px}
+#sector-market .sxm-row{display:grid;grid-template-columns:150px 1fr 300px;gap:16px;
+  align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+#sector-market .sxm-row:last-of-type{border-bottom:0}
+#sector-market .sxm-name{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:1.4px;
+  text-transform:uppercase;color:var(--ink)}
+#sector-market .sxm-name .sub{display:block;font-size:10.5px;font-weight:600;letter-spacing:.8px;
+  color:var(--faint);text-transform:none;margin-top:3px}
+/* the member strip: ONE cell per coin, coloured by that coin's OWN real TNT
+   band, with that coin's real score printed. Nothing group-level prints here. */
+#sector-market .sxm-strip{display:flex;gap:4px;flex-wrap:wrap;min-width:0}
+#sector-market .sxm-cell{display:inline-flex;flex-direction:column;align-items:center;gap:1px;
+  border:1px solid transparent;border-radius:var(--r-btn);padding:4px 8px;min-width:52px}
+#sector-market .sxm-cell .t{font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.8px}
+#sector-market .sxm-cell .v{font-family:var(--mono);font-size:11px;font-weight:700;
+  font-variant-numeric:tabular-nums}
+#sector-market .sxm-cell.b{background:var(--green-soft);border-color:rgba(21,130,74,.26)}
+#sector-market .sxm-cell.b .t,#sector-market .sxm-cell.b .v{color:var(--green)}
+#sector-market .sxm-cell.n{background:var(--zero-soft);border-color:rgba(92,98,108,.26)}
+#sector-market .sxm-cell.n .t,#sector-market .sxm-cell.n .v{color:var(--zero)}
+#sector-market .sxm-cell.r{background:var(--red-soft);border-color:rgba(191,61,61,.26)}
+#sector-market .sxm-cell.r .t,#sector-market .sxm-cell.r .v{color:var(--red)}
+/* the empty-shelf state: a real state, never hidden — and SOLID, see above */
+#sector-market .sxm-empty{border:1px solid var(--line2);background:var(--bg-soft);
+  border-radius:var(--r-btn);padding:7px 12px;font-family:var(--mono);font-size:11px;
+  color:var(--faint)}
+/* the tally: counted, not greeked. Band-coloured text, so green still means
+   the bullish band and red still means the bearish band. */
+#sector-market .tally{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+#sector-market .tally .ct{font-family:var(--mono);font-size:11px;font-weight:700;
+  border:1px solid var(--line2);border-radius:var(--r-max);padding:3px 12px;
+  background:var(--bg-soft);color:var(--mut);white-space:nowrap}
+#sector-market .tally .ct.b{color:var(--green)}
+#sector-market .tally .ct.n{color:var(--zero)}
+#sector-market .tally .ct.r{color:var(--red)}
+#sector-market .sxm-note{font-size:12.5px;color:var(--mut);margin-top:14px;line-height:1.5;
+  max-width:92ch}
+
+/* ── WIDTHS · the team reviews desktop; below 1160 this does the minimum:
+      the row stops being three columns, the strip wraps, nothing overflows. */
+@media (max-width:1160px){
+  #sector-market .sxm-row{grid-template-columns:130px 1fr;gap:12px}
+  #sector-market .tally{grid-column:1 / -1;justify-content:flex-start}
+}
+@media (max-width:700px){
+  #sector-market .sxm-row{grid-template-columns:1fr;gap:9px}
+  #sector-market .sxm-card{padding:6px 12px 12px}
+}
+</style>
 </head>
 <body>
 
@@ -1255,13 +1346,66 @@ table.tok td.asset .lrow .tkr{font-family:var(--mono);font-size:11.5px;letter-sp
   <div class="card stub" id="stubHws"></div>
 </div>
 
-<!-- VIEW · MARKET — the weekly show. Names ruled 2026-08-17. -->
+<!-- ════════════════════════════════════════════════════════════════════════
+     VIEW · MARKET — ⭐ NO LONGER A STUB. `#641`, built 2026-09-02 to the
+     `#633` ruling: seat B is the base, seat C's TOP sits above a TWO-TAB
+     control (`Sector Heat` default · `Ecosystem Heat`), and the back-link is
+     GONE on this view only — the team's words: "we already have top
+     navigation." The other views keep theirs; the ruling was for MARKET.
+     ⛔ `#stubMarket` IS DELETED, element and all. `renderStubs()` guards on
+        `$('stubMarket')` (alpha.js L1094), so no shared file is edited and
+        the market branch simply never runs. The dummy `8–15 min` audio strip
+        went with it and is registered as gone in the manifest.
+     ⛔⛔ NO SECOND TAXONOMY. The panes read `window.SECTOR_MAPS`, the
+        read-only handle published by the sector-lens engine over the SAME
+        `SEC` / `ECO` objects the board's `+N` chips and the sector row render
+        from. There is no map in this block and there must never be one.
+     ⭐ A COIN CAN HOLD MORE THAN ONE LABEL, so it appears on every shelf it
+        holds — `PUMP` is in Memecoins AND DEX. A row's count is "how many
+        coins carry this label", never a share of the board.
+     ════════════════════════════════════════════════════════════════════════ -->
 <div class="view" id="view-market" hidden>
   <div class="viewhead">
     <h2 class="page-h1">Market</h2>
-    <a class="backlink" href="index.html#/coins" data-goto="coins">‹ Back to the scoreboard</a>
   </div>
-  <div class="card stub" id="stubMarket"></div>
+
+  <section id="sector-market">
+
+    <!-- SEAT C's TOP · the head row (facet eyebrow + the real as-of pill) and
+         the lede. Both strings follow the pressed tab, so neither can describe
+         a pane that is not on screen; `Sector Heat` is the load state and its
+         opening sentence is C's own. -->
+    <div class="sm-head">
+      <span class="eyebrow" id="sxmEyebrow">SECTOR HEAT</span>
+      <span class="spacer"></span>
+      <!-- ⛔ FILLED FROM `ALPHA.PROVENANCE`, the same object `#boardAsof`
+           reads on the coins view. No date is typed here. -->
+      <span class="datepill" id="sxmAsof"></span>
+    </div>
+    <p class="sm-lede" id="sxmLede"></p>
+
+    <!-- THE TAB CONTROL · exactly two tabs, no placeholder third. Keyboard:
+         ← → Home End move between tabs (roving tabindex, ARIA tabs pattern);
+         Tab moves into the pane. -->
+    <div class="filters sxm-tabs" role="tablist" aria-label="Heat map facet">
+      <button class="filter" type="button" role="tab" id="sxmTabSec"
+              aria-selected="true" aria-controls="sxmPaneSec" tabindex="0">Sector Heat</button>
+      <button class="filter" type="button" role="tab" id="sxmTabEco"
+              aria-selected="false" aria-controls="sxmPaneEco" tabindex="-1">Ecosystem Heat</button>
+    </div>
+
+    <div id="sxmPaneSec" role="tabpanel" aria-labelledby="sxmTabSec" tabindex="0">
+      <div class="sxm-card" id="sxmSectors"></div>
+    </div>
+    <div id="sxmPaneEco" role="tabpanel" aria-labelledby="sxmTabEco" tabindex="0" hidden>
+      <div class="sxm-card" id="sxmEcos"></div>
+    </div>
+
+    <p class="sxm-note">Band colours mean bands: bullish, neutral, bearish. Nothing on this page
+      is a sector score, and no dial is drawn here — the dial belongs to a coin's TNT score alone.
+      Decoupling is not shown on this surface because it has no direction to colour.</p>
+
+  </section>
 </div>
 
 <!-- ════════════════════════════════════════════════════════════════════════
@@ -1750,6 +1894,23 @@ table.tok td.asset .lrow .tkr{font-family:var(--mono);font-size:11.5px;letter-sp
   window.SECTOR_LENS = {
     ok: ok,
     subscribe: function (fn) { subs.push(fn); }
+  };
+
+  /* published for the MARKET view's heat panes (`#641`) — ONE HOME PER FACT.
+     ⛔⛔ THE PANES READ THIS; THEY DO NOT CARRY A MAP. Both market seats shipped
+        their own single-label `SECTOR`/`ECO` tables and neither was ported: a
+        second copy of the taxonomy is exactly the drift the `+N` chips would
+        then contradict. Same shape as `SECTOR_LENS` above — one `window.`
+        handle, read-only, the readers returning COPIES so a consumer cannot
+        write through to the maps. */
+  window.SECTOR_MAPS = {
+    sectorsOf: function (tk) { return sOf(tk).slice(); },
+    ecosOf:    function (tk) { return eOf(tk).slice(); },
+    /* the label lists, from THIS engine's own arrays. `ORDER` holds the nine
+       real sectors; `Unassigned` is the tenth row and is not a sector, it is
+       the empty-`SEC` state, so it is appended rather than living in `ORDER`. */
+    sectors:   function () { return ORDER.concat(['Unassigned']); },
+    ecos:      function () { return ECOS.slice(); }
   };
 
   apply();
@@ -2484,6 +2645,158 @@ table.tok td.asset .lrow .tkr{font-family:var(--mono);font-size:11.5px;letter-sp
   function syncTrial(){if(lbl&&tr)tr.hidden=!/sign in/i.test(lbl.textContent||'');}
   if(lbl&&window.MutationObserver){new MutationObserver(syncTrial).observe(lbl,{childList:true,characterData:true,subtree:true});}
   syncTrial();
+})();
+</script>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════════════════
+   THE MARKET VIEW · SECTOR / ECOSYSTEM HEAT · ENGINE · `#641`, 2026-09-02.
+
+   Seat B's row renderer (seats/market_sector-B.html L176–217), rewritten on
+   TWO points and nothing else:
+     1 · MEMBERSHIP IS A SET, NOT A LABEL. B asked `of(tk) === name`; this asks
+         `of(tk)` CONTAINS `name`, because `SEC`/`ECO` are multi-membership and
+         a coin belongs on every shelf it holds. `PUMP` is in Memecoins AND in
+         DEX, and that is the correct render, not a double-count: a row's
+         figure is "how many coins carry this label", never a share.
+     2 · IT RENDERS FINISHED (`#593` rule 2, `#595`). B greeked every
+         group-level count and printed `As of ‹date›`; the taxonomy is ruled
+         now, so the tallies are plain counted numbers and the pill carries the
+         board's real as-of date.
+
+   ⛔⛔ NO TAXONOMY LIVES HERE. `window.SECTOR_MAPS` is the read-only handle the
+      sector-lens engine publishes over the ONE `SEC`/`ECO` pair. If this file
+      ever gains a ticker→sector literal, the `+N` chips and this surface have
+      two homes for one fact and will disagree.
+   ⛔ BANDS ARE READ, NEVER DERIVED (`#621`). A cell's colour is `t.tntB`'s
+      WORD. No cutoff is typed in this block and no score is re-banded.
+   ⛔ NO SECOND ROUTER. `bindRouter` already shows `#view-market` on `#/market`;
+      this engine paints once at load and then only on a tab press.
+   ⛔ NO PRICE PATH. Nothing here writes `td.price`, so `paintPrices()` cannot
+      be wiped by it, and the coins view is not read, re-rendered or narrowed —
+      the market panes are ALWAYS the whole board, never the sector lens's
+      current selection. They are a map of everything, not a view of a filter.
+   ═══════════════════════════════════════════════════════════════════════════ */
+(function () {
+  'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+  var A = window.ALPHA, M = window.SECTOR_MAPS;
+  if (!A || !A.BOARD || !M || !$('sxmSectors')) return;
+
+  var BC = { BULLISH:'b', NEUTRAL:'n', BEARISH:'r' };
+  function esc(t){ return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;'); }
+  function has(a, v){ return a.indexOf(v) > -1; }
+
+  /* ── the as-of pill ──────────────────────────────────────────────────────
+     ⛔ READ, NOT TYPED. `ALPHA.PROVENANCE` is the same object `#boardAsof`
+        prints from (alpha.js L1116–1131). That stamp carries two ranges and
+        this pill carries one date, so it takes the LATER of the two closing
+        dates — the day the board as displayed was last true. ISO, because
+        that is what a `.datepill` prints everywhere else on this page. */
+  var P = A.PROVENANCE || {};
+  var asof = (P.fundamentalsTo || '') > (P.technicalsTo || '')
+           ? P.fundamentalsTo : P.technicalsTo;
+  if ($('sxmAsof')) $('sxmAsof').textContent = asof ? 'As of ' + asof : 'As of —';
+
+  /* ── the row renderer ───────────────────────────────────────────────────── */
+  function groupRows(names, of, emptyWord) {
+    var groups = names.map(function (name) {
+      var m = A.BOARD.filter(function (t) { return has(of(t.tk), name); })
+                     .sort(function (a, b) { return b.tnt - a.tnt; });
+      var n = { b:0, n:0, r:0 };
+      m.forEach(function (t) { n[BC[t.tntB] || 'n']++; });
+      /* greener first. An empty shelf scores -1 so it sinks to the bottom —
+         and it is still DRAWN. Ties keep the input order (stable sort). */
+      return { name: name, m: m, n: n, share: m.length ? n.b / m.length : -1 };
+    });
+    groups.sort(function (a, b) { return b.share - a.share; });
+
+    return groups.map(function (g) {
+      var cells;
+      if (!g.m.length) {
+        cells = '<span class="sxm-empty">no coins carry this ' + emptyWord + ' yet</span>';
+      } else {
+        cells = g.m.map(function (t) {
+          return '<span class="sxm-cell ' + (BC[t.tntB] || 'n') + '" title="' + esc(t.nm) + '">'
+            + '<span class="t">' + esc(t.tk) + '</span>'
+            + '<span class="v">' + t.tnt.toFixed(1) + '</span></span>';
+        }).join('');
+      }
+      var tally = g.m.length
+        ? '<span class="ct b">' + g.n.b + ' bullish</span>'
+          + '<span class="ct n">' + g.n.n + ' neutral</span>'
+          + '<span class="ct r">' + g.n.r + ' bearish</span>'
+        : '<span class="ct">0 coins</span>';
+      return '<div class="sxm-row">'
+        + '<div class="sxm-name">' + esc(g.name)
+        + (g.m.length ? '' : '<span class="sub">a real state, not an error</span>')
+        + '</div>'
+        + '<div class="sxm-strip">' + cells + '</div>'
+        + '<div class="tally">' + tally + '</div>'
+        + '</div>';
+    }).join('');
+  }
+
+  $('sxmSectors').innerHTML =
+    groupRows(M.sectors(), function (tk) {
+      var s = M.sectorsOf(tk);
+      return s.length ? s : ['Unassigned'];       /* no sector IS the tenth row */
+    }, 'sector');
+  $('sxmEcos').innerHTML =
+    groupRows(M.ecos(), M.ecosOf, 'ecosystem');
+
+  /* ── the tab control ─────────────────────────────────────────────────────
+     ⭐ THE EYEBROW AND THE LEDE FOLLOW THE PRESSED TAB. Seat C's top was
+        written under one pane and says "Which sectors are green…"; left fixed
+        above a two-tab control it would describe the wrong pane half the time.
+        The sector strings are C's opening sentence, finished for B's rows and
+        for multi-membership; the ecosystem strings are B's second-facet line
+        with its "at most one ecosystem" claim removed — that sentence is now
+        FALSE (`ZRO` and `W` hold two) and it would contradict the `+N` chips. */
+  var TABS = [
+    { tab:'sxmTabSec', pane:'sxmPaneSec', eyebrow:'SECTOR HEAT',
+      lede:'Which sectors are green and which are red, right now. Each cell is one coin, '
+         + 'tinted by that coin’s own real TNT band, with its real score printed. A coin '
+         + 'can hold more than one sector, so it appears on every shelf it holds — a row’s '
+         + 'count is how many coins carry that label, not a share of the board.' },
+    { tab:'sxmTabEco', pane:'sxmPaneEco', eyebrow:'ECOSYSTEM HEAT',
+      lede:'The second facet, and the same reading: one cell per coin, its own band, its own '
+         + 'score. A coin can sit in more than one ecosystem and many sit in none. Empty '
+         + 'shelves are real — they exist before the coins do.' }
+  ];
+
+  function select(i, focus) {
+    TABS.forEach(function (T, k) {
+      var b = $(T.tab), p = $(T.pane), on = (k === i);
+      if (!b || !p) return;
+      b.setAttribute('aria-selected', on ? 'true' : 'false');
+      b.tabIndex = on ? 0 : -1;
+      p.hidden = !on;
+      if (on) {
+        if ($('sxmEyebrow')) $('sxmEyebrow').textContent = T.eyebrow;
+        if ($('sxmLede'))    $('sxmLede').textContent    = T.lede;
+        if (focus) b.focus();
+      }
+    });
+  }
+
+  TABS.forEach(function (T, i) {
+    var b = $(T.tab);
+    if (!b) return;
+    b.addEventListener('click', function () { select(i, false); });
+    b.addEventListener('keydown', function (e) {
+      var k = e.key, last = TABS.length - 1, to = null;
+      if (k === 'ArrowRight' || k === 'ArrowDown') to = i === last ? 0 : i + 1;
+      else if (k === 'ArrowLeft' || k === 'ArrowUp') to = i === 0 ? last : i - 1;
+      else if (k === 'Home') to = 0;
+      else if (k === 'End') to = last;
+      if (to === null) return;
+      e.preventDefault();
+      select(to, true);
+    });
+  });
+
+  select(0, false);        /* `Sector Heat` is the load state, per `#633` */
 })();
 </script>
 
