@@ -96,11 +96,24 @@ var ALPHA = (function () {
     E2_REGISTERED_TIER: { status: 'OPEN', owner: 'NEEDS AN OWNER' },
 
     // OPEN — COIN CATEGORY. RWA / L1 / DeFi is recorded NOWHERE. Not one of
-    // tnt_scoreboard.csv's 23 columns is a chain/sector/category field.
-    // ⛔ THEREFORE NO SECTOR CHIP AND NO SECTOR FILTER IS DRAWN. Do not add one
-    //    "just for the mockup" — three consumers are already waiting on the
-    //    column and a drawn chip would read as a shipped feature.
-    COIN_CATEGORY: { status: 'BLOCKED ON A CSV COLUMN', drawn: false },
+    // tnt_scoreboard.csv's 23 columns is a chain/sector/category field, and
+    // THAT HAS NOT CHANGED: three consumers are still waiting on it.
+    // ⭐ 2026-09-02 (#592, #636) · THE CHIP IS NOW DRAWN, and this entry is
+    //    REWRITTEN to say so rather than deleted. The sector programme ruled
+    //    the row in (J3 `#612 §3`, J6 `#613 §1`), so the old "no sector chip
+    //    is drawn" ban is no longer true and a stale ban is worse than none.
+    // ⛔ WHAT IT IS DRAWN FROM IS A HAND-AUTHORED PROP MAP IN index.html
+    //    (#591, #626) — one map, in the page, registered in
+    //    Website/DUMMY_DATA_MANIFEST_2026-09-01.md. It is NOT config data, it
+    //    is NOT derived from any CSV, and it must not be moved in here: this
+    //    entry is a STATUS RECORD, not a data home.
+    // ⛔ DO NOT DELETE THIS ENTRY. The record of the missing column is the
+    //    only thing on the page that says the three consumers are still blocked.
+    COIN_CATEGORY: {
+      status: 'BLOCKED ON A CSV COLUMN',
+      drawn: true,
+      source: 'hand-authored prop map in index.html (#591) — production source is D5\'s CoinGecko category lookup, not yet a CSV column'
+    },
 
     // OPEN — EMPTY / OUTAGE STATES. "no current TA article" · "no prior read" ·
     // OPEN-9's outage states are ONE unwritten spec. Every module needs a

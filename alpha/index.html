@@ -91,6 +91,509 @@ a.acct{text-decoration:none}
   .navsheet,.navscrim{transition:none}
 }
 </style>
+<style>
+/* ═══════════════════════════════════════════════════════════════════════════
+   THE J2 CARD BOARD · 2026-09-01 · the RATIFIED mobile board (`#613 §2B.1`).
+   ⭐ ONE CARD SYSTEM AT TWO BREAKPOINTS, not two designs. The card is SEAT B's
+      (rank · logo · name · ticker · price · TNT · band · four numbers · an
+      expander). SEAT A's contribution is the LAYOUT ONLY: at tablet width the
+      same cards lay two-up. `seats/index_mobile-B.html` + `index_mobile-A.html`.
+
+   ⛔ THE MASTHEAD IS NOT TOUCHED. All three J2 mastheads were rejected; the
+      built one is J7's (`#615`), it is sticky, and NOTHING here overrides
+      `.nav`, `.nav-links`, `.navtog`, `.navsheet` or `--nav-h`. Seat B's local
+      `.nav{position:static}` + `.nav-links{display:flex}` rules are DELIBERATELY
+      NOT PORTED — they are the rejected masthead, superseded by J7.
+
+   ⛔ THE SWAP SITS AT 1160px, AND THE NUMBER IS LOAD-BEARING (`§F 19`).
+      table.tok's colgroup sums to 1088px and `.wrap` adds 2×26px of pad, so the
+      table starts clipping at 1140px. Seat B swapped at 1080 and would have left
+      a 60px band where the table still clips; A's 1160 covers it with margin.
+      ▶ `§F 19` is retired ON THE CARD SURFACE only. The desktop table above
+        1160px is untouched and still owns the defect (`AUDIT_item612 §7.5`).
+
+   ⛔ NO SECTOR / ECOSYSTEM FILTER IS PORTED. Seat B's sheet carried a 40-entry
+      hand-authored SECTOR/ECO taxonomy; `alpha-config.js` COIN_CATEGORY is
+      `{status:'BLOCKED ON A CSV COLUMN', drawn:false}` and bans exactly that
+      chip "just for the mockup". The sheet ships SORT-ONLY.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* inert above 1160px — the desktop table renders exactly as it does today */
+.mlist,.mctl,.mcount,.msheet,.mscrim{display:none}
+
+/* ── THE CONTROL ROW ─────────────────────────────────────────────────────
+   Lives INSIDE .board-ctl so the sticky container stays ONE element and
+   alpha.js keeps measuring a single height. Search replaces the scroll; the
+   sort button replaces the column headers, which the card surface does not
+   have. Neither exists above 1160px, where the headers are back. */
+.mctl{flex-basis:100%;gap:8px;align-items:center;min-width:0}
+.mfind{position:relative;flex:1;min-width:0}
+.mfind input{width:100%;font-family:var(--ui);font-size:15px;color:var(--ink);
+  background:var(--card);border:1px solid var(--line2);border-radius:var(--r-max);
+  padding:10px 34px 10px 36px;-webkit-appearance:none;appearance:none}
+.mfind input::placeholder{color:var(--faint)}
+/* the browser's own clear control is suppressed: this field already has one,
+   and two crosses in one box is a control that reads as a fault */
+.mfind input::-webkit-search-cancel-button{-webkit-appearance:none;display:none}
+.mfind input:focus{outline:2px solid var(--gold);outline-offset:1px;border-color:var(--gold)}
+.mfind .mf-ico{position:absolute;left:12px;top:0;bottom:0;margin:auto 0;
+  width:15px;height:15px;color:var(--faint);pointer-events:none}
+.mfind .mf-x{position:absolute;right:6px;top:0;bottom:0;margin:auto 0;
+  width:26px;height:26px;border:none;background:transparent;color:var(--mut);
+  font-size:17px;line-height:1;cursor:pointer;border-radius:var(--r-max)}
+.msortbtn{flex:none;font-family:var(--mono);font-weight:600;font-size:11px;
+  letter-spacing:1.1px;text-transform:uppercase;background:var(--card);
+  border:1px solid var(--line2);border-radius:var(--r-max);padding:9px 15px;
+  color:var(--dim);cursor:pointer;display:inline-flex;align-items:center;gap:7px}
+.msortbtn:hover{color:var(--ink);border-color:var(--dim)}
+.msortbtn svg{width:14px;height:14px}
+.msortbtn[data-on="1"]{background:var(--gold);border-color:var(--gold);color:var(--goldink)}
+
+/* the count the hidden #filterCount was printing, in the card surface's own
+   line. Same wording, same denominator — it is the SAME sentence, relocated. */
+.mcount{font-family:var(--mono);font-size:11px;letter-spacing:.6px;color:var(--mut);
+  margin:0 0 10px}
+.mcount b{color:var(--ink);font-weight:700}
+
+/* ── THE SORT SHEET ──────────────────────────────────────────────────────
+   ⚠ IT LIVES AS A DIRECT CHILD OF <body>, AND THAT IS LOAD-BEARING.
+   .board-ctl is position:sticky with a z-index, which makes it a STACKING
+   CONTEXT: a panel nested inside it can never paint above the fixed Ask Buzz
+   bar whatever z-index it carries, and the bar swallows the taps meant for the
+   sheet's own footer. Caught at 390px in a real render (seat B's note). */
+.msheet[hidden],.mscrim[hidden]{display:none}
+.mscrim{position:fixed;inset:0;background:rgba(20,30,55,.42);z-index:70}
+/* ⛔ A BOTTOM SHEET AT EVERY WIDTH IT EXISTS AT — see the engine's note. Above
+   1160px the Sort button is gone with the rest of the card surface, so there is
+   no width where a button-anchored dropdown would be the right shape. */
+.msheet{position:fixed;z-index:80;left:0;right:0;bottom:0;max-height:82vh;overflow-y:auto;
+  background:var(--card);border:1px solid var(--line2);border-bottom:none;
+  border-radius:var(--r-hero) var(--r-hero) 0 0;box-shadow:var(--shadow);
+  padding:16px 18px calc(18px + env(safe-area-inset-bottom))}
+.msh-hd{display:flex;align-items:center;justify-content:space-between;margin:0 0 12px;
+  position:sticky;top:-16px;z-index:2;background:var(--card);padding:16px 0 10px;
+  margin-top:-16px}
+.msh-hd b{font-family:var(--ui);font-weight:700;font-size:17px;color:var(--ink)}
+.msh-hd .x{width:34px;height:34px;border:1px solid var(--line2);border-radius:var(--r-btn);
+  background:transparent;color:var(--mut);font-size:20px;line-height:1;cursor:pointer}
+.msheet h3{font-family:var(--mono);font-weight:700;font-size:10.5px;letter-spacing:1.5px;
+  text-transform:uppercase;color:var(--dim);margin:0 0 9px}
+/* real rows, not a chip cloud, because sort is single-choice */
+.msort{display:flex;flex-direction:column;gap:2px}
+.msort button{display:flex;align-items:center;gap:10px;text-align:left;background:none;
+  border:none;border-radius:var(--r-btn);padding:11px 10px;cursor:pointer;
+  font-family:var(--ui);font-size:14.5px;color:var(--txt);width:100%}
+.msort button:hover{background:var(--bg-soft)}
+.msort button .tick{width:16px;flex:none;color:var(--goldtx);font-weight:700}
+.msort button[aria-pressed="true"]{color:var(--ink);font-weight:600;background:var(--gold-soft)}
+
+/* ══ THE CARD ═══════════════════════════════════════════════════════════
+   Tier 1 is the verdict: rank, coin, price, the overall score, the band word.
+   Tier 2 is the four-up mini scorecard, ALWAYS ON, because the three axes ARE
+   the product and a reader should not have to tap to see them.
+   Tier 3 opens on tap and carries everything the desktop kept behind a hover. */
+.mlist{flex-direction:column;gap:10px}
+.mcard{position:relative;background:var(--card);border:1px solid var(--line2);
+  border-radius:var(--r-card);overflow:hidden;box-shadow:var(--shadow)}
+/* the band, readable in peripheral vision while a thumb is moving */
+.mcard::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--line2)}
+.mcard.k-bull::before{background:var(--green)}
+.mcard.k-neut::before{background:var(--zero)}
+.mcard.k-bear::before{background:var(--red)}
+.mcard.k-na::before{background:repeating-linear-gradient(135deg,var(--line2) 0 4px,transparent 4px 8px)}
+.mcard.is-open{border-color:var(--dim)}
+/* the one counter-example keeps its marker here too, the way the table tints
+   its row gold. `table.tok tbody tr.is-exception` is a standing commitment. */
+.mcard.is-exception{box-shadow:var(--shadow),inset 0 0 0 1px var(--gold-line)}
+
+.mc-head{width:100%;display:grid;grid-template-columns:26px 30px minmax(0,1fr) auto 18px;
+  align-items:center;gap:10px;background:none;border:none;cursor:pointer;
+  padding:13px 12px 11px 16px;text-align:left;font-family:var(--ui)}
+.mc-head:focus-visible{outline:2px solid var(--gold);outline-offset:-3px}
+.mc-rk{font-family:var(--mono);font-weight:700;font-size:12.5px;color:var(--faint);
+  font-variant-numeric:tabular-nums;text-align:right}
+.mc-head .tlogo{width:30px;height:30px}
+.mc-id{min-width:0}
+.mc-nm{display:block;font-weight:700;font-size:15.5px;color:var(--ink);line-height:1.25;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mc-sub{display:flex;align-items:baseline;gap:8px;margin-top:2px;min-width:0}
+.mc-tk{font-family:var(--mono);font-weight:600;font-size:11px;letter-spacing:.9px;color:var(--faint)}
+.mc-sub .mh-price{font-family:var(--mono);font-size:11.5px;color:var(--txt);
+  font-variant-numeric:tabular-nums;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mc-sub .mh-price .pmove{margin-left:5px;font-weight:700}
+.mc-sub .mh-price .pmove.up{color:var(--green)}
+.mc-sub .mh-price .pmove.down{color:var(--red)}
+.mc-sub .mh-price .pmove.flat{color:var(--mut)}
+.mc-sub .nofeed{font-family:var(--mono);font-size:10.5px;letter-spacing:.6px;color:var(--faint)}
+.mc-verdict{text-align:right;display:flex;flex-direction:column;align-items:flex-end;gap:3px}
+.mc-verdict .tnt-pill{min-width:52px;font-size:19px;padding:5px 9px;text-align:center}
+/* NOT SCORED is its own object. It must never borrow the neutral band's look:
+   neutral is a verdict, this is the absence of one. */
+.mc-verdict .tnt-pill.na{color:var(--faint);background:transparent;border:1px solid var(--line2);
+  font-size:15px;letter-spacing:.5px}
+.mc-band{font-family:var(--mono);font-weight:700;font-size:9.5px;letter-spacing:1.3px;
+  text-transform:uppercase}
+.mc-band.k-bull{color:var(--green)} .mc-band.k-neut{color:var(--zero)}
+.mc-band.k-bear{color:var(--red)}   .mc-band.k-na{color:var(--faint)}
+.mc-chev{width:9px;height:9px;color:var(--faint);justify-self:end;
+  border-left:2px solid currentColor;border-bottom:2px solid currentColor;
+  transform:rotate(-45deg);margin-bottom:3px;transition:transform .16s}
+.mcard.is-open .mc-chev{transform:rotate(135deg);margin-bottom:0;margin-top:3px}
+
+/* THE FOUR-UP MINI SCORECARD. Label, number, and a track under each, so a value
+   has a shape as well as a digit and the eye can size it without reading it. */
+.mc-strip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;
+  padding:10px 14px 12px 16px;background:var(--breakdown);border-top:1px solid var(--line)}
+.ms{min-width:0}
+.ms-l{display:block;font-family:var(--mono);font-weight:600;font-size:9px;letter-spacing:.9px;
+  text-transform:uppercase;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ms-v{display:block;font-family:var(--mono);font-weight:700;font-size:16px;
+  font-variant-numeric:tabular-nums;color:var(--ink);line-height:1.3;margin-top:1px}
+.ms-v.k-bull{color:var(--green)} .ms-v.k-neut{color:var(--zero)} .ms-v.k-bear{color:var(--red)}
+.ms-v.k-na{color:var(--faint);font-size:12.5px;letter-spacing:.6px}
+.ms-t{position:relative;display:block;height:4px;border-radius:2px;background:var(--line);
+  overflow:hidden;margin-top:5px}
+.ms-t i{display:block;height:100%;background:var(--dim)}
+.ms-t.k-bull i{background:var(--green)} .ms-t.k-neut i{background:var(--zero)}
+.ms-t.k-bear i{background:var(--red)}
+/* an empty track, visibly a track with nothing in it. A zero-length bar would
+   read as a very low score, which is the opposite of what N/A means. */
+.ms-t.k-na{background:repeating-linear-gradient(135deg,var(--line2) 0 3px,transparent 3px 6px);
+  overflow:visible}
+/* ⛔ DECOUPLING IS MAGNITUDE ONLY. Its fill is ink, never a band colour, and it
+   never carries an arrow: a direction mark would point the same way on nearly
+   every card and stop being read within three of them. */
+.ms-t.dec{overflow:visible;background:var(--bg-soft);box-shadow:inset 0 0 0 1px var(--line)}
+.ms-t.dec i{background:#6f7c8f;border-radius:2px}
+.ms-t.dec.wide i{background:#2b3a4e}
+/* ⛔ #627 · THE TICK SERIES IS COMPUTED, NEVER TYPED. Seat A hard-codes its
+   three quarter-marks as literal percentages and the MIDDLE one is damaged —
+   the test is the SERIES, never the CSS property. Not ported: these are calc()
+   and cannot drift. ⚠ The damaged literal is deliberately not written into this
+   file, so a mechanical sweep for it still measures ZERO here. */
+.ms-t.dec u{position:absolute;top:-1px;bottom:-1px;width:1px;background:var(--line2)}
+.ms-t.dec u.a{left:calc(100% / 4)} .ms-t.dec u.b{left:calc(100% / 2)}
+.ms-t.dec u.c{left:calc(100% * 3 / 4)}
+
+/* ── TIER 3 · THE PANEL. Everything the desktop row kept behind a hover. ── */
+.mc-panel{padding:2px 16px 16px;border-top:1px solid var(--line)}
+.mc-panel[hidden]{display:none}
+.mp-h{font-family:var(--mono);font-weight:700;font-size:9.5px;letter-spacing:1.4px;
+  text-transform:uppercase;color:var(--dim);margin:16px 0 8px}
+.mp-ax{display:flex;gap:12px;align-items:baseline;padding:9px 0;border-top:1px solid var(--line)}
+.mp-ax:first-of-type{border-top:none}
+.mp-ax .l{flex:none;width:74px;font-family:var(--mono);font-weight:700;font-size:10px;
+  letter-spacing:1px;text-transform:uppercase;color:var(--dim)}
+.mp-ax .d{flex:1;font-family:var(--ui);font-size:13px;line-height:1.45;color:var(--txt)}
+.mp-ax .v{flex:none;text-align:right;font-family:var(--mono);font-weight:700;font-size:15px;
+  font-variant-numeric:tabular-nums}
+.mp-ax .v small{display:block;font-size:9px;letter-spacing:1.1px;font-weight:700;margin-top:2px}
+.mp-ax .v.k-bull{color:var(--green)} .mp-ax .v.k-neut{color:var(--zero)}
+.mp-ax .v.k-bear{color:var(--red)}   .mp-ax .v.k-na{color:var(--faint);font-size:12px}
+.mp-note{font-family:var(--ui);font-size:12.5px;line-height:1.5;color:var(--mut);margin:8px 0 0}
+.mp-rule{position:relative;height:12px;border-radius:3px;background:var(--bg-soft);
+  box-shadow:inset 0 0 0 1px var(--line);margin:4px 0 2px;overflow:hidden}
+.mp-rule i{display:block;height:100%;background:#6f7c8f}
+.mp-rule.wide i{background:#2b3a4e}
+.mp-rule u{position:absolute;top:0;bottom:0;width:1px;background:var(--line2)}
+.mp-rule u.a{left:calc(100% / 4)} .mp-rule u.b{left:calc(100% / 2)}
+.mp-rule u.c{left:calc(100% * 3 / 4)}
+.mp-scale{display:flex;justify-content:space-between;font-family:var(--mono);font-size:9px;
+  letter-spacing:.8px;color:var(--faint)}
+.mp-mix{display:flex;flex-wrap:wrap;gap:3px;align-items:center;margin-bottom:8px}
+.mp-mix i{width:11px;height:16px;border-radius:2px;display:inline-block}
+.mp-mix i.mb{background:var(--green)} .mp-mix i.mn{background:var(--zero)}
+.mp-mix i.mr{background:var(--red)}
+.mp-mix b{font-family:var(--mono);font-weight:700;font-size:13px;color:var(--ink);margin-left:6px}
+/* ⚠ EACH LABEL TRAVELS WITH ITS PILL. Flat flex children wrapped `Technicals`
+   onto the end of one line and dropped its date pill onto the next, which reads
+   as the pill belonging to `Fundamentals`. Measured at 390px. */
+.mp-dates{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center}
+.mp-dates .dpair{display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
+.mp-dates .dl{font-family:var(--ui);font-size:12.5px;color:var(--mut)}
+.mp-dates .datepill{display:inline-block;font-family:var(--mono);font-size:11px;font-weight:600;
+  color:var(--dim);background:var(--bg-soft);border:1px solid var(--line2);
+  border-radius:var(--r-max);padding:4px 13px;white-space:nowrap}
+.mp-exc{margin-top:14px;border-left:3px solid var(--gold);background:var(--gold-soft);
+  border-radius:0 var(--r-btn) var(--r-btn) 0;padding:9px 12px;
+  font-family:var(--ui);font-size:12.5px;line-height:1.45;color:var(--goldtx)}
+.mp-act{display:flex;gap:9px;margin-top:16px}
+.mp-act a,.mp-act button{flex:1;font-family:var(--mono);font-weight:700;font-size:11px;
+  letter-spacing:1.1px;text-transform:uppercase;border-radius:var(--r-btn);
+  padding:13px 10px;text-align:center;cursor:pointer;border:1px solid var(--line2);
+  background:var(--card);color:var(--dim)}
+.mp-act a{background:var(--ink);border-color:var(--ink);color:#fff}
+.mp-act button.on{background:var(--gold);border-color:var(--gold);color:var(--goldink)}
+
+/* ── EMPTY STATE ────────────────────────────────────────────────────────── */
+.mempty{border:1px solid var(--line2);border-radius:var(--r-card);background:var(--bg-soft);
+  padding:22px 20px;text-align:left}
+.mempty b{display:block;font-family:var(--ui);font-weight:700;font-size:15.5px;
+  color:var(--ink);margin-bottom:6px}
+.mempty p{font-family:var(--ui);font-size:13.5px;line-height:1.55;color:var(--mut);margin:0}
+.mempty .reset{margin-top:14px;font-family:var(--mono);font-weight:700;font-size:11px;
+  letter-spacing:1.1px;text-transform:uppercase;background:var(--card);
+  border:1px solid var(--line2);border-radius:var(--r-btn);padding:10px 15px;
+  color:var(--dim);cursor:pointer}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   THE SECTOR ROW · ported 2026-09-02 (#635, #636) from
+   seats/index_dash-C_final.html L319-344 + its CSS, with the MULTI-MEMBERSHIP
+   layer from seats/index_multi-B.html. Four of the six lost homepage picks are
+   this one component and it had never been stitched in.
+
+   ⭐ `.sxrow{flex-basis:100%}` IS THE J3 VERDICT (`#612 §3`) — the row sits
+      BACK INSIDE the sticky bar, as its own flex row, which is the same device
+      .mctl already uses. .board-ctl therefore stays ONE flex container and
+      --ctl-h keeps measuring the whole thing. No bottom margin: the bar's own
+      row-gap does that spacing and both together would double it.
+   ⛔ `#643` will insert the mini-dashboard BETWEEN this row and #filters.
+      Leave the order alone.
+   ═══════════════════════════════════════════════════════════════════════════ */
+.sxrow{flex-basis:100%;display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin:0}
+.sxlbl{font-family:var(--mono);font-weight:600;font-size:10.5px;letter-spacing:1.5px;
+  text-transform:uppercase;color:var(--dim)}
+.filter.sx{padding:5px 11px}
+.filter.sx .mt{margin-left:6px;letter-spacing:.4px;color:inherit;opacity:.7;font-size:10px}
+/* ecosystem dropdown: a chip that opens an absolute menu, so the row height
+   never changes with it.
+   ⛔⛔ THE MENU FLIPS TO THE RIGHT EDGE WHEN IT WOULD RUN OFF SCREEN, and that
+      is a FIX, not a flourish — dash-C caught it in a real browser at 1040px,
+      where the menu opened 48px past the edge and took the three empty
+      ecosystems off screen with it. `.mhx-edge` is set by the toggle handler,
+      which measures and flips, then clamps back if the flip overshoots. */
+.sxdd{position:relative}
+.sxmenu.mhx-edge{left:auto;right:0}
+.sxdd summary{list-style:none;cursor:pointer}
+.sxdd summary::-webkit-details-marker{display:none}
+.sxdd summary .filter{pointer-events:none}
+.sxmenu{position:absolute;top:calc(100% + 6px);left:0;z-index:60;min-width:250px;
+  background:var(--card);border:1px solid var(--line2);border-radius:var(--r-card);
+  box-shadow:var(--shadow);padding:7px;display:flex;flex-direction:column;gap:4px}
+.sxmenu button{font-family:var(--mono);font-weight:600;font-size:11px;letter-spacing:1.1px;
+  text-transform:uppercase;text-align:left;background:var(--card);border:1px solid var(--line2);
+  border-radius:var(--r-btn);padding:7px 11px;color:var(--dim);cursor:pointer;
+  display:flex;align-items:center;gap:8px}
+.sxmenu button:hover{color:var(--ink);border-color:var(--dim)}
+.sxmenu button[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:var(--goldink)}
+.sxmenu .none{font-size:9.5px;letter-spacing:.6px;color:var(--faint);margin-left:auto;text-transform:none}
+/* ⭐ THE LEGEND (multi-B). It is the whole defence against a primary pick being
+   read as the complete answer, so it renders ALWAYS, in plain words, and is
+   never allowed to become a tooltip. */
+.sxnote{flex-basis:100%;font-family:var(--ui);font-size:12px;line-height:1.45;
+  color:var(--mut);margin:0}
+.sxnote b{color:var(--ink);font-weight:700}
+
+/* ── THE ROW LABEL · never a bare label (multi-B) ────────────────────────
+   Every row prints its PRIMARY label with a mark saying how many more the coin
+   holds (`DEX +1`), or the word `only` when that is the whole list. Both forms
+   on one board is what teaches a reader that one label is never the whole
+   truth — the `only` half is the load-bearing half.
+   ⛔ THE ASSET COLUMN IS NOT WIDENED (`§F 19`: the colgroup is pinned by J2's
+      1160 swap). The label takes a SECOND LINE inside the existing 144px cell
+      instead, so rows grow downwards and no column width moves. */
+table.tok td.asset .acx{display:flex;flex-direction:column;gap:3px;min-width:0}
+table.tok td.asset .lrow{display:flex;align-items:center;gap:5px;flex-wrap:wrap;min-width:0}
+table.tok td.asset .lrow .tkr{font-family:var(--mono);font-size:11.5px;letter-spacing:.8px;
+  color:var(--mut)}
+.lchip{font-family:var(--mono);font-weight:700;font-size:9.5px;letter-spacing:.7px;
+  text-transform:uppercase;background:var(--bg-soft);border:1px solid var(--line2);
+  border-radius:var(--r-max);padding:2px 7px;color:var(--dim);cursor:pointer;
+  display:inline-flex;align-items:center;gap:5px;max-width:100%}
+.lchip:hover,.lchip[aria-expanded="true"]{color:var(--ink);border-color:var(--dim)}
+.lchip .p{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lchip .n{font-size:9px;letter-spacing:.4px;color:var(--mut);font-variant-numeric:tabular-nums}
+.lchip .n.solo{letter-spacing:.6px;text-transform:lowercase;font-weight:600}
+.lchip.un{background:var(--gold-soft);border-color:var(--gold-line);color:var(--goldtx)}
+/* the label card: every category the coin holds, each row a filter */
+.lpop{position:fixed;z-index:90;width:290px;background:var(--card);
+  border:1px solid var(--line2);border-radius:var(--r-card);box-shadow:var(--shadow);
+  padding:13px 14px}
+.lp-h{display:flex;align-items:baseline;gap:8px;margin-bottom:10px}
+.lp-h b{font-family:var(--ui);font-weight:700;font-size:15.5px;color:var(--ink)}
+.lp-h span{font-family:var(--mono);font-size:11px;letter-spacing:.8px;color:var(--mut)}
+.lp-k{font-family:var(--mono);font-weight:700;font-size:9.5px;letter-spacing:1.3px;
+  text-transform:uppercase;color:var(--faint);margin:10px 0 6px}
+.lp-r{display:flex;align-items:center;gap:8px;width:100%;text-align:left;
+  background:var(--card);border:1px solid var(--line2);border-radius:var(--r-btn);
+  padding:7px 10px;margin-bottom:4px;cursor:pointer}
+.lp-r:hover{border-color:var(--dim)}
+.lp-r .nm{font-family:var(--mono);font-weight:700;font-size:11px;letter-spacing:1px;
+  text-transform:uppercase;color:var(--ink)}
+.lp-r .pm{font-family:var(--mono);font-size:9px;letter-spacing:.8px;text-transform:uppercase;
+  color:var(--goldtx);background:var(--gold-soft);border-radius:var(--r-max);padding:2px 6px}
+.lp-r .ct{margin-left:auto;font-family:var(--mono);font-size:10px;color:var(--mut);
+  font-variant-numeric:tabular-nums}
+.lpop .none,.lp-f{font-family:var(--ui);font-size:12px;line-height:1.5;color:var(--mut);margin:0}
+.lp-f{margin-top:10px;padding-top:9px;border-top:1px solid var(--line)}
+.lp-f b{color:var(--ink)}
+.lp-go{display:block;margin-top:10px;font-family:var(--mono);font-weight:700;font-size:10.5px;
+  letter-spacing:1.1px;text-transform:uppercase;text-align:center;background:var(--ink);
+  color:#fff;border-radius:var(--r-btn);padding:10px;text-decoration:none}
+
+/* ── THE FACET BAND (multi-B `#facetBand`) ───────────────────────────────
+   Hidden until a label is picked. It reads the WHOLE board for that label, so
+   its numbers do not shrink when a band chip cuts the table below it, and it
+   says so in words. ⛔ It carries NO group score: a sector is classification,
+   so the only score-coloured thing in it is one block per member coin carrying
+   that coin's own real band. */
+.facet{border:1px solid var(--line2);border-radius:var(--r-card);background:var(--card);
+  padding:12px 15px;margin:0 0 13px}
+.facet[hidden]{display:none}
+.facet .ft{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap}
+.facet .nm{font-family:var(--ui);font-weight:700;font-size:17px;color:var(--ink)}
+.facet .hold{font-family:var(--ui);font-size:13.5px;color:var(--txt)}
+.facet .hold b{color:var(--ink);font-variant-numeric:tabular-nums}
+.facet .memb{display:flex;gap:2px;align-items:center;margin-left:auto;flex-wrap:wrap}
+.facet .memb i{width:8px;height:17px;border-radius:2px;display:inline-block}
+.facet .memb i.b{background:var(--green)}
+.facet .memb i.n{background:var(--zero)}
+.facet .memb i.r{background:var(--red)}
+.facet .bands{display:flex;gap:13px;flex-wrap:wrap;margin-top:9px;
+  font-family:var(--mono);font-weight:700;font-size:11px;letter-spacing:1px;text-transform:uppercase}
+.facet .bands .b{color:var(--green)}.facet .bands .n{color:var(--zero)}.facet .bands .r{color:var(--red)}
+.facet .over{margin-top:9px;padding-top:9px;border-top:1px solid var(--line);
+  display:flex;gap:7px;align-items:center;flex-wrap:wrap}
+.facet .over .k{font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:1.2px;
+  text-transform:uppercase;color:var(--faint)}
+.facet .over .lb{display:inline-block;font-family:var(--mono);font-size:11px;font-weight:700;
+  letter-spacing:.9px;text-transform:uppercase;color:var(--dim);background:var(--bg-soft);
+  border:1px solid var(--line2);border-radius:var(--r-max);padding:3px 9px}
+.facet .say{margin:9px 0 0;font-family:var(--ui);font-size:13px;line-height:1.5;
+  color:var(--mut);max-width:98ch}
+.facet .say b{color:var(--ink)}
+.facet.is-empty{border-color:var(--gold-line);background:var(--gold-soft)}
+.facet.is-empty .nm{color:var(--goldtx)}
+.facet .floor{margin-top:9px;border-left:3px solid var(--gold);background:var(--gold-soft);
+  border-radius:0 var(--r-btn) var(--r-btn) 0;padding:9px 12px;
+  font-family:var(--ui);font-size:12.5px;line-height:1.45;color:var(--goldtx)}
+
+/* ── THE SHEET'S SECTOR + ECOSYSTEM GROUPS (seat B, index_mobile-B) ──────
+   Below 1160 the sector row hides and the choice moves in here, above the sort
+   list. Reason, measured: pinned chrome is already nav 53 + control bar 96 =
+   149px, 18% of a phone viewport, and a second scrolling chip row adds ~44px to
+   what is PINNED. The band chips stay where J2 put them. */
+.msh-sec+.msh-sec{margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}
+.msh-note{font-family:var(--ui);font-size:12.5px;line-height:1.45;color:var(--mut);margin:-4px 0 10px}
+.mchips{display:flex;flex-wrap:wrap;gap:7px}
+.mchip{font-family:var(--mono);font-weight:600;font-size:11px;letter-spacing:1px;
+  text-transform:uppercase;background:var(--card);border:1px solid var(--line2);
+  border-radius:var(--r-max);padding:8px 13px;color:var(--dim);cursor:pointer;
+  display:inline-flex;align-items:center;gap:7px}
+.mchip:hover{color:var(--ink);border-color:var(--dim)}
+.mchip[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:var(--goldink)}
+.mchip .n{font-size:10px;letter-spacing:.4px;opacity:.8;font-variant-numeric:tabular-nums}
+.mchip.is-empty{color:var(--faint)}
+.mchip.is-empty .n{opacity:1;color:var(--faint)}
+/* ⚠ STICKY TO THE BOTTOM OF THE SHEET. The panel is now three groups tall, so
+   at 390x844 the way out of it sat below the fold. Seat B caught the same
+   thing on a real device-sized window. */
+.msh-foot{position:sticky;bottom:calc(-18px - env(safe-area-inset-bottom));z-index:2;
+  background:var(--card);display:flex;align-items:center;gap:12px;margin-top:18px;
+  padding:14px 0 calc(4px + env(safe-area-inset-bottom));border-top:1px solid var(--line)}
+.msh-foot .done{flex:1;font-family:var(--mono);font-weight:700;font-size:12px;letter-spacing:1.2px;
+  text-transform:uppercase;background:var(--ink);color:#fff;border:none;
+  border-radius:var(--r-btn);padding:13px;cursor:pointer}
+.msh-foot .clr{font-family:var(--ui);font-size:13.5px;color:var(--mut);background:none;
+  border:none;cursor:pointer;text-decoration:underline;padding:6px}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   ⬇ EVERYTHING BELOW 1160px. Above it nothing here applies and the deployed
+     desktop board renders exactly as it does today.
+   ═══════════════════════════════════════════════════════════════════════════ */
+@media (max-width:1160px){
+  /* THE SWAP. The table is REMOVED from the layout, not merely hidden, so its
+     1088px column sum cannot widen the document. */
+  .board{display:none}
+  .mlist{display:flex}
+  .mctl{display:flex}
+  .mcount{display:block}
+  /* ⛔ BOTH HALVES, OR THE SCRIM DIMS THE PAGE OVER NOTHING. The base rule
+     above parks the whole card surface at display:none; re-showing .mscrim
+     without .msheet left a working dialog invisible behind its own dim.
+     Caught at 390px in a real render, not in the markup. */
+  .mscrim:not([hidden]){display:block}
+  .msheet:not([hidden]){display:block}
+
+  /* the chip strip fades at its right edge so it reads as scrollable. The
+     Decoupled chip is the last one and it is load-bearing, so the affordance
+     matters. #filterCount moves out of the scroller into .mcount, which prints
+     the SAME string it was printing. */
+  .board-ctl{gap:9px}
+  .filters{flex-basis:100%;flex-wrap:nowrap;overflow-x:auto;margin-bottom:0;
+    padding-bottom:2px;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+    -webkit-mask-image:linear-gradient(to right,#000 calc(100% - 26px),transparent);
+    mask-image:linear-gradient(to right,#000 calc(100% - 26px),transparent)}
+  .filters::-webkit-scrollbar{display:none}
+  .filters .filter{flex:none}
+  .filters .filter.thesis{box-shadow:none}
+  #filterCount{display:none}
+
+  /* ⭐ §1.3 DEFAULT · THE SECTOR ROW HIDES AND THE CHOICE MOVES INTO THE SHEET.
+     ⛔ NOT because the control does not belong on a phone — because it does not
+        belong in the PINNED stack. nav 53 + control bar 96 = 149px is already
+        18% of a 844px viewport, and a second scrolling chip row adds ~44px to
+        what follows the reader down the page. In the sheet it costs nothing
+        pinned and it is reachable in one tap from the same button as sort.
+     ✅ #facetBand STAYS. It is not pinned, it sits above the list, and it is
+        the surface that says a member count is never a share of the board. */
+  .sxrow{display:none}
+
+  /* full-bleed on a phone; the rounded top and the pinned title bar come from
+     the base rule, which is already the bottom-sheet form */
+  .msheet{border-left:none;border-right:none}
+}
+
+/* ── SEAT A's CONTRIBUTION · TABLETS AND SMALL LAPTOPS ───────────────────
+   Still below the width the table needs, so still cards — but TWO UP. One
+   1100px-wide card would stretch a four-cell strip across the screen and read
+   as a broken table. ⭐ This is the whole of J2-A that is ratified: the same
+   card, laid two-up. `align-items:start` keeps an open expander from dragging
+   its neighbour's height with it. */
+@media (min-width:640px) and (max-width:1160px){
+  .mlist{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;
+    align-items:start}
+  .mlist .mempty{grid-column:1 / -1}
+  /* centred by auto margins rather than a left/translate pair, so the sheet
+     keeps its bottom anchor untouched */
+  .msheet{width:520px;margin-inline:auto}
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   PART B · THE PHONE SWIPE RAIL (`#645`, operator-ruled YES 2026-09-02).
+   Measured at 390x844: four full-width stacked highlight cards put the first
+   score card 1546px down — about a screen and a half of chrome between an
+   article reader and the board, which is the single biggest thing standing
+   between them and the product. Below 640px, J2's own one-up boundary, the
+   strip becomes a horizontal swipe rail instead.
+   ⛔ Above 640px NOTHING here applies. `renderHighlights()` in alpha.js is
+      untouched — this is 12 lines of CSS over markup that already exists.
+   ⛔ `#627`: seats/index_mobile-A.html is the source for these twelve rules
+      ONLY. Its damaged three-value decoupling marker literal is NOT taken —
+      and it is not quoted here either, because the check for it is a grep and
+      a detector that reports a hit on its own warning is a detector that gets
+      ignored.
+   ═══════════════════════════════════════════════════════════════════════════ */
+@media (max-width:640px){
+  .highlights{display:flex;overflow-x:auto;gap:10px;scroll-snap-type:x mandatory;
+    scrollbar-width:none;padding-bottom:2px;margin-top:8px}
+  .highlights::-webkit-scrollbar{display:none}
+  .highlights > *{flex:0 0 min(84%,320px);scroll-snap-align:start;min-width:0}
+  /* the desktop section rhythm is 34px of margin plus 34px of padding between
+     the strip and the control bar. On a phone that is most of a card of dead
+     space between the reader and the first score, so it halves. */
+  .section{margin-top:18px;padding-top:17px}
+}
+
+@media (max-width:400px){
+  .mc-head{grid-template-columns:22px 28px minmax(0,1fr) auto 14px;gap:8px;padding-left:14px}
+  .mc-nm{font-size:15px}
+  .mc-strip{gap:7px;padding-left:14px}
+  .ms-l{font-size:8.5px;letter-spacing:.6px}
+  .ms-v{font-size:15px}
+  .mp-ax .l{width:64px}
+}
+</style>
 </head>
 <body>
 
@@ -227,6 +730,55 @@ a.acct{text-decoration:none}
          ⛔ The chips STAY here — they are the control the pinned header row
             hangs off, and moving them would unpin the header. -->
     <div class="board-ctl">
+      <!-- ══════════════════════════════════════════════════════════════════
+           THE SECTOR ROW · ported 2026-09-02 (`#635`, `#636`) from
+           seats/index_dash-C_final.html L319-344, verbatim ids, with the
+           MULTI-MEMBERSHIP layer from seats/index_multi-B.html (J6 = seat B,
+           `#613 §1`) behind it.
+           ⭐ FIRST CHILD OF .board-ctl, ABOVE #filters — that order is
+              load-bearing: `#643` inserts the mini-dashboard BETWEEN this row
+              and the band filters, so leaving it alone is what lets the next
+              job slot in without moving anything.
+           ⭐ It is INSIDE the sticky bar (J3's verdict, `#612 §3`): one sticky
+              container, one measured --ctl-h, and alpha.js's ResizeObserver
+              (`§F 17`) re-measures when this row changes the bar's height.
+           ⛔ The member counts are COUNTED in the engine below, never typed,
+              and `All` deliberately carries none: a coin can hold several
+              sectors, so the numbers overlap and do not add up to anything.
+           ══════════════════════════════════════════════════════════════════ -->
+      <div class="sxrow" id="sxRow" role="group" aria-label="Filter by sector">
+        <span class="sxlbl">Sector</span>
+        <button class="filter sx" data-sx="all" aria-pressed="true">All</button>
+        <button class="filter sx" data-sx="L1/L2" aria-pressed="false">L1/L2</button>
+        <button class="filter sx" data-sx="DeFi" aria-pressed="false">DeFi</button>
+        <button class="filter sx" data-sx="DEX" aria-pressed="false">DEX</button>
+        <button class="filter sx" data-sx="CEX" aria-pressed="false">CEX</button>
+        <button class="filter sx" data-sx="RWA" aria-pressed="false">RWA</button>
+        <button class="filter sx" data-sx="DePIN" aria-pressed="false">DePIN</button>
+        <button class="filter sx" data-sx="Memecoins" aria-pressed="false">Memecoins</button>
+        <button class="filter sx" data-sx="AI" aria-pressed="false">AI</button>
+        <button class="filter sx" data-sx="Privacy" aria-pressed="false">Privacy</button>
+        <button class="filter sx" data-sx="Unassigned" aria-pressed="false">Unassigned</button>
+        <details class="sxdd" id="sxDD">
+          <summary aria-label="Filter by ecosystem">
+            <span class="filter sx" id="sxEcoLbl">Ecosystem: Any</span>
+          </summary>
+          <div class="sxmenu" id="sxEcoMenu" role="group" aria-label="Ecosystem">
+            <button type="button" data-eco="all" aria-pressed="true">Any ecosystem</button>
+            <button type="button" data-eco="ETH Ecosystem" aria-pressed="false">ETH Ecosystem<span class="none"></span></button>
+            <button type="button" data-eco="SOL Ecosystem" aria-pressed="false">SOL Ecosystem<span class="none"></span></button>
+            <button type="button" data-eco="BNB Ecosystem" aria-pressed="false">BNB Ecosystem<span class="none"></span></button>
+            <button type="button" data-eco="SUI Ecosystem" aria-pressed="false">SUI Ecosystem<span class="none"></span></button>
+            <button type="button" data-eco="Robinhood Ecosystem" aria-pressed="false">Robinhood Ecosystem<span class="none"></span></button>
+          </div>
+        </details>
+        <!-- ⭐ THE LEGEND (multi-B). It is the whole defence against a primary
+             pick being read as the complete answer, so it renders always, in
+             plain words, and is never allowed to become a tooltip. -->
+        <p class="sxnote">Each row shows one label: the coin&#8217;s primary, then
+          <b>+N</b> for how many more it holds, or <b>only</b> when that is the whole
+          list. Chip counts overlap and do not add up, because a coin can hold several.</p>
+      </div>
       <div class="filters" id="filters" role="group" aria-label="Filter the scoreboard">
         <button class="filter" data-f="all"       aria-pressed="true">All</button>
         <button class="filter" data-f="bullish"   aria-pressed="false">Bullish</button>
@@ -239,11 +791,50 @@ a.acct{text-decoration:none}
           <span class="thr">gap 1.0+</span></button>
         <span class="one" id="filterCount"></span>
       </div>
+
+      <!-- ⭐ THE CARD SURFACE'S OWN CONTROLS (J2, `#613 §2B`). Inert above
+           1160px, where the table's column headers sort and 39 rows are all on
+           screen at once. Below it they are the ONLY sort control there is, and
+           search is what replaces the scroll on a one-up list.
+           ⛔ INSIDE .board-ctl on purpose — one sticky container, one measured
+              height. ⛔ NO SECTOR OR ECOSYSTEM CONTROL: alpha-config.js
+              COIN_CATEGORY is `drawn:false` and bans one "just for the mockup". -->
+      <div class="mctl">
+        <div class="mfind">
+          <svg class="mf-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+          <input id="mFind" type="search" autocomplete="off" placeholder="Find a coin by name or ticker" aria-label="Find a coin by name or ticker">
+          <button class="mf-x" id="mFindX" type="button" aria-label="Clear search" hidden>&times;</button>
+        </div>
+        <button class="msortbtn" id="mSortBtn" type="button" aria-expanded="false" aria-controls="mSheet">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 4v16M7 20l-3-3M17 20V4M17 4l3 3"/></svg>
+          <span>Sort</span>
+        </button>
+      </div>
     </div>
+    <!-- ⭐ SEAT B's FACET BAND (`#facetBand`, multi-B L322). Hidden until a
+         sector or ecosystem is picked. It reads the WHOLE board for that label,
+         so its numbers do NOT shrink when a band chip cuts the table below it,
+         and it says so in words. ⛔ It carries NO group score: a sector is
+         classification, so the only score-coloured thing in it is one block per
+         member coin carrying that coin's own real band.
+         ⛔ OUTSIDE .board-ctl on purpose — it is an explainer, not a control,
+            and nothing that changes height with a tap belongs in the pinned
+            stack. -->
+    <div class="facet" id="facetBand" hidden></div>
     <!-- ⭐ THE DESCRIPTIVE TEXT, ONE STRING PER CHIP, written for a reader whose
          first language is not English. ⛔ It explains; it does not sell. -->
     <p class="board-lede" id="bandLede"></p>
     <p class="one filter-note" id="filterNote" hidden></p>
+
+    <!-- ══════════════════════════════════════════════════════════════════
+         THE CARD BOARD · the RATIFIED mobile surface (`#613 §2B.1`).
+         Seat B's card, laid ONE-UP on a phone and TWO-UP at tablet width
+         (seat A's grid). Below 1160px this replaces the table entirely —
+         there is no table left to clip, which is how `§F 19` retires HERE.
+         ⛔ ON THE MOBILE SURFACE ONLY. The desktop table below still owns it.
+         ══════════════════════════════════════════════════════════════════ -->
+    <p class="mcount" id="mCount"></p>
+    <div class="mlist" id="mList"></div>
 
     <div class="board">
       <div class="board-scroll">
@@ -512,9 +1103,834 @@ a.acct{text-decoration:none}
   </div>
 </aside>
 
+<!-- ⚠ THE SORT SHEET LIVES HERE, OUTSIDE EVERY STICKY CONTAINER, ON PURPOSE.
+     See the .msheet rule: nested inside .board-ctl it can never paint above the
+     fixed Ask Buzz bar, and the bar eats the taps meant for its footer. -->
+<div class="mscrim" id="mScrim" hidden></div>
+<div class="msheet" id="mSheet" role="dialog" aria-label="Sort and filter the board" hidden>
+  <div class="msh-hd"><b>Sort &amp; filter</b>
+    <button class="x" type="button" id="mSheetX" aria-label="Close">&times;</button></div>
+  <div class="msh-sec">
+    <h3>Sort by</h3>
+    <div class="msort" id="mSort" role="group" aria-label="Sort by"></div>
+  </div>
+  <!-- ⭐ §1.3 · THE SECTOR + ECOSYSTEM CHOICE LIVES HERE BELOW 1160px, in seat
+       B's shape (seats/index_mobile-B.html L640-650). It is NOT a second pinned
+       chip row: the sector row above is hidden at this width precisely because
+       pinned chrome is already 149px of a phone viewport.
+       ⛔ The counts are COUNTED, and an empty shelf shows its zero BEFORE a
+          reader taps it and finds nothing. -->
+  <div class="msh-sec">
+    <h3>Sector</h3>
+    <p class="msh-note">A coin can hold more than one tag, so these groups overlap.
+      Each count is the size of that one group, and they are not meant to add up.</p>
+    <div class="mchips" id="mSector" role="group" aria-label="Sector"></div>
+  </div>
+  <div class="msh-sec">
+    <h3>Ecosystem</h3>
+    <div class="mchips" id="mEco" role="group" aria-label="Ecosystem"></div>
+  </div>
+  <div class="msh-foot">
+    <button class="done" type="button" id="mSheetDone">Show coins</button>
+    <button class="clr" type="button" id="mSheetClear">Reset</button>
+  </div>
+</div>
+
 <script src="alpha-config.js"></script>
 <script src="alpha.js"></script>
 <script>ALPHA_PAGE.initBoard();</script>
+<script>
+/* ═══════════════════════════════════════════════════════════════════════════
+   THE SECTOR LENS · ENGINE · 2026-09-02 (`#635`, `#636`).
+
+   Ports the sector row that four of the six lost homepage picks all turned out
+   to be one component of. Chrome from seats/index_dash-C_final.html; the
+   MULTI-MEMBERSHIP layer (a coin holds several sectors and an ecosystem, the
+   primary + N label rule, the facet band) from seats/index_multi-B.html.
+
+   ⛔⛔ ONE FILTERED SET. The table and the card list must show the SAME rows
+      under the same sector ∩ band ∩ search, and #filterCount / .mcount must
+      print the same number. This engine therefore owns the sector PREDICATE
+      and nothing else: it hands the predicate to the shared board through
+      ALPHA_PAGE.setRowPredicate (alpha.js `§F 22`), which re-renders through
+      the board's own render() — and it publishes the same predicate to the
+      card list, which applies it inside ITS own pipeline.
+      ⛔ NO second copy of the board renderer. NO private price cache. NO
+         second fetch. Both re-render paths already end in paintPrices():
+         render() at alpha.js `§F 18`, renderList() at the ⛔ in the J2 engine.
+
+   ⛔ THIS LAYER NEVER TOUCHES td.price. The only cell it rewrites on a
+      rendered row is td.asset, which carries no price and no data-cgid, so a
+      label pass cannot wipe what the price poll painted.
+   ═══════════════════════════════════════════════════════════════════════════ */
+(function () {
+  'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+  var A = window.ALPHA;
+  if (!A || !A.BOARD || !$('sxRow')) return;
+
+  /* ── THE PROP MEMBERSHIP MAP ─────────────────────────────────────────────
+     ⛔⛔ PROP DATA (`#591`, `#626`), hand-authored, ONE map, and it lives HERE.
+        It is NOT in alpha-config.js: that file's COIN_CATEGORY entry is a
+        STATUS RECORD saying the CSV column still does not exist, not a data
+        home. It is NOT derived from any CSV either — none has the column.
+        Every row of it is registered in Website/DUMMY_DATA_MANIFEST_2026-09-01.md.
+     ⛔ EXHAUSTIVE. A ticker absent from this map holds no sector and renders
+        Unassigned, loudly. Nothing is ever guessed at. */
+  var SEC = {
+    BTC:['L1/L2'], LTC:['L1/L2'], XRP:['L1/L2'], ADA:['L1/L2'], SOL:['L1/L2'],
+    TRX:['L1/L2'], HBAR:['L1/L2'], PI:['L1/L2'], ARB:['L1/L2'], POL:['L1/L2'],
+    XDC:['L1/L2','RWA'], FLR:['L1/L2','DeFi'], INJ:['L1/L2','DeFi'],
+    AAVE:['DeFi'], ENA:['DeFi'], LDO:['DeFi'], ETHFI:['DeFi'], LINK:['DeFi'],
+    ZRO:['DeFi'], W:['DeFi'], JST:['DeFi'], JTO:['DeFi'], PYTH:['DeFi'],
+    CRO:['CEX','L1/L2'], HYPE:['DEX','L1/L2'], JUP:['DEX','DeFi'],
+    AERO:['DEX','DeFi'], SUN:['DEX','DeFi'], DEXE:['DEX','DeFi'],
+    DOGE:['Memecoins','L1/L2'], PUMP:['Memecoins','DEX'], ONDO:['RWA','DeFi'],
+    VIRTUAL:['AI'], VVV:['AI'], XMR:['Privacy','L1/L2'], ZEC:['Privacy','L1/L2'],
+    BEAT:[], LIT:[], STABLE:[]
+  };
+  var ECO = {
+    AAVE:['ETH Ecosystem'], ENA:['ETH Ecosystem'], LDO:['ETH Ecosystem'],
+    ETHFI:['ETH Ecosystem'], LINK:['ETH Ecosystem'], ARB:['ETH Ecosystem'],
+    POL:['ETH Ecosystem'], ZRO:['ETH Ecosystem','SOL Ecosystem'],
+    W:['ETH Ecosystem','SOL Ecosystem'],
+    JUP:['SOL Ecosystem'], JTO:['SOL Ecosystem'], PYTH:['SOL Ecosystem'],
+    PUMP:['SOL Ecosystem']
+  };
+  /* ⭐ THE PRIMARY-PICK ORDER · narrowest shelf first. BUILD-INVENTED and
+     UNRULED (seat B proposed it and said so). It no longer picks a coin's one
+     home — it picks the one label a cramped surface prints. A narrow shelf
+     tells a reader more, and L1/L2 is a member of almost everything, so it
+     leads only when nothing else does. An ecosystem is never primary: it
+     answers a different question. */
+  var ORDER = ['DePIN','CEX','Memecoins','Privacy','RWA','AI','DEX','DeFi','L1/L2'];
+  var ECOS  = ['ETH Ecosystem','SOL Ecosystem','BNB Ecosystem','SUI Ecosystem','Robinhood Ecosystem'];
+  var FLOOR = 3;                        /* the ruled member floor */
+  var BANDK = { BULLISH:'b', NEUTRAL:'n', BEARISH:'r' };
+  var BANDW = { b:'bullish', n:'neutral', r:'bearish' };
+
+  var BY = {}, i;
+  for (i = 0; i < A.BOARD.length; i++) BY[A.BOARD[i].tk] = A.BOARD[i];
+
+  function sOf(tk){ return SEC[tk] || []; }
+  function eOf(tk){ return ECO[tk] || []; }
+  function allOf(tk){ return sOf(tk).concat(eOf(tk)); }
+  function has(a, v){ return a.indexOf(v) > -1; }
+  function esc(t){ return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;'); }
+  function shortEco(n){ return n.replace(' Ecosystem', ''); }
+  function primaryOf(tk){
+    var s = sOf(tk);
+    for (var k = 0; k < ORDER.length; k++) if (has(s, ORDER[k])) return ORDER[k];
+    return null;                        /* no sector: Unassigned */
+  }
+  /* MEMBER COUNTS · COUNTED here, never typed. A coin in three sectors is
+     counted in all three, which is the whole point and the whole caveat. */
+  function sxCount(name){
+    var n = 0;
+    for (var t in SEC) if (SEC.hasOwnProperty(t)) {
+      if (name === 'Unassigned' ? !SEC[t].length : has(SEC[t], name)) n++;
+    }
+    return n;
+  }
+  function ecCount(name){
+    var n = 0;
+    for (var t in SEC) if (SEC.hasOwnProperty(t)) { if (has(eOf(t), name)) n++; }
+    return n;
+  }
+
+  /* ── THE STATE, AND THE ONE PREDICATE EVERY SURFACE USES ───────────────── */
+  var curSx = 'all', curEco = 'all';
+  function ok(tk){
+    var okS = curSx === 'all'
+      || (curSx === 'Unassigned' ? !sOf(tk).length : has(sOf(tk), curSx));
+    return okS && (curEco === 'all' || has(eOf(tk), curEco));
+  }
+  function pred(t){ return ok(t.tk); }
+  var subs = [];
+
+  /* ── THE FACET BAND · reads the WHOLE board for the picked label ────────── */
+  var band = $('facetBand');
+  function members(){ return A.BOARD.filter(function (t) { return ok(t.tk); }); }
+  function bandHTML(list){
+    var sxOn = curSx !== 'all', ecOn = curEco !== 'all';
+    var label = sxOn ? curSx : '';
+    if (ecOn) label = sxOn ? (curSx + ' on ' + shortEco(curEco)) : (shortEco(curEco) + ' ecosystem');
+
+    if (!list.length) {
+      band.className = 'facet is-empty';
+      return '<div class="ft"><span class="nm">' + esc(label) + '</span>'
+        + '<span class="hold">No coin holds this label yet</span></div>'
+        + '<p class="say"><b>The shelf exists before the stock.</b> A coin picks this tag up '
+        + 'when its research lands, so an empty shelf is a designed state here and not an '
+        + 'error or an outage. The board below is showing you exactly that: nothing.</p>';
+    }
+    band.className = 'facet';
+
+    var blocks = '', n = { b:0, n:0, r:0 }, also = {}, alsoN = 0;
+    var active = {}; if (sxOn) active[curSx] = 1; if (ecOn) active[curEco] = 1;
+    list.slice().sort(function (a, b) { return b.tnt - a.tnt; }).forEach(function (t) {
+      var k = BANDK[t.tntB] || 'n'; n[k]++;
+      blocks += '<i class="' + k + '" title="' + esc(t.tk) + ' ' + t.tnt.toFixed(1)
+             + ' ' + BANDW[k] + '"></i>';
+      var lab = allOf(t.tk), extra = 0;
+      lab.forEach(function (L) { if (!active[L]) { also[L] = (also[L] || 0) + 1; extra++; } });
+      if (extra) alsoN++;
+    });
+
+    var bandsTxt = '';
+    ['b','n','r'].forEach(function (k) {
+      if (n[k]) bandsTxt += '<span class="' + k + '">' + n[k] + ' ' + BANDW[k] + '</span>';
+    });
+    var keys = Object.keys(also).sort(function (a, b) {
+      return also[b] - also[a] || a.localeCompare(b); });
+    var overTxt = '';
+    keys.forEach(function (L) {
+      overTxt += '<span class="lb">' + esc(shortEco(L)) + ' ' + also[L] + '</span>'; });
+
+    var un = (curSx === 'Unassigned'), one = (list.length === 1);
+    var holdTxt = un
+      ? '<b>' + list.length + '</b> ' + (one ? 'coin matches' : 'coins match') + ' no category yet'
+      : '<b>' + list.length + '</b> ' + (one ? 'coin holds' : 'coins hold') + ' this label';
+    var h = '<div class="ft"><span class="nm">' + esc(label) + '</span>'
+      + '<span class="hold">' + holdTxt + '</span>'
+      + '<span class="memb" title="One block per coin, carrying that coin&#8217;s own band">'
+      + blocks + '</span></div>'
+      + '<div class="bands">' + bandsTxt + '</div>';
+
+    if (list.length < FLOOR) {
+      h += '<div class="floor">' + (un
+        ? 'A short list today, and it is meant to shrink: these coins pick up a category as '
+          + 'their research lands. They are fully scored in the meantime.'
+        : 'Fewer than three coins hold this label, so we do not read it as a group yet. The '
+          + 'coins themselves are fully scored: it is the shelf that is thin, not the research.')
+        + '</div>';
+    }
+    if (keys.length) {
+      h += '<div class="over"><span class="k">These coins also hold</span>' + overTxt + '</div>';
+    }
+    var sayOverlap;
+    if (un) {
+      sayOverlap = 'Nothing here is counted twice, because none of these coins is counted '
+        + 'anywhere. Everywhere else on this bar a coin can sit on several shelves at once, so '
+        + 'those chip numbers overlap and do not add up to anything.';
+    } else if (!alsoN) {
+      sayOverlap = 'None of these coins holds another label, so this shelf happens not to '
+        + 'overlap. Most do, which is why a member count is never a share of the board.';
+    } else if (alsoN === list.length) {
+      sayOverlap = '<b>Every coin here</b> sits on another shelf as well, and each is counted '
+        + 'there too. A member count says how many coins hold a label, never what share of the '
+        + 'board they are, and the chip numbers do not add up to anything.';
+    } else {
+      sayOverlap = '<b>' + alsoN + ' of these ' + list.length + '</b> sit on another shelf as '
+        + 'well, and they are counted there too. A member count says how many coins hold a '
+        + 'label, never what share of the board they are, and the chip numbers do not add up '
+        + 'to anything.';
+    }
+    h += '<p class="say">' + sayOverlap
+      + ' This read is of the whole board; the band chips above still cut what is listed below.</p>';
+    return h;
+  }
+
+  /* ── THE ROW LABEL · never a bare label ─────────────────────────────────── */
+  function chipHTML(tk){
+    var p = primaryOf(tk);
+    if (!p) {
+      return '<button class="lchip un" type="button" data-tk="' + esc(tk) + '" '
+        + 'aria-expanded="false" aria-label="' + esc(tk) + ' matches no category yet">'
+        + '<span class="p">Unassigned</span></button>';
+    }
+    var more = allOf(tk).length - 1;
+    var mark = more > 0 ? '<span class="n">+' + more + '</span>'
+                        : '<span class="n solo">only</span>';
+    var say = more > 0
+      ? esc(tk) + ' leads with ' + p + ' and holds ' + more + ' more. Show them all.'
+      : esc(tk) + ' holds ' + p + ' and nothing else. Show the full list.';
+    return '<button class="lchip" type="button" data-tk="' + esc(tk) + '" '
+      + 'aria-expanded="false" aria-label="' + say + '">'
+      + '<span class="p">' + esc(p) + '</span>' + mark + '</button>';
+  }
+
+  /* ── the label card: every category the coin holds, each row a filter ───── */
+  var pop = null;
+  function rowLine(name, isPrim, kind){
+    return '<button class="lp-r" type="button" data-pick="' + esc(name) + '" data-kind="' + kind + '">'
+      + '<span class="nm">' + esc(kind === 'sx' ? name : shortEco(name)) + '</span>'
+      + (isPrim ? '<span class="pm">Primary</span>' : '')
+      + '<span class="ct">' + (kind === 'sx' ? sxCount(name) : ecCount(name)) + ' coins</span>'
+      + '</button>';
+  }
+  function popHTML(tk){
+    var t = BY[tk] || { nm: tk }, p = primaryOf(tk);
+    var s = sOf(tk).slice().sort(function(a,b){ return ORDER.indexOf(a) - ORDER.indexOf(b); });
+    var e = eOf(tk), h = '', k, j;
+    h += '<div class="lp-h"><b>' + esc(t.nm) + '</b><span>' + esc(tk) + '</span></div>';
+    h += '<div class="lp-k">Sectors</div>';
+    if (!s.length) {
+      h += '<p class="none">This coin matches no sector on the current list. It is not '
+        + 'hidden and not unscored: it simply has no shelf yet.</p>';
+    } else {
+      for (k = 0; k < s.length; k++) h += rowLine(s[k], s[k] === p, 'sx');
+    }
+    h += '<div class="lp-k">Ecosystem</div>';
+    if (!e.length) {
+      h += '<p class="none">Not on another chain&#8217;s ecosystem list.</p>';
+    } else {
+      for (j = 0; j < e.length; j++) h += rowLine(e[j], false, 'ec');
+    }
+    h += '<p class="lp-f">' + (s.length
+      ? 'A row has space for one label, so it prints <b>' + esc(p) + '</b>. Primary is the '
+        + 'narrowest shelf a coin sits on, which is why a broad label like <b>L1/L2</b> leads '
+        + 'only when nothing else applies. An ecosystem is never primary: it answers a '
+        + 'different question.'
+      : 'A row still prints something for this coin. <b>Unassigned</b> is the answer, not a '
+        + 'blank, and it is the complete answer.') + '</p>';
+    h += '<a class="lp-go" href="coin.html">Open the coin page for the full set</a>';
+    return h;
+  }
+  function closePop(){
+    if (!pop) return;
+    var b = document.querySelector('.lchip[aria-expanded="true"]');
+    if (b) b.setAttribute('aria-expanded', 'false');
+    pop.parentNode.removeChild(pop); pop = null;
+  }
+  function openPop(btn){
+    closePop();
+    btn.setAttribute('aria-expanded', 'true');
+    pop = document.createElement('div');
+    pop.className = 'lpop'; pop.setAttribute('role', 'dialog');
+    pop.setAttribute('aria-label', 'Every category this coin holds');
+    pop.innerHTML = popHTML(btn.getAttribute('data-tk'));
+    document.body.appendChild(pop);
+    var r = btn.getBoundingClientRect();
+    var left = Math.max(10, Math.min(r.left, window.innerWidth - pop.offsetWidth - 14));
+    var top = r.bottom + 8;
+    if (top + pop.offsetHeight > window.innerHeight - 10) {
+      top = Math.max(10, r.top - pop.offsetHeight - 8);
+    }
+    pop.style.left = left + 'px'; pop.style.top = top + 'px';
+    Array.prototype.forEach.call(pop.querySelectorAll('.lp-r'), function (b) {
+      b.addEventListener('click', function () {
+        var v = b.getAttribute('data-pick');
+        if (b.getAttribute('data-kind') === 'sx') { setSx(v); } else { setEco(v); }
+        closePop();
+      });
+    });
+  }
+  document.addEventListener('click', function (e) {
+    if (pop && !pop.contains(e.target) && !(e.target.closest && e.target.closest('.lchip'))) closePop();
+  });
+
+  /* ── the ASSET cell, relabelled after every tbody rebuild ────────────────
+     ⛔ td.asset ONLY. It carries no price cell, so this pass cannot wipe what
+        paintPrices() painted — which is why it does NOT re-call it. */
+  var body = $('boardBody'), mo = null;
+  function relabel(){
+    if (!body) return;
+    if (mo) mo.disconnect();
+    Array.prototype.forEach.call(body.querySelectorAll('tr'), function (tr) {
+      var tk = tr.id.replace(/^row-/, '');
+      var td = tr.querySelector('td.asset');
+      if (!td || td.querySelector('.acx')) return;
+      var a  = td.querySelector('a.ac');
+      var lg = a ? a.querySelector('.tlogo') : null;
+      var nb = a ? a.querySelector('.anm b') : null;
+      var hr = a ? a.getAttribute('href') : 'coin.html';
+      td.innerHTML = '<div class="acx">'
+        + '<a class="ac" href="' + esc(hr) + '">' + (lg ? lg.outerHTML : '')
+        + '<span class="anm"><b>' + esc(nb ? nb.textContent : tk) + '</b></span></a>'
+        + '<div class="lrow"><span class="tkr">' + esc(tk) + '</span>'
+        + chipHTML(tk) + '</div></div>';
+    });
+    Array.prototype.forEach.call(body.querySelectorAll('.lchip'), function (b) {
+      b.addEventListener('click', function (e) {
+        e.stopPropagation();
+        if (b.getAttribute('aria-expanded') === 'true') { closePop(); return; }
+        openPop(b);
+      });
+    });
+    if (mo) mo.observe(body, { childList: true });
+  }
+  if (body && window.MutationObserver) {
+    mo = new MutationObserver(function(){ relabel(); });
+  }
+
+  /* ── PAINT + APPLY ─────────────────────────────────────────────────────── */
+  function paintChips(){
+    Array.prototype.forEach.call($('sxRow').querySelectorAll('.filter.sx[data-sx]'), function (b) {
+      var v = b.getAttribute('data-sx');
+      b.setAttribute('aria-pressed', String(v === curSx));
+      if (v !== 'all' && !b.querySelector('.mt')) {
+        var s = document.createElement('span');
+        s.className = 'mt'; s.textContent = sxCount(v);
+        b.appendChild(s);
+      }
+    });
+    Array.prototype.forEach.call($('sxEcoMenu').querySelectorAll('button'), function (b) {
+      var v = b.getAttribute('data-eco');
+      b.setAttribute('aria-pressed', String(v === curEco));
+      var s = b.querySelector('.none');
+      if (s && v !== 'all') {
+        var n = ecCount(v);
+        s.textContent = n ? (n + (n === 1 ? ' coin' : ' coins')) : 'no coins yet';
+      }
+    });
+    $('sxEcoLbl').textContent = 'Ecosystem: ' + (curEco === 'all' ? 'Any' : shortEco(curEco));
+  }
+  function paintSheet(){
+    var sh = '<button class="mchip" type="button" data-v="all" aria-pressed="'
+           + (curSx === 'all') + '">All sectors</button>';
+    ORDER.concat(['Unassigned']).forEach(function (s) {
+      var n = sxCount(s);
+      sh += '<button class="mchip' + (n ? '' : ' is-empty') + '" type="button" data-v="' + esc(s)
+         +  '" aria-pressed="' + (curSx === s) + '">' + esc(s)
+         +  '<span class="n">' + n + '</span></button>';
+    });
+    $('mSector').innerHTML = sh;
+    Array.prototype.forEach.call($('mSector').querySelectorAll('.mchip'), function (b) {
+      b.addEventListener('click', function(){ setSx(b.getAttribute('data-v')); });
+    });
+
+    var eh = '<button class="mchip" type="button" data-v="all" aria-pressed="'
+           + (curEco === 'all') + '">Any ecosystem</button>';
+    ECOS.forEach(function (s) {
+      var n = ecCount(s);
+      eh += '<button class="mchip' + (n ? '' : ' is-empty') + '" type="button" data-v="' + esc(s)
+         +  '" aria-pressed="' + (curEco === s) + '">' + esc(shortEco(s))
+         +  '<span class="n">' + n + '</span></button>';
+    });
+    $('mEco').innerHTML = eh;
+    Array.prototype.forEach.call($('mEco').querySelectorAll('.mchip'), function (b) {
+      b.addEventListener('click', function(){ setEco(b.getAttribute('data-v')); });
+    });
+  }
+  function apply(){
+    paintChips(); paintSheet();
+    if (band) {
+      var on = (curSx !== 'all' || curEco !== 'all');
+      band.hidden = !on;
+      if (on) band.innerHTML = bandHTML(members());
+    }
+    /* ⛔ ONE FILTERED SET. The table re-renders through the shared board (which
+       ends in paintPrices()); the card list re-renders through its own
+       renderList() (which ends in paintPrices()). No third renderer. */
+    ALPHA_PAGE.setRowPredicate(pred);
+    relabel();
+    for (var k = 0; k < subs.length; k++) subs[k]();
+  }
+  function setSx(v){ curSx = v; apply(); }
+  function setEco(v){ curEco = v; apply(); }
+
+  /* ── WIRING ────────────────────────────────────────────────────────────── */
+  var row = $('sxRow');
+  Array.prototype.forEach.call(row.querySelectorAll('.filter.sx[data-sx]'), function (b) {
+    b.addEventListener('click', function(){ setSx(b.getAttribute('data-sx')); });
+  });
+  var dd = $('sxDD');
+  Array.prototype.forEach.call($('sxEcoMenu').querySelectorAll('button'), function (b) {
+    b.addEventListener('click', function(){ dd.removeAttribute('open'); setEco(b.getAttribute('data-eco')); });
+  });
+  document.addEventListener('click', function (e) {
+    if (dd.hasAttribute('open') && !dd.contains(e.target)) dd.removeAttribute('open');
+  });
+  /* ⛔ KEEP THE ECOSYSTEM MENU ON SCREEN (dash-C, caught in a real browser at
+     1040px: the menu opened 48px past the right edge and took the three empty
+     ecosystems off screen with it). Measure on open, flip to the right edge if
+     it would overflow, clamp back if the flip overshoots the other way. */
+  function keepMenuInView(){
+    var menu = $('sxEcoMenu');
+    menu.className = 'sxmenu';
+    if (!dd.hasAttribute('open')) return;
+    if (menu.getBoundingClientRect().right > document.documentElement.clientWidth - 8) {
+      menu.className = 'sxmenu mhx-edge';
+      if (menu.getBoundingClientRect().left < 8) menu.className = 'sxmenu';
+    }
+  }
+  dd.addEventListener('toggle', keepMenuInView);
+  /* ⛔ NOT BOUND TO `resize`, DELIBERATELY — alpha.js's sticky ResizeObserver
+     dispatches synthetic resize events, and a resize-bound handler that writes
+     a class and then measures can livelock against it. A window that changes
+     size while the menu is open simply CLOSES it. */
+  window.addEventListener('resize', function(){
+    if (dd.hasAttribute('open')) dd.removeAttribute('open');
+    closePop();
+  });
+
+  /* the sheet's own footer. ⛔ `Clear` clears THE TWO THINGS THIS SHEET OWNS —
+     sector and ecosystem. The band chips and the search box are right there on
+     the control bar with their own controls, and a Reset that silently undoes
+     a filter a reader set somewhere else is the worse surprise. */
+  var done = $('mSheetDone'), clr = $('mSheetClear');
+  if (done) done.addEventListener('click', function(){
+    var x = $('mSheetX'); if (x) x.click();
+  });
+  if (clr) {
+    clr.textContent = 'Clear sector & ecosystem';
+    clr.addEventListener('click', function(){ curSx = 'all'; curEco = 'all'; apply(); });
+  }
+
+  /* published for the card list — the SAME predicate, applied inside ITS
+     pipeline, so the two surfaces cannot disagree about what is selected. */
+  window.SECTOR_LENS = {
+    ok: ok,
+    subscribe: function (fn) { subs.push(fn); }
+  };
+
+  apply();
+})();
+</script>
+<script>
+/* ═══════════════════════════════════════════════════════════════════════════
+   THE J2 CARD BOARD · ENGINE · 2026-09-01.
+
+   Sits ENTIRELY on top of the shared build. alpha.js renders the deployed
+   desktop table exactly as it does today; this layer builds a SECOND,
+   independent card list from the SAME config, and CSS decides which one the
+   reader sees. The two share the band chips and the price poll, so they can
+   never disagree about what is selected.
+
+   ⛔ NOTHING HERE EDITS alpha.css, alpha.js OR alpha-config.js, and nothing
+      here touches the desktop table, its tbody, or the masthead.
+
+   ⛔⛔ EVERY REBUILD OF THIS LIST ENDS IN ALPHA_PAGE.paintPrices(). A card list
+      is a board-body re-render: it wipes every cell the price poll painted, and
+      without the re-call live prices silently revert to static text. The hook is
+      exported for exactly this (alpha.js `§F 18`), and paintPrices() already
+      selects `.mh-price[data-cgid]` as well as `td.price[data-cgid]`, so the
+      card cells are first-class in the shared poll — no second fetch, no second
+      cache, no second format that could disagree with the table's.
+   ═══════════════════════════════════════════════════════════════════════════ */
+(function () {
+  'use strict';
+  var C = window.ALPHA;
+  if (!C || !C.BOARD) return;
+
+  var DEC_T   = C.BUILD_RAISED.DECOUPLED_THRESHOLD;   /* 1.0 — read, never typed */
+  var DEC_MAX = 2.0;                                  /* the fixed decoupling scale */
+  var LOGO_DIR = 'assets/token_logos/';
+
+  function $(id){ return document.getElementById(id); }
+  function esc(s){ return String(s == null ? '' : s)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  function one(n){ return Number(n).toFixed(1); }
+  /* ⛔ BANDS ARE NEVER RE-DERIVED FROM A RENDERED PAGE (`#621` — three seats
+     guessed the bullish edge and all three were wrong). The band WORD arrives
+     on the row as `tntB` straight out of alpha-config.js, which is the single
+     authority; nothing below compares a score to a threshold. */
+  function bk(b){ return b === 'BULLISH' ? 'k-bull' : b === 'BEARISH' ? 'k-bear'
+                     : b === 'NEUTRAL' ? 'k-neut' : 'k-na'; }
+  function word(b){ return b === 'BULLISH' ? 'Bullish' : b === 'BEARISH' ? 'Bearish'
+                       : b === 'NEUTRAL' ? 'Neutral' : 'Not scored yet'; }
+  function pillCls(b){ return b === 'BULLISH' ? 'bull' : b === 'BEARISH' ? 'bear'
+                          : b === 'NEUTRAL' ? 'neut' : 'na'; }
+
+  /* THE ROWS. The real board and nothing else — no demonstration row is
+     injected. Seat B carried a fabricated `ORBL / Orbital` row to show the
+     INSUFFICIENT-DATA state; a fabricated coin on the live homepage is invented
+     data, so it is not built. The N/A code paths below survive untouched, so a
+     genuinely unscored row renders correctly the day one arrives. */
+  var ROWS = C.BOARD.map(function (t) {
+    return { tk:t.tk, nm:t.nm, slug:t.slug, cg:t.cg,
+             tnt:t.tnt, tntB:t.tntB, tok:t.tok, tokB:t.tokB, net:t.net, netB:t.netB,
+             tec:t.tec, tecB:t.tecB, cat:t.cat, mix:t.mix, asof:t.asof, taof:t.taof,
+             na:(t.tnt == null) };
+  });
+
+  /* rank is pinned ONCE, by TNT, before any re-sort can run — an identity, not
+     a row index. Re-sorting must never renumber it. Same rule as alpha.js. */
+  ROWS.slice().filter(function(t){ return !t.na; })
+      .sort(function(a,b){ return b.tnt - a.tnt; })
+      .forEach(function(t,i){ t.rank = i + 1; });
+
+  function gap(t){
+    if (t.net == null || t.tok == null) return null;
+    return Math.round(Math.abs(t.net - t.tok) * 10) / 10;
+  }
+
+  var BAND = 'all', FIND = '', SORT = 'tnt', OPEN = {}, WATCH = {};
+
+  var SORTS = [
+    { k:'tnt',  l:'Overall TNT score, highest first' },
+    { k:'tok',  l:'Token score, highest first' },
+    { k:'net',  l:'Network score, highest first' },
+    { k:'tec',  l:'Technicals score, highest first' },
+    { k:'dec',  l:'Decoupling, widest gap first' },
+    { k:'cat',  l:'Catalysts counted, most first' },
+    { k:'name', l:'Name, A to Z' }
+  ];
+
+  var AXES = [
+    { k:'tok', l:'Token',      d:'Does the catalyst reach the coin you can actually buy?' },
+    { k:'net', l:'Network',    d:'Does the catalyst help the tech behind the coin?' },
+    { k:'tec', l:'Technicals', d:'Ten chart indicators on the daily candle, averaged.' }
+  ];
+
+  /* ── THE CARD ─────────────────────────────────────────────────────────── */
+  function logo(tk){
+    return '<span class="tlogo"><img src="' + LOGO_DIR + esc(tk) + '.svg" alt="" '
+      + 'onerror="this.parentNode.innerHTML=\'<span class=&quot;mono monofb&quot;>'
+      + esc(tk).slice(0,3) + '</span>\'"></span>';
+  }
+  function track(v, band){
+    if (v == null) return '<span class="ms-t k-na"></span>';
+    var w = Math.max(4, Math.min(100, v * 10));
+    return '<span class="ms-t ' + bk(band) + '"><i style="width:' + w.toFixed(0) + '%"></i></span>';
+  }
+  function decTrack(g){
+    if (g == null) return '<span class="ms-t k-na"></span>';
+    var w = Math.max(3, Math.min(100, g / DEC_MAX * 100));
+    return '<span class="ms-t dec' + (g >= DEC_T ? ' wide' : '') + '">'
+      + '<u class="a"></u><u class="b"></u><u class="c"></u>'
+      + '<i style="width:' + w.toFixed(0) + '%"></i></span>';
+  }
+  function cell(label, v, band){
+    return '<div class="ms"><span class="ms-l">' + label + '</span>'
+      + '<span class="ms-v ' + bk(band) + '">' + (v == null ? 'N/A' : one(v)) + '</span>'
+      + track(v, band) + '</div>';
+  }
+
+  function panelHTML(t){
+    var g = gap(t), h = '';
+    h += '<div class="mp-h">The three scores behind it</div>';
+    AXES.forEach(function (a) {
+      var v = t[a.k], b = t[a.k + 'B'];
+      h += '<div class="mp-ax"><span class="l">' + a.l + '</span>'
+        +  '<span class="d">' + a.d + '</span>'
+        +  '<span class="v ' + bk(b) + '">' + (v == null ? 'N/A' : one(v))
+        +  '<small>' + (v == null ? 'NO DATA' : esc(word(b)).toUpperCase()) + '</small></span></div>';
+    });
+
+    h += '<div class="mp-h">Decoupling</div>';
+    if (g == null) {
+      h += '<p class="mp-note">The gap needs both the network and token scores. '
+        +  'One of them is missing here, so no gap is shown.</p>';
+    } else {
+      h += '<div class="mp-rule' + (g >= DEC_T ? ' wide' : '') + '">'
+        +  '<u class="a"></u><u class="b"></u><u class="c"></u>'
+        +  '<i style="width:' + Math.max(3, Math.min(100, g / DEC_MAX * 100)).toFixed(0) + '%"></i></div>'
+        +  '<div class="mp-scale"><span>0</span><span>0.5</span><span>1.0</span><span>1.5</span><span>2.0</span></div>'
+        +  '<p class="mp-note"><b>' + one(g) + '</b> apart on a fixed 0 to 2.0 scale. '
+        +  'This is a distance only. It never says which of the two scores is the larger one. '
+        +  (g >= DEC_T ? 'A gap of ' + DEC_T.toFixed(1) + ' or more is what the Decoupled filter picks up.' : '')
+        +  '</p>';
+    }
+
+    h += '<div class="mp-h">Catalyst mix</div><div class="mp-mix">';
+    var names = ['mb','mn','mr'];
+    t.mix.forEach(function (n, i) { for (var j = 0; j < n; j++) h += '<i class="' + names[i] + '"></i>'; });
+    h += '<b>' + t.cat + '</b></div>'
+      +  '<p class="mp-note">One block for each catalyst, coloured by that catalyst\'s own token '
+      +  'score: ' + t.mix[0] + ' bullish, ' + t.mix[1] + ' neutral, ' + t.mix[2] + ' bearish. '
+      +  'The Token score above is their average, so the blocks are the shape behind that number.</p>';
+
+    /* the one counter-example on the board. Same test alpha.js uses for the
+       gold `is-exception` row tint on the desktop table. */
+    if (t.tok != null && t.net != null && t.tok > t.net) {
+      h += '<div class="mp-exc">The token score is above the network score here. On this board '
+        +  'that is the exception: almost everywhere else the news helps the tech more than it '
+        +  'helps the coin.</div>';
+    }
+
+    /* ⛔ TWO DATE RANGES, RENDERED SEPARATELY. Never one blended "updated" —
+       the same rule the .board-prov line below the desktop table follows. */
+    h += '<div class="mp-h">How fresh</div><div class="mp-dates">'
+      +  '<span class="dpair"><span class="dl">Fundamentals</span>'
+      +  '<span class="datepill">' + esc(t.asof) + '</span></span>'
+      +  '<span class="dpair"><span class="dl">Technicals</span>'
+      +  '<span class="datepill">' + (t.taof ? esc(t.taof) : 'Not read yet') + '</span></span></div>';
+
+    h += '<div class="mp-act">'
+      +  '<a href="coin.html">Full scorecard</a>'
+      +  '<button type="button" class="mwatch' + (WATCH[t.tk] ? ' on' : '') + '" data-tk="' + esc(t.tk) + '">'
+      +  (WATCH[t.tk] ? 'Watching' : 'Watch') + '</button>'
+      +  '</div>';
+    return h;
+  }
+
+  function cardHTML(t){
+    var g = gap(t), open = !!OPEN[t.tk];
+    var exc = (t.tok != null && t.net != null && t.tok > t.net);
+    var h = '<article class="mcard ' + bk(t.tntB) + (open ? ' is-open' : '')
+          + (exc ? ' is-exception' : '') + '" id="mc-' + esc(t.tk) + '">';
+    h += '<button class="mc-head" type="button" aria-expanded="' + (open ? 'true' : 'false')
+      +  '" aria-controls="mp-' + esc(t.tk) + '" data-tk="' + esc(t.tk) + '">'
+      +  '<span class="mc-rk">' + (t.na ? 'NR' : t.rank) + '</span>'
+      +  logo(t.tk)
+      +  '<span class="mc-id"><span class="mc-nm">' + esc(t.nm) + '</span>'
+      +    '<span class="mc-sub"><span class="mc-tk">' + esc(t.tk) + '</span>'
+      +      (t.cg ? '<span class="mh-price" data-cgid="' + esc(t.cg) + '">&#183;&#183;&#183;</span>'
+                   : '<span class="nofeed">No price feed</span>')
+      +    '</span></span>'
+      +  '<span class="mc-verdict">'
+      +    '<span class="tnt-pill ' + pillCls(t.tntB) + '">' + (t.tnt == null ? 'N/A' : one(t.tnt)) + '</span>'
+      +    '<span class="mc-band ' + bk(t.tntB) + '">' + word(t.tntB) + '</span>'
+      +  '</span>'
+      +  '<span class="mc-chev" aria-hidden="true"></span>'
+      +  '</button>';
+
+    h += '<div class="mc-strip">'
+      +  cell('Token', t.tok, t.tokB)
+      +  cell('Network', t.net, t.netB)
+      +  cell('Technicals', t.tec, t.tecB)
+      +  '<div class="ms"><span class="ms-l">Decoupling</span>'
+      +    '<span class="ms-v ' + (g == null ? 'k-na' : '') + '">' + (g == null ? 'N/A' : one(g)) + '</span>'
+      +    decTrack(g) + '</div>'
+      +  '</div>';
+
+    h += '<div class="mc-panel" id="mp-' + esc(t.tk) + '"' + (open ? '' : ' hidden') + '>'
+      +  (open ? panelHTML(t) : '') + '</div>';
+    return h + '</article>';
+  }
+
+  /* ── THE PIPELINE ─────────────────────────────────────────────────────── */
+  function matchFind(t){
+    if (!FIND) return true;
+    var q = FIND.toLowerCase();
+    return t.tk.toLowerCase().indexOf(q) >= 0 || t.nm.toLowerCase().indexOf(q) >= 0;
+  }
+  function matchBand(t){
+    if (BAND === 'all') return true;
+    if (BAND === 'decoupled') { var g = gap(t); return g != null && g >= DEC_T; }
+    return t.tntB === BAND.toUpperCase();
+  }
+  function sortList(a){
+    var s = a.slice();
+    if (SORT === 'name') return s.sort(function(x,y){ return x.nm < y.nm ? -1 : x.nm > y.nm ? 1 : 0; });
+    if (SORT === 'dec')  return s.sort(function(x,y){ return (gap(y) || 0) - (gap(x) || 0); });
+    return s.sort(function(x,y){ return (y[SORT] || 0) - (x[SORT] || 0) || (y.tnt || 0) - (x.tnt || 0); });
+  }
+
+  /* ⛔⛔ ONE FILTERED SET (`#636`). The sector lens is the SAME predicate the
+     table applies through ALPHA_PAGE.setRowPredicate — read here, never
+     re-implemented, so the two surfaces cannot disagree and .mcount can never
+     print a different number from #filterCount. Sector ∩ band ∩ search. */
+  function matchSector(t){
+    return !window.SECTOR_LENS || window.SECTOR_LENS.ok(t.tk);
+  }
+
+  function renderList(){
+    var v = sortList(ROWS.filter(function(t){
+      return matchSector(t) && matchBand(t) && matchFind(t); }));
+
+    /* the SAME sentence #filterCount prints on the desktop control bar, moved
+       to a line of its own because the chip strip is a scroller down here. */
+    $('mCount').innerHTML = '<b>' + v.length + '</b> of ' + ROWS.length + ' coins';
+
+    $('mList').innerHTML = v.length ? v.map(cardHTML).join('')
+      : '<div class="mempty"><b>Nothing matches this combination.</b>'
+        + '<p>Try a wider band, or clear the search.</p>'
+        + '<button class="reset" type="button" id="mReset">Reset</button></div>';
+
+    var rs = $('mReset');
+    if (rs) rs.addEventListener('click', function(){
+      BAND = 'all'; FIND = ''; find.value = ''; findX.hidden = true;
+      pressBand(); renderList();
+    });
+    bindCards();
+    /* ⛔⛔ THE RE-CALL. Never remove it: this list is a board-body re-render. */
+    ALPHA_PAGE.paintPrices();
+  }
+
+  function tier(){
+    var b = document.querySelector('#tierSwitch button[aria-pressed="true"]');
+    return b ? b.getAttribute('data-tier') : 'unregistered';
+  }
+  function bindWatch(scope){
+    Array.prototype.forEach.call(scope.querySelectorAll('.mwatch'), function (b) {
+      b.addEventListener('click', function () {
+        /* the same gate the desktop star applies, read off the tier control */
+        if (tier() === 'unregistered') { alert('Create a free account to build a watchlist.'); return; }
+        var tk = b.getAttribute('data-tk');
+        WATCH[tk] = !WATCH[tk];
+        b.classList.toggle('on', !!WATCH[tk]);
+        b.textContent = WATCH[tk] ? 'Watching' : 'Watch';
+      });
+    });
+  }
+  function bindCards(){
+    Array.prototype.forEach.call($('mList').querySelectorAll('.mc-head'), function (b) {
+      b.addEventListener('click', function () {
+        var tk = b.getAttribute('data-tk');
+        OPEN[tk] = !OPEN[tk];
+        var card = $('mc-' + tk), pan = $('mp-' + tk), row = null;
+        ROWS.forEach(function(t){ if (t.tk === tk) row = t; });
+        b.setAttribute('aria-expanded', OPEN[tk] ? 'true' : 'false');
+        card.classList.toggle('is-open', !!OPEN[tk]);
+        if (OPEN[tk]) {
+          pan.innerHTML = panelHTML(row); pan.hidden = false; bindWatch(pan);
+          /* the panel carries no price cell, but a re-render is a re-render:
+             keep the rule unconditional so it cannot rot into a special case. */
+          ALPHA_PAGE.paintPrices();
+        } else { pan.hidden = true; pan.innerHTML = ''; }
+      });
+    });
+    bindWatch($('mList'));   /* panels already open when the list re-rendered */
+  }
+
+  /* ── CONTROLS ─────────────────────────────────────────────────────────── */
+  /* the band chips are the SAME buttons the desktop table uses. alpha.js binds
+     them for the table; this binds them for the cards. One tap moves both, so
+     the two surfaces can never disagree about what is selected. */
+  function pressBand(){
+    Array.prototype.forEach.call($('filters').querySelectorAll('.filter'), function (b) {
+      b.setAttribute('aria-pressed', String(b.getAttribute('data-f') === BAND));
+    });
+  }
+  Array.prototype.forEach.call($('filters').querySelectorAll('.filter'), function (b) {
+    b.addEventListener('click', function () { BAND = b.getAttribute('data-f'); renderList(); });
+  });
+
+  var find = $('mFind'), findX = $('mFindX');
+  find.addEventListener('input', function () {
+    FIND = find.value.trim(); findX.hidden = !FIND; renderList();
+  });
+  findX.addEventListener('click', function () {
+    find.value = ''; FIND = ''; findX.hidden = true; find.focus(); renderList();
+  });
+
+  /* THE SORT SHEET IS A BOTTOM SHEET AT EVERY WIDTH IT EXISTS AT, and that is
+     a simplification worth stating. Seat B anchored it to its button as a
+     DROPDOWN above 1080 because its control bar lived on the desktop surface
+     too; here the whole card surface — button included — is gone above 1160,
+     so there is no width left for a dropdown to serve. Hand-placing one only
+     bought a bug: the control bar sits far enough down an 900px page that
+     `button.bottom + 8` put the panel below the fold. No placement maths, no
+     scroll listener, no off-screen state to reach. */
+  var sheet = $('mSheet'), scrim = $('mScrim'), sbtn = $('mSortBtn');
+  function sheetOpen(v){
+    sheet.hidden = !v; scrim.hidden = !v;
+    sbtn.setAttribute('aria-expanded', v ? 'true' : 'false');
+    document.body.style.overflow = v ? 'hidden' : '';
+    if (v) { var f = sheet.querySelector('.msort button'); if (f) f.focus({preventScroll:true}); }
+  }
+  sbtn.addEventListener('click', function(){ sheetOpen(sheet.hidden); });
+  scrim.addEventListener('click', function(){ sheetOpen(false); });
+  $('mSheetX').addEventListener('click', function(){ sheetOpen(false); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') sheetOpen(false); });
+  window.addEventListener('resize', function(){ sheetOpen(false); });
+
+  function paintSort(){
+    $('mSort').innerHTML = SORTS.map(function (s) {
+      return '<button type="button" data-k="' + s.k + '" aria-pressed="' + (SORT === s.k) + '">'
+        + '<span class="tick">' + (SORT === s.k ? '&#10003;' : '') + '</span>' + esc(s.l) + '</button>';
+    }).join('');
+    Array.prototype.forEach.call($('mSort').querySelectorAll('button'), function (b) {
+      b.addEventListener('click', function(){
+        SORT = b.getAttribute('data-k');
+        sbtn.setAttribute('data-on', SORT === 'tnt' ? '0' : '1');
+        paintSort(); renderList(); sheetOpen(false);
+      });
+    });
+  }
+
+  /* a sector tap must move BOTH surfaces, and it must not do it with a third
+     renderer: the lens re-renders the table through the shared board, and
+     calls back here so the card list re-runs its OWN pipeline — which already
+     ends in ALPHA_PAGE.paintPrices(). */
+  if (window.SECTOR_LENS) window.SECTOR_LENS.subscribe(renderList);
+
+  paintSort(); renderList();
+})();
+</script>
 <script>
 /* ═══ THE STITCHED MASTHEAD · behaviour · 2026-09-01.
    Seat A's panel engine on seat B's pinned bar. One reconciliation from A's

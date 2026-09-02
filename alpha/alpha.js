@@ -383,6 +383,24 @@ var ALPHA_PAGE = (function () {
   }
 
   /* ======================================================================
+     §F 22 (#636, 2026-09-02) · THE ROW PREDICATE HOOK.
+     A page-level layer — the sector row — has to show the SAME filtered set
+     the table shows, and the one thing that must never happen is a second
+     copy of this renderer, a private price cache or a second fetch. So the
+     board exports ONE setter: the predicate is consulted by visible(), and
+     setting it re-renders through render(), which already ends in
+     paintPrices(). Default is null, i.e. every row passes, so a page that
+     never calls this behaves exactly as it does today.
+     ⛔ Sector ∩ band ∩ search. The predicate NARROWS what the band chips
+        already selected; it never widens it, and it never replaces them.
+     ====================================================================== */
+  var ROW_PRED = null, _boardRender = null;
+  function setRowPredicate(fn){
+    ROW_PRED = (typeof fn === 'function') ? fn : null;
+    if (_boardRender) _boardRender();
+  }
+
+  /* ======================================================================
      TOOLTIPS — ⚠ KEYBOARD- AND TOUCH-REACHABLE, NOT HOVER-ONLY.
      Every tip lives on a real <button>, so it is tab-focusable and tappable;
      CSS opens it on :hover and :focus-visible, and this binder opens it on
@@ -890,6 +908,7 @@ var ALPHA_PAGE = (function () {
     var FKEY = { tnt:'tnt', tok:'tok', net:'net', tec:'tec', cat:'cat' };
     function visible(){
       return rows.filter(function(t){
+        if (ROW_PRED && !ROW_PRED(t)) return false;   /* §F 22 · sector ∩ band */
         if (FILTER === 'all') return true;
         if (FILTER === 'decoupled') return gap(t) >= C.BUILD_RAISED.DECOUPLED_THRESHOLD;
         return t.tntB === FILTER.toUpperCase();
@@ -1105,6 +1124,7 @@ var ALPHA_PAGE = (function () {
        carrying no meaning anyway, and the pills beside it already say what can
        be asked. ⚠ The token page passes its own hint and is untouched. */
     bindBuzz('', C.BUZZ.barChips);
+    _boardRender = render;         /* §F 22 · what setRowPredicate re-runs */
     render(); renderWatchlist(); renderPricing(); renderStubs();
     bindTips(document);            /* the column-header tips */
     measureSticky();               /* pin the header row under the control bar */
@@ -1549,5 +1569,6 @@ var ALPHA_PAGE = (function () {
      silently revert to static text. The ⛔ comments at the internal call
      sites protect only calls made from inside this file; this export is what
      makes the rule obeyable from outside it. */
-  return { initBoard: initBoard, initToken: initToken, paintPrices: paintPrices };
+  return { initBoard: initBoard, initToken: initToken, paintPrices: paintPrices,
+           setRowPredicate: setRowPredicate };
 })();
