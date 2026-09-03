@@ -3309,6 +3309,27 @@ table.tok td.asset .lrow .tkr{font-family:var(--mono);font-size:11.5px;letter-sp
     var w = shelves.map(function (s) { return nameOf(s.name); });
     return w.length < 2 ? w.join('') : w.slice(0, -1).join(', ') + ' and ' + w[w.length - 1];
   }
+  /* ⛔ `#649` REV-1 · OPERATOR RULING C, 2026-09-03 · THE NAME CAP.
+        A clause NAMES AT MOST THREE shelves, in the order the engine already
+        ranks them, then `and others`. The name list is the one part of a
+        composed string with no bound in it, so the bound goes here. `listOf`
+        (uncapped) still serves the slots that name one or two shelves by
+        construction; M5 composes three clauses and is the one that grows. */
+  var NAME_CAP = 3;
+  function capListOf(shelves) {
+    if (shelves.length <= NAME_CAP) return listOf(shelves);
+    return shelves.slice(0, NAME_CAP).map(function (s) { return nameOf(s.name); }).join(', ') + ' and others';
+  }
+  /* ⛔ `#649` REV-1 · OPERATOR RULING B, 2026-09-03 · THE HARD CEILING.
+        `60` words, and it binds the ASSEMBLED, RENDERED string, not the
+        authored fragment: a budget that binds the pieces and not the sentence
+        is not a budget. A slot that blows it falls back to its `short` branch
+        — the shortest standalone string in that slot's set, registered in the
+        sidecar and NAME-FREE, so the fallback itself cannot grow.
+     ⛔ THE FALLBACK IS NEVER AN EMPTY SLOT. If a slot somehow has no `short`,
+        the long string ships: a card with no takeaway is worse than a long one. */
+  var WORD_CEILING = 60;
+  function words(s) { s = String(s == null ? '' : s).trim(); return s ? s.split(/\s+/).length : 0; }
   function fill(tpl, vars) {
     return String(tpl).replace(/\{([A-Za-z]+)\}/g, function (_, k) {
       var lk = k.charAt(0).toLowerCase() + k.slice(1), v = vars && vars[lk] != null ? String(vars[lk]) : '';
@@ -3371,7 +3392,9 @@ table.tok td.asset .lrow .tkr{font-family:var(--mono);font-size:11.5px;letter-sp
       }
       if (flat.length) parts.push('flat');
       if (bear.length) parts.push('bear');
-      return { branch: parts.join('+'), parts: parts, vars:{ bull: listOf(bull), flat: listOf(flat), bear: listOf(bear) } };
+      /* ⛔ RULING C: each clause names at most `NAME_CAP` shelves, in the
+         pressure order already computed above, then `and others`. */
+      return { branch: parts.join('+'), parts: parts, vars:{ bull: capListOf(bull), flat: capListOf(flat), bear: capListOf(bear) } };
     },
     sxmM6p: function (st) {    /* st: { ecos } */
       var L = live(st.ecos).slice().sort(bySort);
@@ -3392,9 +3415,19 @@ table.tok td.asset .lrow .tkr{font-family:var(--mono);font-size:11.5px;letter-sp
       return { branch:'split', vars:{ top: nameOf(top.name), bottom: nameOf(bottom.name) } };
     }
   };
-  function takeaway(slot, st) {
+  /* `opt.ceiling` exists so the guard can be TRIPPED on demand in the `#649`
+     coverage check without inventing a state no board could hold; the live
+     render passes nothing and gets `WORD_CEILING`. */
+  function takeaway(slot, st, opt) {
+    var cap = (opt && opt.ceiling) || WORD_CEILING;
     var r = PICK[slot](st);
     r.text = (r.parts || [r.branch]).map(function (b) { return sentence(slot, b, r.vars); }).join(' ');
+    r.words = words(r.text);
+    if (r.words > cap) {                       /* RULING B · the mechanical ceiling */
+      var s = sentence(slot, 'short', r.vars);
+      if (window.console) console.warn('#649 takeaway: ' + slot + ' assembled to ' + r.words + ' words, over the ceiling; short form used for', r.branch);
+      if (s) { r.over = r.branch; r.branch = 'short'; r.text = s; r.words = words(s); }
+    }
     return r;
   }
   function writeTakeaway(slot, st) {
@@ -3402,7 +3435,8 @@ table.tok td.asset .lrow .tkr{font-family:var(--mono);font-size:11.5px;letter-sp
     if (el) { el.textContent = r.text; el.setAttribute('data-branch', r.branch); }
     return r;
   }
-  window.MARKET_TAKEAWAY = { render: takeaway, slots: Object.keys(PICK) };
+  window.MARKET_TAKEAWAY = { render: takeaway, slots: Object.keys(PICK),
+                             ceiling: WORD_CEILING, nameCap: NAME_CAP, words: words };
 
   /* ══ M1-LEFT · WHERE THE GREEN COMES FROM · three counted splits ═════════ */
   (function m1left() {
