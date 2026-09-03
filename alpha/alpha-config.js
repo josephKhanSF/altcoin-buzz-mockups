@@ -421,9 +421,14 @@ var ALPHA = (function () {
      meant nothing to an outsider, and is temporary — by beta every coin is on
      the current scoring method. ⚠ The per-row `cal` field in BOARD is untouched:
      that is data, and this was a surface. */
+  /* ⛔ 2026-09-03 · BOTH technicals ends moved to `2026-08-24`, and the single
+     date is CORRECT — not a typo to be "fixed" back into a range. All 39 BOARD
+     rows carry `taof: '2026-08-24'` (39/39), so the board spans ONE day; the old
+     `05→12 Aug` pair was false on both ends. ⚠ The fundamentals pair above is
+     DERIVED-AND-CORRECT — it is the exact min/max of the 39 `asof` values. */
   var PROVENANCE = {
     fundamentalsFrom: '2026-07-06', fundamentalsTo: '2026-08-12',
-    technicalsFrom:   '2026-08-05', technicalsTo:   '2026-08-12'
+    technicalsFrom:   '2026-08-24', technicalsTo:   '2026-08-24'
   };
 
   /* ======================================================================

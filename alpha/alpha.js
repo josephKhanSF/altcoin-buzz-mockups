@@ -1121,8 +1121,11 @@ var ALPHA_PAGE = (function () {
       var d = String(Number(p[2]));
       return withMonth === false ? d : d + ' ' + MONTHS[Number(p[1]) - 1];
     }
-    /* drop the repeated month on a same-month range: "5–12 Aug", not "5 Aug–12 Aug" */
+    /* collapses TWO ways: same DAY → drop the range entirely ("24 Aug", not
+       "24–24 Aug"); same MONTH → drop the repeated month ("5–12 Aug", not
+       "5 Aug–12 Aug"). */
     function range(from, to){
+      if (from === to) return niceDate(to);
       var sameMonth = from.slice(0,7) === to.slice(0,7);
       return niceDate(from, !sameMonth) + '–' + niceDate(to);
     }
