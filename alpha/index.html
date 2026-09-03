@@ -885,9 +885,262 @@ table.tok td.asset .lrow .tkr{font-family:var(--mono);font-size:11.5px;letter-sp
   margin:0 0 10px;line-height:1.5;max-width:92ch}
 #sector-market .sxm-cover b{font-family:var(--mono);font-weight:700;color:var(--ink)}
 
+/* ═══ `#648` · THE DASHBOARD · 2026-09-02 ═══════════════════════════════════
+   The eight modules. House tokens only; no `:root`, no new colour. Every
+   figure the rules below position is a PERCENT WRITTEN BY THE ENGINE from a
+   computed ruler, so nothing here encodes a score. Three colours carry three
+   meanings and are never mixed: the BAND colours (green / zero / red) mean a
+   coin's own band word; GOLD is the house control + the Token mark; INK is
+   the Technicals mark. Green and red on M5 mean the catalyst DIRECTION a
+   shelf nets to, which is the one place they are not a band. */
+#sector-market .sxm-step{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;
+  margin:22px 0 10px;font-family:var(--mono);font-size:12px;font-weight:700;
+  letter-spacing:1.8px;text-transform:uppercase;color:var(--ink)}
+#sector-market .sxm-step:first-child{margin-top:4px}
+#sector-market .sxm-step .k{display:inline-flex;align-items:center;justify-content:center;
+  width:22px;height:22px;border-radius:var(--r-max);background:var(--gold);color:var(--goldink);
+  font-size:11px;letter-spacing:0}
+#sector-market .sxm-step .why{font-family:var(--ui);font-size:12.5px;font-weight:500;
+  letter-spacing:0;text-transform:none;color:var(--faint)}
+#sector-market .sxm-mod{padding:14px 18px 16px;margin-bottom:14px}
+#sector-market .sxm-mod-h{margin:0 0 4px;font-family:var(--ui);font-size:15px;font-weight:700;
+  color:var(--ink);letter-spacing:-.1px}
+#sector-market .sxm-mod-p{margin:0 0 12px;font-size:13px;color:var(--mut);line-height:1.5;max-width:92ch}
+#sector-market .sxm-mod-p b{font-family:var(--mono);font-weight:700;color:var(--ink)}
+#sector-market .sxm-legend{display:flex;gap:14px;flex-wrap:wrap;margin:10px 0 0;
+  font-family:var(--ui);font-size:12px;color:var(--faint)}
+#sector-market .sxm-legend .lg::before{content:'';display:inline-block;width:9px;height:9px;
+  border-radius:50%;margin-right:6px;vertical-align:-1px;background:var(--faint)}
+#sector-market .sxm-legend .lg.b::before{background:var(--green)}
+#sector-market .sxm-legend .lg.n::before{background:var(--zero)}
+#sector-market .sxm-legend .lg.r::before{background:var(--red)}
+#sector-market .sxm-legend .lg.tok::before{background:var(--gold);border-radius:2px}
+#sector-market .sxm-legend .lg.net::before{background:transparent;border:2px solid var(--dim);width:7px;height:7px}
+#sector-market .sxm-legend .lg.tec::before{background:var(--ink)}
+#sector-market .sxm-legend .lg.rule::before{width:2px;height:12px;border-radius:0;background:var(--gold);vertical-align:-2px}
+#sector-market .sxm-legend .lg.tick::before{width:2px;height:12px;border-radius:0;background:var(--ink);vertical-align:-2px}
+#sector-market .sxm-legend .lg.band::before{width:18px;height:9px;border-radius:2px;background:var(--zero-soft);border:1px solid var(--line2)}
+#sector-market .sxm-legend .lg.none::before{display:none}
+#sector-market .sxm-twoup{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+#sector-market .sxm-twoup .sxm-mod{margin-bottom:14px}
+
+/* ── M1-left · the three axis bars ─────────────────────────────────────────── */
+#sector-market .sxm-axes{display:grid;grid-template-columns:118px 1fr;gap:10px 14px;align-items:center}
+#sector-market .sxm-axes .ax{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:1.2px;
+  text-transform:uppercase;color:var(--ink)}
+#sector-market .sxm-axes .ax .sub{display:block;font-family:var(--ui);font-size:11px;font-weight:500;
+  letter-spacing:0;text-transform:none;color:var(--faint)}
+#sector-market .sxm-bar{display:flex;height:26px;border-radius:var(--r-btn);overflow:hidden;
+  border:1px solid var(--line2);background:var(--bg-soft)}
+#sector-market .sxm-bar .sg{display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-size:11.5px;font-weight:700;min-width:0;overflow:hidden;white-space:nowrap}
+#sector-market .sxm-bar .sg.b{background:var(--green-soft);color:var(--green)}
+#sector-market .sxm-bar .sg.n{background:var(--zero-soft);color:var(--zero)}
+#sector-market .sxm-bar .sg.r{background:var(--red-soft);color:var(--red)}
+#sector-market .sxm-bar .sg+.sg{border-left:1px solid var(--card)}
+
+/* ── M1-right · average TNT by sector ──────────────────────────────────────── */
+#sector-market .sxm-avg .tier-h{margin:8px 0 4px;font-family:var(--mono);font-size:10.5px;font-weight:700;
+  letter-spacing:1.4px;text-transform:uppercase;color:var(--faint)}
+#sector-market .sxm-avg .tier-h:first-child{margin-top:0}
+#sector-market .sxm-avg .ar{display:grid;grid-template-columns:128px 1fr 44px 40px;gap:10px;align-items:center;
+  padding:4px 0;font-family:var(--mono);font-size:12px;color:var(--ink)}
+#sector-market .sxm-avg .ar .nm{font-weight:700;letter-spacing:.6px;font-size:11px;text-transform:uppercase;min-width:0}
+#sector-market .sxm-avg .ar .tr{position:relative;height:10px;border-radius:var(--r-max);background:var(--bg-soft);
+  border:1px solid var(--line2);overflow:hidden}
+#sector-market .sxm-avg .ar .tr .fl{position:absolute;left:0;top:0;bottom:0;background:var(--gold);border-radius:var(--r-max)}
+#sector-market .sxm-avg .ar .tr .bm{position:absolute;top:-2px;bottom:-2px;width:2px;background:var(--ink);opacity:.55}
+#sector-market .sxm-avg .ar .v{font-weight:700;font-variant-numeric:tabular-nums;text-align:right}
+#sector-market .sxm-avg .ar .n{color:var(--faint);font-size:11px;text-align:right;white-space:nowrap}
+#sector-market .sxm-avg .ar.thin{color:var(--dim)}
+#sector-market .sxm-avg .ar.thin .tr .fl{background:var(--gold-line)}
+#sector-market .sxm-avg .ar.empty .tr{background:transparent;border-style:dashed}
+#sector-market .sxm-avg .ar.empty .v{color:var(--faint);font-weight:600}
+#sector-market .sxm-avg .ar .nm .bt{display:block;font-family:var(--ui);font-size:10.5px;font-weight:500;
+  letter-spacing:0;text-transform:none;color:var(--faint);line-height:1.3}
+
+/* ── M3 / M4 / M5 · the ruled rows (one shared skeleton, three angles) ─────── */
+#sector-market .sxm-angles{margin:0 0 10px}
+#sector-market .sxm-ruled{display:grid;grid-template-columns:140px 1fr 96px;gap:0 14px;align-items:stretch}
+#sector-market .sxm-ruled .rh{font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.8px;
+  color:var(--faint);text-transform:uppercase;padding:0 0 6px;border-bottom:1px solid var(--line2);align-self:end}
+#sector-market .sxm-ruled .rh.axis{position:relative;height:18px;padding:0}
+#sector-market .sxm-ruled .rh.axis .tk{position:absolute;bottom:4px;transform:translateX(-50%);letter-spacing:0;
+  font-variant-numeric:tabular-nums}
+#sector-market .sxm-ruled .rh.r{text-align:right}
+#sector-market .sxm-ruled .rl{display:contents}
+#sector-market .sxm-ruled .rl>*{border-bottom:1px solid var(--line);padding:9px 0}
+#sector-market .sxm-ruled .rl:last-child>*{border-bottom:0}
+#sector-market .sxm-ruled .lb{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:1.2px;
+  text-transform:uppercase;color:var(--ink);display:flex;flex-direction:column;justify-content:center;gap:2px}
+#sector-market .sxm-ruled .lb .sub{font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.4px;
+  color:var(--faint);text-transform:none}
+#sector-market .sxm-ruled .tr{position:relative;min-height:22px}
+#sector-market .sxm-ruled .tr .grid{position:absolute;top:0;bottom:0;width:1px;background:var(--line);pointer-events:none}
+#sector-market .sxm-ruled .tr .rule{position:absolute;top:-1px;bottom:-1px;width:2px;background:var(--gold);
+  transform:translateX(-50%);z-index:1;pointer-events:none}
+#sector-market .sxm-ruled .tr .tick{position:absolute;top:50%;height:22px;width:3px;margin-top:-11px;background:var(--ink);
+  transform:translateX(-50%);z-index:3;border-radius:1px}
+#sector-market .sxm-ruled .tr .dot{position:absolute;top:50%;width:11px;height:11px;margin:-5.5px 0 0 -5.5px;border-radius:50%;
+  background:var(--dim);opacity:.72;z-index:2;border:1.5px solid var(--card)}
+#sector-market .sxm-ruled .tr .zone{position:absolute;top:0;bottom:0;background:var(--zero-soft);pointer-events:none}
+#sector-market .sxm-ruled .tr .span{position:absolute;top:50%;height:2px;margin-top:-1px;background:var(--line2);z-index:1}
+#sector-market .sxm-ruled .tr .mk{position:absolute;top:50%;z-index:2;transform:translate(-50%,-50%)}
+#sector-market .sxm-ruled .tr .mk.tok{width:12px;height:12px;background:var(--gold);border-radius:2px;border:1px solid var(--card)}
+#sector-market .sxm-ruled .tr .mk.net{width:10px;height:10px;background:var(--card);border:2px solid var(--dim);border-radius:50%}
+#sector-market .sxm-ruled .tr .mk.tec{width:12px;height:12px;background:var(--ink);border-radius:50%;border:1px solid var(--card)}
+#sector-market .sxm-ruled .tr .zero{position:absolute;top:0;bottom:0;width:1px;background:var(--dim);transform:translateX(-50%);z-index:1}
+#sector-market .sxm-ruled .tr .pb{position:absolute;top:50%;height:16px;margin-top:-8px;border-radius:3px;z-index:2}
+#sector-market .sxm-ruled .tr .pb.pos{background:var(--green);opacity:.85}
+#sector-market .sxm-ruled .tr .pb.neg{background:var(--red);opacity:.85}
+#sector-market .sxm-ruled .tr .pv{position:absolute;top:50%;transform:translateY(-50%);font-family:var(--mono);
+  font-size:11.5px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--ink);white-space:nowrap;z-index:3}
+#sector-market .sxm-ruled .tr .empty{position:absolute;left:0;top:50%;transform:translateY(-50%);
+  font-family:var(--mono);font-size:11px;color:var(--faint)}
+#sector-market .sxm-ruled .vv{font-family:var(--mono);font-size:12px;font-weight:700;font-variant-numeric:tabular-nums;
+  color:var(--ink);text-align:right;display:flex;flex-direction:column;justify-content:center;align-items:flex-end;gap:2px}
+#sector-market .sxm-ruled .vv .sub{font-size:10.5px;font-weight:600;color:var(--faint)}
+#sector-market .sxm-ruled .rl.thin .lb,#sector-market .sxm-ruled .rl.thin .vv{color:var(--dim)}
+#sector-market .sxm-ruled .rl.thin .tr .dot{opacity:.4}
+#sector-market .sxm-ruled .rl.thin .tr .tick{opacity:.45}
+#sector-market .sxm-ruled .rl.thin .tr .mk,#sector-market .sxm-ruled .rl.thin .tr .pb{opacity:.45}
+#sector-market .sxm-ruled .rl.empty .lb{color:var(--faint)}
+
+/* ── M6 · the ecosystem head-to-head ───────────────────────────────────────── */
+#sector-market .sxm-h2h{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+#sector-market .sxm-h2h .hc{background:var(--card);border:1px solid var(--line2);border-radius:var(--r-card);
+  box-shadow:var(--shadow);padding:14px 18px 16px}
+#sector-market .sxm-h2h .hc .nm{font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:1.8px;
+  text-transform:uppercase;color:var(--ink)}
+#sector-market .sxm-h2h .hc .nm .n{font-family:var(--ui);font-weight:500;letter-spacing:0;text-transform:none;
+  color:var(--faint);margin-left:8px;font-size:12px}
+#sector-market .sxm-h2h .hc .big{display:flex;align-items:baseline;gap:10px;margin:6px 0 2px}
+#sector-market .sxm-h2h .hc .big .v{font-family:var(--mono);font-size:34px;font-weight:800;letter-spacing:-1px;
+  color:var(--ink);line-height:1;font-variant-numeric:tabular-nums}
+#sector-market .sxm-h2h .hc .big .l{font-family:var(--ui);font-size:12.5px;color:var(--mut)}
+#sector-market .sxm-h2h .hc .line{font-size:12.5px;color:var(--mut);margin:0 0 10px}
+#sector-market .sxm-h2h .hc .line b{font-family:var(--mono);color:var(--ink)}
+#sector-market .sxm-h2h .hc .kv{display:grid;grid-template-columns:1fr auto;gap:5px 14px;border-top:1px solid var(--line);
+  padding-top:10px;margin-bottom:12px;font-size:12.5px;color:var(--mut)}
+#sector-market .sxm-h2h .hc .kv .v{font-family:var(--mono);font-weight:700;color:var(--ink);text-align:right;
+  font-variant-numeric:tabular-nums;white-space:nowrap}
+#sector-market .sxm-h2h .hc .kv .v.pos{color:var(--green)}
+#sector-market .sxm-h2h .hc .kv .v.neg{color:var(--red)}
+#sector-market .sxm-h2h .hc .sxm-strip{margin-top:2px}
+
+/* ── M7 · the decoupling field ─────────────────────────────────────────────── */
+#sector-market .sxm-field{width:100%}
+#sector-market .sxm-field svg{display:block;width:100%;height:auto;font-family:var(--mono)}
+#sector-market .sxm-field .ax{stroke:var(--line2);stroke-width:1}
+#sector-market .sxm-field .gl{stroke:var(--line);stroke-width:1}
+#sector-market .sxm-field .par{stroke:var(--dim);stroke-width:1.5;stroke-dasharray:6 5}
+#sector-market .sxm-field .tl{fill:var(--faint);font-size:11px}
+#sector-market .sxm-field .al{fill:var(--mut);font-size:12px;font-family:var(--ui)}
+#sector-market .sxm-field .pl{fill:var(--dim);font-size:11px;font-family:var(--ui)}
+#sector-market .sxm-field a{cursor:pointer;outline:none}
+#sector-market .sxm-field .mk{fill-opacity:.62;stroke:var(--card);stroke-width:1.5;transition:fill-opacity .12s}
+#sector-market .sxm-field .mk.b{fill:var(--green)}
+#sector-market .sxm-field .mk.n{fill:var(--zero)}
+#sector-market .sxm-field .mk.r{fill:var(--red)}
+#sector-market .sxm-field .hit{fill:transparent;pointer-events:all}
+#sector-market .sxm-field a:hover .mk,#sector-market .sxm-field a:focus .mk{fill-opacity:1;stroke:var(--gold);stroke-width:3}
+#sector-market .sxm-field .lbl{fill:var(--ink);font-size:11px;font-weight:700;pointer-events:none;paint-order:stroke;
+  stroke:var(--card);stroke-width:3px;stroke-linejoin:round}
+#sector-market .sxm-readout{margin:6px 0 0;min-height:20px;font-family:var(--mono);font-size:12px;color:var(--ink);
+  font-variant-numeric:tabular-nums}
+#sector-market .sxm-readout:empty::before{content:'hover or tab to a mark to read it';font-family:var(--ui);color:var(--faint)}
+#sector-market .sxm-fieldlist{display:none;list-style:none;margin:0;padding:0}
+#sector-market .sxm-fieldlist li{display:grid;grid-template-columns:28px 1fr 46px 46px 52px 40px;gap:8px;align-items:center;
+  padding:0;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:12px;font-variant-numeric:tabular-nums}
+#sector-market .sxm-fieldlist li:last-child{border-bottom:0}
+#sector-market .sxm-fieldlist .h{font-size:10.5px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--faint);
+  padding:6px 0;border-bottom:1px solid var(--line2)}
+#sector-market .sxm-fieldlist .h span{padding:0}
+#sector-market .sxm-fieldlist li span{text-align:right;color:var(--txt)}
+#sector-market .sxm-fieldlist li span:first-child,#sector-market .sxm-fieldlist li span:nth-child(2){text-align:left}
+#sector-market .sxm-fieldlist li .gp{font-weight:700;color:var(--ink)}
+#sector-market .sxm-fieldlist li a{display:flex;align-items:center;min-height:44px;font-weight:700;color:var(--ink);gap:6px}
+#sector-market .sxm-fieldlist li a .bd{display:inline-block;width:8px;height:8px;border-radius:50%}
+#sector-market .sxm-fieldlist li a .bd.b{background:var(--green)}
+#sector-market .sxm-fieldlist li a .bd.n{background:var(--zero)}
+#sector-market .sxm-fieldlist li a .bd.r{background:var(--red)}
+#sector-market .sxm-fieldlist li a:hover,#sector-market .sxm-fieldlist li a:focus{outline:2px solid var(--gold);outline-offset:-2px}
+
+/* ── M2 on the shelf row · the beats-the-board count ───────────────────────── */
+#sector-market .sxm-name .beats{display:block;font-family:var(--ui);font-size:11px;font-weight:500;letter-spacing:0;
+  text-transform:none;color:var(--mut);margin-top:3px}
+#sector-market .sxm-name .beats b{font-family:var(--mono);font-weight:700;color:var(--ink)}
+
+/* ── M8 · the top-three chips + the in-place drawer ─────────────────────────
+   THE STATES ARE THE DESIGN. A chip: rest = a named link with rank; hover /
+   focus = the house gold ring, no lift; the chevron: rest = a quiet control;
+   hover / focus = ring; OPEN = gold fill, chevron turned, `aria-expanded`;
+   CLOSED = the rest state again. The drawer is a grid item at the foot of the
+   row, so opening it grows the row DOWNWARD and nothing above it moves. */
+#sector-market .sxm-mid{display:flex;flex-direction:column;gap:8px;min-width:0}
+#sector-market .sxm-top{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+#sector-market .sxm-top .k{font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:.8px;
+  text-transform:uppercase;color:var(--faint);margin-right:2px}
+#sector-market a.sxm-chip{display:inline-flex;align-items:center;gap:6px;min-height:28px;padding:3px 10px 3px 7px;
+  border:1px solid var(--line2);border-radius:var(--r-max);background:var(--card);font-family:var(--mono);
+  font-size:11px;font-weight:700;color:var(--ink);letter-spacing:.6px;white-space:nowrap}
+#sector-market a.sxm-chip .rk{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;
+  border-radius:50%;background:var(--bg-soft);border:1px solid var(--line2);font-size:9.5px;color:var(--mut)}
+#sector-market a.sxm-chip .sc{font-variant-numeric:tabular-nums;color:var(--mut)}
+#sector-market a.sxm-chip .sc.b{color:var(--green)}
+#sector-market a.sxm-chip .sc.n{color:var(--zero)}
+#sector-market a.sxm-chip .sc.r{color:var(--red)}
+#sector-market a.sxm-chip:hover,#sector-market a.sxm-chip:focus{outline:2px solid var(--gold);outline-offset:2px}
+#sector-market .sxm-chev{display:inline-flex;align-items:center;gap:6px;min-height:28px;padding:3px 10px;margin-left:auto;
+  border:1px solid var(--line2);border-radius:var(--r-max);background:var(--bg-soft);font-family:var(--mono);
+  font-size:10.5px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--mut);cursor:pointer;
+  white-space:nowrap}
+#sector-market .sxm-chev .cv{display:inline-block;width:8px;height:8px;border-right:2px solid currentColor;
+  border-bottom:2px solid currentColor;transform:translateY(-2px) rotate(45deg);transition:transform .15s}
+#sector-market .sxm-chev:hover{color:var(--ink);border-color:var(--dim)}
+#sector-market .sxm-chev:focus{outline:2px solid var(--gold);outline-offset:2px}
+#sector-market .sxm-chev[aria-expanded="true"]{background:var(--gold);border-color:var(--gold);color:var(--goldink)}
+#sector-market .sxm-chev[aria-expanded="true"] .cv{transform:translateY(2px) rotate(225deg)}
+#sector-market .sxm-drawer{grid-column:1 / -1;margin:2px 0 0;border:1px solid var(--gold-line);border-left:3px solid var(--gold);
+  border-radius:var(--r-btn);background:var(--card-soft);overflow-x:auto}
+#sector-market .sxm-drawer[hidden]{display:none}
+#sector-market .sxm-drawer .dh{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:8px 12px 6px;
+  font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--ink)}
+#sector-market .sxm-drawer .dh .sub{font-family:var(--ui);font-size:12px;font-weight:500;letter-spacing:0;
+  text-transform:none;color:var(--faint)}
+#sector-market .sxm-drawer .dh .esc{margin-left:auto;font-family:var(--ui);font-size:11.5px;font-weight:500;
+  letter-spacing:0;text-transform:none;color:var(--faint)}
+#sector-market .sxm-drawer table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:12px;
+  font-variant-numeric:tabular-nums}
+#sector-market .sxm-drawer th{font-size:10.5px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--faint);
+  text-align:left;padding:4px 12px;border-bottom:1px solid var(--line2);white-space:nowrap}
+#sector-market .sxm-drawer td{padding:6px 12px;border-bottom:1px solid var(--line);color:var(--txt);white-space:nowrap;
+  vertical-align:middle}
+#sector-market .sxm-drawer tr:last-child td{border-bottom:0}
+#sector-market .sxm-drawer th.r,#sector-market .sxm-drawer td.r{text-align:right}
+#sector-market .sxm-drawer td.rk{color:var(--faint);width:28px}
+#sector-market .sxm-drawer td.coin a{display:inline-flex;align-items:center;min-height:32px;gap:8px;font-weight:700;color:var(--ink)}
+#sector-market .sxm-drawer td.coin a .nm{font-family:var(--ui);font-weight:500;color:var(--mut);font-size:12px}
+#sector-market .sxm-drawer td.coin a:hover,#sector-market .sxm-drawer td.coin a:focus{outline:2px solid var(--gold);outline-offset:2px}
+#sector-market .sxm-drawer .tnt-pill{min-width:44px;padding:1px 8px;font-size:11.5px}
+#sector-market .sxm-drawer .bb{display:inline-flex;gap:4px}
+#sector-market .sxm-drawer .bb span{display:inline-block;min-width:36px;text-align:center;padding:1px 6px;border-radius:var(--r-chip);
+  font-size:10px;font-weight:700;letter-spacing:.6px;border:1px solid transparent}
+#sector-market .sxm-drawer .bb .b{background:var(--green-soft);color:var(--green);border-color:rgba(21,130,74,.26)}
+#sector-market .sxm-drawer .bb .n{background:var(--zero-soft);color:var(--zero);border-color:rgba(92,98,108,.26)}
+#sector-market .sxm-drawer .bb .r{background:var(--red-soft);color:var(--red);border-color:rgba(191,61,61,.26)}
+#sector-market .sxm-drawer .mh-price{color:var(--txt)}
+#sector-market .sxm-drawer .mh-price .pmove{margin-left:6px;font-weight:700}
+#sector-market .sxm-drawer .mh-price .pmove.up{color:var(--green)}
+#sector-market .sxm-drawer .mh-price .pmove.down{color:var(--red)}
+#sector-market .sxm-drawer .mh-price .pmove.flat{color:var(--mut)}
+
 /* ── WIDTHS · the team reviews desktop; below 1160 this does the minimum:
       the row stops being four columns, the strip wraps, nothing overflows.
-      `#647`: `n` and the tier labels survive every width. */
+      `#647`: `n` and the tier labels survive every width.
+      `#648`: the two-ups stack; the ruled rows lose their right column into
+      the label; the field's hit circles grow to the 44px floor; below 700 the
+      field becomes the list and the drawer drops its two right columns. */
 @media (max-width:1160px){
   #sector-market .sxm-row{grid-template-columns:130px 44px 1fr;gap:12px}
   #sector-market .tally{grid-column:1 / -1;justify-content:flex-start}
@@ -895,13 +1148,37 @@ table.tok td.asset .lrow .tkr{font-family:var(--mono);font-size:11.5px;letter-sp
      desktop breakpoint (phone AND tablet are touch) it grows to the 44px floor
      on that axis only. Desktop is untouched. */
   #sector-market a.sxm-cell{min-height:44px;justify-content:center}
+  #sector-market .sxm-twoup{grid-template-columns:1fr}
+  #sector-market .sxm-ruled{grid-template-columns:120px 1fr 80px;gap:0 10px}
+  #sector-market .sxm-field .hit{r:30px}
+  #sector-market a.sxm-chip,#sector-market .sxm-chev,#sector-market [role=tab]{min-height:44px}
+  #sector-market .sxm-drawer td.coin a{min-height:44px}
 }
 @media (max-width:700px){
   /* label and `n` share the first line; strip and tally take a full line each */
   #sector-market .sxm-row{grid-template-columns:1fr auto;gap:9px}
   #sector-market .sxm-n{justify-self:end}
-  #sector-market .sxm-strip{grid-column:1 / -1}
+  #sector-market .sxm-strip,#sector-market .sxm-mid{grid-column:1 / -1}
   #sector-market .sxm-card{padding:6px 12px 12px}
+  #sector-market .sxm-mod{padding:12px 12px 14px}
+  #sector-market .sxm-axes{grid-template-columns:76px 1fr;gap:8px 10px}
+  #sector-market .sxm-avg .ar{grid-template-columns:82px 1fr 40px 34px;gap:6px}
+  #sector-market .sxm-ruled{grid-template-columns:1fr;gap:0}
+  #sector-market .sxm-ruled .rh{display:none}
+  #sector-market .sxm-ruled .rl>*{border-bottom:0;padding:3px 0}
+  #sector-market .sxm-ruled .rl .lb{padding-top:9px;flex-direction:row;justify-content:flex-start;align-items:baseline;gap:8px}
+  #sector-market .sxm-ruled .rl .vv{flex-direction:row;justify-content:flex-start;align-items:baseline;gap:8px;
+    padding-bottom:9px;border-bottom:1px solid var(--line)}
+  #sector-market .sxm-ruled .rl:last-child .vv{border-bottom:0}
+  #sector-market .sxm-h2h{grid-template-columns:1fr}
+  #sector-market .sxm-field,#sector-market .sxm-readout{display:none}
+  #sector-market .sxm-fieldlist{display:block}
+  #sector-market .sxm-top{width:100%}
+  #sector-market .sxm-chev{margin-left:0;width:100%;justify-content:center}
+  #sector-market .sxm-drawer th.w,#sector-market .sxm-drawer td.w{display:none}
+  #sector-market .sxm-drawer th,#sector-market .sxm-drawer td{padding-left:8px;padding-right:8px}
+  #sector-market .sxm-drawer .bb span{min-width:0;padding:1px 4px}
+  #sector-market .sxm-drawer td.coin a .nm{display:none}
 }
 </style>
 </head>
@@ -1451,21 +1728,130 @@ table.tok td.asset .lrow .tkr{font-family:var(--mono);font-size:11.5px;letter-sp
               aria-selected="false" aria-controls="sxmPaneEco" tabindex="-1">Ecosystem Heat</button>
     </div>
 
+    <!-- ═══ `#648` · THE DASHBOARD · 2026-09-02 ═══════════════════════════════
+         Eight team-named modules, laid out as the team's own sentence: "look at
+         the data from multiple angles, then zero in on a sector, then a coin."
+         Three steps down the Sector Heat pane, in a fixed order:
+           STEP 1 · THE BOARD    — M1 (axis truth + average by sector) and
+                                    M7 (the decoupling field, every coin).
+           STEP 2 · THE SECTORS  — M3 / M4 / M5, three angles over the same ten
+                                    shelves behind ONE inner control, because
+                                    they share one row shape and one ruler.
+           STEP 3 · ZERO IN      — the shipped shelf rows (roster), carrying
+                                    M2's beats-the-board count + thin rule and
+                                    M8's top-three chips + in-place drawer.
+         Ecosystem Heat becomes M6, the ETH vs SOL head-to-head.
+         ⛔ EVERY FIGURE IN EVERY MODULE IS COUNTED OR READ BY THE ENGINE below.
+            Nothing numeric is typed in this markup, and no generated block lives here. -->
     <div id="sxmPaneSec" role="tabpanel" aria-labelledby="sxmTabSec" tabindex="0">
+
+      <!-- STEP 1 · THE BOARD -->
+      <h3 class="sxm-step"><span class="k">1</span>The board<span class="why">every coin, three axes, one picture</span></h3>
+      <div class="sxm-twoup">
+        <!-- M1-left · axis truth. Three bars, each a counted split of the 39
+             `*B` band WORDS (`#621`: read, never derived from a score). -->
+        <section class="sxm-card sxm-mod" id="sxmM1L" aria-labelledby="sxmM1Lh">
+          <h4 class="sxm-mod-h" id="sxmM1Lh">Where the green comes from</h4>
+          <p class="sxm-mod-p" id="sxmM1Lp"></p>
+          <div class="sxm-axes" id="sxmAxes"></div>
+          <p class="sxm-legend"><span class="lg b">bullish</span><span class="lg n">neutral</span><span class="lg r">bearish</span><span class="lg">band words read per coin, counted here</span></p>
+        </section>
+        <!-- M1-right · average TNT by sector. An arithmetic mean of member
+             coins' real scores, deep shelves above thin. It is a comparison
+             figure, not a sector score: see the note at the foot of the page. -->
+        <section class="sxm-card sxm-mod" id="sxmM1R" aria-labelledby="sxmM1Rh">
+          <h4 class="sxm-mod-h" id="sxmM1Rh">Average TNT by sector</h4>
+          <p class="sxm-mod-p" id="sxmM1Rp"></p>
+          <div class="sxm-avg" id="sxmAvg"></div>
+          <!-- `#649` · the honesty clause the takeaway replaced lives here now -->
+          <p class="sxm-legend" id="sxmM1Rlg"></p>
+        </section>
+      </div>
+      <!-- M7 · the decoupling field. Token (x) against Technicals (y), parity
+           diagonal at y = x, mark size = catalyst count. Every mark is a link
+           to `coin.html`, bare (ruling 2). Below 700px the SVG is replaced by
+           the same 39 rows as a ranked list; both are drawn from one array. -->
+      <section class="sxm-card sxm-mod" id="sxmM7" aria-labelledby="sxmM7h">
+        <h4 class="sxm-mod-h" id="sxmM7h">The decoupling field</h4>
+        <p class="sxm-mod-p" id="sxmM7p"></p>
+        <div class="sxm-field" id="sxmField"></div>
+        <p class="sxm-readout" id="sxmFieldRead" aria-live="polite"></p>
+        <ol class="sxm-fieldlist" id="sxmFieldList" aria-label="Decoupling, coin by coin"></ol>
+        <p class="sxm-legend" id="sxmM7lg"></p>
+      </section>
+
+      <!-- STEP 2 · THE SECTORS · three angles, one inner control. NOT a third
+           top-level tab: this control sits inside the Sector Heat pane and
+           switches the angle over the same ten shelves. -->
+      <h3 class="sxm-step"><span class="k">2</span>The sectors<span class="why">the same ten shelves, three angles</span></h3>
+      <section class="sxm-card sxm-mod" id="sxmM345" aria-label="Sector angles">
+        <div class="filters sxm-angles" role="tablist" aria-label="Sector angle">
+          <button class="filter" type="button" role="tab" id="sxmAngSpread"
+                  aria-selected="true" aria-controls="sxmPaneSpread" tabindex="0">Spread</button>
+          <button class="filter" type="button" role="tab" id="sxmAngSource"
+                  aria-selected="false" aria-controls="sxmPaneSource" tabindex="-1">Score source</button>
+          <button class="filter" type="button" role="tab" id="sxmAngHot"
+                  aria-selected="false" aria-controls="sxmPaneHot" tabindex="-1">Catalyst pressure</button>
+        </div>
+        <!-- M3 · the spread strip: every shelf on one shared TNT ruler, one dot
+             per coin, a tick at the shelf mean, the board mean ruled through. -->
+        <div id="sxmPaneSpread" role="tabpanel" aria-labelledby="sxmAngSpread" tabindex="0">
+          <p class="sxm-mod-p" id="sxmM3p"></p>
+          <div class="sxm-ruled" id="sxmSpread"></div>
+          <p class="sxm-legend" id="sxmM3lg"></p>
+        </div>
+        <!-- M4 · where the score comes from: Token · Network · Technicals marks
+             per shelf on one scale, the neutral band shaded, the gap printed. -->
+        <div id="sxmPaneSource" role="tabpanel" aria-labelledby="sxmAngSource" tabindex="0" hidden>
+          <p class="sxm-mod-p" id="sxmM4p"></p>
+          <div class="sxm-ruled" id="sxmSource"></div>
+          <p class="sxm-legend" id="sxmM4lg"></p>
+        </div>
+        <!-- M5 · net catalyst pressure: share of a shelf's own catalysts scored
+             bullish minus share scored bearish. ⛔ No history, no trend. -->
+        <div id="sxmPaneHot" role="tabpanel" aria-labelledby="sxmAngHot" tabindex="0" hidden>
+          <p class="sxm-mod-p" id="sxmM5p"></p>
+          <div class="sxm-ruled" id="sxmHot"></div>
+          <p class="sxm-legend" id="sxmM5lg"></p>
+        </div>
+      </section>
+
+      <!-- STEP 3 · ZERO IN · the shipped shelf rows (`#641` / `#647`), now
+           carrying M2's beats-the-board count and M8's top-three + drawer. -->
+      <h3 class="sxm-step"><span class="k">3</span>Zero in<span class="why">pick a shelf, then a coin</span></h3>
+      <p class="sxm-mod-p" id="sxmM8p"></p>
+      <!-- `#649` · the tint-rule clause the takeaway replaced lives here now -->
+      <p class="sxm-legend" id="sxmM8lg"></p>
       <div class="sxm-card" id="sxmSectors"></div>
     </div>
+
     <div id="sxmPaneEco" role="tabpanel" aria-labelledby="sxmTabEco" tabindex="0" hidden>
       <!-- `#647` · THE COVERAGE LINE, this pane only: the two tabs are not
            symmetrical and a reader who does not know that reads this one as
            broken. ⛔ BOTH FIGURES ARE COUNTED by the engine from
            `window.SECTOR_MAPS`; nothing is typed here. -->
       <p class="sxm-cover" id="sxmCover"></p>
+      <!-- `#649` · M6's takeaway slot, the same house shape as the seven on
+           the Sector Heat pane; written by the M6 renderer from the sidecar. -->
+      <p class="sxm-mod-p" id="sxmM6p"></p>
+      <!-- M6 · the head-to-head. The populated ecosystems side by side, each a
+           card of counted figures over its own members plus the member strip;
+           the empty ecosystems are stated below, inert (`#647`). -->
+      <div class="sxm-h2h" id="sxmEcoH2H"></div>
       <div class="sxm-card" id="sxmEcos"></div>
     </div>
 
-    <p class="sxm-note">Band colours mean bands: bullish, neutral, bearish. Nothing on this page
-      is a sector score, and no dial is drawn here — the dial belongs to a coin's TNT score alone.
-      Decoupling is not shown on this surface because it has no direction to colour.</p>
+    <!-- `#648` · THE NOTE, REWRITTEN. The shipped note said nothing on this page
+         is a sector score; the page now prints shelf means and averages, so
+         the note says what they are and are not. Verbatim copy registered in
+         Website/DUMMY_DATA_MANIFEST_2026-09-01.md §3a. -->
+    <p class="sxm-note">Band colours mean bands, read per coin: bullish, neutral, bearish.
+      The averages and shelf means printed on this page are plain arithmetic means of member
+      coins' real scores, drawn so shelves can be compared on one ruler. They are not a sector
+      score: no sector is banded, no group is given a dial, and the dial belongs to a coin's TNT
+      score alone. A coin can hold two sectors, so the rows do not sum to the board. Decoupling
+      is shown here as position, never as colour: a mark above the parity line is a chart running
+      ahead of the token you can buy.</p>
 
   </section>
 </div>
@@ -2710,6 +3096,13 @@ table.tok td.asset .lrow .tkr{font-family:var(--mono);font-size:11.5px;letter-sp
 })();
 </script>
 
+<!-- `#649` · THE KEY-TAKEAWAY SIDECAR. Editorial copy only, keyed slot id →
+     branch id → sentence, plus the shelf-name → plain-English map. The engine
+     below picks the branch from state it already computes and fills the
+     names; no sentence is typed in the engine. Loaded as a script, not
+     fetched. -->
+<script src="assets/market_takeaways.js"></script>
+
 <script>
 /* ═══════════════════════════════════════════════════════════════════════════
    THE MARKET VIEW · SECTOR / ECOSYSTEM HEAT · ENGINE · `#641`, 2026-09-02.
@@ -2748,6 +3141,23 @@ table.tok td.asset .lrow .tkr{font-family:var(--mono);font-size:11.5px;letter-sp
      5 · one coverage line on the Ecosystem pane, every figure COUNTED.
      Keyboard: one tab stop per strip, roving tabindex, ← → Home End, Esc to
      the row label. Nothing group-level is scored: no average, no dial.
+   `#648`, 2026-09-02 — THE DASHBOARD. Eight team-named modules on top of the
+   floor above, all of it computed here from `ALPHA.BOARD` + `window.SECTOR_MAPS`:
+     M1  axis-truth head (three counted band splits) + average TNT by sector
+     M2  beats-the-board count + the thin rule, on the shelf row (no whisker:
+         M3's dots already show min, max and everything between)
+     M3  the spread strip · M4 score source + gap · M5 net catalyst pressure,
+         three angles over the SAME ten shelves behind one inner tab control
+     M6  Ecosystem Heat as a head-to-head of the populated ecosystems
+     M7  the decoupling field, every coin a bare `coin.html` door
+     M8  top-three chips + a ranked drawer that opens IN PLACE, one at a time
+   ⛔ ONE shelf computation feeds every module (`shelf()` below), so a figure
+      cannot disagree with itself across angles. Rulers are computed from the
+      values they carry. The board mean has one home (`MEAN`).
+   ⛔ NO TREND. Dated snapshots exist and are deliberately not read (operator-
+      ruled 2026-09-02): Token and Network moved on 0 of 39 rows across them.
+   ⛔ NO PRICE PATH OF ITS OWN. The drawer's price cell is `.mh-price[data-cgid]`,
+      the selector alpha.js's ONE poll already paints; nothing here fetches.
    ═══════════════════════════════════════════════════════════════════════════ */
 (function () {
   'use strict';
@@ -2756,8 +3166,16 @@ table.tok td.asset .lrow .tkr{font-family:var(--mono);font-size:11.5px;letter-sp
   if (!A || !A.BOARD || !M || !$('sxmSectors')) return;
 
   var BC = { BULLISH:'b', NEUTRAL:'n', BEARISH:'r' };
+  var BW = { BULLISH:'bull', NEUTRAL:'neut', BEARISH:'bear' };
   function esc(t){ return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;'); }
   function has(a, v){ return a.indexOf(v) > -1; }
+  function one(n){ return Number(n).toFixed(1); }
+  function two(n){ return Number(n).toFixed(2); }
+  function sgn(n, f){ return (n > 0 ? '+' : n < 0 ? '−' : '') + f(Math.abs(n)); }
+  function pc(n){ return (Math.round(n * 1000) / 1000) + '%'; }
+  function sum(arr, k){ var s = 0; arr.forEach(function (t) { s += t[k]; }); return s; }
+  function avg(arr, k){ return arr.length ? sum(arr, k) / arr.length : NaN; }
+  function plural(n, w){ return n + ' ' + w + (n === 1 ? '' : 's'); }
 
   /* ── the as-of pill ──────────────────────────────────────────────────────
      ⛔ READ, NOT TYPED. `ALPHA.PROVENANCE` is the same object `#boardAsof`
@@ -2770,6 +3188,23 @@ table.tok td.asset .lrow .tkr{font-family:var(--mono);font-size:11.5px;letter-sp
            ? P.fundamentalsTo : P.technicalsTo;
   if ($('sxmAsof')) $('sxmAsof').textContent = asof ? 'As of ' + asof : 'As of —';
 
+  /* ══ `#648` · THE BOARD-LEVEL FACTS · every one computed, none typed ═════ */
+  var B = A.BOARD, N = B.length;
+  var MEAN = avg(B, 'tnt');                        /* the board mean, ONE home */
+  var NEUT = (A.BANDS && A.BANDS.NEUTRAL) || null;  /* [lo, hi], read from the band table */
+  var AXES = [
+    { k:'tok', bk:'tokB', label:'Token',      sub:'does the catalyst reach the coin you can buy' },
+    { k:'net', bk:'netB', label:'Network',    sub:'does it help the tech' },
+    { k:'tec', bk:'tecB', label:'Technicals', sub:'the average of ten chart indicators' }
+  ];
+  function split(bk) {
+    var c = { b:0, n:0, r:0 };
+    B.forEach(function (t) { c[BC[t[bk]] || 'n']++; });
+    return c;
+  }
+  var SPLIT = {};
+  AXES.forEach(function (ax) { SPLIT[ax.k] = split(ax.bk); });
+
   /* ── `#647` · THE DEPTH TIERS ───────────────────────────────────────────
      A shelf is DEEP at 6 members or more; everything else is THIN. The brief
      named deep as `n ≥ 6` and thin as `n ≤ 3` and left 4–5 unruled; they land
@@ -2777,100 +3212,671 @@ table.tok td.asset .lrow .tkr{font-family:var(--mono);font-size:11.5px;letter-sp
      trusted, and four or five coins is still an order set by one or two of
      them. These two numbers are the RULE; no count is typed anywhere below. */
   var DEEP_AT = 6;
+  var THIN_RULE = (DEEP_AT - 1) + ' coins or fewer: a shelf this small is ranked by one or two '
+                + 'coins, so its mean is a fact about those coins, not about the sector';
   var TIERS = [
     { key:'deep', label:'Deep shelves',
-      why: DEEP_AT + ' coins or more — enough members for the order to mean something',
+      why: DEEP_AT + ' coins or more, ranked on how many members beat the board mean '
+         + two(MEAN) + '; the top three are pinned and the rest open in place',
       is: function (n) { return n >= DEEP_AT; } },
     { key:'thin', label:'Thin shelves',
-      why: (DEEP_AT - 1) + ' coins or fewer — a shelf this small is ranked by one or two '
-         + 'coins; read the cells, not the order',
+      why: THIN_RULE + '; read the cells, not the order',
       is: function (n) { return n < DEEP_AT; } }
   ];
 
-  /* ── the row renderer ───────────────────────────────────────────────────── */
-  function groupRows(names, of, emptyWord, idp) {
-    var groups = names.map(function (name) {
-      var m = A.BOARD.filter(function (t) { return has(of(t.tk), name); })
-                     .sort(function (a, b) { return b.tnt - a.tnt; });
-      var n = { b:0, n:0, r:0 };
-      m.forEach(function (t) { n[BC[t.tntB] || 'n']++; });
-      /* greener first. An empty shelf scores -1 so it sinks to the bottom —
-         and it is still DRAWN. Ties keep the input order (stable sort). */
-      return { name: name, m: m, n: n, share: m.length ? n.b / m.length : -1 };
-    });
-    groups.sort(function (a, b) { return b.share - a.share; });
-
-    function row(g) {
-      var cells, strip;
-      if (!g.m.length) {
-        /* `#647` · INERT. No link, no pointer, no focus stop; the group is
-           marked disabled to assistive tech. An empty shelf is never a door. */
-        cells = '<span class="sxm-empty">no coins carry this ' + emptyWord + ' yet</span>';
-        strip = '<div class="sxm-strip" role="group" aria-disabled="true" aria-label="'
-              + esc(g.name) + ': no coins yet">' + cells + '</div>';
-      } else {
-        cells = g.m.map(function (t, i) {
-          /* `#647` · A DOOR. href is the BARE `coin.html` — the board rows'
-             own convention (alpha.js L881). ⛔ No query string, no slug, no
-             data attribute a future script could read.
-             ROVING FOCUS: one tab stop per strip — the first cell carries
-             tabindex 0, the rest -1; the keydown handler below moves it.
-             The accessible name carries the coin, its score and its band,
-             because 39 links sharing one href need a name that identifies
-             the coin, the same way the board row's link name is the coin. */
-          var band = String(t.tntB || '').toLowerCase();
-          return '<a class="sxm-cell ' + (BC[t.tntB] || 'n') + '" href="coin.html"'
-            + ' tabindex="' + (i === 0 ? '0' : '-1') + '"'
-            + ' title="' + esc(t.nm) + '"'
-            + ' aria-label="' + esc(t.tk) + ', ' + esc(t.nm) + ', TNT ' + t.tnt.toFixed(1)
-            + (band ? ', ' + esc(band) : '') + '">'
-            + '<span class="t">' + esc(t.tk) + '</span>'
-            + '<span class="v">' + t.tnt.toFixed(1) + '</span></a>';
-        }).join('');
-        strip = '<div class="sxm-strip" role="group" aria-label="' + esc(g.name) + ': '
-              + g.m.length + ' coins">' + cells + '</div>';
-      }
-      var tally = g.m.length
-        ? '<span class="ct b">' + g.n.b + ' bullish</span>'
-          + '<span class="ct n">' + g.n.n + ' neutral</span>'
-          + '<span class="ct r">' + g.n.r + ' bearish</span>'
-        : '<span class="ct">0 coins</span>';
-      /* `#647` · the `n` column, COUNTED from the same member list the strip
-         draws. The label is focusable only programmatically (Esc lands here). */
-      var nCol = '<div class="sxm-n' + (g.m.length ? '' : ' zero') + '">'
-               + '<span class="k" aria-hidden="true">n</span>' + g.m.length
-               + '<span class="sxm-sr"> coins</span></div>';
-      return '<div class="sxm-row">'
-        + '<div class="sxm-name" tabindex="-1">' + esc(g.name)
-        + (g.m.length ? '' : '<span class="sub">a real state, not an error</span>')
-        + '</div>'
-        + nCol
-        + strip
-        + '<div class="tally">' + tally + '</div>'
-        + '</div>';
+  /* ── ONE SHELF COMPUTATION, EVERY MODULE READS IT ────────────────────────
+     A shelf's figures are means and counts over its member list and nothing
+     else. `mix` is [bull, neutral, bear] counts of each catalyst's OWN token
+     score band (alpha-config.js §6), so a shelf's catalyst pressure is the
+     share of ITS OWN catalysts scored bullish minus the share scored bearish.
+     ⛔ `vb` is not read anywhere: it equals `tokB` on every row (`#591`). */
+  function shelf(name, m) {
+    m = m.slice().sort(function (a, b) { return b.tnt - a.tnt; });
+    var tally = { b:0, n:0, r:0 };
+    m.forEach(function (t) { tally[BC[t.tntB] || 'n']++; });
+    var s = { name:name, m:m, n:m.length, tally:tally };
+    if (m.length) {
+      s.mean = avg(m, 'tnt'); s.tok = avg(m, 'tok'); s.net = avg(m, 'net'); s.tec = avg(m, 'tec');
+      s.gap = s.tec - s.tok;
+      s.beats = m.filter(function (t) { return t.tnt > MEAN; }).length;
+      s.min = m[m.length - 1].tnt; s.max = m[0].tnt;
+      s.cat = sum(m, 'cat');
+      s.bull = 0; s.neu = 0; s.bear = 0;
+      m.forEach(function (t) { s.bull += t.mix[0]; s.neu += t.mix[1]; s.bear += t.mix[2]; });
+      s.press = s.cat ? Math.round(100 * (s.bull - s.bear) / s.cat) : 0;
+      s.top = m.slice(0, 3);
     }
+    s.deep = m.length >= DEEP_AT;
+    return s;
+  }
+  var SHELVES = M.sectors().map(function (name) {
+    return shelf(name, B.filter(function (t) {
+      var s = M.sectorsOf(t.tk);
+      return has(s.length ? s : ['Unassigned'], name);   /* no sector IS the tenth row */
+    }));
+  });
+  var ECOSH = M.ecos().map(function (name) {
+    return shelf(name, B.filter(function (t) { return has(M.ecosOf(t.tk), name); }));
+  });
+  R_AX = ruler([].concat.apply(NEUT ? NEUT.slice() : [], SHELVES.filter(function (s) { return s.n; })
+                 .map(function (s) { return [s.tok, s.net, s.tec]; })));
 
-    /* `#647` · GROUPED BY TIER, deep first, each tier keeping the sort above.
-       A tier with no shelf on this pane prints nothing — no empty heading. */
-    return TIERS.map(function (T) {
-      var gs = groups.filter(function (g) { return T.is(g.m.length); });
-      if (!gs.length) return '';
-      var hid = 'sxmTier-' + idp + '-' + T.key;
-      return '<div class="sxm-tier" role="group" aria-labelledby="' + hid + '">'
-        + '<h3 class="sxm-tier-h" id="' + hid + '">' + esc(T.label)
-        + '<span class="why">' + esc(T.why) + '</span></h3>'
-        + gs.map(row).join('')
-        + '</div>';
-    }).join('');
+  /* ── RULERS · an extent is computed from the values it will carry, then
+        snapped out to the half-point, so every position below is a percent
+        of a scale the data set. Nothing on any ruler is typed. */
+  function ruler(vals) {
+    var lo = Infinity, hi = -Infinity;
+    vals.forEach(function (v) { if (v < lo) lo = v; if (v > hi) hi = v; });
+    lo = Math.floor((lo - 0.2) * 2) / 2; hi = Math.ceil((hi + 0.2) * 2) / 2;
+    var ticks = [];
+    for (var v = lo; v <= hi + 1e-9; v += 0.5) ticks.push(Math.round(v * 2) / 2);
+    return { lo:lo, hi:hi, ticks:ticks, pct: function (v) { return (v - lo) / (hi - lo) * 100; } };
+  }
+  var R_TNT = ruler(B.map(function (t) { return t.tnt; }));
+  /* the M4 ruler carries SHELF means (plus the neutral band's two edges so
+     the shading is always on the scale), not coin scores, so it is computed
+     after the shelves below. */
+  var R_AX;
+
+  function bySort(a, b) { return (b.mean || -Infinity) - (a.mean || -Infinity); }
+  function tierRows(list) {
+    /* deep first, then thin, then empty; each group by mean, greenest first */
+    var deep = list.filter(function (s) { return s.deep; }).sort(bySort);
+    var thin = list.filter(function (s) { return !s.deep && s.n; }).sort(bySort);
+    var empty = list.filter(function (s) { return !s.n; });
+    return { deep:deep, thin:thin, empty:empty };
   }
 
-  $('sxmSectors').innerHTML =
-    groupRows(M.sectors(), function (tk) {
-      var s = M.sectorsOf(tk);
-      return s.length ? s : ['Unassigned'];       /* no sector IS the tenth row */
-    }, 'sector', 'sec');
-  $('sxmEcos').innerHTML =
-    groupRows(M.ecos(), M.ecosOf, 'ecosystem', 'eco');
+  /* ══ `#649` · THE KEY TAKEAWAYS · one branch set per slot, copy from the
+        sidecar, branch picked from state the engine already computed ═══════
+     ⛔ NO SENTENCE IS TYPED HERE. `window.MARKET_TAKEAWAYS` (assets/
+        market_takeaways.js) holds slot id → branch id → sentence and the
+        shelf-name map; this block only DECIDES which branch is true today and
+        fills the names, in order, from the shelf list as computed.
+     ⛔ A takeaway is descriptive only: it says what the state is, never what
+        to do about it (operator ruling 1, 2026-09-03).
+     ⭐ Every picker is a pure function of an explicit state object, published
+        read-only on `window.MARKET_TAKEAWAY` so a branch can be FORCED with a
+        stubbed state and its sentence read back — the `#649` branch-coverage
+        check. The live render below passes the real computed state. */
+  var TK = window.MARKET_TAKEAWAYS || { names:{}, slots:{} };
+  function nameOf(n) {
+    if (TK.names[n]) return TK.names[n];
+    if (window.console) console.warn('#649 takeaway: no plain-English name for shelf', n);
+    return String(n);
+  }
+  function listOf(shelves) {
+    var w = shelves.map(function (s) { return nameOf(s.name); });
+    return w.length < 2 ? w.join('') : w.slice(0, -1).join(', ') + ' and ' + w[w.length - 1];
+  }
+  function fill(tpl, vars) {
+    return String(tpl).replace(/\{([A-Za-z]+)\}/g, function (_, k) {
+      var lk = k.charAt(0).toLowerCase() + k.slice(1), v = vars && vars[lk] != null ? String(vars[lk]) : '';
+      return k.charAt(0) === k.charAt(0).toUpperCase() ? v.charAt(0).toUpperCase() + v.slice(1) : v;
+    });
+  }
+  function sentence(slot, branch, vars) {
+    var set = TK.slots[slot] || {}, tpl = set[branch];
+    if (tpl == null) { if (window.console) console.error('#649 takeaway: no copy for', slot, branch); return ''; }
+    return fill(tpl, vars);
+  }
+  /* the M5 composition: an opener on the depth of the net-bullish shelves,
+     then one clause per non-empty group. `branch` is the pattern it fired. */
+  var PRESS_AT = 10;     /* |net catalyst pressure| at or beyond which a shelf is clearly on one side */
+  var CLOSE_AT = 0.5;    /* two ecosystem means closer than half a band are "almost the same" */
+  var live = function (shelves) { return shelves.filter(function (s) { return s.n; }); };
+  var PICK = {
+    sxmM1Lp: function (st) {   /* st: { tokB, tecB } bullish counts */
+      return { branch: st.tecB > st.tokB ? 'tec_leads' : st.tokB > st.tecB ? 'tok_leads' : 'level' };
+    },
+    sxmM1Rp: function (st) {   /* st: { shelves } */
+      var g = tierRows(st.shelves), top = g.deep.concat(g.thin).sort(bySort)[0];
+      if (!g.deep.length) return { branch:'no_deep' };
+      if (!top.deep) return { branch:'thin_on_top' };
+      return { branch:'deep_on_top', vars:{ top: nameOf(top.name) } };
+    },
+    sxmM7p: function (st) {    /* st: { n, above, below } */
+      if (!st.below && st.above) return { branch:'all_above' };
+      if (!st.above && st.below) return { branch:'all_below' };
+      if (st.above >= st.n * 0.75) return { branch:'most_above' };
+      if (st.below >= st.n * 0.75) return { branch:'most_below' };
+      return { branch:'split' };
+    },
+    sxmM3p: function (st) {    /* st: { shelves, mean } */
+      var deep = live(st.shelves).filter(function (s) { return s.deep; });
+      if (!deep.length) return { branch:'no_deep' };
+      var apart = deep.filter(function (s) { return s.min > st.mean || s.max < st.mean; });
+      if (!apart.length) return { branch:'straddle_all' };
+      return { branch:'apart', vars:{ apart: listOf(apart) } };
+    },
+    sxmM4p: function (st) {    /* st: { shelves } */
+      var L = live(st.shelves);
+      var charts = L.filter(function (s) { return s.tec > s.tok; }), tokens = L.filter(function (s) { return s.tok > s.tec; });
+      if (charts.length && !tokens.length) return { branch:'charts_ahead_all' };
+      if (tokens.length && !charts.length) return { branch:'tokens_ahead_all' };
+      if (!charts.length && !tokens.length) return { branch:'level' };
+      return { branch:'mixed', vars:{ charts: listOf(charts), tokens: listOf(tokens) } };
+    },
+    sxmM5p: function (st) {    /* st: { shelves } · composed, see above */
+      var L = live(st.shelves).slice().sort(function (a, b) { return b.press - a.press; });
+      var bull = L.filter(function (s) { return s.press >= PRESS_AT; });
+      var bear = L.filter(function (s) { return s.press <= -PRESS_AT; });
+      var flat = L.filter(function (s) { return s.press < PRESS_AT && s.press > -PRESS_AT; });
+      if (!bull.length && !bear.length) return { branch:'flat_only', parts:['flat_only'] };
+      var parts = [];
+      if (bull.length) {
+        var thin = bull.filter(function (s) { return !s.deep; }).length;
+        parts.push(thin === bull.length ? 'opener_small' : thin === 0 ? 'opener_big' : 'opener_mixed');
+        parts.push('bull');
+      }
+      if (flat.length) parts.push('flat');
+      if (bear.length) parts.push('bear');
+      return { branch: parts.join('+'), parts: parts, vars:{ bull: listOf(bull), flat: listOf(flat), bear: listOf(bear) } };
+    },
+    sxmM6p: function (st) {    /* st: { ecos } */
+      var L = live(st.ecos).slice().sort(bySort);
+      if (!L.length) return { branch:'none' };
+      if (L.length === 1) return { branch:'one', vars:{ a: nameOf(L[0].name) } };
+      var v = { a: nameOf(L[0].name), b: nameOf(L[1].name) };
+      return { branch: (L[0].mean - L[1].mean) < CLOSE_AT ? 'close' : 'clear', vars: v };
+    },
+    sxmM8p: function (st) {    /* st: { shelves } */
+      var deep = live(st.shelves).filter(function (s) { return s.deep; });
+      if (!deep.length) return { branch:'no_deep' };
+      var share = function (s) { return s.beats / s.n; };
+      if (deep.every(function (s) { return share(s) > 0.5; })) return { branch:'all_above' };
+      if (deep.every(function (s) { return share(s) < 0.5; })) return { branch:'all_below' };
+      var byShare = deep.slice().sort(function (a, b) { return share(b) - share(a); });
+      var top = byShare[0], bottom = byShare[byShare.length - 1];
+      if (top === bottom) return { branch:'even', vars:{ top: nameOf(top.name) } };
+      return { branch:'split', vars:{ top: nameOf(top.name), bottom: nameOf(bottom.name) } };
+    }
+  };
+  function takeaway(slot, st) {
+    var r = PICK[slot](st);
+    r.text = (r.parts || [r.branch]).map(function (b) { return sentence(slot, b, r.vars); }).join(' ');
+    return r;
+  }
+  function writeTakeaway(slot, st) {
+    var el = $(slot), r = takeaway(slot, st);
+    if (el) { el.textContent = r.text; el.setAttribute('data-branch', r.branch); }
+    return r;
+  }
+  window.MARKET_TAKEAWAY = { render: takeaway, slots: Object.keys(PICK) };
+
+  /* ══ M1-LEFT · WHERE THE GREEN COMES FROM · three counted splits ═════════ */
+  (function m1left() {
+    var el = $('sxmAxes'), p = $('sxmM1Lp'); if (!el) return;
+    el.innerHTML = AXES.map(function (ax) {
+      var c = SPLIT[ax.k];
+      function seg(cls, n, word) {
+        if (!n) return '';
+        var w = n / N * 100;
+        return '<span class="sg ' + cls + '" style="width:' + pc(w) + '" title="' + n + ' ' + word + '">'
+          + (w >= 8 ? n : '') + '</span>';
+      }
+      return '<div class="ax">' + esc(ax.label) + '<span class="sub">'
+        + c.b + ' bullish · ' + c.n + ' neutral · ' + c.r + ' bearish</span></div>'
+        + '<div class="sxm-bar" role="img" aria-label="' + esc(ax.label) + ' axis: ' + c.b + ' bullish, '
+        + c.n + ' neutral, ' + c.r + ' bearish of ' + N + '">'
+        + seg('b', c.b, 'bullish') + seg('n', c.n, 'neutral') + seg('r', c.r, 'bearish') + '</div>';
+    }).join('');
+    /* `#649` · the read line is a KEY TAKEAWAY, branched on which axis carries
+       more bullish band words, Technicals against Token. The counts it used
+       to print are on the bars and in each bar's aria-label; the "read per
+       coin, counted here" clause already lives on this card's legend line. */
+    if (p) writeTakeaway('sxmM1Lp', { tokB: SPLIT.tok.b, tecB: SPLIT.tec.b });
+  })();
+
+  /* ══ M1-RIGHT · AVERAGE TNT BY SECTOR · deep above thin ═════════════════ */
+  (function m1right() {
+    var el = $('sxmAvg'), p = $('sxmM1Rp'); if (!el) return;
+    var g = tierRows(SHELVES);
+    function row(s, cls) {
+      if (!s.n) return '<div class="ar empty"><span class="nm">' + esc(s.name) + '</span>'
+        + '<span class="tr" aria-hidden="true"></span><span class="v">none</span><span class="n">n 0</span></div>';
+      return '<div class="ar ' + cls + '"><span class="nm">' + esc(s.name)
+        + '<span class="bt">' + s.beats + ' of ' + s.n + ' beat the board</span></span>'
+        + '<span class="tr" role="img" aria-label="average ' + two(s.mean) + ' against board mean ' + two(MEAN) + '">'
+        + '<span class="fl" style="width:' + pc(R_TNT.pct(s.mean)) + '"></span>'
+        + '<span class="bm" style="left:' + pc(R_TNT.pct(MEAN)) + '"></span></span>'
+        + '<span class="v">' + two(s.mean) + '</span><span class="n">n ' + s.n + '</span></div>';
+    }
+    el.innerHTML =
+      '<div class="tier-h">Deep shelves · ' + DEEP_AT + ' coins or more</div>' + g.deep.map(function (s) { return row(s, 'deep'); }).join('')
+      + '<div class="tier-h">Thin shelves · ranked, not led with</div>' + g.thin.map(function (s) { return row(s, 'thin'); }).join('')
+      + g.empty.map(function (s) { return row(s, 'empty'); }).join('');
+    /* `#649` · the read line is a KEY TAKEAWAY. The honesty clause it carried
+       ("arithmetic mean of a shelf's members … not a sector score, no shelf
+       is banded") is RE-HOMED, not deleted: it lives on the new legend line. */
+    if (p) writeTakeaway('sxmM1Rp', { shelves: SHELVES });
+    var lg = $('sxmM1Rlg');
+    if (lg) lg.innerHTML = '<span class="lg none">each bar = the arithmetic mean TNT of a shelf’s members, on the spread strip’s ruler</span>'
+      + '<span class="lg tick">board mean ' + two(MEAN) + '</span>'
+      + '<span class="lg none">a mean compares shelves: it is not a sector score and no shelf is banded</span>';
+  })();
+
+  /* ══ M7 · THE DECOUPLING FIELD · Token (x) against Technicals (y) ═══════ */
+  (function m7() {
+    var host = $('sxmField'), list = $('sxmFieldList'), p = $('sxmM7p'), lg = $('sxmM7lg'), read = $('sxmFieldRead');
+    if (!host || !list) return;
+    var RX = ruler(B.map(function (t) { return t.tok; })), RY = ruler(B.map(function (t) { return t.tec; }));
+    var catMin = Infinity, catMax = -Infinity;
+    B.forEach(function (t) { if (t.cat < catMin) catMin = t.cat; if (t.cat > catMax) catMax = t.cat; });
+    var W = 1000, H = 560, ML = 58, MR = 22, MT = 26, MB = 56, PW = W - ML - MR, PH = H - MT - MB;
+    function X(v) { return ML + RX.pct(v) / 100 * PW; }
+    function Y(v) { return MT + PH - RY.pct(v) / 100 * PH; }
+    function R(c) { return catMax === catMin ? 8 : 5 + (c - catMin) / (catMax - catMin) * 8; }
+    var pts = B.map(function (t) {
+      return { t:t, x:X(t.tok), y:Y(t.tec), r:R(t.cat), gap:t.tec - t.tok, cls:BC[t.tokB] || 'n' };
+    });
+    /* the labelled marks: the extreme on any of the six measures, computed */
+    var lab = {};
+    ['gap','tok','tec'].forEach(function (k) {
+      var hi = null, lo = null;
+      pts.forEach(function (q) {
+        var v = k === 'gap' ? q.gap : q.t[k];
+        if (!hi || v > (k === 'gap' ? hi.gap : hi.t[k])) hi = q;
+        if (!lo || v < (k === 'gap' ? lo.gap : lo.t[k])) lo = q;
+      });
+      lab[hi.t.tk] = 1; lab[lo.t.tk] = 1;
+    });
+    var above = 0, below = 0, on = 0;
+    pts.forEach(function (q) { if (q.gap > 0) above++; else if (q.gap < 0) below++; else on++; });
+
+    var s = '<svg viewBox="0 0 ' + W + ' ' + H + '" role="group" aria-label="Decoupling field: ' + N + ' coins, Token score against Technicals score">';
+    RX.ticks.forEach(function (v) {
+      s += '<line class="gl" x1="' + X(v) + '" y1="' + MT + '" x2="' + X(v) + '" y2="' + (MT + PH) + '"/>'
+         + '<text class="tl" x="' + X(v) + '" y="' + (MT + PH + 18) + '" text-anchor="middle">' + one(v) + '</text>';
+    });
+    RY.ticks.forEach(function (v) {
+      s += '<line class="gl" x1="' + ML + '" y1="' + Y(v) + '" x2="' + (ML + PW) + '" y2="' + Y(v) + '"/>'
+         + '<text class="tl" x="' + (ML - 8) + '" y="' + (Y(v) + 4) + '" text-anchor="end">' + one(v) + '</text>';
+    });
+    s += '<line class="ax" x1="' + ML + '" y1="' + (MT + PH) + '" x2="' + (ML + PW) + '" y2="' + (MT + PH) + '"/>'
+       + '<line class="ax" x1="' + ML + '" y1="' + MT + '" x2="' + ML + '" y2="' + (MT + PH) + '"/>';
+    /* the parity diagonal · y = x, clipped to the plot */
+    var p0 = Math.max(RX.lo, RY.lo), p1 = Math.min(RX.hi, RY.hi);
+    s += '<line class="par" x1="' + X(p0) + '" y1="' + Y(p0) + '" x2="' + X(p1) + '" y2="' + Y(p1) + '"/>'
+       + '<text class="pl" x="' + (X(p1) - 10) + '" y="' + (Y(p1) + 26) + '" text-anchor="end">chart = token</text>'
+       + '<text class="pl" x="' + (ML + PW) + '" y="' + (MT - 8) + '" text-anchor="end">above the dashes: the chart is ahead of the token</text>';
+    s += '<text class="al" x="' + (ML + PW / 2) + '" y="' + (H - 12) + '" text-anchor="middle">Token score</text>'
+       + '<text class="al" transform="translate(16 ' + (MT + PH / 2) + ') rotate(-90)" text-anchor="middle">Technicals score</text>';
+    /* draw order: big marks first so small ones stay on top. ROVING FOCUS:
+       the field is ONE tab stop (the first mark drawn carries tabindex 0),
+       ← → walk the marks in token-score order, Home / End jump; the same
+       model as the strips, so 39 doors cost one stop, not 39. */
+    var order = pts.slice().sort(function (a, b) { return a.t.tok - b.t.tok || a.t.tec - b.t.tec; });
+    order.forEach(function (q, i) { q.ord = i; });
+    pts.slice().sort(function (a, b) { return b.r - a.r; }).forEach(function (q) {
+      var t = q.t, name = esc(t.tk) + ', ' + esc(t.nm) + ', Token ' + one(t.tok) + ', Technicals ' + one(t.tec)
+             + ', gap ' + sgn(q.gap, one) + ', ' + plural(t.cat, 'catalyst');
+      s += '<a href="coin.html" data-tk="' + esc(t.tk) + '" data-ord="' + q.ord + '" tabindex="' + (q.ord === 0 ? '0' : '-1')
+         + '" aria-label="' + name + '"><title>' + name + '</title>'
+         + '<circle class="hit" cx="' + q.x + '" cy="' + q.y + '" r="14"/>'
+         + '<circle class="mk ' + q.cls + '" cx="' + q.x + '" cy="' + q.y + '" r="' + q.r + '"/></a>';
+    });
+    pts.forEach(function (q) {
+      if (!lab[q.t.tk]) return;
+      var right = q.x < ML + PW * 0.86;
+      s += '<text class="lbl" x="' + (right ? q.x + q.r + 5 : q.x - q.r - 5) + '" y="' + (q.y + 4)
+         + '" text-anchor="' + (right ? 'start' : 'end') + '">' + esc(q.t.tk) + '</text>';
+    });
+    s += '</svg>';
+    host.innerHTML = s;
+
+    /* the phone form · the same 39 points as a ranked list, widest gap first */
+    list.innerHTML = '<li class="h"><span>#</span><span>coin</span><span>token</span><span>chart</span><span>gap</span><span>cats</span></li>'
+      + pts.slice().sort(function (a, b) { return b.gap - a.gap; }).map(function (q, i) {
+        var t = q.t;
+        return '<li><span>' + (i + 1) + '</span><span><a href="coin.html" aria-label="' + esc(t.tk) + ', ' + esc(t.nm)
+          + ', Token ' + one(t.tok) + ', Technicals ' + one(t.tec) + ', gap ' + sgn(q.gap, one) + '">'
+          + '<i class="bd ' + q.cls + '" aria-hidden="true"></i>' + esc(t.tk) + '</a></span>'
+          + '<span>' + one(t.tok) + '</span><span>' + one(t.tec) + '</span><span class="gp">' + sgn(q.gap, one) + '</span>'
+          + '<span>' + t.cat + '</span></li>';
+      }).join('');
+
+    /* `#649` · the read line is a KEY TAKEAWAY on the above/below share. The
+       mechanics it carried (one mark per coin, Token across, Technicals up,
+       the dashed line is parity, the above/below count, every mark opens the
+       coin) are RE-HOMED onto the legend line below, not deleted. */
+    if (p) writeTakeaway('sxmM7p', { n: N, above: above, below: below });
+    if (lg) lg.innerHTML = '<span class="lg none">one mark per coin: Token score across, Technicals score up</span>'
+      + '<span class="lg b">token axis bullish (' + SPLIT.tok.b + ')</span>'
+      + '<span class="lg n">token axis neutral (' + SPLIT.tok.n + ')</span>'
+      + '<span class="lg r">token axis bearish (' + SPLIT.tok.r + ')</span>'
+      + '<span class="lg none">mark size = catalyst count (' + catMin + ' to ' + catMax + ') · labels = the extreme on each measure</span>'
+      + '<span class="lg none">dashed line = parity: ' + above + ' above it, ' + below + ' below' + (on ? ', ' + on + ' on it' : '') + ' · every mark opens the coin</span>';
+
+    /* one read-out line, not 39 popovers: hover or focus writes it */
+    var byTk = {}; pts.forEach(function (q) { byTk[q.t.tk] = q; });
+    function show(e) {
+      var a = e.target && e.target.closest ? e.target.closest('a[data-tk]') : null;
+      if (!a || !read) return;
+      var q = byTk[a.getAttribute('data-tk')]; if (!q) return;
+      read.textContent = q.t.tk + ' · ' + q.t.nm + ' · Token ' + one(q.t.tok) + ' · Technicals ' + one(q.t.tec)
+        + ' · gap ' + sgn(q.gap, one) + ' · ' + plural(q.t.cat, 'catalyst') + ' · TNT ' + one(q.t.tnt);
+    }
+    host.addEventListener('mouseover', show);
+    host.addEventListener('focusin', show);
+    function marksOf() {
+      return [].slice.call(host.querySelectorAll('a[data-ord]')).sort(function (a, b) {
+        return +a.getAttribute('data-ord') - +b.getAttribute('data-ord'); });
+    }
+    function roveTo(a) {
+      marksOf().forEach(function (m) { m.setAttribute('tabindex', m === a ? '0' : '-1'); });
+      a.focus();
+    }
+    host.addEventListener('focusin', function (e) {
+      var a = e.target && e.target.closest ? e.target.closest('a[data-ord]') : null;
+      if (a) marksOf().forEach(function (m) { m.setAttribute('tabindex', m === a ? '0' : '-1'); });
+    });
+    host.addEventListener('keydown', function (e) {
+      var a = e.target && e.target.closest ? e.target.closest('a[data-ord]') : null;
+      if (!a) return;
+      var ms = marksOf(), i = ms.indexOf(a), last = ms.length - 1, to = null, k = e.key;
+      if (k === 'ArrowRight' || k === 'ArrowUp')        to = i === last ? 0 : i + 1;
+      else if (k === 'ArrowLeft' || k === 'ArrowDown')  to = i === 0 ? last : i - 1;
+      else if (k === 'Home') to = 0;
+      else if (k === 'End')  to = last;
+      if (to === null) return;
+      e.preventDefault();
+      roveTo(ms[to]);
+    });
+  })();
+
+  /* ══ M3 / M4 / M5 · THE RULED ROWS · one skeleton, three angles ══════════ */
+  function ruledHead(R, leftWord, rightWord) {
+    return '<div class="rh">' + esc(leftWord) + '</div><div class="rh axis" aria-hidden="true">'
+      + R.ticks.map(function (v) { return '<span class="tk" style="left:' + pc(R.pct(v)) + '">' + one(v) + '</span>'; }).join('')
+      + '</div><div class="rh r">' + esc(rightWord) + '</div>';
+  }
+  function gridlines(R) {
+    return R.ticks.map(function (v) { return '<span class="grid" style="left:' + pc(R.pct(v)) + '"></span>'; }).join('');
+  }
+  function label(s, sub) {
+    return '<div class="lb">' + esc(s.name) + '<span class="sub">' + esc(sub) + '</span></div>';
+  }
+  function emptyRow(s, R) {
+    return '<div class="rl empty">' + label(s, 'n 0')
+      + '<div class="tr">' + gridlines(R) + '<span class="empty">no coins carry this label yet</span></div>'
+      + '<div class="vv"><span class="sub">none</span></div></div>';
+  }
+  function ordered(list) { var g = tierRows(list); return g.deep.concat(g.thin, g.empty); }
+
+  (function m3() {
+    var el = $('sxmSpread'), p = $('sxmM3p'), lg = $('sxmM3lg'); if (!el) return;
+    var R = R_TNT;
+    el.innerHTML = ruledHead(R, 'shelf', 'mean') + ordered(SHELVES).map(function (s) {
+      if (!s.n) return emptyRow(s, R);
+      return '<div class="rl' + (s.deep ? '' : ' thin') + '">'
+        + label(s, 'n ' + s.n + (s.deep ? '' : ' · thin'))
+        + '<div class="tr" role="img" aria-label="' + esc(s.name) + ': ' + s.n + ' coins from ' + one(s.min) + ' to ' + one(s.max)
+        + ', mean ' + two(s.mean) + '">' + gridlines(R)
+        + '<span class="rule" style="left:' + pc(R.pct(MEAN)) + '"></span>'
+        + s.m.map(function (t) { return '<span class="dot" style="left:' + pc(R.pct(t.tnt)) + '" title="' + esc(t.tk) + ' ' + one(t.tnt) + '"></span>'; }).join('')
+        + '<span class="tick" style="left:' + pc(R.pct(s.mean)) + '"></span></div>'
+        + '<div class="vv">' + two(s.mean) + '<span class="sub">' + s.beats + ' of ' + s.n + ' beat board</span></div></div>';
+    }).join('');
+    /* `#649` · the read line is a KEY TAKEAWAY on whether the deep shelves
+       straddle the board mean. The board-mean anchor and the thin rule it
+       carried are RE-HOMED: the anchor was already on the legend, the thin
+       rule now sits on the dimmed legend entry as a tooltip. */
+    if (p) writeTakeaway('sxmM3p', { shelves: SHELVES, mean: MEAN });
+    if (lg) lg.innerHTML = '<span class="lg none">every shelf on one TNT ruler</span><span class="lg">one coin</span><span class="lg tick">shelf mean</span>'
+      + '<span class="lg rule">board mean ' + two(MEAN) + ', ruled through every row</span>'
+      + '<span class="lg none" title="' + esc(THIN_RULE) + '">dimmed = fewer than ' + DEEP_AT + ' coins (thin)</span>';
+  })();
+
+  (function m4() {
+    var el = $('sxmSource'), p = $('sxmM4p'), lg = $('sxmM4lg'); if (!el) return;
+    var R = R_AX;
+    var rows = ordered(SHELVES);
+    var live = rows.filter(function (s) { return s.n; }).sort(function (a, b) { return b.gap - a.gap; });
+    var inNeut = NEUT ? live.filter(function (s) { return s.tok >= NEUT[0] && s.tok <= NEUT[1]; }).length : 0;
+    var zone = NEUT ? '<span class="zone" style="left:' + pc(R.pct(NEUT[0])) + ';width:' + pc(R.pct(NEUT[1]) - R.pct(NEUT[0])) + '"></span>' : '';
+    el.innerHTML = ruledHead(R, 'shelf', 'gap')
+      + live.concat(rows.filter(function (s) { return !s.n; })).map(function (s) {
+        if (!s.n) return emptyRow(s, R);
+        return '<div class="rl' + (s.deep ? '' : ' thin') + '">'
+          + label(s, 'n ' + s.n + (s.deep ? '' : ' · thin'))
+          + '<div class="tr" role="img" aria-label="' + esc(s.name) + ': Token ' + two(s.tok) + ', Network ' + two(s.net)
+          + ', Technicals ' + two(s.tec) + '">' + zone + gridlines(R)
+          + '<span class="span" style="left:' + pc(R.pct(Math.min(s.tok, s.tec))) + ';width:' + pc(Math.abs(R.pct(s.tec) - R.pct(s.tok))) + '"></span>'
+          + '<span class="mk net" style="left:' + pc(R.pct(s.net)) + '" title="Network ' + two(s.net) + '"></span>'
+          + '<span class="mk tok" style="left:' + pc(R.pct(s.tok)) + '" title="Token ' + two(s.tok) + '"></span>'
+          + '<span class="mk tec" style="left:' + pc(R.pct(s.tec)) + '" title="Technicals ' + two(s.tec) + '"></span></div>'
+          + '<div class="vv">' + sgn(s.gap, two) + '<span class="sub">' + two(s.tok) + ' → ' + two(s.tec) + '</span></div></div>';
+      }).join('');
+    /* `#649` · the read line is a KEY TAKEAWAY on the sign of the gap across
+       shelves. The mechanics it carried (means of members on one scale, the
+       neutral band's edges read from the band table, gap = Technicals minus
+       Token, the counted in-band line) are RE-HOMED onto the legend line. */
+    if (p) writeTakeaway('sxmM4p', { shelves: SHELVES });
+    if (lg) lg.innerHTML = '<span class="lg none">per shelf, the mean of its members on one scale</span>'
+      + '<span class="lg tok">Token</span><span class="lg net">Network</span><span class="lg tec">Technicals</span>'
+      + '<span class="lg band">neutral band' + (NEUT ? ' ' + one(NEUT[0]) + ' to ' + one(NEUT[1]) + ', read from the band table' : '') + '</span>'
+      + '<span class="lg none">gap = Technicals minus Token · rows ordered by gap, widest first</span>'
+      + (NEUT && live.length ? '<span class="lg none">' + inNeut + ' of ' + live.length + ' shelf Token means land inside the neutral band</span>' : '');
+  })();
+
+  (function m5() {
+    var el = $('sxmHot'), p = $('sxmM5p'), lg = $('sxmM5lg'); if (!el) return;
+    var rows = ordered(SHELVES);
+    var live = rows.filter(function (s) { return s.n; }).sort(function (a, b) { return b.press - a.press; });
+    var lo = 0, hi = 0;
+    live.forEach(function (s) { if (s.press < lo) lo = s.press; if (s.press > hi) hi = s.press; });
+    var pad = Math.max(6, Math.round((hi - lo) * 0.16));
+    var L = lo - pad, Hh = hi + pad;
+    function pct(v) { return (v - L) / (Hh - L) * 100; }
+    el.innerHTML = '<div class="rh">shelf</div><div class="rh">net catalyst pressure, bearish left, bullish right</div><div class="rh r">bull / bear</div>'
+      + live.concat(rows.filter(function (s) { return !s.n; })).map(function (s) {
+        if (!s.n) return '<div class="rl empty">' + label(s, 'n 0') + '<div class="tr"><span class="zero" style="left:' + pc(pct(0)) + '"></span>'
+          + '<span class="empty">no coins carry this label yet</span></div><div class="vv"><span class="sub">none</span></div></div>';
+        var a = pct(0), b = pct(s.press), left = Math.min(a, b), w = Math.abs(b - a);
+        return '<div class="rl' + (s.deep ? '' : ' thin') + '">'
+          + label(s, plural(s.cat, 'catalyst'))
+          + '<div class="tr" role="img" aria-label="' + esc(s.name) + ': net catalyst pressure ' + sgn(s.press, String) + '">'
+          + '<span class="zero" style="left:' + pc(a) + '"></span>'
+          + '<span class="pb ' + (s.press < 0 ? 'neg' : 'pos') + '" style="left:' + pc(left) + ';width:' + pc(w) + '"></span>'
+          + '<span class="pv" style="' + (s.press < 0 ? 'right:' + pc(100 - left) + ';margin-right:6px' : 'left:' + pc(left + w) + ';margin-left:6px') + '">' + sgn(s.press, String) + '</span>'
+          + '</div><div class="vv">' + s.bull + ' / ' + s.bear + '<span class="sub">' + s.neu + ' neutral</span></div></div>';
+      }).join('');
+    /* `#649` · the read line is a KEY TAKEAWAY composed from the net-bullish,
+       balanced and net-bearish shelves as computed, names in pressure order.
+       The mechanics it carried (share bullish minus share bearish of the
+       shelf's OWN catalysts, a coin on two shelves counts on both, the
+       computed extent, no history and no trend) are RE-HOMED onto the legend. */
+    if (p) writeTakeaway('sxmM5p', { shelves: SHELVES });
+    if (lg) lg.innerHTML = '<span class="lg none">per shelf: the share of its own catalysts scored bullish minus the share scored bearish; a coin on two shelves counts on both</span>'
+      + '<span class="lg b">net bullish</span><span class="lg r">net bearish</span>'
+      + '<span class="lg none">bull / bear = catalysts on each side, by each catalyst’s own token score band</span>'
+      + '<span class="lg none">runs from ' + sgn(lo, String) + ' to ' + sgn(hi, String) + ' · no history is read, no trend is drawn: the mix as it stands today</span>';
+  })();
+
+  /* ══ M2 + M8 · THE SHELF ROWS · roster, beats count, top three, drawer ═══ */
+  var OPEN = null;           /* the one open drawer's button, or null */
+  function cellsHTML(m) {
+    return m.map(function (t, i) {
+      /* `#647` · A DOOR. href is the BARE `coin.html` — the board rows' own
+         convention (alpha.js L881). ⛔ No query string, no slug, no data
+         attribute a future script could read. ROVING FOCUS: one tab stop per
+         strip — the first cell carries tabindex 0, the rest -1. The accessible
+         name carries the coin, its score and its band. */
+      var band = String(t.tntB || '').toLowerCase();
+      return '<a class="sxm-cell ' + (BC[t.tntB] || 'n') + '" href="coin.html"'
+        + ' tabindex="' + (i === 0 ? '0' : '-1') + '"'
+        + ' title="' + esc(t.nm) + '"'
+        + ' aria-label="' + esc(t.tk) + ', ' + esc(t.nm) + ', TNT ' + one(t.tnt)
+        + (band ? ', ' + esc(band) : '') + '">'
+        + '<span class="t">' + esc(t.tk) + '</span>'
+        + '<span class="v">' + one(t.tnt) + '</span></a>';
+    }).join('');
+  }
+  function stripHTML(s) {
+    return '<div class="sxm-strip" role="group" aria-label="' + esc(s.name) + ': ' + s.n + ' coins">' + cellsHTML(s.m) + '</div>';
+  }
+  function tallyHTML(s) {
+    return '<div class="tally">' + (s.n
+      ? '<span class="ct b">' + s.tally.b + ' bullish</span><span class="ct n">' + s.tally.n + ' neutral</span><span class="ct r">' + s.tally.r + ' bearish</span>'
+      : '<span class="ct">0 coins</span>') + '</div>';
+  }
+  function emptyShelfRow(s, word) {
+    /* `#647` · INERT. No link, no pointer, no focus stop; the group is marked
+       disabled to assistive tech. An empty shelf is never a door. */
+    return '<div class="sxm-row">'
+      + '<div class="sxm-name" tabindex="-1">' + esc(s.name) + '<span class="sub">a real state, not an error</span></div>'
+      + '<div class="sxm-n zero"><span class="k" aria-hidden="true">n</span>0<span class="sxm-sr"> coins</span></div>'
+      + '<div class="sxm-strip" role="group" aria-disabled="true" aria-label="' + esc(s.name) + ': no coins yet">'
+      + '<span class="sxm-empty">no coins carry this ' + word + ' yet</span></div>'
+      + tallyHTML(s) + '</div>';
+  }
+  function drawerHTML(s, id) {
+    /* `#648` · M8 · the ranked drawer. One row per member, ranked by TNT: rank ·
+       coin (a bare `coin.html` door) · TNT pill on `tntB` · the three axis
+       band WORDS · catalyst count · price with 24h move. The price cell is
+       `.mh-price[data-cgid]`, the same selector alpha.js's shared poll paints
+       (applyPrices, L740), so it is painted by the ONE existing fetch and the
+       600s re-poll; nothing here fetches, caches or re-renders the board. */
+    return '<div class="sxm-drawer" id="' + id + '" hidden>'
+      + '<div class="dh">' + esc(s.name) + '<span class="sub">' + s.n + ' coins, ranked by TNT</span><span class="esc">Esc closes</span></div>'
+      + '<table><thead><tr><th>#</th><th>coin</th><th>TNT</th><th>token · network · technicals</th>'
+      + '<th class="r w">catalysts</th><th class="r w">price · 24h</th></tr></thead><tbody>'
+      + s.m.map(function (t, i) {
+        return '<tr><td class="rk">' + (i + 1) + '</td>'
+          + '<td class="coin"><a href="coin.html" aria-label="' + esc(t.tk) + ', ' + esc(t.nm) + ', TNT ' + one(t.tnt) + '">'
+          + esc(t.tk) + '<span class="nm">' + esc(t.nm) + '</span></a></td>'
+          + '<td><span class="tnt-pill ' + (BW[t.tntB] || 'na') + '">' + one(t.tnt) + '</span></td>'
+          + '<td><span class="bb" aria-label="token ' + esc(String(t.tokB).toLowerCase()) + ', network ' + esc(String(t.netB).toLowerCase())
+          + ', technicals ' + esc(String(t.tecB).toLowerCase()) + '">'
+          + '<span class="' + (BC[t.tokB] || 'n') + '">' + (BW[t.tokB] || '') + '</span>'
+          + '<span class="' + (BC[t.netB] || 'n') + '">' + (BW[t.netB] || '') + '</span>'
+          + '<span class="' + (BC[t.tecB] || 'n') + '">' + (BW[t.tecB] || '') + '</span></span></td>'
+          + '<td class="r w">' + t.cat + '</td>'
+          + '<td class="r w">' + (t.cg ? '<span class="mh-price" data-cgid="' + esc(t.cg) + '">&#183;&#183;&#183;</span>' : 'no feed') + '</td></tr>';
+      }).join('')
+      + '</tbody></table></div>';
+  }
+  function shelfRow(s, word, idp) {
+    if (!s.n) return emptyShelfRow(s, word);
+    var beats = '<span class="beats"><b>' + s.beats + '</b> of ' + s.n + ' beat the board</span>';
+    var mid;
+    if (s.deep) {
+      var did = 'sxmDrawer-' + idp + '-' + s.name.replace(/[^A-Za-z0-9]/g, '');
+      mid = '<div class="sxm-mid"><div class="sxm-top"><span class="k">top 3</span>'
+        + s.top.map(function (t, i) {
+          return '<a class="sxm-chip" href="coin.html" aria-label="' + esc(t.tk) + ', ranked ' + (i + 1) + ' of ' + s.n + ' in ' + esc(s.name)
+            + ', TNT ' + one(t.tnt) + '"><span class="rk" aria-hidden="true">' + (i + 1) + '</span>' + esc(t.tk)
+            + '<span class="sc ' + (BC[t.tntB] || 'n') + '">' + one(t.tnt) + '</span></a>';
+        }).join('')
+        + '<button class="sxm-chev" type="button" aria-expanded="false" aria-controls="' + did + '"'
+        + ' aria-label="' + esc(s.name) + ': show all ' + s.n + ' coins ranked by TNT">'
+        + '<span class="tx">all ' + s.n + '</span><span class="cv" aria-hidden="true"></span></button></div>'
+        + stripHTML(s) + '</div>';
+    } else {
+      mid = stripHTML(s);
+    }
+    return '<div class="sxm-row">'
+      + '<div class="sxm-name" tabindex="-1">' + esc(s.name) + beats + '</div>'
+      + '<div class="sxm-n"><span class="k" aria-hidden="true">n</span>' + s.n + '<span class="sxm-sr"> coins</span></div>'
+      + mid + tallyHTML(s)
+      + (s.deep ? drawerHTML(s, 'sxmDrawer-' + idp + '-' + s.name.replace(/[^A-Za-z0-9]/g, '')) : '')
+      + '</div>';
+  }
+  (function sectors() {
+    var el = $('sxmSectors'), p = $('sxmM8p'); if (!el) return;
+    /* `#648` · M2 · deep shelves ranked on how many members beat the board
+       mean (ties on the mean); thin shelves by mean, under the thin rule; an
+       empty shelf sinks to the foot of the thin tier and is still drawn. */
+    var deep = SHELVES.filter(function (s) { return s.deep; })
+      .sort(function (a, b) { return (b.beats - a.beats) || (b.mean - a.mean); });
+    var thin = SHELVES.filter(function (s) { return !s.deep; })
+      .sort(function (a, b) { return (b.n ? b.mean : -Infinity) - (a.n ? a.mean : -Infinity); });
+    el.innerHTML = [ { T:TIERS[0], gs:deep }, { T:TIERS[1], gs:thin } ].map(function (x) {
+      if (!x.gs.length) return '';
+      var hid = 'sxmTier-sec-' + x.T.key;
+      return '<div class="sxm-tier" role="group" aria-labelledby="' + hid + '">'
+        + '<h3 class="sxm-tier-h" id="' + hid + '">' + esc(x.T.label) + '<span class="why">' + esc(x.T.why) + '</span></h3>'
+        + x.gs.map(function (s) { return shelfRow(s, 'sector', 'sec'); }).join('') + '</div>';
+    }).join('');
+    /* `#649` · the read line is a KEY TAKEAWAY on how many deep shelves have
+       a majority above the board mean. The tint rule it carried ("each cell
+       tinted by that coin's own TNT band with its real score") and the door
+       rule are RE-HOMED onto the new legend line, not deleted. */
+    if (p) writeTakeaway('sxmM8p', { shelves: SHELVES });
+    var lg = $('sxmM8lg');
+    if (lg) lg.innerHTML = '<span class="lg b">bullish</span><span class="lg n">neutral</span><span class="lg r">bearish</span>'
+      + '<span class="lg none">each cell is tinted by that coin’s own TNT band, with its real score; no shelf is banded</span>'
+      + '<span class="lg none">deep shelves pin their top three and open a ranked drawer in place · a cell, a chip or a drawer row opens the coin</span>';
+  })();
+
+  /* ── M8 · the drawer states · rest, hover, focus, open, closed ───────────
+     ONE open at a time. Opening a second closes the first. The drawer is the
+     last grid item of its row, so the row grows downward and never moves.
+     Esc anywhere inside the drawer, or on its open button, closes it and
+     returns focus to the button. Delegated once on the card. */
+  (function drawers() {
+    var card = $('sxmSectors'); if (!card) return;
+    function setOpen(btn, on) {
+      var d = $(btn.getAttribute('aria-controls')); if (!d) return;
+      btn.setAttribute('aria-expanded', on ? 'true' : 'false');
+      d.hidden = !on;
+      var tx = btn.querySelector('.tx');
+      if (tx) tx.textContent = on ? 'close' : 'all ' + d.querySelectorAll('tbody tr').length;
+      /* ⛔⛔ THE RE-CALL. Never remove it: this drawer emits its own
+         `.mh-price[data-cgid]` cells, so un-hiding one IS a price-cell render.
+         Without this the cells sit at `···` until the next 600s poll. It lives
+         at the END of setOpen — the single choke point every open path goes
+         through — never at a call site, which rots the day a second one lands. */
+      if (on) ALPHA_PAGE.paintPrices();
+    }
+    function close(focusBtn) {
+      if (!OPEN) return;
+      var b = OPEN; OPEN = null; setOpen(b, false);
+      if (focusBtn) b.focus();
+    }
+    card.addEventListener('click', function (e) {
+      var btn = e.target && e.target.closest ? e.target.closest('.sxm-chev') : null;
+      if (!btn) return;
+      if (OPEN === btn) { close(false); return; }
+      close(false); OPEN = btn; setOpen(btn, true);
+    });
+    card.addEventListener('keydown', function (e) {
+      if (e.key !== 'Escape' || !OPEN) return;
+      var inD = e.target.closest && e.target.closest('.sxm-drawer');
+      if (e.target === OPEN || (inD && inD.id === OPEN.getAttribute('aria-controls'))) {
+        e.preventDefault(); e.stopPropagation(); close(true);
+      }
+    });
+  })();
+
+  /* ══ M6 · THE ECOSYSTEM HEAD-TO-HEAD ═════════════════════════════════════ */
+  (function m6() {
+    var h = $('sxmEcoH2H'), el = $('sxmEcos'); if (!h || !el) return;
+    var live = ECOSH.filter(function (s) { return s.n; }).sort(bySort);
+    var empty = ECOSH.filter(function (s) { return !s.n; });
+    h.innerHTML = live.map(function (s) {
+      return '<section class="hc" aria-label="' + esc(s.name) + '">'
+        + '<div class="nm">' + esc(s.name) + '<span class="n">' + plural(s.n, 'coin') + (s.deep ? '' : ' · thin') + '</span></div>'
+        + '<div class="big"><span class="v">' + two(s.mean) + '</span><span class="l">mean TNT of its members</span></div>'
+        + '<p class="line"><b>' + s.beats + '</b> of ' + s.n + ' beat the board mean ' + two(MEAN) + ' · range <b>' + one(s.min) + '</b> to <b>' + one(s.max) + '</b></p>'
+        + '<div class="kv">'
+        + '<span>Net catalyst pressure</span><span class="v ' + (s.press > 0 ? 'pos' : s.press < 0 ? 'neg' : '') + '">' + sgn(s.press, String) + '</span>'
+        + '<span>Catalysts, bullish · neutral · bearish</span><span class="v">' + s.cat + ' · ' + s.bull + ' · ' + s.neu + ' · ' + s.bear + '</span>'
+        + '<span>Token → Technicals, mean</span><span class="v">' + two(s.tok) + ' → ' + two(s.tec) + '</span>'
+        + '<span>TNT bands</span><span class="v">' + s.tally.b + ' bullish · ' + s.tally.n + ' neutral · ' + s.tally.r + ' bearish</span>'
+        + '</div>' + stripHTML(s) + '</section>';
+    }).join('');
+    el.innerHTML = empty.length
+      ? '<div class="sxm-tier" role="group" aria-labelledby="sxmTier-eco-empty"><h3 class="sxm-tier-h" id="sxmTier-eco-empty">Stated empty'
+        + '<span class="why">these ecosystems exist before their coins do; nothing is scored and nothing is hidden</span></h3>'
+        + empty.map(function (s) { return emptyShelfRow(s, 'ecosystem'); }).join('') + '</div>'
+      : '';
+    if (h.parentNode) h.parentNode.setAttribute('data-h2h', String(live.length));
+    /* `#649` · M6's KEY TAKEAWAY, on the gap between the two highest
+       ecosystem means; the coverage line above it is untouched. */
+    writeTakeaway('sxmM6p', { ecos: ECOSH });
+  })();
 
   /* ── `#647` · THE COVERAGE LINE, Ecosystem Heat only ─────────────────────
      ⛔ EVERY FIGURE IS COUNTED HERE from `window.SECTOR_MAPS` over the board;
@@ -2879,8 +3885,8 @@ table.tok td.asset .lrow .tkr{font-family:var(--mono);font-size:11.5px;letter-sp
         who does not know that reads this pane as broken. */
   (function coverage() {
     var el = $('sxmCover'); if (!el) return;
-    var total = A.BOARD.length, carry = 0, memberships = 0, multi = 0;
-    A.BOARD.forEach(function (t) {
+    var total = B.length, carry = 0, memberships = 0, multi = 0;
+    B.forEach(function (t) {
       var k = M.ecosOf(t.tk).length;
       if (k) { carry++; memberships += k; }
       if (k > 1) multi++;
@@ -2889,8 +3895,8 @@ table.tok td.asset .lrow .tkr{font-family:var(--mono);font-size:11.5px;letter-sp
     el.innerHTML = '<b>' + carry + '</b> of the <b>' + total + '</b> coins carry an ecosystem, '
       + 'holding <b>' + memberships + '</b> memberships between them'
       + (multi ? ' (' + multi + (multi === 1 ? ' coin holds' : ' coins hold') + ' two)' : '')
-      + ' — the other ' + none + ' have no ecosystem yet, which is why this pane is '
-      + 'thinner than Sector Heat.';
+      + '. The other ' + none + ' have no ecosystem yet, which is why this pane is '
+      + 'thinner than Sector Heat and reads as a head-to-head rather than a table.';
   })();
 
   /* ── `#647` · KEYBOARD · ONE TAB STOP PER STRIP, ROVING FOCUS ────────────
@@ -2898,7 +3904,7 @@ table.tok td.asset .lrow .tkr{font-family:var(--mono);font-size:11.5px;letter-sp
      wrapping like the tab control above; Home / End jump; Enter is the
      link's own; Esc returns focus to the row label. Empty shelves hold no
      <a>, so they cost no stop. Delegated once per card, not per cell. */
-  ['sxmSectors', 'sxmEcos'].forEach(function (id) {
+  ['sxmSectors', 'sxmEcoH2H', 'sxmEcos'].forEach(function (id) {
     var card = $(id); if (!card) return;
     function cellsOf(a) {
       return [].slice.call(a.parentNode.querySelectorAll('a.sxm-cell'));
@@ -2930,58 +3936,64 @@ table.tok td.asset .lrow .tkr{font-family:var(--mono);font-size:11.5px;letter-sp
     });
   });
 
-  /* ── the tab control ─────────────────────────────────────────────────────
-     ⭐ THE EYEBROW AND THE LEDE FOLLOW THE PRESSED TAB. Seat C's top was
-        written under one pane and says "Which sectors are green…"; left fixed
-        above a two-tab control it would describe the wrong pane half the time.
-        The sector strings are C's opening sentence, finished for B's rows and
-        for multi-membership; the ecosystem strings are B's second-facet line
-        with its "at most one ecosystem" claim removed — that sentence is now
-        FALSE (`ZRO` and `W` hold two) and it would contradict the `+N` chips. */
-  var TABS = [
-    { tab:'sxmTabSec', pane:'sxmPaneSec', eyebrow:'SECTOR HEAT',
-      lede:'Which sectors are green and which are red, right now. Each cell is one coin, '
-         + 'tinted by that coin’s own real TNT band, with its real score printed. A coin '
-         + 'can hold more than one sector, so it appears on every shelf it holds — a row’s '
-         + 'count is how many coins carry that label, not a share of the board.' },
-    { tab:'sxmTabEco', pane:'sxmPaneEco', eyebrow:'ECOSYSTEM HEAT',
-      lede:'The second facet, and the same reading: one cell per coin, its own band, its own '
-         + 'score. A coin can sit in more than one ecosystem and many sit in none. Empty '
-         + 'shelves are real — they exist before the coins do.' }
-  ];
-
-  function select(i, focus) {
-    TABS.forEach(function (T, k) {
-      var b = $(T.tab), p = $(T.pane), on = (k === i);
-      if (!b || !p) return;
-      b.setAttribute('aria-selected', on ? 'true' : 'false');
-      b.tabIndex = on ? 0 : -1;
-      p.hidden = !on;
-      if (on) {
-        if ($('sxmEyebrow')) $('sxmEyebrow').textContent = T.eyebrow;
-        if ($('sxmLede'))    $('sxmLede').textContent    = T.lede;
-        if (focus) b.focus();
-      }
+  /* ── TAB CONTROLS · the ARIA tabs pattern, used twice ────────────────────
+     Once for the two top-level facets, once for the three sector angles.
+     Both: ← → ↑ ↓ Home End move the pressed tab (roving tabindex); Tab moves
+     into the pane. The inner control is NOT a third top-level tab. */
+  function tablist(TABS, onSelect) {
+    function select(i, focus) {
+      TABS.forEach(function (T, k) {
+        var b = $(T.tab), p = $(T.pane), on = (k === i);
+        if (!b || !p) return;
+        b.setAttribute('aria-selected', on ? 'true' : 'false');
+        b.tabIndex = on ? 0 : -1;
+        p.hidden = !on;
+        if (on) { if (onSelect) onSelect(T); if (focus) b.focus(); }
+      });
+    }
+    TABS.forEach(function (T, i) {
+      var b = $(T.tab);
+      if (!b) return;
+      b.addEventListener('click', function () { select(i, false); });
+      b.addEventListener('keydown', function (e) {
+        var k = e.key, last = TABS.length - 1, to = null;
+        if (k === 'ArrowRight' || k === 'ArrowDown') to = i === last ? 0 : i + 1;
+        else if (k === 'ArrowLeft' || k === 'ArrowUp') to = i === 0 ? last : i - 1;
+        else if (k === 'Home') to = 0;
+        else if (k === 'End') to = last;
+        if (to === null) return;
+        e.preventDefault();
+        select(to, true);
+      });
     });
+    select(0, false);
   }
 
-  TABS.forEach(function (T, i) {
-    var b = $(T.tab);
-    if (!b) return;
-    b.addEventListener('click', function () { select(i, false); });
-    b.addEventListener('keydown', function (e) {
-      var k = e.key, last = TABS.length - 1, to = null;
-      if (k === 'ArrowRight' || k === 'ArrowDown') to = i === last ? 0 : i + 1;
-      else if (k === 'ArrowLeft' || k === 'ArrowUp') to = i === 0 ? last : i - 1;
-      else if (k === 'Home') to = 0;
-      else if (k === 'End') to = last;
-      if (to === null) return;
-      e.preventDefault();
-      select(to, true);
-    });
+  /* ⭐ THE EYEBROW AND THE LEDE FOLLOW THE PRESSED TAB. Seat C's top was
+     written under one pane and says "Which sectors are green…"; left fixed
+     above a two-tab control it would describe the wrong pane half the time.
+     `#648`: the sector lede now names the three steps; the ecosystem lede
+     describes the head-to-head. Neither carries a figure. */
+  tablist([
+    { tab:'sxmTabSec', pane:'sxmPaneSec', eyebrow:'SECTOR HEAT',
+      lede:'The board from several angles, then one sector, then one coin. Step 1 reads the whole board: '
+         + 'which axis the green comes from, the average by sector, and every coin on one field. Step 2 '
+         + 'puts the ten shelves on one ruler three ways. Step 3 is the roster: each cell is one coin, tinted '
+         + 'by its own real TNT band with its real score, and every cell, chip and drawer row opens the coin. '
+         + 'A coin can hold more than one sector, so it appears on every shelf it holds.' },
+    { tab:'sxmTabEco', pane:'sxmPaneEco', eyebrow:'ECOSYSTEM HEAT',
+      lede:'The second facet as a head-to-head: the populated ecosystems side by side, each read over its own '
+         + 'members with the same cells, the same bands and the same counted figures. A coin can sit in more '
+         + 'than one ecosystem and many sit in none; the empty shelves are stated below, not hidden.' }
+  ], function (T) {
+    if ($('sxmEyebrow')) $('sxmEyebrow').textContent = T.eyebrow;
+    if ($('sxmLede'))    $('sxmLede').textContent    = T.lede;
   });
-
-  select(0, false);        /* `Sector Heat` is the load state, per `#633` */
+  tablist([
+    { tab:'sxmAngSpread', pane:'sxmPaneSpread' },
+    { tab:'sxmAngSource', pane:'sxmPaneSource' },
+    { tab:'sxmAngHot',    pane:'sxmPaneHot' }
+  ], null);
 })();
 </script>
 
