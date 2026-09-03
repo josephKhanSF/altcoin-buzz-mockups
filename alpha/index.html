@@ -1181,6 +1181,110 @@ table.tok td.asset .lrow .tkr{font-family:var(--mono);font-size:11.5px;letter-sp
   #sector-market .sxm-drawer td.coin a .nm{display:none}
 }
 </style>
+<style>
+/* ═══════════════════════════════════════════════════════════════════════════
+   THE RESEARCH VIEW · `#594`, built 2026-09-03 · E1 ruled `R2`.
+   ⛔ SCOPED TO `#view-research` THROUGHOUT. The board's `.sxrow` / `.filter.sx`
+      / `.sxdd` / `.mfind` / `.msortbtn` rules above are REUSED, not restated:
+      the filter bar is the board's control lifted, and it inherits the skin.
+   ⛔ HOUSE TOKENS ONLY. No new colour token; every colour below is a
+      `var(--…)` that alpha.css already defines.
+   ⭐ The card is coin.html's block-7 `.art` grammar (its rules live in
+      coin.html's page-local style, so the handful this page needs are
+      restated here under the view's own scope) plus R2's two additions: THE
+      READ and the CHECK STRIP. The `a.art` reset is `#650`'s rule, verbatim.
+   ═══════════════════════════════════════════════════════════════════════════ */
+#view-research .rs-pills{display:inline-flex;gap:8px;flex-wrap:wrap;align-items:center}
+#view-research .datepill{display:inline-block;font-family:var(--mono);font-size:11px;font-weight:600;
+  color:var(--dim);background:var(--bg-soft);border:1px solid var(--line2);
+  border-radius:var(--r-max);padding:4px 13px;white-space:nowrap}
+#view-research .rs-lede{font-family:var(--ui);font-size:13.5px;color:var(--mut);margin:-6px 0 18px;max-width:92ch}
+
+/* ── the filter bar ── */
+#view-research .rs-ctl{padding:12px 0 13px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-bottom:18px}
+#view-research .rs-find{display:flex;gap:12px;align-items:center;margin-top:11px}
+#view-research .rs-find .mfind{max-width:440px}
+#view-research .rs-count{white-space:nowrap}
+#view-research .rs-filterbtn{display:none}
+#view-research .rs-note{margin:11px 0 0;font-family:var(--ui);font-size:12.5px;line-height:1.45;color:var(--mut);
+  border-left:3px solid var(--gold);padding-left:11px}
+#view-research .rs-empty{font-family:var(--ui);font-size:13.5px;color:var(--mut);padding:18px 0}
+
+/* ── the feed: one column, newest first ── */
+#view-research .rs-feed{display:flex;flex-direction:column;gap:10px}
+#view-research .art{background:var(--card);border:1px solid var(--line);border-top:3px solid var(--gold);
+  border-radius:var(--r-card);box-shadow:var(--shadow);padding:14px 16px 0;display:flex;flex-wrap:wrap;
+  align-items:flex-start;gap:12px;overflow:hidden}
+#view-research a.art,#view-research a.art:hover,#view-research a.art:visited,#view-research a.art:focus{text-decoration:none;color:inherit}
+#view-research .art .thumb{width:96px;height:64px;flex:none;border:1.5px solid var(--gold-line);border-radius:var(--r-btn);
+  background:var(--gold-soft);display:flex;align-items:center;justify-content:center;padding:4px}
+#view-research .art .thumb img{width:30px;height:30px;display:block}
+#view-research .rs-bd{flex:1 1 420px;min-width:0}
+#view-research .rs-top{display:flex;gap:12px;align-items:flex-start}
+#view-research .art .ttl{font-size:15px;font-weight:600;line-height:1.35;color:var(--ink);flex:1;min-width:0}
+#view-research .rs-date{flex:none;font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:1.2px;
+  text-transform:uppercase;color:var(--dim);padding-top:2px}
+#view-research .rs-scope{margin-top:4px;font-family:var(--mono);font-size:9.5px;font-weight:600;letter-spacing:.9px;
+  text-transform:uppercase;color:var(--faint)}
+#view-research .rs-read{margin-top:10px}
+#view-research .rs-eyeb{display:block;font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:1.8px;
+  text-transform:uppercase;color:var(--goldtx);margin-bottom:4px}
+#view-research .rs-claim{font-family:var(--ui);font-size:14.5px;font-weight:600;line-height:1.45;color:var(--ink)}
+#view-research .rs-because{font-family:var(--ui);font-size:13.5px;line-height:1.5;color:var(--txt);margin-top:5px}
+#view-research .rs-because b{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:1.4px;
+  text-transform:uppercase;color:var(--dim);margin-right:6px}
+#view-research .chips2{display:flex;gap:5px;flex-wrap:wrap;margin:12px 0 14px}
+#view-research .coinchip{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--line2);
+  border-radius:var(--r-max);padding:2px 9px 2px 4px;background:var(--card)}
+#view-research .coinchip .tlogo{width:16px;height:16px;display:block}
+#view-research .coinchip .tlogo img{width:16px;height:16px;display:block}
+#view-research .coinchip .tk2{font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:1px;color:var(--dim)}
+#view-research .coinchip.more{padding:2px 10px;background:var(--gold-soft);border-color:var(--gold-line)}
+#view-research .coinchip.more .tk2{color:var(--goldtx)}
+/* `#621` · the band dot: 7px, the coin's `tntB` WORD mapped to a house colour,
+   never a score re-derived */
+#view-research .rs-dot{width:7px;height:7px;border-radius:50%;flex:none;background:var(--zero)}
+#view-research .rs-dot.b{background:var(--green)}
+#view-research .rs-dot.r{background:var(--red)}
+/* the check strip: full card width, under a hairline */
+#view-research .rs-strip{flex:0 0 calc(100% + 32px);margin:0 -16px;padding:10px 16px 11px;background:var(--bg-soft);
+  border-top:1px solid var(--line)}
+#view-research .rs-check{font-family:var(--mono);font-size:10.5px;font-weight:600;letter-spacing:1.2px;
+  text-transform:uppercase;color:var(--dim)}
+#view-research .rs-wcr{margin-top:6px;font-family:var(--ui);font-size:13px;line-height:1.5;color:var(--txt)}
+#view-research .rs-wcr b{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:1.4px;
+  text-transform:uppercase;color:var(--goldtx);margin-right:8px}
+
+/* ── the listen rail: coin.html block-8 grammar ── */
+#view-research .rs-listen{margin-top:34px;padding-top:22px;border-top:1px solid var(--line);margin-bottom:8px}
+#view-research .rs-eyeb-row{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+#view-research .rs-eyeb-row .ln{height:1px;background:var(--line);flex:1}
+#view-research .augrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+#view-research .au{background:var(--card);border:1px solid var(--line);border-radius:var(--r-card);
+  box-shadow:var(--shadow);padding:14px 16px;display:flex;align-items:flex-start;gap:13px}
+#view-research .au .play{width:38px;height:38px;flex:none;border-radius:var(--r-max);background:var(--ink);
+  display:flex;align-items:center;justify-content:center}
+#view-research .au .ttl{font-family:var(--mono);font-size:11.5px;font-weight:700;letter-spacing:1.2px;
+  text-transform:uppercase;color:var(--ink)}
+#view-research .au .meta2{font-size:13.5px;color:var(--mut);margin-top:4px}
+#view-research .au .gk{margin-top:7px;display:flex;gap:6px;flex-wrap:wrap}
+#view-research .au .fchip{display:inline-block;font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.9px;
+  border:1px solid var(--line2);border-radius:var(--r-max);padding:2px 9px;color:var(--dim)}
+
+/* ── below 1160 · the page's own `.sxrow{display:none}` already hides the
+      sector row; the choice moves into the EXISTING board sheet, opened by
+      the button below. The feed is one column at every width; the card
+      wraps its body under the tile once the row runs out of room. ── */
+@media (max-width:1160px){
+  #view-research .rs-filterbtn{display:inline-flex}
+  #view-research .rs-find .mfind{max-width:none}
+}
+@media (max-width:760px){
+  #view-research .augrid{grid-template-columns:1fr}
+  #view-research .rs-find{flex-wrap:wrap}
+  #view-research .rs-count{flex-basis:100%}
+}
+</style>
 </head>
 <body>
 
@@ -1648,19 +1752,106 @@ table.tok td.asset .lrow .tkr{font-family:var(--mono);font-size:11.5px;letter-sp
 </div>
 
 <!-- ════════════════════════════════════════════════════════════════════════
-     VIEW · RESEARCH — a STUB, and deliberately an empty one.
-     ⛔⛔ WHAT /research CONTAINS IS `E1`, WHICH IS OPEN AND THE OPERATOR'S TO
-        RULE. A stub that lists article categories has ANSWERED E1 by drawing
-        it. This one lists none.
+     VIEW · RESEARCH — ⭐ NO LONGER A STUB. `#594`, built 2026-09-03.
+     ⭐⭐ `E1` IS RULED: `R2`, "the article carries the read", operator
+        2026-09-03. The stub that sat here refused to draw an answer to E1
+        while it was open; it is open no longer, and this view now draws the
+        ruled answer. What it contains, in order (R2 §1):
+          1 · HEAD — the `Research` H1, TWO COMPUTED date pills (Fundamentals ·
+              Technicals, read from `ALPHA.PROVENANCE`, the same object
+              `#sxmAsof` and `#boardAsof` print from; no date is typed), and a
+              one-line lede.
+          2 · FILTER BAR — the board's own sector row, LIFTED not redrawn:
+              `.sxlbl` + eleven `.filter` chips (All + the nine ruled sectors +
+              Unassigned) + the `Ecosystem: Any` summary + `.mfind` + a
+              computed count. ⛔ NO band pills, NO `Decoupled` chip: both
+              research seats removed them (the round's one shared statement).
+              ⭐ ONE PREDICATE ON THE PAGE: the chips PROXY to `#sxRow`'s
+              buttons and the feed reads `window.SECTOR_LENS.ok`, so this row
+              and the board's can never disagree about what is selected.
+          3 · FEED — nine `<a class="art" href="article.html">` cards, newest
+              first, in coin.html's block-7 grammar plus R2's THE READ and
+              CHECK STRIP. No score, no band word; the only band-shaped
+              element is the 7px dot on each coin chip, read from `tntB`
+              (`#621`), never re-derived. The HYPE holder-rights card is the
+              lede of `article.html` (`#650`) and carries that article's READ
+              and BECAUSE verbatim: the two surfaces may not disagree.
+          4 · LISTEN — two `.au` cards, both the real latest episode from
+              `ALPHA.TOKEN.audio`. Never empty.
+     ⛔ THE RESEARCH STUB CARD IS DELETED, element and all, the way `#stubMarket`
+        went: `renderStubs()` guards on the stub's id (alpha.js L1077), so no
+        shared file is edited and the research branch never runs.
+        `ALPHA.STUBS.research` is now a live string with no reader.
+     ⛔ NO CATEGORY TAXONOMY IS DRAWN. The product set is `TBD-11` and is ruled
+        there, not here; sector + coin + recency are the axes on this page.
+     ⛔ NO `F-NNN` ON SCREEN (`#608 §4.2`): a card carries a fact COUNT, never a
+        key. ⛔ Every card href is the bare `article.html` (`#650`), the same
+        prop shape as the board rows' bare `coin.html`; no query string.
+     ⛔ The masthead layer coin.html carries is NOT copied here: this is an
+        in-page view of index.html, which already owns its masthead.
      ⭐ The label stays `Research`: the articles are housed there and it reads
         better than the alternatives.
-     ════════════════════════════════════════════════════════════════════════ -->
+     ═══ everything inside this view is painted by the RESEARCH engine at the
+         foot of the page; the markup below is the shell it fills ═══════════ -->
 <div class="view" id="view-research" hidden>
   <div class="viewhead">
     <h2 class="page-h1">Research</h2>
+    <!-- ⛔ FILLED FROM `ALPHA.PROVENANCE`. No date is typed here. -->
+    <span class="rs-pills" id="rsPills"></span>
     <a class="backlink" href="index.html#/coins" data-goto="coins">‹ Back to the scoreboard</a>
   </div>
-  <div class="card stub" id="stubResearch"></div>
+  <p class="rs-lede">Every write up behind a score. What the catalyst is, and what we conclude from it.</p>
+
+  <!-- 2 · THE FILTER BAR. Same skin, same order, same predicate as the board.
+       The chips are PROXIES: each click forwards to the matching `#sxRow`
+       button, and the pressed state is mirrored back from it. -->
+  <div class="rs-ctl">
+    <div class="sxrow" id="rsRow" role="group" aria-label="Filter write ups by sector">
+      <span class="sxlbl">Sector</span>
+      <button class="filter sx" type="button" data-rsx="all" aria-pressed="true">All</button>
+      <button class="filter sx" type="button" data-rsx="L1/L2" aria-pressed="false">L1/L2</button>
+      <button class="filter sx" type="button" data-rsx="DeFi" aria-pressed="false">DeFi</button>
+      <button class="filter sx" type="button" data-rsx="DEX" aria-pressed="false">DEX</button>
+      <button class="filter sx" type="button" data-rsx="CEX" aria-pressed="false">CEX</button>
+      <button class="filter sx" type="button" data-rsx="RWA" aria-pressed="false">RWA</button>
+      <button class="filter sx" type="button" data-rsx="DePIN" aria-pressed="false">DePIN</button>
+      <button class="filter sx" type="button" data-rsx="Memecoins" aria-pressed="false">Memecoins</button>
+      <button class="filter sx" type="button" data-rsx="AI" aria-pressed="false">AI</button>
+      <button class="filter sx" type="button" data-rsx="Privacy" aria-pressed="false">Privacy</button>
+      <button class="filter sx" type="button" data-rsx="Unassigned" aria-pressed="false">Unassigned</button>
+      <details class="sxdd" id="rsDD">
+        <summary aria-label="Filter write ups by ecosystem">
+          <span class="filter sx" id="rsEcoLbl">Ecosystem: Any</span>
+        </summary>
+        <div class="sxmenu" id="rsEcoMenu" role="group" aria-label="Ecosystem"></div>
+      </details>
+    </div>
+    <div class="rs-find">
+      <div class="mfind">
+        <svg class="mf-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+        <input id="rsFind" type="search" autocomplete="off" placeholder="Find a coin by name or ticker" aria-label="Find a coin by name or ticker">
+        <button class="mf-x" id="rsFindX" type="button" aria-label="Clear search" hidden>&times;</button>
+      </div>
+      <!-- below 1160 the sector row hides (the page's own `.sxrow` rule) and
+           the choice lives in the EXISTING board sheet; this button opens it.
+           No second sheet. -->
+      <button class="msortbtn rs-filterbtn" id="rsFilterBtn" type="button" aria-controls="mSheet" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M7 12h10M10 18h4"/></svg>
+        <span>Sector</span>
+      </button>
+      <span class="one rs-count" id="rsCount"></span>
+    </div>
+    <p class="rs-note">Band colour on a coin chip is that coin&#8217;s current TNT band, read from the board. Nothing on this page recalculates a score.</p>
+  </div>
+
+  <!-- 3 · THE FEED · painted by the engine, newest first -->
+  <div class="rs-feed" id="rsFeed"></div>
+
+  <!-- 4 · LISTEN · painted by the engine from `ALPHA.TOKEN.audio` -->
+  <section class="rs-listen">
+    <div class="rs-eyeb-row"><span class="eyebrow">Listen</span><span class="ln"></span></div>
+    <div class="augrid" id="rsAudio"></div>
+  </section>
 </div>
 
 <!-- VIEW · HOW WE SCORE — every gatebar on the site links here. -->
@@ -4035,6 +4226,260 @@ table.tok td.asset .lrow .tkr{font-family:var(--mono);font-size:11.5px;letter-sp
     { tab:'sxmAngSource', pane:'sxmPaneSource' },
     { tab:'sxmAngHot',    pane:'sxmPaneHot' }
   ], null);
+})();
+</script>
+<script>
+/* ═══════════════════════════════════════════════════════════════════════════
+   THE RESEARCH VIEW · ENGINE · `#594`, built 2026-09-03 · E1 ruled `R2`.
+   Paints `#view-research`: the two date pills, the ecosystem menu, the feed
+   and the listen rail. Nothing here is fetched; nothing here writes a price.
+   ⛔ NO PRICE PATH. Nothing in this view is a `td.price`, so the price
+      painter has nothing to paint here and is not called — the `#648 rev-1` view-
+      switch re-paint on the BOARD is untouched.
+   ⛔ NO TAXONOMY LIVES HERE. Sector / ecosystem membership is read through
+      `window.SECTOR_MAPS`; selection is read through `window.SECTOR_LENS.ok`,
+      the board's OWN predicate. The chips in this view forward their clicks
+      to `#sxRow` / `#sxEcoMenu`, so there is ONE selection on the page and
+      the board, the market dashboard and this feed all read it.
+   ⛔ NO SCORE IS RE-DERIVED (`#621`). The only band-shaped element is the dot
+      on a coin chip, and it is the row's `tntB` WORD mapped to a colour.
+   ⛔ NO DATE IS TYPED FOR THE PILLS: both read `ALPHA.PROVENANCE`, the object
+      `#boardAsof` and `#sxmAsof` print from. A card's `board as of` is the
+      LATEST `asof` among its coins' `ALPHA.BOARD` rows, computed per card.
+   ⛔ THE FOUR REAL TITLES ARE READ FROM `ALPHA.TOKEN.articles` BY INDEX, with
+      their real `scope`; they are not retyped here. The five invented titles,
+      the dates, the READ / BECAUSE / WOULD-CHANGE copy, the `bears on`
+      axis and six of the nine fact counts are DUMMY and are registered in
+      Website/DUMMY_DATA_MANIFEST_2026-09-01.md §8. The HYPE holder-rights
+      card carries article.html's READ and BECAUSE verbatim and its real
+      count of 20 (`#650`).
+   ⛔ EVERY BECAUSE NAMES A COUNTABLE THAT IS ON THE SITE NOW, re-checked
+      against `ALPHA.BOARD` at build time; the field each one rests on is
+      named beside it below.
+   ═══════════════════════════════════════════════════════════════════════════ */
+(function () {
+  'use strict';
+  var $ = function (id) { return document.getElementById(id); };
+  var A = window.ALPHA;
+  if (!A || !A.BOARD || !$('rsFeed')) return;
+
+  function esc(t){ return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;'); }
+  var MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  function nice(iso){
+    var p = String(iso).split('-');
+    if (p.length !== 3) return esc(iso);
+    return String(Number(p[2])) + ' ' + MONTHS[Number(p[1]) - 1];
+  }
+  var BY = {};
+  A.BOARD.forEach(function (r) { BY[r.tk] = r; });
+  var BC = { BULLISH:'b', NEUTRAL:'n', BEARISH:'r' };
+
+  /* ── 1 · THE TWO PILLS · read, not typed ─────────────────────────────── */
+  var P = A.PROVENANCE || {};
+  if ($('rsPills')) {
+    $('rsPills').innerHTML =
+        '<span class="datepill">Fundamentals as of ' + esc(P.fundamentalsTo || 'not set') + '</span>'
+      + '<span class="datepill">Technicals as of ' + esc(P.technicalsTo || 'not set') + '</span>';
+  }
+
+  /* ── 3 · THE NINE WRITE UPS · newest first ───────────────────────────────
+     `cfg` = index into ALPHA.TOKEN.articles (title + scope read from there).
+     `t` / `scope` on the other five are invented (manifest §8). */
+  var ART = A.TOKEN && A.TOKEN.articles ? A.TOKEN.articles : [];
+  var ARTICLES = [
+    { t:'Chainlink Runs the Highest Network Score on the Board. Its Token Does Not.',
+      scope:'about this coin', coins:['LINK'], date:'2026-09-01', facts:9, bears:'Token',
+      claim:'The oracle layer is winning and the token is not the vehicle for it. Treat LINK as adoption exposure only where a catalyst names the token.',
+      /* LINK row: net 7.0 · tok 5.1 · cat 15 · net−tok 1.9 is the board's widest */
+      because:'Network 7.0 against Token 5.1 across fifteen catalyst rows. That 1.9 gap is the widest Network over Token spread on the board.',
+      would:'One catalyst that routes network fees to the token. None of the fifteen does today.' },
+    { t:'Bitcoin’s Chart Is the Strongest Thing About It Right Now.',
+      scope:'about this coin', coins:['BTC'], date:'2026-08-29', facts:7, bears:'Technicals',
+      claim:'Technicals are carrying the composite and the fundamentals are not underneath it. That is a tradeable setup and a weak holding case, and we would not let one stand in for the other.',
+      /* BTC row: tok 4.2 BEARISH · net 4.8 NEUTRAL · tec 7.4 */
+      because:'Token 4.2 bearish and Network 4.8 neutral under a technicals read of 7.4.',
+      would:'The technicals read expiring without the other two axes moving up to meet it.' },
+    { t:'Solana’s Chain Keeps Winning. Its Token Keeps Paying For It.',
+      scope:'about this coin', coins:['SOL'], date:'2026-08-26', facts:14, bears:'Token',
+      claim:'The network case is intact and the token case is not. The bearish weight sits on supply reaching the coin, not on anything the chain is doing.',
+      /* SOL row: cat 20 · mix [3,8,9] · tok 4.4 BEARISH · net 5.6 BULLISH */
+      because:'Twenty catalyst rows: nine bearish on the token, three bullish. Token 4.4 bearish under Network 5.6 bullish.',
+      would:'The bearish rows clearing without replacements opening. The token read would move before the network read does.' },
+    { cfg:1, coins:['HYPE'], date:'2026-08-22', facts:20, bears:'Token',
+      /* article.html's READ and BECAUSE, verbatim (`#650`). HYPE row: cat 13 ·
+         tok 4.6 · net 5.3; the 2.0 is coin.html's `hype-unlocks` row */
+      claim:'A HYPE holder owns a delegated vote inside a two-thirds threshold, a reward stream paid in newly issued coins, and no vote at all over the release schedule that issues them.',
+      because:'the coin page scores thirteen catalysts for HYPE, and the lowest of the thirteen is the unlock cadence at 2.0, on a token side averaging 4.6 against a network side at 5.3.',
+      would:'One month claimed near the authorisation. Behaviour is a record, not a covenant.' },
+    { t:'Tokenised Treasuries Are Working. Read the Fee Path Before You Read the Token.',
+      scope:'about this coin', coins:['ONDO'], date:'2026-08-19', facts:11, bears:'Token',
+      claim:'The RWA build out is real and ONDO captures it indirectly. The Network score is the honest one here; the Token score is the one worth arguing with.',
+      /* ONDO row: net 6.1 BULLISH · tok 4.6 NEUTRAL · cat 11 · mix [0,10,1] */
+      because:'Network 6.1 bullish over Token 4.6 neutral, and ten of the eleven rows read token neutral.',
+      would:'A single row moving to token bullish. Ten sitting neutral is not indecision, it is a mechanism that does not reach the coin.' },
+    { cfg:0, coins:['HYPE'], date:'2026-08-15', facts:6, bears:'Network',
+      claim:'Bigger, yes. Stronger for the token only where fees route back. HIP-3 lifts the network read and leaves the token read close to where it was.',
+      /* coin.html `hype-hyperevm` row: net 8.0 · tok 5.7 · six sources */
+      because:'The HIP-3 row scores Network 8.0 against Token 5.7. Both moved. They did not move together.',
+      would:'A fee route from HIP-3 markets into the buyback, announced rather than implied.' },
+    { cfg:2, coins:['HYPE','PUMP','XRP','AAVE','JUP','ENA'], date:'2026-08-12', facts:7, bears:'Token',
+      claim:'A buyback only reaches the token when the bid is funded by revenue the token has a claim on. On that one test, six engines that look identical split three ways.',
+      /* tok: HYPE 4.6 · XRP 4.7 · ENA 4.9 · PUMP 5.0 · AAVE 5.4 · JUP 5.5, all six tokB NEUTRAL */
+      because:'Same mechanism, six coins, and the Token scores run from 4.6 to 5.5 on rows that all read token neutral.',
+      would:'A disclosed, revenue funded source on any of the low three. It would move that coin and only that coin.' },
+    { cfg:3, coins:['ZEC','LIT','BTC','HYPE','ZRO'], date:'2026-08-08', facts:12, bears:'Token',
+      claim:'Four of the five cliffs are already priced into the Token score. The fifth is the one that is not, and it is the reason this piece exists.',
+      /* tok: BTC 4.2 (lowest of the five) · ZEC 5.6 (highest); coin.html `hype-unlocks` row tok 2.0 */
+      because:'Five coins share the event shape and their Token scores run from 4.2 to 5.6, while the lowest catalyst row on the coin page, the HYPE unlock cadence at 2.0, sits under one of them.',
+      would:'Any of the five publishing a claim record against its authorisation. One of them does.' },
+    { t:'Zcash Scores Bullish on Every Axis. Here Is Where That Breaks.',
+      scope:'about this coin', coins:['ZEC'], date:'2026-08-05', facts:10, bears:'Technicals',
+      claim:'A clean sweep is the reading most worth stress testing. The technicals are carrying more of the 6.7 than the fundamentals are.',
+      /* ZEC row: tok 5.6 · net 5.7 · tec 7.7 · tnt 6.7 · cat 11 · mix [7,2,2] */
+      because:'Token 5.6 and Network 5.7 against Technicals 7.7. Eleven rows: seven bullish, two neutral, two bearish.',
+      would:'The technicals read expiring without the fundamentals moving up. The composite would drop without a single catalyst changing.' }
+  ];
+  ARTICLES.forEach(function (a) {
+    if (a.cfg !== undefined && ART[a.cfg]) { a.t = ART[a.cfg].title; a.scope = ART[a.cfg].scope; }
+  });
+  ARTICLES.sort(function (x, y) { return x.date < y.date ? 1 : x.date > y.date ? -1 : 0; });
+
+  function scopeLabel(s){ return s.charAt(0).toUpperCase() + s.slice(1); }
+  function boardAsOf(coins){
+    var d = '';
+    coins.forEach(function (tk) { var r = BY[tk]; if (r && r.asof > d) d = r.asof; });
+    return d;
+  }
+  function chip(tk){
+    var r = BY[tk], band = r ? (BC[r.tntB] || 'n') : 'n';
+    return '<span class="coinchip">'
+      + '<span class="tlogo"><img src="assets/token_logos/' + esc(tk) + '.svg" alt=""></span>'
+      + '<span class="rs-dot ' + band + '" aria-hidden="true"></span>'
+      + '<span class="tk2">' + esc(tk) + '</span></span>';
+  }
+  function chips(coins){
+    var h = coins.slice(0, 3).map(chip).join('');
+    if (coins.length > 3) h += '<span class="coinchip more"><span class="tk2">+' + (coins.length - 3) + '</span></span>';
+    return h;
+  }
+  function card(a){
+    var lead = a.coins[0];
+    return '<a class="art" href="article.html">'
+      + '<div class="thumb" aria-hidden="true"><img src="assets/token_logos/' + esc(lead) + '.svg" alt=""></div>'
+      + '<div class="rs-bd">'
+      +   '<div class="rs-top"><div class="ttl">' + esc(a.t) + '</div><span class="rs-date">' + nice(a.date) + '</span></div>'
+      +   '<div class="rs-scope">' + esc(scopeLabel(a.scope)) + ' &#183; Altcoin Buzz Research</div>'
+      +   '<div class="rs-read"><span class="rs-eyeb">The read</span>'
+      +     '<div class="rs-claim">' + esc(a.claim) + '</div>'
+      +     '<div class="rs-because"><b>Because</b>' + esc(a.because) + '</div></div>'
+      +   '<div class="chips2">' + chips(a.coins) + '</div>'
+      + '</div>'
+      + '<div class="rs-strip">'
+      +   '<div class="rs-check">' + a.facts + ' sourced facts &#183; bears on: ' + esc(a.bears)
+      +     ' &#183; board as of ' + nice(boardAsOf(a.coins)) + '</div>'
+      +   '<div class="rs-wcr"><b>Would change the read</b>' + esc(a.would) + '</div>'
+      + '</div></a>';
+  }
+
+  /* ── 2 · THE PREDICATE · the board's, plus this view's own search ────────
+     A write up shows when at least one of its coins passes SECTOR_LENS.ok
+     (sector + ecosystem, the board's selection) AND, when the box is not
+     empty, one of its coins' ticker or name contains the query. */
+  var L = window.SECTOR_LENS, q = '';
+  function okCoin(tk){ return !L || L.ok(tk); }
+  function hit(tk){
+    if (!q) return true;
+    var r = BY[tk];
+    return tk.toLowerCase().indexOf(q) > -1 || (r && r.nm.toLowerCase().indexOf(q) > -1);
+  }
+  function show(a){
+    var s = false, f = false;
+    a.coins.forEach(function (tk) { if (okCoin(tk)) s = true; if (hit(tk)) f = true; });
+    return s && f;
+  }
+  function paintFeed(){
+    var out = ARTICLES.filter(show);
+    $('rsFeed').innerHTML = out.length
+      ? out.map(card).join('')
+      : '<p class="rs-empty">No write up carries a coin on this shelf yet.</p>';
+    var n = out.length, m = ARTICLES.length;
+    $('rsCount').textContent = (n === m ? n : n + ' of ' + m) + ' write up' + (m === 1 ? '' : 's');
+  }
+
+  /* ── the chips MIRROR the board's row; a click FORWARDS to it ─────────── */
+  var srcRow = $('sxRow'), srcMenu = $('sxEcoMenu'), srcLbl = $('sxEcoLbl');
+  function mirror(){
+    if (srcRow) Array.prototype.forEach.call($('rsRow').querySelectorAll('[data-rsx]'), function (b) {
+      var s = srcRow.querySelector('.filter.sx[data-sx="' + b.getAttribute('data-rsx') + '"]');
+      b.setAttribute('aria-pressed', s ? s.getAttribute('aria-pressed') : 'false');
+    });
+    if (srcMenu) Array.prototype.forEach.call($('rsEcoMenu').querySelectorAll('[data-reco]'), function (b) {
+      var s = srcMenu.querySelector('button[data-eco="' + b.getAttribute('data-reco') + '"]');
+      b.setAttribute('aria-pressed', s ? s.getAttribute('aria-pressed') : 'false');
+    });
+    if (srcLbl) $('rsEcoLbl').textContent = srcLbl.textContent;
+  }
+  Array.prototype.forEach.call($('rsRow').querySelectorAll('[data-rsx]'), function (b) {
+    b.addEventListener('click', function(){
+      var s = srcRow && srcRow.querySelector('.filter.sx[data-sx="' + b.getAttribute('data-rsx') + '"]');
+      if (s) s.click();
+    });
+  });
+  /* the ecosystem menu: the same entries as `#sxEcoMenu`, read from it */
+  var dd = $('rsDD');
+  if (srcMenu) {
+    $('rsEcoMenu').innerHTML = Array.prototype.map.call(srcMenu.querySelectorAll('button[data-eco]'), function (s) {
+      return '<button type="button" data-reco="' + esc(s.getAttribute('data-eco')) + '" aria-pressed="'
+        + s.getAttribute('aria-pressed') + '">' + esc(s.firstChild ? s.firstChild.textContent : s.textContent) + '</button>';
+    }).join('');
+    Array.prototype.forEach.call($('rsEcoMenu').querySelectorAll('[data-reco]'), function (b) {
+      b.addEventListener('click', function(){
+        dd.removeAttribute('open');
+        var s = srcMenu.querySelector('button[data-eco="' + b.getAttribute('data-reco') + '"]');
+        if (s) s.click();
+      });
+    });
+  }
+  document.addEventListener('click', function (e) {
+    if (dd.hasAttribute('open') && !dd.contains(e.target)) dd.removeAttribute('open');
+  });
+  window.addEventListener('resize', function(){ if (dd.hasAttribute('open')) dd.removeAttribute('open'); });
+
+  /* below 1160 · open the EXISTING board sheet; its sector chips drive the
+     same selection this feed reads */
+  var fb = $('rsFilterBtn'), sbtn = $('mSortBtn');
+  if (fb && sbtn) fb.addEventListener('click', function(){ sbtn.click(); });
+
+  /* the search box · this view's own, like the board's is the board's */
+  var find = $('rsFind'), fx = $('rsFindX');
+  function onFind(){
+    q = find.value.trim().toLowerCase();
+    fx.hidden = !q;
+    paintFeed();
+  }
+  find.addEventListener('input', onFind);
+  fx.addEventListener('click', function(){ find.value = ''; onFind(); find.focus(); });
+
+  /* ── 4 · LISTEN · the real latest episode, from ALPHA.TOKEN.audio ───────
+     Episode numbers and publish dates are the SAME registered dummies
+     coin.html block 8 and article.html block 9 carry (manifest §1 / §7). */
+  var AU = (A.TOKEN && A.TOKEN.audio) || {};
+  function isoIn(s){ return String(s).replace(/(\d{4}-\d{2}-\d{2})/g, function (m) { return nice(m); }); }
+  function au(t, meta, ep, pub){
+    return '<div class="au">'
+      + '<span class="play"><svg width="13" height="14" viewBox="0 0 13 14" aria-hidden="true"><path d="M2 1.5 L11.5 7 L2 12.5 Z" fill="var(--bg)"/></svg></span>'
+      + '<div style="min-width:0"><div class="ttl">' + esc(t) + '</div>'
+      + '<div class="meta2">' + meta + '</div>'
+      + '<div class="gk"><span class="fchip">Episode ' + ep + '</span><span class="fchip">Published ' + pub + '</span></div></div></div>';
+  }
+  if (AU.market && AU.token) {
+    $('rsAudio').innerHTML =
+        au(AU.market.title, 'Market-wide &#183; ' + esc(isoIn(AU.market.ep)) + ' &#183; ' + esc(AU.market.len) + ' &#183; ' + esc(AU.market.voices), 33, '16 Aug')
+      + au(AU.token.title, esc(isoIn(AU.token.ep)) + ' &#183; ' + esc(AU.token.len), 12, '21 Aug');
+  }
+
+  mirror(); paintFeed();
+  if (L) L.subscribe(function(){ mirror(); paintFeed(); });
 })();
 </script>
 
