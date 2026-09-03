@@ -299,6 +299,11 @@
 .art{background:var(--card);border:1px solid var(--line);border-top:3px solid var(--gold);
   border-radius:var(--r-card);box-shadow:var(--shadow);padding:14px 16px;display:flex;
   align-items:flex-start;gap:12px}
+/* #650 · 2026-09-03 · the four GO DEEPER cards became <a href="article.html">.
+   THE SKIN IS UNCHANGED IN EFFECT: this reset kills the only two things an
+   anchor adds, the underline and the link colour. No hover shift, no visited
+   state, no new token. Geometry, border, shadow and padding untouched. */
+a.art,a.art:hover,a.art:visited,a.art:focus{text-decoration:none;color:inherit}
 /* #595 · 2026-09-02 · the thumb is now the HOUSE TILE, not a greeked frame:
    the card's own band colour (gold) tinting a flat panel with the coin logo
    centred, aria-hidden, identical on all four cards. It is a house thumbnail
@@ -1424,7 +1429,7 @@ a.acct{text-decoration:none}
     <div class="sec-eyeb"><span class="n">7</span><span class="eyebrow">GO DEEPER</span></div>
     <div class="artgrid">
 
-      <div class="art">
+      <a class="art" href="article.html">
         <div class="thumb" aria-hidden="true"><img src="assets/token_logos/HYPE.svg" alt=""></div>
         <div style="min-width:0">
           <div class="ttl">HIP-3 Made Hyperliquid Bigger. Did It Make HYPE Stronger?</div>
@@ -1432,9 +1437,9 @@ a.acct{text-decoration:none}
             <span class="coinchip"><span class="tlogo"><img src="assets/token_logos/HYPE.svg" alt=""></span><span class="tk2">HYPE</span></span>
           </div>
         </div>
-      </div>
+      </a>
 
-      <div class="art">
+      <a class="art" href="article.html">
         <div class="thumb" aria-hidden="true"><img src="assets/token_logos/HYPE.svg" alt=""></div>
         <div style="min-width:0">
           <div class="ttl">What HYPE Holders Actually Own: Validator Authority and the Unlock Calendar</div>
@@ -1442,9 +1447,9 @@ a.acct{text-decoration:none}
             <span class="coinchip"><span class="tlogo"><img src="assets/token_logos/HYPE.svg" alt=""></span><span class="tk2">HYPE</span></span>
           </div>
         </div>
-      </div>
+      </a>
 
-      <div class="art">
+      <a class="art" href="article.html">
         <div class="thumb" aria-hidden="true"><img src="assets/token_logos/HYPE.svg" alt=""></div>
         <div style="min-width:0">
           <div class="ttl">Every Big Buyback Engine, Side by Side. Why the Token Scores Split.</div>
@@ -1455,9 +1460,9 @@ a.acct{text-decoration:none}
             <span class="coinchip more"><span class="tk2">+3</span></span>
           </div>
         </div>
-      </div>
+      </a>
 
-      <div class="art">
+      <a class="art" href="article.html">
         <div class="thumb" aria-hidden="true"><img src="assets/token_logos/HYPE.svg" alt=""></div>
         <div style="min-width:0">
           <div class="ttl">Five Coins Carrying a Cliff</div>
@@ -1468,7 +1473,7 @@ a.acct{text-decoration:none}
             <span class="coinchip more"><span class="tk2">+2</span></span>
           </div>
         </div>
-      </div>
+      </a>
 
     </div>
   </section>

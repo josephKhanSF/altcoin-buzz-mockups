@@ -1,0 +1,1022 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<!-- THE ARTICLE PAGE · #650 · built 2026-09-03 from PROMPT_article-page_2026-09-03.md
+     on SPEC_item650_article-page_2026-09-03.md (every §2 default RULED, D3 FROZEN).
+
+     WHAT THIS PAGE IS. A free, FULL-STRENGTH, one-subject one-moment SNAPSHOT
+     article (#608 §8.1) in coin.html's block grammar, with R2's THE READ +
+     CHECK STRIP as its lede. Subject: the HYPE holder-rights / unlock piece,
+     the second GO DEEPER title in alpha-config.js TOKEN.articles.
+
+     D3 FROZEN. Every board figure here is TYPED at the as-of date and is never
+     read live. Board as-of 2026-08-04 · technicals as-of 2026-08-19 · TNT 5.6
+     BULLISH · Token 4.6 NEUTRAL · Network 5.3 NEUTRAL · Technicals 6.6 BULLISH.
+     Same vintage coin.html prints, from DATAPACK_coinpage-HYPE_2026-08-21.md
+     L21-34. The page carries ONE affordance saying the live board has moved
+     since (5.6 -> 5.7), and THAT DELTA IS THE CTA. The delta is a TYPED LIVE
+     PROP: there is no fetch on this page, alpha.js is not loaded (as coin.html),
+     and the rebuild is what computes it. Registered in
+     Website/DUMMY_DATA_MANIFEST_2026-09-01.md §7.
+
+     FACTS. Every body paragraph traces to an F-NNN in
+     Channels/CH-003-altcoin-buzz/Leads/20260624-hype_hold-572fd0c1/
+     FACT_AUDIT_20260624-hype_hold-572fd0c1.md. No [OPERATOR-VERIFY] and no
+     [GAP] fact is stated as a bare claim: the four that appear are in WOULD
+     CHANGE THE READ, named as gaps.
+
+     og:image is a LAUNCH FIELD and is deliberately OMITTED - no social card
+     asset exists for a per-article URL, and the URL scheme itself is #584's
+     launch track. og:title and og:description are real strings.
+
+     CSS: page-specific components only, copied INLINE from coin.html exactly as
+     coin.html does it. Palette, radii and type come from the alpha.css house
+     tokens. No :root here, no new colour token. alpha.css is NOT edited (#592). -->
+<title>What HYPE Holders Actually Own: Validator Authority and the Unlock Calendar &#183; Altcoin Buzz Research</title>
+<meta name="description" content="What a HYPE holder actually holds: a delegated vote inside a two-thirds threshold, a reward stream paid in new issuance, and no vote over the release schedule. Scored 4 August 2026.">
+<meta property="og:title" content="What HYPE Holders Actually Own: Validator Authority and the Unlock Calendar">
+<meta property="og:description" content="A delegated vote inside a two-thirds threshold, staking rewards paid from the future emissions reserve, and an unlock ceiling no holder votes on. Altcoin Buzz Research, board as of 4 August 2026.">
+<meta property="og:type" content="article">
+<link rel="stylesheet" href="alpha.css">
+<style>
+/* ══════════════════════════════════════════════════════════════════════
+   PAGE-SPECIFIC COMPONENTS ONLY. Palette, radii, type all come from the
+   alpha.css house tokens - no :root here, no serif, no non-house radii.
+   Everything above the "ARTICLE-ONLY" rule is copied from coin.html.
+   ══════════════════════════════════════════════════════════════════════ */
+
+/* ---- shared page primitives (the D-50 normalised set) ------------------ */
+.sec-eyeb{display:flex;align-items:center;gap:10px;margin:34px 0 14px}
+.sec-eyeb .n{width:22px;height:22px;border:1.5px solid var(--gold);border-radius:var(--r-btn);
+  color:var(--goldtx);font-family:var(--mono);font-size:11px;font-weight:700;
+  display:inline-flex;align-items:center;justify-content:center;flex:none}
+.sec-eyeb .spacer{margin-left:auto}
+.read{font-family:var(--ui);font-style:italic;font-size:13.5px;color:var(--txt);line-height:1.45}
+.bchip{display:inline-block;font-family:var(--mono);font-size:10.5px;font-weight:700;
+  letter-spacing:1.2px;text-transform:uppercase;border-radius:var(--r-max);padding:2px 9px;
+  border:1px solid transparent}
+.bchip.bull{color:var(--green);background:var(--green-soft);border-color:rgba(21,130,74,.26)}
+.bchip.neut{color:var(--zero);background:var(--zero-soft);border-color:rgba(92,98,108,.26)}
+.bchip.bear{color:var(--red);background:var(--red-soft);border-color:rgba(191,61,61,.26)}
+/* R2 item 1 · THE date pill: one component, one size, one tint. On this page
+   the two pills are the AS-OF STAMP and they are a HEADLINE element (§8.1),
+   not a footnote - so they sit in the article head, at .lg size. */
+.datepill{display:inline-block;font-family:var(--mono);font-size:11px;font-weight:600;
+  color:var(--dim);background:var(--bg-soft);border:1px solid var(--line2);
+  border-radius:var(--r-max);padding:4px 13px;white-space:nowrap}
+.fchip{display:inline-block;font-family:var(--mono);font-size:11px;font-weight:700;color:var(--dim);
+  border:1px solid var(--line2);border-radius:var(--r-max);padding:3px 12px;background:var(--bg-soft)}
+.mastband{margin-top:18px}
+.mast-actions{display:flex;flex-direction:column;align-items:flex-end;gap:9px;margin-left:auto}
+.mast-btns{display:flex;gap:8px}
+.mbtn{display:inline-flex;align-items:center;gap:7px;font-family:var(--ui);font-size:13px;
+  font-weight:600;color:var(--goldtx);background:var(--gold-soft);border:1.5px solid var(--gold);
+  border-radius:var(--r-max);padding:9px 16px;cursor:pointer;line-height:1}
+.mbtn:hover{background:var(--gold);color:var(--goldink)}
+.mbtn svg{width:14px;height:14px;flex:none}
+.mbtn.is-pending{border-style:dashed;border-color:var(--line2);background:transparent;
+  color:var(--dim);cursor:default}
+.mbtn.is-pending:hover{background:transparent;color:var(--dim)}
+
+/* ---- block 3 · scorecard glimpse - coin.html's hero grammar, verbatim ---- */
+.hero-grid2{display:grid;grid-template-columns:264px 1fr;gap:12px;margin-top:18px}
+@media(max-width:760px){.hero-grid2{grid-template-columns:1fr}}
+.dialcard{background:var(--card);border:1px solid var(--line2);border-radius:var(--r-hero);
+  box-shadow:var(--shadow);padding:20px 18px 16px;text-align:center}
+.dialcard .microlabel{display:block;margin-bottom:6px}
+.dialcard .num{font-family:var(--mono);font-weight:700;font-size:44px;line-height:1;
+  font-variant-numeric:tabular-nums;color:var(--ink);margin-top:-12px}
+.dialcard .word{font-family:var(--mono);font-weight:700;font-size:11px;letter-spacing:2px;
+  text-transform:uppercase;color:var(--ink);margin-top:6px}
+.dialcard .bull{color:var(--green)}.dialcard .neut{color:var(--zero)}.dialcard .bear{color:var(--red)}
+.axcards{display:grid;grid-template-rows:1fr 1fr 1fr;gap:12px}
+.axcard{background:var(--card);border:1px solid var(--line);border-radius:var(--r-card);
+  box-shadow:var(--shadow);padding:14px 18px;display:flex;align-items:center;justify-content:space-between;gap:14px}
+.axcard .num{font-family:var(--mono);font-weight:700;font-size:28px;line-height:1;
+  font-variant-numeric:tabular-nums;color:var(--ink);display:block}
+.axcard .rt{text-align:right;flex:none}
+.axcard .rt .bchip{margin-top:7px}
+
+/* ---- block 8 · GO DEEPER - coin.html's card, now a LINK. The anchor reset is
+        the whole difference: the skin must be byte-identical in effect. ------ */
+.artgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:760px){.artgrid{grid-template-columns:1fr}}
+.art{background:var(--card);border:1px solid var(--line);border-top:3px solid var(--gold);
+  border-radius:var(--r-card);box-shadow:var(--shadow);padding:14px 16px;display:flex;
+  align-items:flex-start;gap:12px}
+a.art,a.art:hover,a.art:visited,a.art:focus{text-decoration:none;color:inherit}
+.art .thumb{width:96px;height:64px;flex:none;border:1.5px solid var(--gold-line);border-radius:var(--r-btn);
+  background:var(--gold-soft);display:flex;align-items:center;justify-content:center;padding:4px}
+.art .thumb img{width:30px;height:30px;display:block}
+.art .ttl{font-size:15px;font-weight:600;line-height:1.35;color:var(--ink)}
+.art .chips2{display:flex;gap:5px;flex-wrap:wrap;margin-top:10px}
+.coinchip{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--line2);
+  border-radius:var(--r-max);padding:2px 9px 2px 4px;background:var(--card)}
+.coinchip .tlogo{width:16px;height:16px}
+.coinchip .tk2{font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:1px;color:var(--dim)}
+.coinchip.more{padding:2px 10px;background:var(--gold-soft);border-color:var(--gold-line)}
+.coinchip.more .tk2{color:var(--goldtx)}
+
+/* ---- block 9 · listen - coin.html's, verbatim ------------------------- */
+.augrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:760px){.augrid{grid-template-columns:1fr}}
+.au{background:var(--card);border:1px solid var(--line);border-radius:var(--r-card);
+  box-shadow:var(--shadow);padding:14px 16px;display:flex;align-items:flex-start;gap:13px}
+.au .play{width:38px;height:38px;flex:none;border-radius:var(--r-max);background:var(--ink);
+  display:flex;align-items:center;justify-content:center}
+.au .ttl{font-family:var(--mono);font-size:11.5px;font-weight:700;letter-spacing:1.2px;
+  text-transform:uppercase;color:var(--ink)}
+.au .meta2{font-size:13.5px;color:var(--mut);margin-top:4px}
+.au .gk{margin-top:7px;display:flex;gap:6px;flex-wrap:wrap}
+
+/* ══ ARTICLE-ONLY COMPONENTS · new on this page ═══════════════════════════
+   Nine rules. Every one built from house tokens; no new colour, no new
+   radius, no serif. The AS-OF is the only thing that gets a size of its own,
+   because §8.1 makes the snapshot stamp a headline element. ══════════════ */
+.artscope{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:2px 0 12px}
+.art-h1{font-family:var(--ui);font-weight:700;font-size:31px;line-height:1.2;color:var(--ink);
+  margin:0;max-width:22ch}
+@media(max-width:760px){.art-h1{font-size:25px;max-width:none}}
+/* the pub note: byline and published date, coin.html's .one register */
+.pub{font-family:var(--ui);font-size:13.5px;color:var(--mut);margin:12px 0 0}
+.pub b{font-weight:600;color:var(--txt)}
+/* THE AS-OF STAMP · prominent. Two real .datepill instances at a size of
+   their own, on a gold-soft plinth, with the live-delta CTA beside them. */
+.asofbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:14px;
+  background:var(--gold-soft);border:1px solid var(--gold-line);border-radius:var(--r-card);
+  padding:11px 14px}
+.asofbar .datepill{font-size:12.5px;padding:6px 15px;background:var(--card);border-color:var(--gold-line)}
+.asofbar .asoflbl{font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:1.4px;
+  text-transform:uppercase;color:var(--goldtx)}
+/* D3's delta affordance: the snapshot is free, the live board is the gate. */
+.delta-cta{display:inline-flex;align-items:center;gap:8px;margin-left:auto;
+  font-family:var(--ui);font-size:13px;color:var(--txt);flex-wrap:wrap}
+.delta-cta .mv{font-family:var(--mono);font-size:12px;font-weight:700;color:var(--ink);
+  font-variant-numeric:tabular-nums;background:var(--card);border:1px solid var(--line2);
+  border-radius:var(--r-max);padding:4px 11px;white-space:nowrap}
+.delta-cta a{color:var(--goldtx);font-weight:600}
+/* THE READ · R2's card grammar, promoted to the lede. Gold mono eyebrow, one
+   claim sentence, one BECAUSE clause that names its countable. */
+.theread{background:var(--card);border:1px solid var(--line2);border-left:4px solid var(--gold);
+  border-radius:var(--r-card);box-shadow:var(--shadow);padding:16px 18px;margin-top:18px}
+.theread .rd-eyeb{font-family:var(--mono);font-weight:700;font-size:11px;letter-spacing:2.2px;
+  text-transform:uppercase;color:var(--goldtx);display:block}
+.theread .claim{font-family:var(--ui);font-size:16.5px;font-weight:600;line-height:1.42;
+  color:var(--ink);margin:9px 0 0}
+@media(max-width:760px){.theread .claim{font-size:15px}}
+.theread .because{font-family:var(--ui);font-size:13.5px;line-height:1.5;color:var(--txt);margin:9px 0 0}
+.theread .because b{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:1.4px;
+  color:var(--goldtx)}
+/* the scorecard glimpse caption */
+.frozencap{font-family:var(--mono);font-size:11px;letter-spacing:.6px;color:var(--faint);
+  margin:10px 0 0;text-align:center}
+/* body copy */
+.body-copy{max-width:74ch}
+.body-copy p{font-family:var(--ui);font-size:15.5px;line-height:1.62;color:var(--txt);margin:0 0 16px}
+.body-copy p:last-child{margin-bottom:0}
+.body-copy .lead{font-size:16.5px;color:var(--ink)}
+.body-copy b{font-weight:600;color:var(--ink)}
+/* WOULD CHANGE THE READ · R2's check strip, expanded */
+.wcr{background:var(--bg-soft);border:1px solid var(--line2);border-radius:var(--r-card);
+  padding:16px 18px}
+.wcr .strip{display:flex;gap:8px;flex-wrap:wrap;padding-bottom:12px;margin-bottom:12px;
+  border-bottom:1px solid var(--line)}
+.wcr ol{margin:0;padding-left:20px}
+.wcr li{font-family:var(--ui);font-size:14px;line-height:1.55;color:var(--txt);margin-bottom:10px}
+.wcr li:last-child{margin-bottom:0}
+.wcr li b{font-weight:600;color:var(--ink)}
+/* CTA · the gate in §8.1's own words, and the trial by the masthead string */
+.ctablock{background:var(--card);border:1.5px solid var(--gold);border-radius:var(--r-hero);
+  box-shadow:var(--shadow);padding:20px 22px}
+.ctablock h2{font-family:var(--ui);font-weight:700;font-size:20px;color:var(--ink);margin:0}
+.ctablock p{font-family:var(--ui);font-size:14.5px;line-height:1.55;color:var(--txt);margin:10px 0 0;max-width:70ch}
+.ctablock .gates{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.ctablock .row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:16px}
+.ctablock .trialnote{font-family:var(--ui);font-size:13px;color:var(--mut)}
+/* SOURCES · rev1 (#650 R1) · the row renders PUBLICATION · HEADLINE · DATE.
+   ⛔ The F-NNN key NEVER reaches the screen (#608 §4.2): it survives only as a
+   data-fact attribute so the trace stays inspectable in the DOM. The visible
+   row label is the marker number, which is what the body links to. */
+.srcs{background:var(--card);border:1px solid var(--line2);border-radius:var(--r-card);
+  box-shadow:var(--shadow);overflow:hidden}
+/* the date column is 132px because the widest string it must hold is
+   "accessed 4 Aug 2026" (126px at the mono 11px), and .sdate is nowrap: at the
+   108px this started on, nine of the twenty rows clipped their own date. */
+.srcs .srow{display:grid;grid-template-columns:44px 1fr 132px;gap:12px;align-items:baseline;
+  padding:10px 16px;border-bottom:1px solid var(--line);scroll-margin-top:80px}
+.srcs .srow:last-child{border-bottom:0}
+/* landing state: a marker click has to be visible or the link is a no-op */
+.srcs .srow:target{background:var(--gold-soft)}
+@media(max-width:700px){.srcs .srow{grid-template-columns:40px 1fr;}
+  .srcs .srow .sdate{grid-column:2;margin-top:-6px}}
+.srcs .sid{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.6px;color:var(--goldtx)}
+.srcs .sname{font-family:var(--ui);font-size:13.5px;line-height:1.5;color:var(--txt);min-width:0}
+.srcs .sname a{color:var(--txt);word-break:break-word}
+.srcs .spub{font-weight:700;color:var(--ink)}
+/* the flags read as words, not as codes: no mono, no caps, no bracket */
+.srcs .gaptag{display:inline-block;margin-left:4px;font-family:var(--ui);font-size:12.5px;
+  font-style:italic;color:var(--mut)}
+.srcs .sdate{font-family:var(--mono);font-size:11px;color:var(--faint);text-align:right;white-space:nowrap}
+@media(max-width:700px){.srcs .sdate{text-align:left}}
+
+/* the body marker · an in-page link to its SOURCES row. Small, gold, mono,
+   raised - the house's own microlabel key at citation size. */
+.fm{font-family:var(--mono);font-size:10.5px;font-weight:700;color:var(--goldtx);
+  text-decoration:none;vertical-align:super;line-height:0;padding:0 1px;white-space:nowrap}
+.fm:hover,.fm:focus{text-decoration:underline}
+.wcr .fm{vertical-align:baseline;line-height:inherit}
+
+/* ═══ THE STITCHED MASTHEAD · copied VERBATIM from coin.html's inline <style>
+   (the same layer, same order, same breakpoints). It is a page-local layer by
+   design: alpha.css carries no .brand-mark size and no phone navigation, and
+   the fix rides by cascade order rather than by an alpha.css edit (#592). A
+   page that ships the masthead markup without this layer renders an unsized
+   brand mark and no menu trigger below 1080px. ═════════════════════════════ */
+.brand{align-items:center;gap:8px;min-width:0}
+.brand .brand-mark{display:block;width:24px;height:24px;flex:none}
+.brand .word{white-space:nowrap;line-height:1.1}
+.navtog,.navsheet,.navscrim{display:none}
+a.acct{text-decoration:none}
+.acct .acct-tx{display:flex;flex-direction:column;min-width:0;text-align:left}
+.mh-trial{display:none;font-style:normal}
+@media (max-width:1080px){
+  :root{--nav-h:52px}
+  header.nav{z-index:65;background:var(--card);backdrop-filter:none;-webkit-backdrop-filter:none}
+  .nav-in{height:52px;flex-wrap:nowrap;gap:10px}
+  .nav .icon-btn{display:none}
+  .nav-right{margin-left:auto;gap:8px;flex:none}
+  .nav-in > .nav-links{display:none}
+  .brand .w-ab{display:none}
+  .brand .word{font-size:15px}
+  .acct{flex:none;background:var(--gold);border-color:var(--gold);color:var(--goldink);
+    padding:5px 14px;text-align:left;line-height:1.15}
+  .acct .av{display:none}
+  #acctLbl{font-family:var(--ui);font-size:13.5px;font-weight:800;line-height:1.15;
+    color:var(--goldink);white-space:nowrap}
+  .mh-trial{display:block;font-size:9px;font-weight:700;letter-spacing:.6px;line-height:1.3;
+    text-transform:uppercase;color:var(--goldink);opacity:.74;white-space:nowrap}
+  .navtog{display:inline-flex;align-items:center;justify-content:center;flex:none;
+    width:40px;height:40px;padding:0;cursor:pointer;background:var(--card);
+    border:1px solid var(--line2);border-radius:var(--r-btn);color:var(--ink)}
+  .navtog svg{width:20px;height:20px}
+  .navtog .ic-close{display:none}
+  .navtog[aria-expanded="true"]{background:var(--bg-soft);border-color:var(--dim)}
+  .navtog[aria-expanded="true"] .ic-open{display:none}
+  .navtog[aria-expanded="true"] .ic-close{display:block}
+  .navsheet{display:block;position:absolute;left:0;right:0;top:100%;
+    background:var(--card);border-bottom:1px solid var(--line);
+    box-shadow:var(--shadow);padding:6px 0 10px;overflow-y:auto;
+    -webkit-overflow-scrolling:touch;
+    opacity:0;visibility:hidden;transform:translateY(-6px);
+    transition:opacity .16s ease,transform .16s ease,visibility .16s}
+  .navsheet[data-open="1"]{opacity:1;visibility:visible;transform:none}
+  .ns-item{display:block;padding:10px 12px;border-radius:var(--r-btn)}
+  .ns-item + .ns-item{border-top:1px solid var(--line)}
+  .ns-l{display:block;font-family:var(--ui);font-weight:700;font-size:15.5px;
+    color:var(--ink);letter-spacing:-.1px}
+  .ns-d{display:block;margin-top:2px;font-size:12.5px;line-height:1.4;color:var(--mut)}
+  .ns-item.active{background:var(--bg-soft);box-shadow:inset 3px 0 0 var(--gold)}
+  .ns-item.active .ns-l{color:var(--goldtx)}
+  .navscrim{display:block;position:fixed;inset:0;z-index:64;background:rgba(15,20,28,.44);
+    opacity:0;visibility:hidden;transition:opacity .16s ease,visibility .16s}
+  .navscrim[data-open="1"]{opacity:1;visibility:visible}
+  body.nav-open{overflow:hidden}
+}
+@media (max-width:360px){
+  .nav-in{gap:8px}
+  .brand{gap:7px}
+  .brand .brand-mark{width:22px;height:22px}
+  .brand .word{font-size:14px}
+  .acct{padding:5px 11px}
+  #acctLbl{font-size:12.5px}
+  .mh-trial{font-size:8.5px;letter-spacing:.4px}
+  .navtog{width:36px;height:36px}
+  .navtog svg{width:19px;height:19px}
+  .ns-l{font-size:15px}
+}
+@media (prefers-reduced-motion:reduce){
+  .navsheet,.navscrim{transition:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ BLOCK 0 · THE MASTHEAD - coin.html's stitched masthead, unchanged.
+     alpha.js is NOT loaded on this page, so the six destinations stay
+     hard-coded, exactly as on coin.html. -->
+<header class="nav" id="siteNav">
+  <div class="wrap nav-in">
+    <a class="brand" href="index.html">
+      <svg class="brand-mark" viewBox="0 0 26 26" aria-hidden="true">
+        <path d="M4.1 18.2 A10.3 10.3 0 1 1 21.9 18.2" fill="none" stroke="var(--line2)" stroke-width="3" stroke-linecap="round"/>
+        <path d="M4.1 18.2 A10.3 10.3 0 0 1 20.3 5.7" fill="none" stroke="var(--gold)" stroke-width="3" stroke-linecap="round"/>
+        <path d="M13 13 L17.7 8.3" stroke="var(--ink)" stroke-width="2.4" stroke-linecap="round"/>
+        <circle cx="13" cy="13" r="2.1" fill="var(--ink)"/>
+      </svg>
+      <span class="word"><span class="w-ab">Altcoin Buzz </span><b>TNT Score</b></span>
+    </a>
+    <nav class="nav-links" id="navLinks" aria-label="Primary">
+      <a href="index.html#/coins" data-view="coins">Coins</a>
+      <a href="index.html#/watchlist" data-view="watchlist">Watchlist</a>
+      <a href="index.html#/research" data-view="research">Research</a>
+      <a href="index.html#/hws" data-view="hws">How We Score</a>
+      <a href="index.html#/market" data-view="market">Market</a>
+      <a href="index.html#/pricing" data-view="pricing">Pricing</a>
+    </nav>
+    <div class="nav-right">
+      <button class="icon-btn" aria-label="Search" title="Search tokens and catalysts">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      </button>
+      <button class="icon-btn notif-dot" aria-label="Notifications" title="A score moved, and which catalyst drove it">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 16v-5a6 6 0 10-12 0v5l-2 2h16z"/><path d="M10 21h4"/></svg>
+      </button>
+      <a class="acct" href="index.html#/pricing">
+        <span class="av mono" id="acctAv">?</span>
+        <span class="acct-tx"><span id="acctLbl">Sign in</span><em class="mh-trial" id="mhTrial">7-day free trial</em></span>
+      </a>
+      <button class="navtog" id="navTog" type="button" aria-label="Menu"
+              aria-expanded="false" aria-controls="navSheet">
+        <svg class="ic-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <svg class="ic-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+  </div>
+  <div class="navsheet" id="navSheet">
+    <div class="wrap"><nav class="ns-in" id="navSheetList" aria-label="All destinations"></nav></div>
+  </div>
+</header>
+<div class="navscrim" id="navScrim"></div>
+
+<main class="wrap">
+
+<!-- The root element carries the record id BYTE-EXACT (§4.17 / D9). The
+     rebuild's article object is keyed on this string; the retrofit is the
+     expensive thing, so the slot ships from day one. -->
+<article id="art-hype-unlock-2026-08-04">
+
+  <!-- ═══ BLOCK 1 · ARTICLE HEAD - scope label · H1 · byline · published ·
+       THE AS-OF STAMP (prominent, two real date pills) · share slot ·
+       and D3's live-delta CTA. -->
+  <div class="mastband">
+    <div class="crumbs">
+      <span class="crumb"><a href="index.html#/research">Research</a></span>
+      <span class="crumb">&#8250;</span>
+      <span class="crumb">HYPE</span>
+    </div>
+
+    <div class="masthead" style="padding-bottom:0">
+      <div style="min-width:0;flex:1 1 420px">
+        <div class="artscope">
+          <span class="coinchip"><span class="tlogo"><img src="assets/token_logos/HYPE.svg" alt=""></span><span class="tk2">HYPE</span></span>
+          <span class="microlabel">Single coin</span>
+        </div>
+        <h1 class="art-h1">What HYPE Holders Actually Own: Validator Authority and the Unlock Calendar</h1>
+        <p class="pub"><b>Altcoin Buzz Research</b> &#183; Published 22 August 2026</p>
+      </div>
+      <div class="mast-actions">
+        <div class="mast-btns">
+          <!-- §4.17 share slot. Inert in this mockup: no share target exists
+               until the per-article URL scheme is ruled (#584 launch track). -->
+          <button class="mbtn is-pending" type="button" aria-disabled="true" title="Static in this mockup, no share target is wired">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 16V4"/><path d="M7 9l5-5 5 5"/><path d="M4 15v4a1 1 0 001 1h14a1 1 0 001-1v-4"/></svg>
+            Share
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- THE AS-OF STAMP. §8.1: the snapshot framing IS the sales mechanism, so
+         this is a headline element and not a footnote. Both dates are REAL and
+         both are FROZEN (D3) - the same vintage coin.html prints. -->
+    <div class="asofbar">
+      <span class="asoflbl">Snapshot</span>
+      <span class="datepill">Board as of 4 Aug</span>
+      <span class="datepill">Technicals as of 19 Aug</span>
+      <span class="delta-cta">
+        <span class="mv">Board has moved since: 5.6 &#8594; 5.7</span>
+        <a href="index.html#/coins">See it live</a>
+      </span>
+    </div>
+  </div>
+
+  <!-- ═══ BLOCK 2 · THE READ - R2's card grammar, promoted to the lede. One
+       claim sentence, one BECAUSE clause, and the BECAUSE names something
+       COUNTABLE that is already on the site: the thirteen catalyst rows on
+       coin.html, the lowest of them at 2.0, and the two axis averages. -->
+  <section>
+    <div class="theread">
+      <span class="rd-eyeb">The read</span>
+      <p class="claim">A HYPE holder owns a delegated vote inside a two-thirds threshold, a reward stream paid in
+        newly issued coins, and no vote at all over the release schedule that issues them.</p>
+      <p class="because"><b>Because</b> the coin page scores thirteen catalysts for HYPE, and the lowest of the
+        thirteen is the unlock cadence at 2.0, on a token side averaging 4.6 against a network side at 5.3.</p>
+    </div>
+  </section>
+
+  <!-- ═══ BLOCK 3 · SCORECARD GLIMPSE - coin.html's .dialcard and gauge SVG,
+       needle at 5.6, plus the three axis cards. Every band word here is TYPED
+       from the data pack and is NEVER re-derived from its number (#621). -->
+  <section>
+    <div class="sec-eyeb"><span class="n">1</span><span class="eyebrow">THE SCORE AT THAT MOMENT</span>
+      <span class="spacer"></span><span class="datepill">Scored 4 Aug</span></div>
+    <div class="hero-grid2">
+      <div class="dialcard">
+        <span class="microlabel">TNT SCORE</span>
+        <svg viewBox="0 0 200 112" style="width:100%;display:block" role="img" aria-label="TNT dial at 5.6, just inside the bullish zone">
+          <path d="M30,92 A70,70 0 0 1 74.9,26.7" stroke="var(--red)" stroke-width="13" fill="none"/>
+          <path d="M74.9,26.7 A70,70 0 0 1 101.2,22.0" stroke="var(--zero)" stroke-width="13" fill="none"/>
+          <path d="M101.2,22 A70,70 0 0 1 170,92" stroke="var(--green)" stroke-width="13" fill="none"/>
+          <line x1="100" y1="92" x2="101.9" y2="38" stroke="var(--ink)" stroke-width="3.5" stroke-linecap="round"/>
+          <circle cx="100" cy="92" r="5.5" fill="var(--ink)"/>
+          <text x="30" y="108" font-size="9" fill="var(--faint)" text-anchor="middle">1</text>
+          <text x="170" y="108" font-size="9" fill="var(--faint)" text-anchor="middle">10</text>
+        </svg>
+        <div class="num bull">5.6</div>
+        <div class="word bull">BULLISH</div>
+        <div class="read" style="margin-top:10px">Just tipped bullish</div>
+      </div>
+      <div class="axcards">
+        <div class="axcard">
+          <div><span class="microlabel">TOKEN</span>
+            <div class="read" style="margin-top:4px">Catalysts aren&#8217;t reaching the coin</div></div>
+          <div class="rt"><span class="num">4.6</span><span class="bchip neut">NEUTRAL</span></div>
+        </div>
+        <div class="axcard">
+          <div><span class="microlabel">NETWORK</span>
+            <div class="read" style="margin-top:4px">Use is holding up better than the price</div></div>
+          <div class="rt"><span class="num">5.3</span><span class="bchip neut">NEUTRAL</span></div>
+        </div>
+        <div class="axcard">
+          <div><span class="microlabel">TECHNICALS</span>
+            <div class="read" style="margin-top:4px">Buyers back in charge</div></div>
+          <div class="rt"><span class="num">6.6</span><span class="bchip bull">BULLISH</span></div>
+        </div>
+      </div>
+    </div>
+    <p class="frozencap">Frozen at the as-of above. Technicals scored 19 Aug.</p>
+  </section>
+
+  <!-- ═══ BLOCK 4 · BODY. 600-900 words, full strength, digits allowed. Every
+       paragraph traces to an F-NNN on the SCORE-ELIGIBLE list. No paragraph
+       rests on an [OPERATOR-VERIFY] or [GAP] fact; those are in block 5. -->
+  <section>
+    <div class="sec-eyeb"><span class="n">2</span><span class="eyebrow">WHAT HAPPENED</span></div>
+    <div class="body-copy">
+
+      <!-- F-058 [1], F-042 [2] -->
+      <p class="lead">Hyperliquid opened validator registration in April 2025. Anyone may register, and the
+        twenty-one largest by stake form the active set.<a class="fm" href="#src-1">[1]</a> Consensus then runs
+        on a quorum, and the documentation
+        defines that precisely: any set of validators holding more than two thirds of the total stake in the
+        network. The set is fixed inside each epoch of 100,000 rounds, roughly ninety minutes on
+        mainnet.<a class="fm" href="#src-2">[2]</a> That
+        is the machine every HYPE decision passes through, and the threshold is the whole story. More than two
+        thirds of stake is what it takes to pass something. Anything above one third is what it takes to stop
+        something.</p>
+
+      <!-- F-055 [3], F-057 [4], F-078 [5], F-054 [6] -->
+      <p>The votes are real and they have been consequential. In December 2025 validators voted to recognise
+        roughly 37 million HYPE sitting in the Assistance Fund as burned, 85 percent for, 7 percent against,
+        8 percent abstaining.<a class="fm" href="#src-3">[3]</a> In September 2025 a stake-weighted vote
+        awarded the USDH ticker.<a class="fm" href="#src-4">[4]</a> In June 2026
+        AQAv2 passed with 19 of 26 validators and 69.08 percent of stake, clearing the 66.67 percent
+        bar.<a class="fm" href="#src-5">[5]</a> And
+        in March 2025, when a trader squeezed the protocol&#8217;s own vault on a thin memecoin, validators
+        reached quorum in about two minutes, delisted JELLY and settled it at $0.0095, far below spot. The
+        vault finished roughly $703,000 ahead.<a class="fm" href="#src-6">[6]</a> Each of those is the system
+        working as designed. Each of them
+        is also a demonstration that what decides is the stake, not the holder.</p>
+
+      <!-- F-027 [7], F-028 [8] -->
+      <p>A holder participates by delegating, and the parameters are short enough to read in full. A delegation
+        to a particular validator is locked for one day. Moving coins from the staking account back to spot
+        sits in a seven day queue, with at most five pending withdrawals at a time; moving the other way is
+        instant.<a class="fm" href="#src-7">[7]</a> And there is no automatic slashing implemented. Jailing
+        exists, triggered by peers for latency
+        and reliability, and the documentation is explicit that jailing is not
+        slashing.<a class="fm" href="#src-8">[8]</a> So the arrangement is
+        soft in both directions. It costs a delegator very little to back the wrong validator, and it costs a
+        validator nothing automatic to be one.</p>
+
+      <!-- F-025 [9], F-026 [10] -->
+      <p>The reward for delegating is not a cut of trading fees. The docs say where it comes from: staking
+        rewards come from the future emissions reserve.<a class="fm" href="#src-9">[9]</a> They accrue every
+        minute, pay out daily, and are
+        redelegated into the staked balance automatically.<a class="fm" href="#src-10">[10]</a> New coins,
+        compounding inside the pool. That is a
+        real yield to the staker and a real addition to total supply at the same time, and both halves are
+        true at once.</p>
+
+      <!-- F-063 [11], F-062 [12], F-191 [13] -->
+      <p>Which brings the calendar, and the number everyone quotes. About 9.92 million HYPE a month is a model
+        output, not an event: the 238 million core-contributor allocation divided across 24 months. It is an
+        <b>authorisation</b>, a ceiling on what may be released, and it is not a
+        distribution.<a class="fm" href="#src-11">[11]</a> The gap between
+        the two is not small. The 6 August 2026 event released 433,000 HYPE, about $22.74 million, which is
+        roughly 4 percent of that month&#8217;s ceiling.<a class="fm" href="#src-12">[12]</a> Denominated on
+        total supply of about 953 million,
+        that claim is 0.045 percent and the monthly authorisation is 1.04
+        percent.<a class="fm" href="#src-13">[13]</a></p>
+
+      <!-- F-177 [14], F-066 [15] -->
+      <p>Look forward and the picture is larger than any single month. Tokenomist&#8217;s 30 July 2026 study
+        puts scheduled unlocks over the following twelve months at 119.0 million HYPE against a recurring
+        supply cut of 14.3 million, a net addition of 104.7 million coins. On total supply, that forward
+        release is 12.5 percent a year.<a class="fm" href="#src-14">[14]</a> And the schedule is not a
+        metronome. The Hyper Foundation has said
+        publicly that most vesting completes between 2027 and 2028, which does not fit a uniform 24-month line
+        from launch, and distribution is discretionary.<a class="fm" href="#src-15">[15]</a> A holder reading a
+        monthly figure is reading a limit
+        somebody else chooses when, and whether, to use.</p>
+
+      <!-- F-037 [16], F-047 [17] -->
+      <p>The clearest thing arriving on the token side is AQAv2. Reserve yield began accruing on 26 August
+        2026, the first payment into the Assistance Fund lands on 3 October, and it repeats every 30 days
+        after that.<a class="fm" href="#src-16">[16]</a> It is the most schedulable item on the board. It is
+        also priced at a rate the holder
+        cannot look up: the AQA rate is updated from an onchain stake-weighted median of validator-reported
+        values, and the documentation states that validators may vote to update the calculation
+        methodology.<a class="fm" href="#src-17">[17]</a>
+        The payment is coming. Its size is a validator decision.</p>
+
+      <!-- the close, tying the body back to the scorecard glimpse above -->
+      <p>So the answer to the question in the title is specific rather than gloomy. A HYPE holder owns a
+        delegated vote inside a two-thirds threshold, a reward stream paid in new issuance, and a release
+        schedule that was never put to a vote. That is the shape the token side is scoring at 4.6 while the
+        network runs at 5.3.</p>
+
+    </div>
+  </section>
+
+  <!-- ═══ BLOCK 5 · WOULD CHANGE THE READ - R2's check strip, expanded. This
+       is also where the four tagged facts live, NAMED AS GAPS: F-043
+       [OPERATOR-VERIFY], F-033 [GAP], F-190, F-053 [GAP]. None of them is a
+       bare claim anywhere else on the page. -->
+  <section>
+    <div class="sec-eyeb"><span class="n">3</span><span class="eyebrow">WOULD CHANGE THE READ</span></div>
+    <div class="wcr">
+      <div class="strip">
+        <span class="fchip"><span class="factn">20</span> sourced facts</span>
+        <span class="fchip">Bears on: Token</span>
+        <span class="fchip">Board as of 4 Aug 2026</span>
+      </div>
+      <!-- REV 1 · markers [18]-[20] are APPENDED here and NOTHING ELSE IN THIS
+           BLOCK CHANGED - not a word of the four items. Three of the twenty
+           sources are named as gaps HERE rather than in the body (that is where
+           a tagged fact belongs), so without these three the rows they point at
+           would be unreachable from any text on the page. Operator-ruled
+           2026-09-03. Item 3 carries no marker: the two facts it names are
+           already marked [11] and [12] in the body, and a row is reached by
+           exactly one marker. -->
+      <ol>
+        <li><b>A fresh validator audit.</b> The stake distribution behind every vote described above was last
+          measured on 26 July 2026, eight days before this board date, and no newer audit-grade source exists.
+          We are not publishing a stake split off it. If a current audit shows the concentration has moved, the
+          governance half of this read moves with it.<a class="fm" href="#src-18">[18]</a></li>
+        <li><b>A published reserve balance.</b> Staking rewards are paid out of the future emissions reserve,
+          and no source publishes how much of that reserve has been drawn or how much remains. Until one does,
+          the reward stream has no stated end and this piece claims none.<a class="fm" href="#src-19">[19]</a></li>
+        <li><b>A claim series that reaches its ceiling.</b> The authorisation is about 9.92 million HYPE a
+          month and the 6 August claim was 433,000. If a month&#8217;s actual claim approached the
+          authorisation, the unlock argument stops being about a ceiling and becomes about a flow, and the
+          lowest row on the board would need re-scoring upward in risk.</li>
+        <li><b>A supply base anyone can agree on.</b> Every published circulating-supply figure for HYPE fails
+          a containment test against the staked balance, so no percentage on this page is denominated on
+          circulating supply. A single reconciled base would let these ratios be stated the way readers expect
+          them, and could move them materially.<a class="fm" href="#src-20">[20]</a></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ═══ BLOCK 6 · CTA - the gate in §8.1's own words. The trial is REFERENCED
+       to the masthead's existing #mhTrial string, not retyped as a variant.
+       ⛔ #551: no count, no "beta", no "first N" anywhere. The block 1 delta is
+       restated here as the reason. -->
+  <section>
+    <div class="sec-eyeb"><span class="n">4</span><span class="eyebrow">THE LIVE BOARD</span></div>
+    <div class="ctablock">
+      <h2>This piece is a snapshot. The board is not.</h2>
+      <p>Everything above is frozen at 4 August 2026, because a dated claim should stay the claim that was
+        made on its date. The board has already moved: HYPE&#8217;s TNT score reads 5.7 now, against the 5.6
+        printed here. What you get on the live product is the whole board rather than one coin, updated rather
+        than dated, any coin on demand, and a chat that will argue the score with you.</p>
+      <div class="gates">
+        <span class="fchip">The whole board, live</span>
+        <span class="fchip">Any coin on demand</span>
+        <span class="fchip">Chat</span>
+      </div>
+      <div class="row">
+        <a class="mbtn" href="index.html#/pricing">See the live board</a>
+        <span class="trialnote">Starts with the free trial in the header.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ BLOCK 7 · SOURCES - D6: the LIST, not the count.
+       ⛔ REV 1 (#650 R1, 2026-09-03) · #608 §4.2: THE F-NNN KEY IS INTERNAL AND
+       NEVER REACHES A SCREEN. It survives here ONLY as data-fact="F-NNN", so
+       the trace is still inspectable in the DOM and in the FACT_AUDIT, and
+       never as text. The visible label is the marker number the body links to.
+
+       ROW SHAPE · PUBLICATION · HEADLINE · DATE, all three, every row.
+       · PUBLICATION is the publisher, or publisher + DOCUMENT wherever one
+         publisher supplies more than one page (Hyperliquid's docs, Tokenomist).
+         No two rows carry the same publication string unless they cite the SAME
+         document, in which case the headline is what separates them.
+       · HEADLINE is the document's own headline where it has one. Four rows
+         cite something with no headline (an X post, a numeric news id, a live
+         dashboard, our own arithmetic) and carry a plain description of the
+         document instead; every one of those is registered in the manifest.
+       · DATE is the SOURCE's date, never our audit as-of. An undated
+         documentation page reads "accessed <date>", using the FACT_AUDIT's own
+         verification date for that fact. Where only the month reproduced on
+         disk, the month is what prints - a day we cannot pin is not invented.
+
+       ORDER is by first appearance in the text, matching the markers. -->
+  <section>
+    <div class="sec-eyeb"><span class="n">5</span><span class="eyebrow">SOURCES</span>
+      <span class="spacer"></span><span class="fchip"><span class="factn">20</span> sourced facts</span></div>
+    <div class="srcs" id="srcs">
+
+      <div class="srow" id="src-1" data-fact="F-058">
+        <span class="sid">[1]</span>
+        <span class="sname"><a href="https://x.com/HyperFND/status/1914520069897670826"><b class="spub">Hyper Foundation on X</b> &#183; Validator registration opens, and the 21 largest by stake form the active set</a></span>
+        <span class="sdate">22 Apr 2025</span></div>
+
+      <div class="srow" id="src-2" data-fact="F-042">
+        <span class="sid">[2]</span>
+        <span class="sname"><a href="https://hyperliquid.gitbook.io/hyperliquid-docs/hypercore/staking"><b class="spub">Hyperliquid documentation, HyperCore: Staking</b> &#183; Quorum is more than two thirds of the total stake, and the validator set is fixed inside each epoch</a></span>
+        <span class="sdate">accessed 4 Aug 2026</span></div>
+
+      <div class="srow" id="src-3" data-fact="F-055">
+        <span class="sid">[3]</span>
+        <span class="sname"><a href="https://www.theblock.co/post/383091/hyper-foundation-proposes-removing-1-billion-hype-tokens-from-circulating-supply-by-zeroing-out-hyperliquids-assistance-fund"><b class="spub">The Block</b> &#183; Hyper Foundation proposes removing 1 billion HYPE tokens from circulating supply by zeroing out Hyperliquid&#8217;s Assistance Fund</a></span>
+        <span class="sdate">December 2025</span></div>
+
+      <div class="srow" id="src-4" data-fact="F-057">
+        <span class="sid">[4]</span>
+        <span class="sname"><a href="https://www.blockhead.co/2025/09/15/native-markets-wins-hyperliquids-usdh-stablecoin-contract/"><b class="spub">Blockhead</b> &#183; Native Markets wins Hyperliquid&#8217;s USDH stablecoin contract</a></span>
+        <span class="sdate">15 Sep 2025</span></div>
+
+      <div class="srow" id="src-5" data-fact="F-078">
+        <span class="sid">[5]</span>
+        <span class="sname"><a href="https://www.mexc.com/news/1142959"><b class="spub">MEXC News</b> &#183; Report on the AQAv2 validator vote, carried by 19 of 26 validators at 69.08 percent of stake</a></span>
+        <span class="sdate">June 2026</span></div>
+
+      <div class="srow" id="src-6" data-fact="F-054">
+        <span class="sid">[6]</span>
+        <span class="sname"><a href="https://www.coindesk.com/markets/2025/03/26/hyperliquid-delists-jellyjelly-after-vault-squeezed-in-usd13m-tussle"><b class="spub">CoinDesk</b> &#183; Hyperliquid delists JELLYJELLY after vault squeezed in $13M tussle</a></span>
+        <span class="sdate">26 Mar 2025</span></div>
+
+      <div class="srow" id="src-7" data-fact="F-027">
+        <span class="sid">[7]</span>
+        <span class="sname"><a href="https://hyperliquid.gitbook.io/hyperliquid-docs/hypercore/staking"><b class="spub">Hyperliquid documentation, HyperCore: Staking</b> &#183; Seven day unstaking queue, one day delegation lockup, at most five pending withdrawals</a></span>
+        <span class="sdate">accessed 4 Aug 2026</span></div>
+
+      <div class="srow" id="src-8" data-fact="F-028">
+        <span class="sid">[8]</span>
+        <span class="sname"><a href="https://hyperliquid.gitbook.io/hyperliquid-docs/hypercore/staking"><b class="spub">Hyperliquid documentation, HyperCore: Staking</b> &#183; There is currently no automatic slashing implemented, and jailing is not slashing</a></span>
+        <span class="sdate">accessed 4 Aug 2026</span></div>
+
+      <div class="srow" id="src-9" data-fact="F-025">
+        <span class="sid">[9]</span>
+        <span class="sname"><a href="https://hyperliquid.gitbook.io/hyperliquid-docs/hypercore/staking"><b class="spub">Hyperliquid documentation, HyperCore: Staking</b> &#183; Staking rewards come from the future emissions reserve</a></span>
+        <span class="sdate">accessed 4 Aug 2026</span></div>
+
+      <div class="srow" id="src-10" data-fact="F-026">
+        <span class="sid">[10]</span>
+        <span class="sname"><a href="https://hyperliquid.gitbook.io/hyperliquid-docs/hypercore/staking"><b class="spub">Hyperliquid documentation, HyperCore: Staking</b> &#183; Rewards accrue every minute, are distributed daily, and are redelegated into the staked balance</a></span>
+        <span class="sdate">accessed 4 Aug 2026</span></div>
+
+      <div class="srow" id="src-11" data-fact="F-063">
+        <span class="sid">[11]</span>
+        <span class="sname"><a href="https://tokenomist.ai/research/hype-tokenomics-330k-or-9-9m-hype-unlocks"><b class="spub">Tokenomist Research: HYPE tokenomics, 330K or 9.9M HYPE unlocks?</b> &#183; The monthly figure is a projected ceiling, 238 million divided across 24 months, not a distribution</a></span>
+        <span class="sdate">1 Apr 2026</span></div>
+
+      <div class="srow" id="src-12" data-fact="F-062">
+        <span class="sid">[12]</span>
+        <span class="sname"><a href="https://beincrypto.com/august-week-1-token-unlocks/"><b class="spub">BeInCrypto</b> &#183; August week 1 token unlocks</a></span>
+        <span class="sdate">3 Aug 2026</span></div>
+
+      <div class="srow" id="src-13" data-fact="F-191">
+        <span class="sid">[13]</span>
+        <span class="sname"><b class="spub">Altcoin Buzz Research</b> &#183; Every ratio on this page re-denominated on a total supply of about 953.0 million<span class="gaptag">our own calculation, no publisher</span></span>
+        <span class="sdate">computed 4 Aug 2026</span></div>
+
+      <div class="srow" id="src-14" data-fact="F-177">
+        <span class="sid">[14]</span>
+        <span class="sname"><a href="https://tokenomist.ai/research/buyback-and-burn-explained-what-they-are-who-is-doing-them-and-whether-they-actually-work"><b class="spub">Tokenomist Research: Crypto&#8217;s $19B buyback and burn meta, 2025 to 2026</b> &#183; Scheduled unlocks of 119.0 million against a 14.3 million recurring cut, a net addition of 104.7 million</a></span>
+        <span class="sdate">30 Jul 2026</span></div>
+
+      <div class="srow" id="src-15" data-fact="F-066">
+        <span class="sid">[15]</span>
+        <span class="sname"><a href="https://tokenomist.ai/research/hype-tokenomics-330k-or-9-9m-hype-unlocks"><b class="spub">Tokenomist Research: HYPE tokenomics, 330K or 9.9M HYPE unlocks?</b> &#183; Most vesting completes between 2027 and 2028, and distribution is discretionary</a></span>
+        <span class="sdate">1 Apr 2026</span></div>
+
+      <div class="srow" id="src-16" data-fact="F-037">
+        <span class="sid">[16]</span>
+        <span class="sname"><a href="https://www.bankless.com/read/news/hyperliquid-passes-aqa-v2-to-fund-more-hype-buybacks"><b class="spub">Bankless</b> &#183; Hyperliquid passes AQA v2 to fund more HYPE buybacks</a></span>
+        <span class="sdate">June 2026</span></div>
+
+      <div class="srow" id="src-17" data-fact="F-047">
+        <span class="sid">[17]</span>
+        <span class="sname"><a href="https://hyperliquid.gitbook.io/hyperliquid-docs/hypercore/aligned-quote-assets"><b class="spub">Hyperliquid documentation, HyperCore: Aligned quote assets</b> &#183; The AQA rate is an onchain stake-weighted median of validator reported values, and validators may vote to update the calculation methodology</a></span>
+        <span class="sdate">accessed 4 Aug 2026</span></div>
+
+      <div class="srow" id="src-18" data-fact="F-043">
+        <span class="sid">[18]</span>
+        <span class="sname"><a href="https://crypto.news/who-actually-runs-hyperliquid-the-governance-audit/"><b class="spub">crypto.news</b> &#183; Who actually runs Hyperliquid? The governance audit</a><span class="gaptag">needs re-verification: accurate as of 26 July 2026, and no newer audit exists</span></span>
+        <span class="sdate">27 Jul 2026</span></div>
+
+      <div class="srow" id="src-19" data-fact="F-033">
+        <span class="sid">[19]</span>
+        <span class="sname"><a href="https://tokenomist.ai/hyperliquid/tokenomics"><b class="spub">Tokenomist: Hyperliquid tokenomics</b> &#183; Future emissions and community rewards are 38.89 percent of supply</a><span class="gaptag">gap: the drawdown and the remaining balance are not published</span></span>
+        <span class="sdate">accessed 4 Aug 2026</span></div>
+
+      <div class="srow" id="src-20" data-fact="F-190">
+        <span class="sid">[20]</span>
+        <span class="sname"><a href="https://dune.com/lifewillbeokay/hyperliquid-staking"><b class="spub">Dune Analytics</b> &#183; Hyperliquid staking, the dashboard the staked balance is read from</a><span class="gaptag">gap: no published circulating base contains that balance</span></span>
+        <span class="sdate">accessed 4 Aug 2026</span></div>
+
+    </div>
+  </section>
+
+  <!-- ═══ BLOCK 8 · GO DEEPER - coin.html block 7, verbatim in content, with
+       every card now an <a href="article.html">. Bare href, no query string.
+       The self-link and the title mismatch on card 4 are PROPS and the
+       manifest says so - the same house convention as every board row
+       pointing at a bare coin.html. -->
+  <section>
+    <div class="sec-eyeb"><span class="n">6</span><span class="eyebrow">GO DEEPER</span></div>
+    <div class="artgrid">
+
+      <a class="art" href="article.html">
+        <div class="thumb" aria-hidden="true"><img src="assets/token_logos/HYPE.svg" alt=""></div>
+        <div style="min-width:0">
+          <div class="ttl">HIP-3 Made Hyperliquid Bigger. Did It Make HYPE Stronger?</div>
+          <div class="chips2">
+            <span class="coinchip"><span class="tlogo"><img src="assets/token_logos/HYPE.svg" alt=""></span><span class="tk2">HYPE</span></span>
+          </div>
+        </div>
+      </a>
+
+      <a class="art" href="article.html">
+        <div class="thumb" aria-hidden="true"><img src="assets/token_logos/HYPE.svg" alt=""></div>
+        <div style="min-width:0">
+          <div class="ttl">What HYPE Holders Actually Own: Validator Authority and the Unlock Calendar</div>
+          <div class="chips2">
+            <span class="coinchip"><span class="tlogo"><img src="assets/token_logos/HYPE.svg" alt=""></span><span class="tk2">HYPE</span></span>
+          </div>
+        </div>
+      </a>
+
+      <a class="art" href="article.html">
+        <div class="thumb" aria-hidden="true"><img src="assets/token_logos/HYPE.svg" alt=""></div>
+        <div style="min-width:0">
+          <div class="ttl">Every Big Buyback Engine, Side by Side. Why the Token Scores Split.</div>
+          <div class="chips2">
+            <span class="coinchip"><span class="tlogo"><img src="assets/token_logos/HYPE.svg" alt=""></span><span class="tk2">HYPE</span></span>
+            <span class="coinchip"><span class="tlogo"><img src="assets/token_logos/PUMP.svg" alt=""></span><span class="tk2">PUMP</span></span>
+            <span class="coinchip"><span class="tlogo"><img src="assets/token_logos/XRP.svg" alt=""></span><span class="tk2">XRP</span></span>
+            <span class="coinchip more"><span class="tk2">+3</span></span>
+          </div>
+        </div>
+      </a>
+
+      <a class="art" href="article.html">
+        <div class="thumb" aria-hidden="true"><img src="assets/token_logos/HYPE.svg" alt=""></div>
+        <div style="min-width:0">
+          <div class="ttl">Five Coins Carrying a Cliff</div>
+          <div class="chips2">
+            <span class="coinchip"><span class="tlogo"><img src="assets/token_logos/ZEC.svg" alt=""></span><span class="tk2">ZEC</span></span>
+            <span class="coinchip"><span class="tlogo"><img src="assets/token_logos/LIT.svg" alt=""></span><span class="tk2">LIT</span></span>
+            <span class="coinchip"><span class="tlogo"><img src="assets/token_logos/BTC.svg" alt=""></span><span class="tk2">BTC</span></span>
+            <span class="coinchip more"><span class="tk2">+2</span></span>
+          </div>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ═══ BLOCK 9 · LISTEN - coin.html block 8, verbatim. Episode numbers and
+       publish dates are the same registered dummies coin.html carries. -->
+  <section>
+    <div class="sec-eyeb"><span class="n">7</span><span class="eyebrow">LISTEN</span></div>
+    <div class="augrid">
+
+      <div class="au">
+        <span class="play"><svg width="13" height="14" viewBox="0 0 13 14" aria-hidden="true"><path d="M2 1.5 L11.5 7 L2 12.5 Z" fill="var(--bg)"/></svg></span>
+        <div style="min-width:0">
+          <div class="ttl">The Weekly Scoreboard</div>
+          <div class="meta2">Market-wide &#183; Week of 10 Aug &#183; 11:40 &#183; two voices</div>
+          <div class="gk"><span class="fchip">Episode 33</span><span class="fchip">Published 16 Aug</span></div>
+        </div>
+      </div>
+
+      <div class="au">
+        <span class="play"><svg width="13" height="14" viewBox="0 0 13 14" aria-hidden="true"><path d="M2 1.5 L11.5 7 L2 12.5 Z" fill="var(--bg)"/></svg></span>
+        <div style="min-width:0">
+          <div class="ttl">Scorecard Minute</div>
+          <div class="meta2">This coin &#183; 2:10</div>
+          <div class="gk"><span class="fchip">Episode 12</span><span class="fchip">Published 21 Aug</span></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</article>
+
+</main>
+
+<!-- SHELL · footer copied from coin.html, which copied it from index.html.
+     #footStatement is filled by alpha.js on the homepage; alpha.js is not
+     loaded here, so it stays empty. -->
+<footer class="footer">
+  <div class="wrap footer-in">
+    <div>
+      <div class="brand"><span class="word">Altcoin Buzz <b>TNT Score</b></span></div>
+      <p class="one foot-statement" id="footStatement"></p>
+    </div>
+    <div class="footer-links">
+      <a href="index.html#/coins">Coins</a>
+      <a href="index.html#/watchlist">Watchlist</a>
+      <a href="index.html#/research">Research</a>
+      <a class="score-link" href="index.html#/hws">How We Score</a>
+      <a href="index.html#/market">Market</a>
+      <a href="index.html#/pricing">Pricing</a>
+      <a href="#">Account</a>
+      <a href="#">Privacy</a>
+    </div>
+  </div>
+  <div class="wrap"><p class="disc">Version Alpha mockup, 2026-09-03. The article page (#650): internal showcase.
+    Every score and date on this page is frozen at its as-of and typed, never read live; the live-board delta is a
+    typed prop. Invented and typed values are recorded in the dummy-data manifest.
+    Nothing here is financial advice.</p></div>
+</footer>
+
+<script src="alpha-config.js"></script>
+<script>
+/* ═══ THE BAND GUARD · the article page's ROLL-UP GUARD equivalent.
+   coin.html fails LOUDLY if alpha-config.js does not load, because a surface
+   that silently drops its shared constants can reach a validation round
+   looking fine (§2.5). This page renders no component off the config: D3
+   FREEZES every figure and #621 means every band WORD is TYPED, never
+   re-derived from its number. So the guard's job here is the other half of
+   #621 - it ASSERTS that the four typed band words still agree with the
+   shared band constants, and it fails loudly if the config is missing or if
+   a typed word has drifted from ALPHA.BANDS. It never writes a band. */
+(function(){
+  'use strict';
+  var host=document.getElementById('art-hype-unlock-2026-08-04');
+  if(!host)return;
+  function fail(msg){
+    var d=document.createElement('div');
+    d.style.cssText='background:#bf3d3d;color:#fff;padding:12px 14px;font:700 13px system-ui';
+    d.textContent='BAND GUARD FAILED. '+msg;
+    host.insertBefore(d,host.firstChild);
+  }
+  var A=window.ALPHA;
+  if(!A||!A.BANDS){
+    fail('alpha-config.js did not load, so the shared band constants are unavailable and the typed bands on this snapshot cannot be checked against them.');
+    return;
+  }
+  /* the four figures TYPED on this page, each with the band word typed beside
+     it in the markup. Read from the 2026-08-04 data pack, not computed here. */
+  var TYPED=[
+    {label:'TNT',        v:5.6, word:'BULLISH'},
+    {label:'Token',      v:4.6, word:'NEUTRAL'},
+    {label:'Network',    v:5.3, word:'NEUTRAL'},
+    {label:'Technicals', v:6.6, word:'BULLISH'}
+  ];
+  var bad=[];
+  for(var i=0;i<TYPED.length;i++){
+    var t=TYPED[i], r=A.BANDS[t.word];
+    if(!r||t.v<r[0]||t.v>r[1])bad.push(t.label+' '+t.v.toFixed(1)+' typed '+t.word);
+  }
+  if(bad.length)fail('a typed band word disagrees with ALPHA.BANDS: '+bad.join(' · ')+'.');
+
+  /* ═══ THE FACT COUNT · REV 1 (#650 R1). The two "n sourced facts" chips are
+     COUNTED from the SOURCES rows, never typed. The number in the markup is a
+     no-script fallback only: this overwrites it from the live row count, and
+     if the two ever disagree it fails LOUDLY rather than shipping a chip that
+     contradicts the list under it. Same discipline as the band assert above. */
+  var rows=document.querySelectorAll('#srcs .srow');
+  var chips=document.querySelectorAll('.factn');
+  if(!rows.length||!chips.length){
+    fail('the SOURCES rows or the fact-count chips are missing, so the printed fact count cannot be verified against the list it counts.');
+    return;
+  }
+  var n=rows.length, drift=[];
+  Array.prototype.forEach.call(chips,function(c){
+    var typed=c.textContent.trim();
+    if(typed!==String(n))drift.push(typed);
+    c.textContent=n;
+  });
+  /* every row must be reachable from exactly one marker, and no marker may
+     point at a row that is not there - an unreachable source is a dead cite. */
+  var marks=document.querySelectorAll('a.fm'), seen={}, broken=[];
+  Array.prototype.forEach.call(marks,function(m){
+    var id=(m.getAttribute('href')||'').slice(1);
+    if(!document.getElementById(id))broken.push(m.textContent+' points at no row');
+    else if(seen[id])broken.push(id+' is reached by more than one marker');
+    else seen[id]=1;
+  });
+  Array.prototype.forEach.call(rows,function(r){
+    if(!seen[r.id])broken.push(r.id+' is reached by no marker');
+  });
+  if(drift.length)broken.push('a chip was typed '+drift.join('/')+' against '+n+' rows');
+  if(broken.length)fail('the citation markers and the SOURCES list disagree: '+broken.join(' · ')+'.');
+})();
+</script>
+
+<script>
+/* ═══ THE STITCHED MASTHEAD · behaviour · copied from coin.html unchanged. */
+(function(){
+  'use strict';
+  var nav=document.getElementById('siteNav'),
+      tog=document.getElementById('navTog'),
+      sheet=document.getElementById('navSheet'),
+      list=document.getElementById('navSheetList'),
+      scrim=document.getElementById('navScrim'),
+      lbl=document.getElementById('acctLbl'),
+      tr=document.getElementById('mhTrial');
+  if(!nav||!tog||!sheet||!list||!scrim) return;
+  var SWAP=1080;
+  var FALLBACK={
+    coins:'Every major coin, scored and ranked',
+    watchlist:'The coins you are tracking',
+    research:'The write-ups behind each score',
+    hws:'What Token, Network and Technicals measure',
+    market:'Where scores are moving right now',
+    pricing:'Plans, and what each one includes'
+  };
+  function blurb(k){
+    var C=window.ALPHA;
+    if(C&&C.NAV){for(var i=0;i<C.NAV.length;i++){if(C.NAV[i].key===k&&C.NAV[i].blurb)return C.NAV[i].blurb;}}
+    return FALLBACK[k]||'';
+  }
+  function esc(t){return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+  function buildRows(){
+    var src=document.getElementById('navLinks'); if(!src)return;
+    var out='';
+    Array.prototype.forEach.call(src.querySelectorAll('a[data-view]'),function(a){
+      var k=a.getAttribute('data-view')||'', d=blurb(k);
+      out+='<a class="ns-item'+(a.classList.contains('active')?' active':'')
+        +'" href="'+esc(a.getAttribute('href')||'')+'" data-view="'+esc(k)+'">'
+        +'<span class="ns-l">'+esc(a.textContent)+'</span>'
+        +(d?'<span class="ns-d">'+esc(d)+'</span>':'')+'</a>';
+    });
+    list.innerHTML=out;
+  }
+  function isOpen(){return sheet.getAttribute('data-open')==='1';}
+  function openSheet(){
+    if(isOpen())return;
+    buildRows();
+    var r=nav.getBoundingClientRect();
+    sheet.style.maxHeight=Math.max(200,window.innerHeight-r.bottom-12)+'px';
+    document.body.classList.add('nav-open');
+    sheet.setAttribute('data-open','1');
+    scrim.setAttribute('data-open','1');
+    tog.setAttribute('aria-expanded','true');
+    var first=list.querySelector('a');
+    if(first&&first.focus)first.focus({preventScroll:true});
+  }
+  function closeSheet(back){
+    if(!isOpen())return;
+    sheet.removeAttribute('data-open');
+    scrim.removeAttribute('data-open');
+    tog.setAttribute('aria-expanded','false');
+    document.body.classList.remove('nav-open');
+    if(back&&tog.focus)tog.focus({preventScroll:true});
+  }
+  tog.addEventListener('click',function(){isOpen()?closeSheet(true):openSheet();});
+  scrim.addEventListener('click',function(){closeSheet(false);});
+  list.addEventListener('click',function(e){if(e.target.closest&&e.target.closest('a'))closeSheet(false);});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&isOpen())closeSheet(true);});
+  sheet.addEventListener('keydown',function(e){
+    if(e.key!=='Tab')return;
+    var f=list.querySelectorAll('a'); if(!f.length)return;
+    var atEnd=(document.activeElement===f[f.length-1]&&!e.shiftKey);
+    var atTop=(document.activeElement===f[0]&&e.shiftKey);
+    if(atEnd||atTop){e.preventDefault();tog.focus();}
+  });
+  tog.addEventListener('keydown',function(e){
+    if(e.key!=='Tab'||!isOpen())return;
+    var f=list.querySelectorAll('a'); if(!f.length)return;
+    e.preventDefault();
+    (e.shiftKey?f[f.length-1]:f[0]).focus();
+  });
+  window.addEventListener('resize',function(){if(window.innerWidth>SWAP&&isOpen())closeSheet(false);});
+  function syncTrial(){if(lbl&&tr)tr.hidden=!/sign in/i.test(lbl.textContent||'');}
+  if(lbl&&window.MutationObserver){new MutationObserver(syncTrial).observe(lbl,{childList:true,characterData:true,subtree:true});}
+  syncTrial();
+})();
+</script>
+
+</body>
+</html>
