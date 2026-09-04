@@ -423,9 +423,18 @@ table.tok thead th.comp{background:var(--breakdown);padding-top:6px;
    holds (`DEX +1`), or the word `only` when that is the whole list. Both forms
    on one board is what teaches a reader that one label is never the whole
    truth — the `only` half is the load-bearing half.
-   ⛔ THE ASSET COLUMN IS NOT WIDENED (`§F 19`: the colgroup is pinned by J2's
-      1160 swap). The label takes a SECOND LINE inside the existing 144px cell
-      instead, so rows grow downwards and no column width moves. */
+   ⛔ THE TABLE IS NOT WIDENED — the colgroup SUM is pinned at 1088px by J2's
+      1160 swap (`§F 19`), and that reasoning still stands. The label takes a
+      SECOND LINE inside the asset cell rather than pushing the table wider,
+      so rows grow downwards.
+   ⭐ ROUND 9 · THE CELL IS 168px, NOT 144px — REALLOCATED, NOT WIDENED. The
+      asset column was short of its own longest content (`XRP (XRP Ledger)`
+      ellipsised by 18px at a true 1280), so `alpha.css` traded `.c-as`
+      144 → 168 against `.c-pr` 132 → 108 IN THE SAME PASS. The sum is still
+      1088, the table still starts clipping at 1140, and the 1160 swap is
+      untouched. ⛔ `§F 19` is why the SUM stays pinned; nothing here licenses
+      growing it. ▶ The sizing rationale, the measured clip point and the
+      instrument trap that goes with it live at `alpha.css` ROUND 9. */
 table.tok td.asset .acx{display:flex;flex-direction:column;gap:3px;min-width:0}
 table.tok td.asset .lrow{display:flex;align-items:center;gap:5px;flex-wrap:wrap;min-width:0}
 table.tok td.asset .lrow .tkr{font-family:var(--mono);font-size:11.5px;letter-spacing:.8px;

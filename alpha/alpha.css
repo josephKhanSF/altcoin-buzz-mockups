@@ -536,7 +536,41 @@ table.tok col.c-star{width:46px} table.tok col.c-rk{width:44px}
    ⛔ `TECHNICALS` IS THE FLOOR — it is the longest header on the table, and the
       widening is sized to clear its text plus the sort chevron. See the report
       for the one thing that still does not fit in that cell. */
-table.tok col.c-as{width:144px}  table.tok col.c-pr{width:132px}
+/* ⭐ ROUND 9 · THE ASSET COLUMN WAS SHORT OF ITS OWN LONGEST CONTENT, AND THE
+   FIX IS A REALLOCATION, NOT A WIDENING. Measured at a true 1280 with prices
+   PAINTED: `XRP (XRP Ledger)` ellipsised by 18px and `Virtuals Protocol` by
+   9px — the two longest `nm` values in ALPHA.BOARD (17 and 16 chars; the next
+   longest is `Pyth Network` at 12). `.c-as` 144 → 168 (+24) is PAID FOR by
+   `.c-pr` 132 → 108 (−24), measured as the column with the most RIGID slack.
+   ⭐ BOTH WIDTHS ARE SIZED ON A MEASURED CLIP POINT, NOT ON THE DEFICIT.
+      Sweeping `.c-as` one px at a time, `XRP (XRP Ledger)` clips at 159 and
+      is CLEAN FROM 160 — so 168 carries 8px of margin. 164 would have carried
+      4px, which on a ~160px string is ~2.5% and sits INSIDE the cross-machine
+      font-rasterisation band; 8px sits outside it. The board is opened on
+      other people's machines, not on the one it was measured on.
+   ⚠ DO NOT MEASURE THIS HEADROOM WITH `b.clientWidth`. `.ac b` SHRINK-WRAPS
+     to its content the moment it stops clipping, so that instrument reports
+     ~0px of headroom at EVERY non-clipping width and will talk the next seat
+     into a widening it does not need. Sweep the column width and find the
+     clip point, or range-measure the text.
+   ✅ `.c-pr` STRESS-TESTED AGAINST A SHAPE, NOT TODAY'S FEED, because
+      `paintPrices()` repaints it live: at 108 the text box is 102px, so a
+      6-figure `$188,888.88` (92.72px) fits with 9.28px and today's widest
+      `$81,264.00` (84.29px) with 17.71px. The widest possible delta,
+      `▲ 1888.8%` at 62.31px, is never the binding side.
+   ⛔ KNOWN FUTURE CLIP CONDITION, REGISTERED NOT CHASED (`#591` prop
+      register): a 7-figure price `$1,888,888.88` (109.58px) does NOT fit —
+      and did not fit at 132 either, so this trade did not cause it. Phase 4.
+   ⛔ THE COLUMN SUM IS STILL 1088px. The table did not grow, so it still
+      starts clipping at 1140px and J2's 1160 card swap keeps the 20px margin
+      it was chosen for (`§F 19`). Widening instead would have pushed the clip
+      threshold to 1160 and eaten exactly that margin.
+   ⚠ `.c-mix` (176) and `.c-dec` (146) look like larger donors on a max-content
+     measurement, but their contents are ELASTIC — `.mb` and `.decrule` are
+     `flex:1 1 0`, so they compress rather than clip and the measurement
+     understates what they are using. `.c-pr` is rigid text. That is why it is
+     the donor. */
+table.tok col.c-as{width:168px}  table.tok col.c-pr{width:108px}
 table.tok col.c-tnt{width:100px}
 /* ⭐ ROUND 8 · THE EQUAL-WIDTH CONSTRAINT IS LIFTED — THREE CLASSES, ONE BUDGET.
    `.c-sc` is retired. TOKEN is 5 characters, NETWORK is 7 and TECHNICALS is 10,
