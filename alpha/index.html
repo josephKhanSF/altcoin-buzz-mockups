@@ -2099,9 +2099,14 @@ table.tok td.asset .lrow .tkr{font-family:var(--mono);font-size:11.5px;letter-sp
       <a href="#">Privacy</a>
     </div>
   </div>
-  <div class="wrap"><p class="disc">Version Alpha mockup, 2026-08-17. Scores and catalyst rows are read from the live
-    scoreboard and catalyst inventory; the dates are the real ones. Nothing here is financial advice.
-    The pricing view is an INTERNAL MOCKUP and is not an offer.</p></div>
+  <!-- C0 · 2026-09-04 · the two internal clauses come off. "Version Alpha
+       mockup, 2026-08-17." and "The pricing view is an INTERNAL MOCKUP and is
+       not an offer." both told the reader the page is not real, which is the
+       `#642` failure. The middle sentence STAYS and is the opposite claim —
+       it tells him the scores and dates ARE real, which is exactly what the
+       cold seat said it could not work out. -->
+  <div class="wrap"><p class="disc">Scores and catalyst rows are read from the live
+    scoreboard and catalyst inventory; the dates are the real ones. Nothing here is financial advice.</p></div>
 </footer>
 
 <!-- ══════════════════════════════════════════════════════════════════════
@@ -2134,7 +2139,11 @@ table.tok td.asset .lrow .tkr{font-family:var(--mono);font-size:11.5px;letter-sp
     <h3 class="sec-h">Ask Buzz</h3>
     <button class="icon-btn x" type="button" id="buzzClose" aria-label="Close">&times;</button>
   </div>
-  <div class="state-tabs" id="stateTabs">
+  <!-- C0 · 2026-09-04 · HIDDEN, NOT RIPPED — same logic as the tier bar. All
+       five states still build and still switch from the console or by removing
+       one attribute; what comes off is the reader-facing strip that named them
+       DEMO. Restore by deleting `hidden` here. -->
+  <div class="state-tabs" id="stateTabs" hidden>
     <span class="stl">DEMO STATES</span>
     <button type="button" data-state="answer"  aria-pressed="true">Answer</button>
     <button type="button" data-state="refusal" aria-pressed="false">Refusal</button>

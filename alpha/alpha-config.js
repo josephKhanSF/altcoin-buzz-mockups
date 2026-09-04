@@ -755,7 +755,11 @@ var ALPHA = (function () {
       'The open web, and general crypto knowledge outside our own audited material.',
       'Anything published after the dates above.',
       'Price action, order books and positioning.',
-      'Anything not carried by a RESEARCH file or a FACT_AUDIT entry.'
+      // C0 · 2026-09-04 · SIBLING of the five cites below, found by the sweep
+      // and not named in the brief: this line rendered our two internal file
+      // types at a reader who has never heard of either. The BOUNDARY it draws
+      // is real and stays; only the vocabulary changes (`#643`).
+      'Anything we have not researched and fact-checked ourselves.'
     ],
     // PART 4 · WHAT IT DOES NOT KNOW. The FLAG is free; WHAT the gap is and
     // what would clear it is PAID.
@@ -789,11 +793,11 @@ var ALPHA = (function () {
       ],
       cites: [
         ['crypto.news · "Why HYPE is different: inside Hyperliquid’s buyback"', '2026-05-27'],
-        ['FACT_AUDIT F-008 · buyback intensity derivation', '2026-08-04'],
-        ['FACT_AUDIT F-004 · DeFiLlama dailyHoldersRevenue, chart-reconciled', '2026-08-04'],
-        ['FACT_AUDIT F-018 · net structural float change', '2026-08-04'],
-        ['FACT_AUDIT F-015 · cumulative burn 46.18M HYPE', '2026-08-03'],
-        ['FACT_AUDIT F-020 · position exited 2026-06-04, re-entry denied 2026-06-08', '2026-06-08']
+        ['Altcoin Buzz analysis · How the 3.0–3.5% live buyback intensity is derived', '2026-08-04'],
+        ['DeFiLlama, Hyperliquid holders revenue · The 30-day and rolling 365-day revenue totals, reconciled to the daily chart', '2026-08-04'],
+        ['Altcoin Buzz analysis · The burn netted against the staking issuance beside it', '2026-08-04'],
+        ['AMBCrypto · Cumulative burn of 46.18 million HYPE', '2026-08-03'],
+        ['BeInCrypto · Arthur Hayes denies re-entering HYPE four days after exiting the position', '2026-06-08']
       ],
       sourceCount: 6,
       // Part 4 of the disclosure fires on this answer: it touches a [GAP].

@@ -1238,9 +1238,19 @@ a.acct{text-decoration:none}
        radii, padding) and band colours/type mapped to house tokens - every
        mapping is listed in the build report, none is a redesign. -->
   <section id="rank">
-    <div class="sec-eyeb"><span class="n">5</span><span class="eyebrow">MARKET RANK</span>
-      <span class="spacer"></span><span class="datepill greek">Scored &#8249;date&#8250;</span></div>
-    <h2 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Ranking block: disclosure line on top, band legend left and board date on the block header.</h2>
+    <!-- C0 · 2026-09-04 · THE `‹date›` PILL IS REMOVED, NOT FILLED. #595 ruled
+         it a survivor; the operator overturned that on 2026-09-04 after a cold
+         reader called it "a broken template" on sight. It is removed rather
+         than dated because NO DEFENSIBLE DATE EXISTS for this block: per the
+         manifest §4, block 5 is built from DATAPACK_coinpage-HYPE_2026-08-21
+         and renders TNT 5.6 / technicals 6.6 against the board's 5.9 / 7.1, so
+         it carries neither the fundamentals date its siblings carry (4 Aug) nor
+         the technicals date (19 Aug on block 3, 24 Aug on the board). Any one
+         of those stamped here would be a false claim about which vintage this
+         block is. An absent pill is honest. The date returns with the data-pack
+         rebuild the manifest §4 calls for — a decision, not an edit. -->
+    <div class="sec-eyeb"><span class="n">5</span><span class="eyebrow">MARKET RANK</span></div>
+    <h2 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Ranking block: disclosure line on top, band legend left.</h2>
     <div class="abr">
 
     <div class="thesis">
@@ -1361,8 +1371,12 @@ a.acct{text-decoration:none}
         <span class="scope">Sector &#183; DEX</span>
         <span class="metachip">No ecosystem tag</span>
       </div>
+      <!-- C0 · 2026-09-04 · the caveat is REWRITTEN, not dropped (`#643`). The
+           reader must still learn the true thing — that the sector tag carries
+           no judgment — but "a shelf label we are still drafting" was our lab
+           voice describing our own unfinished work. -->
       <p class="sxr-lede">Where this coin sits among the coins that do the same job, and how that
-        group looks right now. The tag is a shelf label we are still drafting, not a score:
+        group looks right now. This is a grouping label, not a score:
         the dial above stays the only dial on the page.</p>
       <div class="sxr-rankline">
         <span class="fchip big">3rd of 5</span>
@@ -1544,23 +1558,21 @@ a.acct{text-decoration:none}
       <a href="#">Privacy</a>
     </div>
   </div>
-  <div class="wrap"><p class="disc">Version Alpha mockup, 2026-09-01. Stitched coin page (nine blocks, #623): internal showcase.
-    Scores and catalyst rows are literals from the compiled data pack; greeked values render as placeholders.
-    Nothing here is financial advice.</p></div>
+  <!-- C0 · 2026-09-04 · the whole internal clause comes off: the build label,
+       the `#623` item number (an internal TASKS.md key on a public page), the
+       "internal showcase" framing, the data-pack sentence and the "greeked"
+       vocabulary. None of it is addressed to a reader, and every line of it
+       reads as the page saying it is not finished (`#642`). What survives is
+       the one sentence a reader is owed. -->
+  <div class="wrap"><p class="disc">Nothing here is financial advice.</p></div>
 </footer>
 
-<!-- TEAM DEMO BAR - scaffolding, not product. Toggles the use segment of
-     block 2 into its N/A state; the block header and the catalyst slot
-     survive, which is the architectural point. -->
-<div class="wrap">
-  <div class="demo-bar">
-    <span class="k">TEAM DEMO</span>
-    <span class="t">The use segment of block 2 has a designed N/A state for a coin with no use reading.
-      It does not render on HYPE, which has one. Toggle it here to inspect it; the reason text is
-      invented for the demo.</span>
-    <button type="button" id="demoBtn" aria-pressed="false">Show the N/A state</button>
-  </div>
-</div>
+<!-- TEAM DEMO BAR - REMOVED by C0, 2026-09-04. It was scaffolding addressed to
+     the team and it rendered to every reader. What it inspected SURVIVES: the
+     .nxs1-na markup in block 2, the .nx-plate / #nxCard.is-na CSS, and the
+     null-guarded toggle script below all stay, so the N/A state is one line of
+     markup away from being demonstrable again — it simply no longer has a
+     reader-facing control. Restore by re-adding the .demo-bar block here. -->
 
 <!-- ═══ BLOCK 8 · ASK BUZZ BAR - lifted from index.html; pills swapped to the
      coin-specific set from alpha-config.js BUZZ.chips (scope: token).

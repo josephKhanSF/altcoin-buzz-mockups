@@ -998,6 +998,9 @@ table.scorecard thead th.lft{text-align:left}
 /* demo state switcher — a DEMO CONTROL, marked as one */
 .state-tabs{display:flex; gap:5px; flex-wrap:wrap; padding:9px 16px; border-bottom:1px solid var(--line);
   background:#161a20}
+/* C0 · 2026-09-04 · display:flex beats the [hidden] default, so the hide in
+   index.html needs this one rule to bite. Hide-don't-rip: the states survive. */
+.state-tabs[hidden]{display:none}
 .state-tabs .stl{font-family:var(--mono); font-size:10px; letter-spacing:1.4px; text-transform:uppercase;
   color:#8b94a3; align-self:center; margin-right:3px}
 .state-tabs button{font-family:var(--mono); font-weight:600; font-size:10px; letter-spacing:.9px;

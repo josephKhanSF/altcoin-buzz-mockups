@@ -973,8 +973,8 @@ var ALPHA_PAGE = (function () {
             return Math.abs(gap(t) - C.BUILD_RAISED.DECOUPLED_THRESHOLD) < 1e-9; }).length;
           fn.innerHTML = '<b>' + v.length + ' of ' + rows.length + '</b> boards at a gap of '
             + C.BUILD_RAISED.DECOUPLED_THRESHOLD.toFixed(1) + ' or more. <b>' + atLine
-            + '</b> of them sit exactly on the line. The 1.0 cutoff is <b>build-invented and unruled</b>: '
-            + 'it is a threshold, not a verdict.';
+            + '</b> of them sit exactly on the line. <b>1.0 is where we draw the line.</b> It marks a '
+            + 'gap worth looking at — it is not a verdict on the coin.';
         }
       }
       Array.prototype.forEach.call($('boardBody').querySelectorAll('.starbtn'), function(b){
@@ -1042,12 +1042,18 @@ var ALPHA_PAGE = (function () {
     function renderPricing(){
       var el = $('pricingBody'); if(!el) return;
       var P = C.PRICING, h = '';
-      if (P.MOCKUP_ONLY && nonLocalHost()) {
-        h += '<div class="hard-fail">MOCKUP-ONLY PRICING RENDERED ON A NON-LOCAL HOST ('
-          +  esc(location.hostname) + '). This surface is INTERNAL ALPHA and is not an offer. '
-          +  'A public build must remove it or rule it, not ship it.</div>';
+      /* C0 · 2026-09-04 · THE GUARD SURVIVES, THE BANNER DOES NOT. Both the
+         red off-host box and the gold MOCKUP-ONLY mark were addressed to US
+         and rendered at the READER, who cannot act on either and reads them
+         as the page telling him it is broken (the `#642` test). The off-host
+         warning is RE-HOMED to the console — same trigger, same words, aimed
+         at the only party who can do anything about it. `P.mockupBanner` and
+         `P.MOCKUP_ONLY` stay in the config, unread by this renderer. */
+      if (P.MOCKUP_ONLY && nonLocalHost() && window.console && console.warn) {
+        console.warn('MOCKUP-ONLY PRICING RENDERED ON A NON-LOCAL HOST ('
+          + location.hostname + '). This surface is INTERNAL ALPHA and is not an offer. '
+          + 'A public build must remove it or rule it, not ship it.');
       }
-      h += '<div class="mockup-mark" data-mockup-only="true">'+esc(P.mockupBanner)+'</div>';
       h += '<div class="plans">' + P.plans.map(function(p){
         var current = (p.key === TIER);
         return '<div class="plan'+(current?' current':'')+(p.open?' has-open':'')+'" data-mockup-only="true">'
